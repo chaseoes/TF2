@@ -1,0 +1,10 @@
+name: TF2
+version: 1.3
+description: Team Fortress 2
+main: me.chaseoes.tf2.TF2
+author: chaseoes
+softdepend: [TagAPI, WorldEdit]
+commands:
+  'tf2':
+    description: TF2
+    usage: /tf2 <command> [args]
