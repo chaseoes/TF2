@@ -1,0 +1,39 @@
+v1.4
+Adds /tf2 debug command - allows you to provide me with useful bug reports.
+Change /tf2 set spawn syntax to /tf2 set spawn <map> or /tf2 set spawn lobby.
+Adds a user friendly GUI for setting spawns.
+Prevent lobby wall creation when the map hasn't been setup.
+Fixes various NPE's and errors.
+Set players to survival when they join a map.
+Prevent the use of /tf2 join when already playing on a map.
+
+v1.3.1
+Fixed players not getting their items back when dying from something other than another player.
+
+v1.3
+Fixed the ability to give a class no armor not working.
+Fixed some NPE's when changing classes.
+Fixed some inventory/armor problems when changing classes.
+Fixed PvP not working for some people and factions incompatibility.
+Added /tf2 checkdata command to troubleshoot problems as to why your map isn't working.
+Added no permission message when trying to join a map.
+Prevent players from joining maps if it's not completely setup.
+Typing /tf2 join without providing a map name will teleport you to the global lobby.
+Fixed more errors and NPE's.
+
+v1.2
+Player inventories/armor are now stored and returned instead of being eaten.
+Your armor is now colored depending on your team.
+Fixed /tf2 help command (again).
+Added ability to give a class no armor (set it to 0).
+Fixed various errors.
+
+v1.1
+Fix some lobby wall errors.
+Display message if a command is used wrong / unknown.
+Prevent plugin from running if TagAPI and/or WorldEdit aren't found.
+Adds a /tf2 help command.
+Fixes the /tf2 join command.
+
+v1.0
+Initial release.
