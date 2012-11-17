@@ -40,7 +40,7 @@ public class DataChecker {
     }
 
     public Boolean playerLimitHasBeenSet() {
-        if (MapConfiguration.getMaps().getMap(map).getInt("playerlimit") >= 0) {
+        if (MapConfiguration.getMaps().getMap(map).getInt("playerlimit") >= 2) {
             return true;
         }
         return false;
@@ -51,7 +51,7 @@ public class DataChecker {
     }
 
     public Boolean timeLimitHasBeenSet() {
-        if (MapConfiguration.getMaps().getMap(map).getInt("timelimit") >= 0) {
+        if (MapConfiguration.getMaps().getMap(map).getInt("timelimit") >= 1) {
             return true;
         }
         return false;
@@ -62,7 +62,7 @@ public class DataChecker {
     }
 
     public Boolean redTPHasBeenSet() {
-        if (MapConfiguration.getMaps().getMap(map).getInt("teleport-red-team") >= 0) {
+        if (MapConfiguration.getMaps().getMap(map).getInt("teleport-red-team") >= 1) {
             return true;
         }
         return false;

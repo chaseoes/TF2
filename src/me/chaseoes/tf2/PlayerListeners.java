@@ -7,6 +7,7 @@ import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import me.chaseoes.tf2.events.TF2DeathEvent;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.lobbywall.LobbyWallUtilities;
+import me.chaseoes.tf2.utilities.DataChecker;
 import me.chaseoes.tf2.utilities.LocationStore;
 
 import org.bukkit.Bukkit;
@@ -42,11 +43,33 @@ public class PlayerListeners implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onSignChange(SignChangeEvent event) {
-        if (event.getLine(0).equalsIgnoreCase("[TF2]")) {
+        if (event.getLine(0).equalsIgnoreCase("[TF2]") && event.getPlayer().hasPermission("tf2.create")) {
             Location bl = event.getBlock().getLocation();
             if (event.getLine(1).equalsIgnoreCase("map")) {
+                String map = event.getLine(2);
+                final Player player = event.getPlayer();
+                DataChecker dc = new DataChecker(map);
+                if (!dc.allGood()) {
+                    player.sendMessage("§e[TF2] This map has not yet been setup.");
+                    player.sendMessage("§e[TF2] Type §6/tf2 checkdata " + map + " §eto see what else needs to be done.");
+                    event.setLine(0, "");
+                    event.setLine(1, "");
+                    event.setLine(2, "");
+                    event.setLine(3, "");
+                    return;
+                }
                 LobbyWallUtilities.getUtilities().saveSignLocation(event.getLine(2), bl);
-                LobbyWall.getWall().update();
+                MapConfiguration.getMaps().reloadMap(event.getLine(2));
+                DataConfiguration.getData().reloadData();
+                MapConfiguration.getMaps().saveMap(map);
+                DataConfiguration.getData().saveData();
+                TF2 plugin = GameUtilities.getUtilities().plugin;
+                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                    public void run() {
+                        LobbyWall.getWall().update();
+                        player.performCommand("tf2 reload");
+                    }
+                 }, 60L);
                 event.getPlayer().sendMessage("§e[TF2] Successfully created a join sign!");
             }
         }
@@ -181,7 +204,7 @@ public class PlayerListeners implements Listener {
         player.sendMessage("§e[TF2] You were killed by " + GameUtilities.getUtilities().getTeamColor(killer) + killer.getName() + " §r§e(" + ClassUtilities.getUtilities().classes.get(killer.getName()) + ")!");
         killer.sendMessage("§e[TF2] You killed " + GameUtilities.getUtilities().getTeamColor(player) + player.getName() + " §r§e(" + ClassUtilities.getUtilities().classes.get(player.getName()) + ")!");
         killer.playSound(killer.getLocation(), Sound.valueOf(GameUtilities.getUtilities().plugin.getConfig().getString("killsound.sound")), GameUtilities.getUtilities().plugin.getConfig().getInt("killsound.volume"), GameUtilities.getUtilities().plugin.getConfig().getInt("killsound.pitch"));
-        
+
         GameUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncDelayedTask(GameUtilities.getUtilities().plugin, new Runnable() {
             @Override
             public void run() {
@@ -220,9 +243,11 @@ public class PlayerListeners implements Listener {
             for (LivingEntity e : event.getAffectedEntities()) {
                 if (e instanceof Player) {
                     Player damaged = (Player) e;
-                    Player throwee = (Player) event.getPotion().getShooter();
-                    if (GameUtilities.getUtilities().getTeam(throwee).equalsIgnoreCase(GameUtilities.getUtilities().getTeam(damaged))) {
-                        e.setNoDamageTicks(1);
+                    if (event.getPotion().getShooter() != null && event.getPotion().getShooter() instanceof Player) {
+                        Player throwee = (Player) event.getPotion().getShooter();
+                        if (GameUtilities.getUtilities().getTeam(throwee).equalsIgnoreCase(GameUtilities.getUtilities().getTeam(damaged))) {
+                            e.setNoDamageTicks(1);
+                        }
                     }
                 }
             }
@@ -282,7 +307,7 @@ public class PlayerListeners implements Listener {
                 }
             } else {
                 if (!map.getCapturePoint(id).getStatus().string().equalsIgnoreCase("captured")) {
-                event.getPlayer().sendMessage("§e[TF2] You must be on the §4§lred §r§eteam to capture points! §9§lBlue §r§eis for defending.");
+                    event.getPlayer().sendMessage("§e[TF2] You must be on the §4§lred §r§eteam to capture points! §9§lBlue §r§eis for defending.");
                 } else {
                     event.getPlayer().sendMessage("§e[TF2] The §4§lred §r§eteam has already captured this point!");
                 }

@@ -1,8 +1,15 @@
 package me.chaseoes.tf2.commands;
 
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
+
+import me.chaseoes.tf2.GameUtilities;
+import me.chaseoes.tf2.utilities.IconMenu;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class CommandManager implements CommandExecutor {
 
@@ -44,6 +51,15 @@ public class CommandManager implements CommandExecutor {
         if (strings[0].equalsIgnoreCase("checkdata")) {
             if (cs.hasPermission("tf2.create")) {
                 CheckDataCommand.getCommand().execCheckDataCommand(cs, strings, cmnd);
+            } else {
+                h.noPermission();
+            }
+            return true;
+        }
+        
+        if (strings[0].equalsIgnoreCase("debug")) {
+            if (cs.hasPermission("tf2.create")) {
+                DebugCommand.getCommand().execDebugCommand(cs, strings, cmnd);
             } else {
                 h.noPermission();
             }

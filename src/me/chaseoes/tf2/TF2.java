@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import me.chaseoes.tf2.commands.CommandManager;
 import me.chaseoes.tf2.commands.CreateCommand;
+import me.chaseoes.tf2.commands.DebugCommand;
 import me.chaseoes.tf2.commands.DeleteCommand;
 import me.chaseoes.tf2.commands.DisableCommand;
 import me.chaseoes.tf2.commands.EnableCommand;
@@ -94,6 +95,7 @@ public class TF2 extends JavaPlugin {
         ListCommand.getCommand().setup(this);
         ReloadCommand.getCommand().setup(this);
         SetCommand.getCommand().setup(this);
+        DebugCommand.getCommand().setup(this);
     }
 
     public Queue getQueue(String map) {

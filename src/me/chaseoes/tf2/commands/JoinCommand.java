@@ -34,6 +34,10 @@ public class JoinCommand {
         CommandHelper h = new CommandHelper(cs, cmnd);
         Player player = (Player) cs;
         if (strings.length == 1) {
+            if (GameUtilities.getUtilities().isIngame(player)) {
+                player.sendMessage("§e[TF2] You are already playing on a map!");
+                return;
+            }
             if (globalLobbySet()) {
                 player.teleport(MapUtilities.getUtilities().loadLobby());
                 player.sendMessage("§e[TF2] Teleported to the TF2 lobby.");

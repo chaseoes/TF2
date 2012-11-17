@@ -9,6 +9,7 @@ import java.util.List;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -69,7 +70,7 @@ public class GameUtilities {
         gameinlobby.add(map);
         player.setHealth(20);
         player.setFoodLevel(20);
-        player.setGameMode(plugin.getServer().getDefaultGameMode());
+        player.setGameMode(GameMode.SURVIVAL);
         player.teleport(MapUtilities.getUtilities().loadTeamLobby(map, team));
         LobbyWall.getWall().update();
         TagAPI.refreshPlayer(player);
