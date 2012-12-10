@@ -65,11 +65,12 @@ public class PlayerListeners implements Listener {
                 DataConfiguration.getData().saveData();
                 TF2 plugin = GameUtilities.getUtilities().plugin;
                 plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                    @Override
                     public void run() {
                         LobbyWall.getWall().update();
                         player.performCommand("tf2 reload");
                     }
-                 }, 60L);
+                }, 60L);
                 event.getPlayer().sendMessage("§e[TF2] Successfully created a join sign!");
             }
         }
@@ -245,8 +246,10 @@ public class PlayerListeners implements Listener {
                     Player damaged = (Player) e;
                     if (event.getPotion().getShooter() != null && event.getPotion().getShooter() instanceof Player) {
                         Player throwee = (Player) event.getPotion().getShooter();
-                        if (GameUtilities.getUtilities().getTeam(throwee).equalsIgnoreCase(GameUtilities.getUtilities().getTeam(damaged))) {
-                            e.setNoDamageTicks(1);
+                        if (GameUtilities.getUtilities().isIngame(throwee) && GameUtilities.getUtilities().isIngame(damaged)) {
+                            if (GameUtilities.getUtilities().getTeam(throwee).equalsIgnoreCase(GameUtilities.getUtilities().getTeam(damaged))) {
+                                e.setNoDamageTicks(1);
+                            }
                         }
                     }
                 }

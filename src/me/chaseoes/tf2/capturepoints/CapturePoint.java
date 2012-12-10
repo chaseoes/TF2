@@ -47,10 +47,16 @@ public class CapturePoint {
 
         task = CapturePointUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncRepeatingTask(CapturePointUtilities.getUtilities().plugin, new Runnable() {
             Integer timeRemaining = CapturePointUtilities.getUtilities().plugin.getConfig().getInt("capture-timer");
+            Integer timeTotal = CapturePointUtilities.getUtilities().plugin.getConfig().getInt("capture-timer");
             @Override
             public void run() {
                 if (timeRemaining != 0) {
                     player.sendMessage("§e[TF2] §l§4" + timeRemaining + " §r§cseconds remaining!");
+//                    if (timeRemaining == timeTotal) {
+//                        player.setExp((float) 0.1);
+//                    } else {
+//                        player.setExp((float) (player.getExp() + 0.1));
+//                    }
                     player.getWorld().strikeLightningEffect(player.getLocation());
                 }
 
@@ -66,6 +72,7 @@ public class CapturePoint {
                 }
 
                 timeRemaining--;
+                timeTotal++;
             }
         }, 0L, 20L);
 

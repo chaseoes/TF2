@@ -2,17 +2,17 @@ package me.chaseoes.tf2.utilities;
 
 import java.awt.Color;
 
-import net.minecraft.server.NBTTagCompound;
+import net.minecraft.server.v1_4_5.NBTTagCompound;
 
 import org.bukkit.DyeColor;
-import org.bukkit.craftbukkit.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_4_5.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
 public class ArmorUtilities {
 
     public static ItemStack setColor(ItemStack item, int color) {
         CraftItemStack craftStack = null;
-        net.minecraft.server.ItemStack itemStack = null;
+        net.minecraft.server.v1_4_5.ItemStack itemStack = null;
         if (item instanceof CraftItemStack) {
             craftStack = (CraftItemStack) item;
             itemStack = craftStack.getHandle();
@@ -35,7 +35,7 @@ public class ArmorUtilities {
 
     public static ItemStack setColor(ItemStack item, Color color) {
         CraftItemStack craftStack = null;
-        net.minecraft.server.ItemStack itemStack = null;
+        net.minecraft.server.v1_4_5.ItemStack itemStack = null;
         if (item instanceof CraftItemStack) {
             craftStack = (CraftItemStack) item;
             itemStack = craftStack.getHandle();
@@ -58,7 +58,7 @@ public class ArmorUtilities {
 
     public static ItemStack setColor(ItemStack item, DyeColor color) {
         CraftItemStack craftStack = null;
-        net.minecraft.server.ItemStack itemStack = null;
+        net.minecraft.server.v1_4_5.ItemStack itemStack = null;
         if (item instanceof CraftItemStack) {
             craftStack = (CraftItemStack) item;
             itemStack = craftStack.getHandle();
@@ -82,7 +82,7 @@ public class ArmorUtilities {
     public static ItemStack setColor(ItemStack item, String colorStr) {
         int color = Integer.decode(colorStr);
         CraftItemStack craftStack = null;
-        net.minecraft.server.ItemStack itemStack = null;
+        net.minecraft.server.v1_4_5.ItemStack itemStack = null;
         if (item instanceof CraftItemStack) {
             craftStack = (CraftItemStack) item;
             itemStack = craftStack.getHandle();
@@ -106,7 +106,7 @@ public class ArmorUtilities {
     public static ItemStack setColor(ItemStack item, int colorR, int colorG, int colorB) {
         int color = Integer.decode(toHex(colorR, colorG, colorB));
         CraftItemStack craftStack = null;
-        net.minecraft.server.ItemStack itemStack = null;
+        net.minecraft.server.v1_4_5.ItemStack itemStack = null;
         if (item instanceof CraftItemStack) {
             craftStack = (CraftItemStack) item;
             itemStack = craftStack.getHandle();
@@ -129,7 +129,7 @@ public class ArmorUtilities {
 
     public static int getColor(ItemStack item) {
         CraftItemStack craftStack = null;
-        net.minecraft.server.ItemStack itemStack = null;
+        net.minecraft.server.v1_4_5.ItemStack itemStack = null;
         if (item instanceof CraftItemStack) {
             craftStack = (CraftItemStack) item;
             itemStack = craftStack.getHandle();

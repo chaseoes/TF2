@@ -1,3 +1,8 @@
+v1.4.1
+Compatible with Craftbukkit 1.4.5-R0.3 ONLY.
+BREAKING: Fix various capture-point related errors. You will need to remove the "capture-points" section from all your maps respective .yml files and re-define all your capture points.
+Fix NPE when throwing potions outside of a game.
+
 v1.4
 Adds /tf2 debug command - allows you to provide me with useful bug reports.
 Change /tf2 set spawn syntax to /tf2 set spawn <map> or /tf2 set spawn lobby.

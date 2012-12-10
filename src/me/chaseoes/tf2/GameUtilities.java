@@ -77,7 +77,7 @@ public class GameUtilities {
         kills.put(player.getName(), 0);
         totalkills.put(player.getName(), 0);
         totaldeaths.put(player.getName(), 0);
-
+        System.out.println(getGameStatus(map));
         if (getGameStatus(map).equalsIgnoreCase("waiting")) {
             if ((double) getIngameList(map).size() / MapConfiguration.getMaps().getMap(map).getInt("playerlimit") * 100 >= plugin.getConfig().getInt("autostart-percent")) {
                 Schedulers.getSchedulers().startCountdown(map);
@@ -128,6 +128,7 @@ public class GameUtilities {
     }
 
     public void startMatch(final String map) {
+        System.out.println("STARTING!");
         gamestarted.add(map);
         gameinlobby.remove(map);
         CapturePointUtilities.getUtilities().uncaptureAll(plugin.getMap(map));

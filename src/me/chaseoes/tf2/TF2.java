@@ -20,6 +20,7 @@ import me.chaseoes.tf2.listeners.InteractListener;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.lobbywall.LobbyWallUtilities;
 import me.chaseoes.tf2.lobbywall.WorldEditUtilities;
+import me.chaseoes.tf2.utilities.SerializableLocation;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -57,11 +58,11 @@ public class TF2 extends JavaPlugin {
             GameUtilities.getUtilities().redHasBeenTeleported.put(map, false);
         }
         
-        String heybukkitdev = "Hey fellow BukkitDev staff! The lines below simply color names in the /list command (ListCommand.java). Don't worry. :)";
         GameUtilities.getUtilities().coolpeople.add("chaseoes");
         GameUtilities.getUtilities().coolpeople.add("skitscape");
         GameUtilities.getUtilities().coolpeople.add("AntVenom");
         GameUtilities.getUtilities().coolpeople.add("Fawdz");
+        GameUtilities.getUtilities().coolpeople.add("Double0Negative");
         getServer().getScheduler().cancelTasks(this);
     }
 
@@ -96,6 +97,8 @@ public class TF2 extends JavaPlugin {
         ReloadCommand.getCommand().setup(this);
         SetCommand.getCommand().setup(this);
         DebugCommand.getCommand().setup(this);
+        SerializableLocation.getUtilities().setup(this);
+        
     }
 
     public Queue getQueue(String map) {

@@ -6,6 +6,7 @@ import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.MapConfiguration;
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
+import me.chaseoes.tf2.utilities.SerializableLocation;
 
 import org.bukkit.Location;
 
@@ -30,54 +31,53 @@ public class CapturePointUtilities {
     }
 
     public void defineCapturePoint(String map, Integer id, Location l) {
-        MapConfiguration.getMaps().getMap(map).set("capture-points." + id + ".w", l.getWorld().getName());
-        MapConfiguration.getMaps().getMap(map).set("capture-points." + id + ".x", l.getBlockX());
-        MapConfiguration.getMaps().getMap(map).set("capture-points." + id + ".y", l.getBlockY());
-        MapConfiguration.getMaps().getMap(map).set("capture-points." + id + ".z", l.getBlockZ());
+        String location = SerializableLocation.getUtilities().locationToString(l);
+        MapConfiguration.getMaps().getMap(map).set("capture-points." + id, location);
         MapConfiguration.getMaps().saveMap(map);
     }
-    
+
     public Location getLocationFromID(String map, Integer id) {
-        return new Location(plugin.getServer().getWorld(MapConfiguration.getMaps().getMap(map).getString("capture-points." + id + ".w")), MapConfiguration.getMaps().getMap(map).getInt("capture-points." + id + ".x"), MapConfiguration.getMaps().getMap(map).getInt("capture-points." + id + ".y"), MapConfiguration.getMaps().getMap(map).getInt("capture-points." + id + ".z"));
+        Location l = SerializableLocation.getUtilities().stringToLocation(MapConfiguration.getMaps().getMap(map).getString("capture-points." + id));
+        return l;
     }
-    
+
     public Integer getIDFromLocation(Location loc) {
         for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
             for (String key : MapConfiguration.getMaps().getMap(map).getConfigurationSection("capture-points").getKeys(false)) {
                 Integer id = Integer.parseInt(key);
                 Location l = getLocationFromID(map, id);
-                if (l.getWorld().getName().equalsIgnoreCase(loc.getWorld().getName()) && l.getBlockX() == loc.getBlockX() && l.getBlockY() == loc.getBlockY() && l.getBlockZ() == loc.getBlockZ()) {
+                if (SerializableLocation.getUtilities().compareLocations(loc, l)) {
                     return id;
                 }
             }
         }
         return null;
     }
-    
+
     public String getMapFromLocation(Location loc) {
         for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
             for (String key : MapConfiguration.getMaps().getMap(map).getConfigurationSection("capture-points").getKeys(false)) {
                 Integer id = Integer.parseInt(key);
                 Location l = getLocationFromID(map, id);
-                if (l.getWorld().getName().equalsIgnoreCase(loc.getWorld().getName()) && l.getBlockX() == loc.getBlockX() && l.getBlockY() == loc.getBlockY() && l.getBlockZ() == loc.getBlockZ()) {
+                if (SerializableLocation.getUtilities().compareLocations(loc, l)) {
                     return map;
                 }
             }
         }
         return null;
     }
-    
+
     public Boolean locationIsCapturePoint(Location loc) {
         for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
             for (Location capturepoint : plugin.getMap(map).getCapturePoints()) {
-                if (capturepoint.getWorld().getName().equalsIgnoreCase(loc.getWorld().getName()) && capturepoint.getBlockX() == loc.getBlockX() && capturepoint.getBlockY() == loc.getBlockY() && capturepoint.getBlockZ() == loc.getBlockZ()) {
+                if (SerializableLocation.getUtilities().compareLocations(capturepoint, loc)) {
                     return true;
                 }
             }
         }
         return false;
     }
-    
+
     public Boolean allCaptured(String map) {
         Integer possiblepoints = 0;
         Integer captured = 0;
@@ -87,14 +87,14 @@ public class CapturePointUtilities {
                 captured++;
             }
         }
-        
+
         if (possiblepoints == captured) {
             return true;
         }
-        
+
         return false;
     }
-    
+
     public Boolean capturePointBeforeHasBeenCaptured(Map map, Integer i) {
         if (i == 1) {
             return true;
@@ -106,7 +106,7 @@ public class CapturePointUtilities {
         }
         return false;
     }
-    
+
     public void uncaptureAll(Map map) {
         for (Location l : map.getCapturePoints()) {
             Integer i = getIDFromLocation(l);
