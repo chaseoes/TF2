@@ -52,7 +52,7 @@ public class Schedulers {
                                 
                                 if (afklimit == afktime) {
                                     GameUtilities.getUtilities().leaveCurrentGame(player);
-                                    player.sendMessage("�e[TF2] You have been kicked from the map for being AFK.");
+                                    player.sendMessage("§e[TF2] You have been kicked from the map for being AFK.");
                                     LocationStore.setAFKTime(player, null);
                                     LocationStore.unsetLastLocation(player);
                                 }
@@ -91,7 +91,7 @@ public class Schedulers {
                     if (secondsleft % 10 == 0 || secondsleft < 6) {
                         for (String playe : GameUtilities.getUtilities().getIngameList(map)) {
                             if (GameUtilities.getUtilities().getTeam(plugin.getServer().getPlayerExact(playe)).equalsIgnoreCase("red")) {
-                                plugin.getServer().getPlayerExact(playe).sendMessage("�e[TF2] �4�lRed �r�eteam, you will be teleported in " + secondsleft + " seconds.");
+                                plugin.getServer().getPlayerExact(playe).sendMessage("§e[TF2] §4§lRed §r§eteam, you will be teleported in " + secondsleft + " seconds.");
                             }
                         }
                     }
@@ -110,7 +110,7 @@ public class Schedulers {
             public void run() {
                 if (secondsLeft != 0) {
                     if (secondsLeft % 10 == 0 || secondsLeft < 6) {
-                        GameUtilities.getUtilities().broadcast(map, "�9Game starting in �b" + secondsLeft + " �9seconds!");
+                        GameUtilities.getUtilities().broadcast(map, "§9Game starting in §b" + secondsLeft + " §9seconds!");
                     }
                     secondsLeft--;
                 } else {
@@ -137,7 +137,7 @@ try {
                 GameUtilities.getUtilities().gametimes.put(map, current);
                 if (secondsleft != 0) {
                     if (secondsleft % 60 == 0 || secondsleft < 10) {
-                        GameUtilities.getUtilities().broadcast(map, "�9Game ending in �b" + GameUtilities.getUtilities().getTimeLeftPretty(map) + "�9!");
+                        GameUtilities.getUtilities().broadcast(map, "§9Game ending in §b" + GameUtilities.getUtilities().getTimeLeftPretty(map) + "§9!");
                     }
                 }
                 secondsleft--;

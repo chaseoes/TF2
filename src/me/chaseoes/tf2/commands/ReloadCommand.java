@@ -38,7 +38,7 @@ public class ReloadCommand {
             MapConfiguration.getMaps().saveMap(map);
         }
         LobbyWall.getWall().update();
-        cs.sendMessage("§e[TF2] Successfully reloaded the configuration.");
+        cs.sendMessage("Â§e[TF2] Successfully reloaded the configuration.");
     }
 
 }

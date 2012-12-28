@@ -40,7 +40,7 @@ public class DisableCommand {
             creditlines[2] = "--------------------------";
             creditlines[3] = " ";
             LobbyWall.getWall().setAllLines(map, null, creditlines, false, false);
-            cs.sendMessage("�e[TF2] Successfully disabled �l" + map + "�r�e.");
+            cs.sendMessage("§e[TF2] Successfully disabled §l" + map + "§r§e.");
         } else {
             h.wrongArgs();
         }

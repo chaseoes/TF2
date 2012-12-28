@@ -43,7 +43,7 @@ public class CapturePoint {
     public void startCapturing(final Player player) {
         capturing = player;
         setStatus(CaptureStatus.CAPTURING);
-        GameUtilities.getUtilities().broadcast(map, "§e[TF2] Capture point §4#" + id + " §eis being captured!");
+        GameUtilities.getUtilities().broadcast(map, "Â§e[TF2] Capture point Â§4#" + id + " Â§eis being captured!");
 
         task = CapturePointUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncRepeatingTask(CapturePointUtilities.getUtilities().plugin, new Runnable() {
             Integer timeRemaining = CapturePointUtilities.getUtilities().plugin.getConfig().getInt("capture-timer");
@@ -51,7 +51,7 @@ public class CapturePoint {
             @Override
             public void run() {
                 if (timeRemaining != 0) {
-                    player.sendMessage("§e[TF2] §l§4" + timeRemaining + " §r§cseconds remaining!");
+                    player.sendMessage("Â§e[TF2] Â§lÂ§4" + timeRemaining + " Â§rÂ§cseconds remaining!");
 //                    if (timeRemaining == timeTotal) {
 //                        player.setExp((float) 0.1);
 //                    } else {
@@ -63,7 +63,7 @@ public class CapturePoint {
                 if (timeRemaining == 0) {
                     stopCapturing();
                     setStatus(CaptureStatus.CAPTURED);
-                    GameUtilities.getUtilities().broadcast(map, "§e[TF2] Capture point §4#" + id + " §ehas been captured by §4§l" + player.getName() + "§r§e!");
+                    GameUtilities.getUtilities().broadcast(map, "Â§e[TF2] Capture point Â§4#" + id + " Â§ehas been captured by Â§4Â§l" + player.getName() + "Â§rÂ§e!");
 
                     if (CapturePointUtilities.getUtilities().allCaptured(map)) {
                         GameUtilities.getUtilities().winGame(map, "red");

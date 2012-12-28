@@ -88,13 +88,13 @@ public class LobbyWall {
 //                                timeleft = (Sign) nztimeleft.getBlock().getState();
 //                            }
 //
-//                            LobbyWallUtilities.getUtilities().setSignLines(startsign, "Team Fortress 2", "Click here", "to join:", "§l" + map);
+//                            LobbyWallUtilities.getUtilities().setSignLines(startsign, "Team Fortress 2", "Click here", "to join:", "Â§l" + map);
 //                            if (!GameUtilities.getUtilities().getGameStatus(map).equalsIgnoreCase("disabled")) {
-//                                LobbyWallUtilities.getUtilities().setSignLines(status, " ", "§4§lStatus:", GameUtilities.getUtilities().getGameStatus(map), " ");
-//                                LobbyWallUtilities.getUtilities().setSignLines(teamcount, "§4§lRed Team:", GameUtilities.getUtilities().getAmountOnTeam(map, "red") + "/" + MapConfiguration.getMaps().getMap(map).getInt("playerlimit") / 2 + " Players", "§9§lBlue Team:", GameUtilities.getUtilities().getAmountOnTeam(map, "blue") + "/" + MapConfiguration.getMaps().getMap(map).getInt("playerlimit") / 2 + " Players");
-//                                LobbyWallUtilities.getUtilities().setSignLines(timeleft, " ", "§9§lTime Left:", GameUtilities.getUtilities().getTimeLeft(map), " ");
+//                                LobbyWallUtilities.getUtilities().setSignLines(status, " ", "Â§4Â§lStatus:", GameUtilities.getUtilities().getGameStatus(map), " ");
+//                                LobbyWallUtilities.getUtilities().setSignLines(teamcount, "Â§4Â§lRed Team:", GameUtilities.getUtilities().getAmountOnTeam(map, "red") + "/" + MapConfiguration.getMaps().getMap(map).getInt("playerlimit") / 2 + " Players", "Â§9Â§lBlue Team:", GameUtilities.getUtilities().getAmountOnTeam(map, "blue") + "/" + MapConfiguration.getMaps().getMap(map).getInt("playerlimit") / 2 + " Players");
+//                                LobbyWallUtilities.getUtilities().setSignLines(timeleft, " ", "Â§9Â§lTime Left:", GameUtilities.getUtilities().getTimeLeft(map), " ");
 //                            } else {
-//                                LobbyWallUtilities.getUtilities().setSignLines(status, " ", "§lStatus:", "§4§lDisabled", " ");
+//                                LobbyWallUtilities.getUtilities().setSignLines(status, " ", "Â§lStatus:", "Â§4Â§lDisabled", " ");
 //                                LobbyWallUtilities.getUtilities().setSignLines(teamcount, " ", "---------------------------------------------", "-------------------------------------", " ");
 //                                LobbyWallUtilities.getUtilities().setSignLines(timeleft, " ", "---------------------------------------------", "-------------------------------------", " ");
 //                            }
@@ -122,9 +122,9 @@ public class LobbyWall {
 //                                    po = (Sign) nzl.getBlock().getState();
 //                                }
 //
-//                                String color = "§9§l";
+//                                String color = "Â§9Â§l";
 //                                if (getFriendlyCaptureStatus(map, id).equalsIgnoreCase("captured")) {
-//                                    color = "§4§l";
+//                                    color = "Â§4Â§l";
 //                                }
 //
 //                                if (!GameUtilities.getUtilities().getGameStatus(map).equalsIgnoreCase("disabled")) {
@@ -201,13 +201,13 @@ public class LobbyWall {
                                 timeleft = (Sign) nztimeleft.getBlock().getState();
                             }
 
-                            LobbyWallUtilities.getUtilities().setSignLines(startsign, "Team Fortress 2", "Click here", "to join:", "§l" + map);
+                            LobbyWallUtilities.getUtilities().setSignLines(startsign, "Team Fortress 2", "Click here", "to join:", "Â§l" + map);
                             if (!GameUtilities.getUtilities().getGameStatus(map).equalsIgnoreCase("disabled")) {
-                                LobbyWallUtilities.getUtilities().setSignLines(status, " ", "§4§lStatus:", GameUtilities.getUtilities().getGameStatus(map), " ");
-                                LobbyWallUtilities.getUtilities().setSignLines(teamcount, "§4§lRed Team:", GameUtilities.getUtilities().getAmountOnTeam(map, "red") + "/" + MapConfiguration.getMaps().getMap(map).getInt("playerlimit") / 2 + " Players", "§9§lBlue Team:", GameUtilities.getUtilities().getAmountOnTeam(map, "blue") + "/" + MapConfiguration.getMaps().getMap(map).getInt("playerlimit") / 2 + " Players");
-                                LobbyWallUtilities.getUtilities().setSignLines(timeleft, " ", "§9§lTime Left:", GameUtilities.getUtilities().getTimeLeft(map), " ");
+                                LobbyWallUtilities.getUtilities().setSignLines(status, " ", "Â§4Â§lStatus:", GameUtilities.getUtilities().getGameStatus(map), " ");
+                                LobbyWallUtilities.getUtilities().setSignLines(teamcount, "Â§4Â§lRed Team:", GameUtilities.getUtilities().getAmountOnTeam(map, "red") + "/" + MapConfiguration.getMaps().getMap(map).getInt("playerlimit") / 2 + " Players", "Â§9Â§lBlue Team:", GameUtilities.getUtilities().getAmountOnTeam(map, "blue") + "/" + MapConfiguration.getMaps().getMap(map).getInt("playerlimit") / 2 + " Players");
+                                LobbyWallUtilities.getUtilities().setSignLines(timeleft, " ", "Â§9Â§lTime Left:", GameUtilities.getUtilities().getTimeLeft(map), " ");
                             } else {
-                                LobbyWallUtilities.getUtilities().setSignLines(status, " ", "§lStatus:", "§4§lDisabled", " ");
+                                LobbyWallUtilities.getUtilities().setSignLines(status, " ", "Â§lStatus:", "Â§4Â§lDisabled", " ");
                                 LobbyWallUtilities.getUtilities().setSignLines(teamcount, " ", "---------------------------------------------", "-------------------------------------", " ");
                                 LobbyWallUtilities.getUtilities().setSignLines(timeleft, " ", "---------------------------------------------", "-------------------------------------", " ");
                             }
@@ -235,9 +235,9 @@ public class LobbyWall {
                                     po = (Sign) nzl.getBlock().getState();
                                 }
 
-                                String color = "§9§l";
+                                String color = "Â§9Â§l";
                                 if (getFriendlyCaptureStatus(map, id).equalsIgnoreCase("captured")) {
-                                    color = "§4§l";
+                                    color = "Â§4Â§l";
                                 }
 
                                 if (!GameUtilities.getUtilities().getGameStatus(map).equalsIgnoreCase("disabled")) {
@@ -318,16 +318,16 @@ public class LobbyWall {
                     if (s1) {
                         LobbyWallUtilities.getUtilities().setSignLines(startsign, lines[0], lines[1], lines[2], lines[3]);
                     } else {
-                        LobbyWallUtilities.getUtilities().setSignLines(startsign, "Team Fortress 2", "Click here", "to join:", "§l" + map);
+                        LobbyWallUtilities.getUtilities().setSignLines(startsign, "Team Fortress 2", "Click here", "to join:", "Â§l" + map);
                     }
 
                     if (s2) {
                         LobbyWallUtilities.getUtilities().setSignLines(status, lines[0], lines[1], lines[2], lines[3]);
                     } else {
                         if (!GameUtilities.getUtilities().getGameStatus(map).equalsIgnoreCase("disabled")) {
-                            LobbyWallUtilities.getUtilities().setSignLines(status, " ", "§4§lStatus:", GameUtilities.getUtilities().getGameStatus(map), " ");
+                            LobbyWallUtilities.getUtilities().setSignLines(status, " ", "Â§4Â§lStatus:", GameUtilities.getUtilities().getGameStatus(map), " ");
                         } else {
-                            LobbyWallUtilities.getUtilities().setSignLines(status, " ", "§lStatus:", "§4§lDisabled", " ");
+                            LobbyWallUtilities.getUtilities().setSignLines(status, " ", "Â§lStatus:", "Â§4Â§lDisabled", " ");
                         }
                     }
 

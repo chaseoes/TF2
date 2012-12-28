@@ -14,7 +14,7 @@ public class CommandHelper {
     }
 
     public void noPermission() {
-        sender.sendMessage("§e[TF2] You don't have permission for that.");
+        sender.sendMessage("Â§e[TF2] You don't have permission for that.");
     }
 
     public void noConsole() {
@@ -22,13 +22,13 @@ public class CommandHelper {
     }
 
     public void wrongArgs() {
-        sender.sendMessage("§e[TF2] Incorrect command usage!");
-        sender.sendMessage("§eUsage: §o" + cmd.getUsage());
+        sender.sendMessage("Â§e[TF2] Incorrect command usage!");
+        sender.sendMessage("Â§eUsage: Â§o" + cmd.getUsage());
     }
     
     public void unknownCommand() {
-        sender.sendMessage("§e[TF2] Unknown command!");
-        sender.sendMessage("§e[TF2] Type §6/tf2 help §efor help.");
+        sender.sendMessage("Â§e[TF2] Unknown command!");
+        sender.sendMessage("Â§e[TF2] Type Â§6/tf2 help Â§efor help.");
     }
 
 }

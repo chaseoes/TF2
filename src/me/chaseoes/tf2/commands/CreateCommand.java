@@ -37,9 +37,9 @@ public class CreateCommand {
                 Player p = (Player) cs;
                 try {
                     MapUtilities.getUtilities().createMap(strings[2], p);
-                    cs.sendMessage("§e[TF2] Successfully created the map §o" + strings[2] + "!");
+                    cs.sendMessage("Â§e[TF2] Successfully created the map Â§o" + strings[2] + "!");
                 } catch (EmptyClipboardException e) {
-                    cs.sendMessage("§e[TF2] Please make a WorldEdit selection first.");
+                    cs.sendMessage("Â§e[TF2] Please make a WorldEdit selection first.");
                 }
             } else {
                 h.wrongArgs();
@@ -51,7 +51,7 @@ public class CreateCommand {
                 GameUtilities.getUtilities().makingclassbutton.put(p.getName(), classname);
                 GameUtilities.getUtilities().makingclassbuttontype.put(p.getName(), strings[2]);
                 p.getInventory().addItem(new ItemStack(Material.STONE_BUTTON));
-                cs.sendMessage("§e[TF2] Place the button to create a " + strings[2] + " class button for the class " + classname + ".");
+                cs.sendMessage("Â§e[TF2] Place the button to create a " + strings[2] + " class button for the class " + classname + ".");
             } else {
                 h.wrongArgs();
             }
@@ -60,7 +60,7 @@ public class CreateCommand {
                 Player p = (Player) cs;
                 GameUtilities.getUtilities().makingchangeclassbutton.add(p.getName());
                 p.getInventory().addItem(new ItemStack(Material.STONE_BUTTON));
-                cs.sendMessage("§e[TF2] Place the button to create a changeclass button.");
+                cs.sendMessage("Â§e[TF2] Place the button to create a changeclass button.");
             } else {
                 h.wrongArgs();
             }

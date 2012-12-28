@@ -33,23 +33,23 @@ public class ListCommand {
 
                 if (!GameUtilities.getUtilities().coolpeople.contains(pl)) {
                     if (GameUtilities.getUtilities().getTeam(plugin.getServer().getPlayerExact(pl)).equalsIgnoreCase("red")) {
-                        red.append(pl + ", ");
+                        red.append(pl).append(", ");
                     } else {
-                        blue.append(pl + ", ");
+                        blue.append(pl).append(", ");
                     }
                 } else {
                     if (GameUtilities.getUtilities().getTeam(plugin.getServer().getPlayerExact(pl)).equalsIgnoreCase("red")) {
-                        red.append("§4§l" + pl + "§r§f, ");
+                        red.append("Â§4Â§l").append(pl).append("Â§rÂ§f, ");
                     } else {
-                        blue.append("§4§l" + pl + "§r§f, ");
+                        blue.append("Â§4Â§l").append(pl).append("Â§rÂ§f, ");
                     }
                 }
 
             }
             
-            cs.sendMessage("§e[TF2] Displaying players in the map §l" + strings[1] + "§r§e:");
-            cs.sendMessage("§4§lRed team: §r\n" + red.toString());
-            cs.sendMessage("§9§lBlue team: §r\n" + blue.toString());
+            cs.sendMessage("Â§e[TF2] Displaying players in the map Â§l" + strings[1] + "Â§rÂ§e:");
+            cs.sendMessage("Â§4Â§lRed team: Â§r\n" + red.toString());
+            cs.sendMessage("Â§9Â§lBlue team: Â§r\n" + blue.toString());
         } else if (GameUtilities.getUtilities().isIngame((Player) cs)) {
             String map = GameUtilities.getUtilities().getCurrentMap((Player) cs);
             StringBuilder red = new StringBuilder();
@@ -59,27 +59,27 @@ public class ListCommand {
             for (String pl : GameUtilities.getUtilities().getIngameList(map)) {
                 if (!GameUtilities.getUtilities().coolpeople.contains(pl)) {
                     if (GameUtilities.getUtilities().getTeam(plugin.getServer().getPlayerExact(pl)).equalsIgnoreCase("red")) {
-                        red.append(pl + ", ");
+                        red.append(pl).append(", ");
                         redc++;
                     } else {
-                        blue.append(pl + ", ");
+                        blue.append(pl).append(", ");
                         bluec++;
                     }
                 } else {
                     if (GameUtilities.getUtilities().getTeam(plugin.getServer().getPlayerExact(pl)).equalsIgnoreCase("red")) {
-                        red.append("§4§l" + pl + "§r§f, ");
+                        red.append("Â§4Â§l").append(pl).append("Â§rÂ§f, ");
                         redc++;
                     } else {
-                        blue.append("§4§l" + pl + "§r§f, ");
+                        blue.append("Â§4Â§l").append(pl).append("Â§rÂ§f, ");
                         bluec++;
                     }
                 }
 
             }
             
-            cs.sendMessage("§e[TF2] Displaying players in the map §l" + map + "§r§e:");
-            cs.sendMessage("§4§lRed team (" + redc + "): §r\n" + red.toString());
-            cs.sendMessage("§9§lBlue team (" + bluec + "): §r\n" + blue.toString());
+            cs.sendMessage("Â§e[TF2] Displaying players in the map Â§l" + map + "Â§rÂ§e:");
+            cs.sendMessage("Â§4Â§lRed team (" + redc + "): Â§r\n" + red.toString());
+            cs.sendMessage("Â§9Â§lBlue team (" + bluec + "): Â§r\n" + blue.toString());
         } else {
             h.wrongArgs();
         }
