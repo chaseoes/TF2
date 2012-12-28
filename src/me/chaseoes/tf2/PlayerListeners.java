@@ -195,47 +195,52 @@ public class PlayerListeners implements Listener {
     }
 
     @EventHandler
-    public void onDeath(TF2DeathEvent event) {
-        final Player player = event.getPlayer();
-        final Player killer = event.getKiller();
-        player.setFireTicks(5);
-        ClassUtilities.getUtilities().changeClass(player, ClassUtilities.getUtilities().classes.get(player.getName()));
-        player.teleport(MapUtilities.getUtilities().loadTeamSpawn(GameUtilities.getUtilities().ingame.get(player.getName()), GameUtilities.getUtilities().teams.get(player.getName())));
-        GameUtilities.getUtilities().justspawned.add(player.getName());
-        player.sendMessage("§e[TF2] You were killed by " + GameUtilities.getUtilities().getTeamColor(killer) + killer.getName() + " §r§e(" + ClassUtilities.getUtilities().classes.get(killer.getName()) + ")!");
-        killer.sendMessage("§e[TF2] You killed " + GameUtilities.getUtilities().getTeamColor(player) + player.getName() + " §r§e(" + ClassUtilities.getUtilities().classes.get(player.getName()) + ")!");
-        killer.playSound(killer.getLocation(), Sound.valueOf(GameUtilities.getUtilities().plugin.getConfig().getString("killsound.sound")), GameUtilities.getUtilities().plugin.getConfig().getInt("killsound.volume"), GameUtilities.getUtilities().plugin.getConfig().getInt("killsound.pitch"));
-
+    public void onDeath(final TF2DeathEvent event) {
         GameUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncDelayedTask(GameUtilities.getUtilities().plugin, new Runnable() {
             @Override
             public void run() {
-                GameUtilities.getUtilities().justspawned.remove(player.getName());
+                final Player player = event.getPlayer();
+                final Player killer = event.getKiller();
+
+                player.teleport(MapUtilities.getUtilities().loadTeamSpawn(GameUtilities.getUtilities().ingame.get(player.getName()), GameUtilities.getUtilities().teams.get(player.getName())));
+                player.sendMessage("§e[TF2] You were killed by " + GameUtilities.getUtilities().getTeamColor(killer) + killer.getName() + " §r§e(" + ClassUtilities.getUtilities().classes.get(killer.getName()) + ")!");
+                killer.sendMessage("§e[TF2] You killed " + GameUtilities.getUtilities().getTeamColor(player) + player.getName() + " §r§e(" + ClassUtilities.getUtilities().classes.get(player.getName()) + ")!");
+                killer.playSound(killer.getLocation(), Sound.valueOf(GameUtilities.getUtilities().plugin.getConfig().getString("killsound.sound")), GameUtilities.getUtilities().plugin.getConfig().getInt("killsound.volume"), GameUtilities.getUtilities().plugin.getConfig().getInt("killsound.pitch"));
+
+                GameUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncDelayedTask(GameUtilities.getUtilities().plugin, new Runnable() {
+                    @Override
+                    public void run() {
+                        GameUtilities.getUtilities().justspawned.remove(player.getName());
+                    }
+                }, 40L);
+
+                GameUtilities.getUtilities().kills.put(player.getName(), 0);
+                Integer kills = GameUtilities.getUtilities().kills.get(killer.getName());
+                Integer tkills = GameUtilities.getUtilities().totalkills.get(killer.getName());
+
+                if (tkills == null) {
+                    GameUtilities.getUtilities().totalkills.put(killer.getName(), 1);
+                } else {
+                    GameUtilities.getUtilities().totalkills.put(killer.getName(), tkills + 1);
+                }
+
+                if (kills != null && kills != 0) {
+                    GameUtilities.getUtilities().kills.put(killer.getName(), kills + 1);
+                    if ((kills + 1) % GameUtilities.getUtilities().plugin.getConfig().getInt("killstreaks") == 0) {
+                        GameUtilities.getUtilities().broadcast(GameUtilities.getUtilities().getCurrentMap(killer), "§e[TF2] " + GameUtilities.getUtilities().getTeamColor(killer) + killer.getName() + " §r§eis on a §4§l" + (kills + 1) + " §r§ekill streak!");
+                    } else {
+                        killer.sendMessage("§e[TF2] You have made " + (kills + 1) + " kills!");
+                    }
+
+                } else {
+                    GameUtilities.getUtilities().kills.put(killer.getName(), 1);
+                }
+                player.setHealth(20);
+                player.updateInventory();
+                ClassUtilities.getUtilities().changeClass(player, ClassUtilities.getUtilities().classes.get(player.getName()));
+                GameUtilities.getUtilities().justspawned.add(player.getName());
             }
-        }, 60L);
-
-        GameUtilities.getUtilities().kills.put(player.getName(), 0);
-        Integer kills = GameUtilities.getUtilities().kills.get(killer.getName());
-        Integer tkills = GameUtilities.getUtilities().totalkills.get(killer.getName());
-
-        if (tkills == null) {
-            GameUtilities.getUtilities().totalkills.put(killer.getName(), 1);
-        } else {
-            GameUtilities.getUtilities().totalkills.put(killer.getName(), tkills + 1);
-        }
-
-        if (kills != null && kills != 0) {
-            GameUtilities.getUtilities().kills.put(killer.getName(), kills + 1);
-            if ((kills + 1) % GameUtilities.getUtilities().plugin.getConfig().getInt("killstreaks") == 0) {
-                GameUtilities.getUtilities().broadcast(GameUtilities.getUtilities().getCurrentMap(killer), "§e[TF2] " + GameUtilities.getUtilities().getTeamColor(killer) + killer.getName() + " §r§eis on a §4§l" + (kills + 1) + " §r§ekill streak!");
-            } else {
-                killer.sendMessage("§e[TF2] You have made " + (kills + 1) + " kills!");
-            }
-
-        } else {
-            GameUtilities.getUtilities().kills.put(killer.getName(), 1);
-        }
-        player.setHealth(20);
-        player.updateInventory();
+        }, 1L);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

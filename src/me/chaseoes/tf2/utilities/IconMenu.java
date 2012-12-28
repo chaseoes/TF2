@@ -1,11 +1,9 @@
 package me.chaseoes.tf2.utilities;
 
-import net.minecraft.server.v1_4_5.NBTTagCompound;
-import net.minecraft.server.v1_4_5.NBTTagList;
-import net.minecraft.server.v1_4_5.NBTTagString;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_4_5.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -14,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
 public class IconMenu implements Listener {
@@ -37,8 +36,10 @@ public class IconMenu implements Listener {
     }
     
     public IconMenu setOption(int position, ItemStack icon, String name, String... info) {
+        List<String> abc = new ArrayList<String>();
+        abc.add(info[0]);
         optionNames[position] = name;
-        optionIcons[position] = setItemNameAndLore(icon, name, info);
+        optionIcons[position] = setItemNameAndLore(icon, name, abc);
         return this;
     }
     
@@ -132,37 +133,11 @@ public class IconMenu implements Listener {
         }
     }
     
-    private ItemStack setItemNameAndLore(ItemStack item, String name, String[] lore) {
-        CraftItemStack craftItem;        
-        if (item instanceof CraftItemStack) {
-            craftItem = (CraftItemStack)item;
-        } else {
-            craftItem = new CraftItemStack(item);
-        }
-        
-        NBTTagCompound tag = craftItem.getHandle().tag;
-        if (tag == null) {
-            tag = new NBTTagCompound();
-            craftItem.getHandle().tag = tag;
-        }
-        NBTTagCompound disp = tag.getCompound("display");
-        if (disp == null) {
-            disp = new NBTTagCompound("display");
-        }
-        
-        disp.setString("Name", name);
-        
-        if (lore != null && lore.length > 0) {
-            NBTTagList list = new NBTTagList("Lore");
-            disp.set("Lore", list);
-            for (String l : lore) {
-                list.add(new NBTTagString("", l));
-            }
-        }
-        
-        tag.setCompound("display", disp);
-        
-        return craftItem;
+    private ItemStack setItemNameAndLore(ItemStack item, String name, List<String> lore) {
+        ItemMeta i = item.getItemMeta();
+        i.setDisplayName(name);
+        i.setLore(lore);
+        return item;
     }
     
 }

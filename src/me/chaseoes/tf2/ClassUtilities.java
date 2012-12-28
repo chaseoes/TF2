@@ -1,11 +1,11 @@
 package me.chaseoes.tf2;
 
-import java.awt.Color;
 import java.util.HashMap;
 
 import me.chaseoes.tf2.utilities.ArmorUtilities;
 
 import org.bukkit.Location;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -33,6 +33,7 @@ public class ClassUtilities {
     }
 
     public void changeClass(final Player player, String classto) {
+        try {
         if (classto != null) {
             for (String classname : plugin.getConfig().getConfigurationSection("classes").getKeys(false)) {
                 if (classname.equalsIgnoreCase(classto)) {
@@ -210,6 +211,10 @@ public class ClassUtilities {
                     player.updateInventory();
                 }
             }
+        }
+        } catch (Exception e) {
+            player.sendMessage("ERROR! Please notify your server adminstrator to check their console for the error.");
+            e.printStackTrace();
         }
     }
 
