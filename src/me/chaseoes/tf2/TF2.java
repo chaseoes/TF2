@@ -56,7 +56,8 @@ public class TF2 extends JavaPlugin {
             maps.put(map, new Map(map));
             queues.put(map, new Queue(map));
             LobbyWall.getWall().update();
-            GameUtilities.getUtilities().redHasBeenTeleported.put(map, false);
+            GameUtilities.getUtilities().setRedHasBeenTeleported(map, false);
+            GameUtilities.getUtilities().addGame(maps.get(map));
         }
         
         GameUtilities.getUtilities().coolpeople.add("chaseoes");

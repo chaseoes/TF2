@@ -2,7 +2,6 @@ package me.chaseoes.tf2;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-
 import org.bukkit.entity.Player;
 
 public class Queue {

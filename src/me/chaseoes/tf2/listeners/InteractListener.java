@@ -1,11 +1,11 @@
 package me.chaseoes.tf2.listeners;
 
-import me.chaseoes.tf2.classes.ClassUtilities;
 import me.chaseoes.tf2.DataConfiguration;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.MapConfiguration;
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.Queue;
+import me.chaseoes.tf2.classes.ClassUtilities;
 import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.utilities.DataChecker;
 import me.chaseoes.tf2.utilities.GeneralUtilities;
@@ -52,31 +52,31 @@ public class InteractListener implements Listener {
                 if (s.getLine(0).equalsIgnoreCase("Team Fortress 2") && s.getLine(2).equalsIgnoreCase("to join:")) {
                     DataChecker dc = new DataChecker(map);
                     if (!dc.allGood()) {
-                        player.sendMessage("§e[TF2] This map has not yet been setup.");
+                        player.sendMessage("ï¿½e[TF2] This map has not yet been setup.");
                         if (player.hasPermission("tf2.create")) {
-                            player.sendMessage("§e[TF2] Type §6/tf2 checkdata " + map + " §eto see what else needs to be done.");
+                            player.sendMessage("ï¿½e[TF2] Type ï¿½6/tf2 checkdata " + map + " ï¿½eto see what else needs to be done.");
                         }
                         return;
                     }
                     if (!player.hasPermission("tf2.play")) {
-                        event.getPlayer().sendMessage("§e[TF2] You do not have permission.");
+                        event.getPlayer().sendMessage("ï¿½e[TF2] You do not have permission.");
                         return;
                     }
                     
                     if (GameUtilities.getUtilities().isIngame(player)) {
-                        event.getPlayer().sendMessage("§e[TF2] You are already playing on a map!");
+                        event.getPlayer().sendMessage("ï¿½e[TF2] You are already playing on a map!");
                         return;
                     }
 
                     if (DataConfiguration.getData().getDataFile().getStringList("disabled-maps").contains(map)) {
-                        player.sendMessage("§e[TF2] That map is disabled.");
+                        player.sendMessage("ï¿½e[TF2] That map is disabled.");
                         return;
                     }
 
                     Queue q = GameUtilities.getUtilities().plugin.getQueue(map);
                     if (!player.hasPermission("tf2.create")) {
                         if (q.contains(player)) {
-                            player.sendMessage("§e[TF2] You are #" + q.getPosition(player.getName()) + " in line for this map.");
+                            player.sendMessage("ï¿½e[TF2] You are #" + q.getPosition(player.getName()) + " in line for this map.");
                             return;
                         }
                         q.add(player);
@@ -85,16 +85,16 @@ public class InteractListener implements Listener {
                         if (GameUtilities.getUtilities().getIngameList(map).size() + 1 <= MapConfiguration.getMaps().getMap(map).getInt("playerlimit")) {
                             q.remove(position);
                             GameUtilities.getUtilities().joinGame(player, map, team);
-                            player.sendMessage("§e[TF2] You joined the " + map + " §r§emap!");
+                            player.sendMessage("ï¿½e[TF2] You joined the " + map + " ï¿½rï¿½emap!");
                         } else {
-                            player.sendMessage("§e[TF2] You are #" + position + " in line for this map.");
+                            player.sendMessage("ï¿½e[TF2] You are #" + position + " in line for this map.");
                         }
                     } else {
                         GameUtilities.getUtilities().joinGame(player, map, team);
                     }
 
                     event.setCancelled(true);
-                    player.sendMessage("§e[TF2] You joined the " + map + " §r§emap!");
+                    player.sendMessage("ï¿½e[TF2] You joined the " + map + " ï¿½rï¿½emap!");
                 }
             }
 
@@ -107,14 +107,14 @@ public class InteractListener implements Listener {
                                 c.apply(player);
                                 return;
                             }
-                            event.getPlayer().sendMessage("§e[TF2] " + GeneralUtilities.colorize(GameUtilities.getUtilities().plugin.getConfig().getString("donor-button-noperm")));
+                            event.getPlayer().sendMessage("ï¿½e[TF2] " + GeneralUtilities.colorize(GameUtilities.getUtilities().plugin.getConfig().getString("donor-button-noperm")));
                         }
                     }
 
                     for (String s : DataConfiguration.getData().getDataFile().getStringList("changeclassbuttons")) {
                         if (ClassUtilities.getUtilities().loadClassButtonLocation(s).toString().equalsIgnoreCase(event.getClickedBlock().getLocation().toString())) {
                             GameUtilities.getUtilities().usingchangeclassbutton.add(event.getPlayer().getName());
-                            event.getPlayer().teleport(MapUtilities.getUtilities().loadTeamLobby(GameUtilities.getUtilities().ingame.get(event.getPlayer().getName()), GameUtilities.getUtilities().teams.get(event.getPlayer().getName())));
+                            event.getPlayer().teleport(MapUtilities.getUtilities().loadTeamLobby(GameUtilities.getUtilities().getCurrentMap(player), GameUtilities.getUtilities().getTeam(player)));
                         }
                     }
                 }

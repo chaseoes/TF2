@@ -16,7 +16,6 @@ public class Map {
     
     public Map(String m) {
         map = m;
-        GameUtilities.getUtilities().gamestatus.put(m, GameStatus.WAITING);
         for (Location l : getCapturePoints()) {
             Integer id = CapturePointUtilities.getUtilities().getIDFromLocation(l);
             points.put(id, new CapturePoint(map, id));

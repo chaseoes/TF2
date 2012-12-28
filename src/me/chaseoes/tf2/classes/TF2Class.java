@@ -113,7 +113,7 @@ public class TF2Class {
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("[TF2] The error encountered while changing a player's class is above! Note that TF2 v2.0 has a new format for defining items - click here to view the new default configuration: http://goo.gl/LdKKR");
-                player.sendMessage("งe[TF2] ง4An error occoured while changing your class. Notify the administrator to check their server log for the error.");
+                player.sendMessage("ยงe[TF2] ยง4An error occoured while changing your class. Notify the administrator to check their server log for the error.");
                 clearInventory(player);
             }
         }
@@ -130,7 +130,7 @@ public class TF2Class {
         for (PotionEffect effect : player.getActivePotionEffects()) {
             player.removePotionEffect(effect.getType());
         }
-        
+
         player.updateInventory();
     }
 

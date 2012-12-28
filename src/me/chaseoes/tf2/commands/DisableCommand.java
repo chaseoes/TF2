@@ -33,14 +33,14 @@ public class DisableCommand {
             String map = strings[1];
             GameUtilities.getUtilities().stopMatch(map);
             MapUtilities.getUtilities().disableMap(map);
-            GameUtilities.getUtilities().gamestatus.put(map, GameStatus.DISABLED);
+            GameUtilities.getUtilities().setStatus(map, GameStatus.DISABLED);
             String[] creditlines = new String[4];
             creditlines[0] = " ";
             creditlines[1] = "--------------------------";
             creditlines[2] = "--------------------------";
             creditlines[3] = " ";
             LobbyWall.getWall().setAllLines(map, null, creditlines, false, false);
-            cs.sendMessage("§e[TF2] Successfully disabled §l" + map + "§r§e.");
+            cs.sendMessage("ï¿½e[TF2] Successfully disabled ï¿½l" + map + "ï¿½rï¿½e.");
         } else {
             h.wrongArgs();
         }

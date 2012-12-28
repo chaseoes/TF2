@@ -52,8 +52,8 @@ public class PlayerListeners implements Listener {
                 final Player player = event.getPlayer();
                 DataChecker dc = new DataChecker(map);
                 if (!dc.allGood()) {
-                    player.sendMessage("§e[TF2] This map has not yet been setup.");
-                    player.sendMessage("§e[TF2] Type §6/tf2 checkdata " + map + " §eto see what else needs to be done.");
+                    player.sendMessage("ï¿½e[TF2] This map has not yet been setup.");
+                    player.sendMessage("ï¿½e[TF2] Type ï¿½6/tf2 checkdata " + map + " ï¿½eto see what else needs to be done.");
                     event.setLine(0, "");
                     event.setLine(1, "");
                     event.setLine(2, "");
@@ -73,7 +73,7 @@ public class PlayerListeners implements Listener {
                         player.performCommand("tf2 reload");
                     }
                 }, 60L);
-                event.getPlayer().sendMessage("§e[TF2] Successfully created a join sign!");
+                event.getPlayer().sendMessage("ï¿½e[TF2] Successfully created a join sign!");
             }
         }
     }
@@ -93,7 +93,7 @@ public class PlayerListeners implements Listener {
             classbs.add(event.getBlockPlaced().getWorld().getName() + "." + event.getBlockPlaced().getLocation().getBlockX() + "." + event.getBlockPlaced().getLocation().getBlockY() + "." + event.getBlockPlaced().getLocation().getBlockZ() + "." + GameUtilities.getUtilities().makingclassbuttontype.get(player.getName()) + "." + GameUtilities.getUtilities().makingclassbutton.get(player.getName()));
             DataConfiguration.getData().saveData();
             DataConfiguration.getData().getDataFile().set("classbuttons", classbs);
-            player.sendMessage("§e[TF2] Successfully made a " + GameUtilities.getUtilities().makingclassbuttontype.get(player.getName()) + " class button for the class §o" + GameUtilities.getUtilities().makingclassbutton.get(player.getName()) + "§r§e.");
+            player.sendMessage("ï¿½e[TF2] Successfully made a " + GameUtilities.getUtilities().makingclassbuttontype.get(player.getName()) + " class button for the class ï¿½o" + GameUtilities.getUtilities().makingclassbutton.get(player.getName()) + "ï¿½rï¿½e.");
             GameUtilities.getUtilities().makingclassbutton.remove(player.getName());
             GameUtilities.getUtilities().makingclassbuttontype.remove(player.getName());
         }
@@ -104,7 +104,7 @@ public class PlayerListeners implements Listener {
             DataConfiguration.getData().getDataFile().set("changeclassbuttons", classbs);
             GameUtilities.getUtilities().makingchangeclassbutton.remove(player.getName());
             DataConfiguration.getData().saveData();
-            player.sendMessage("§e[TF2] Successfully made a change class button.");
+            player.sendMessage("ï¿½e[TF2] Successfully made a change class button.");
         }
     }
 
@@ -152,7 +152,7 @@ public class PlayerListeners implements Listener {
 
                 if (event.getDamager() instanceof Player) {
                     Player damager = (Player) event.getDamager();
-                    if (GameUtilities.getUtilities().teams.get(damaged.getName()).equalsIgnoreCase(GameUtilities.getUtilities().teams.get(damager.getName()))) {
+                    if (GameUtilities.getUtilities().getTeam(damaged).equalsIgnoreCase(GameUtilities.getUtilities().getTeam(damager))) {
                         event.setCancelled(true);
                         return;
                     }
@@ -171,7 +171,7 @@ public class PlayerListeners implements Listener {
                     Projectile pro = (Projectile) event.getDamager();
                     if (pro.getShooter() instanceof Player) {
                         Player damager = (Player) pro.getShooter();
-                        if (GameUtilities.getUtilities().teams.get(damaged.getName()).equalsIgnoreCase(GameUtilities.getUtilities().teams.get(damager.getName()))) {
+                        if (GameUtilities.getUtilities().getTeam(damaged).equalsIgnoreCase(GameUtilities.getUtilities().getTeam(damager))) {
                             event.setCancelled(true);
                             return;
                         }
@@ -204,9 +204,9 @@ public class PlayerListeners implements Listener {
                 final Player player = event.getPlayer();
                 final Player killer = event.getKiller();
 
-                player.teleport(MapUtilities.getUtilities().loadTeamSpawn(GameUtilities.getUtilities().ingame.get(player.getName()), GameUtilities.getUtilities().teams.get(player.getName())));
-                player.sendMessage("§e[TF2] You were killed by " + GameUtilities.getUtilities().getTeamColor(killer) + killer.getName() + " §r§e(" + ClassUtilities.getUtilities().classes.get(killer.getName()) + ")!");
-                killer.sendMessage("§e[TF2] You killed " + GameUtilities.getUtilities().getTeamColor(player) + player.getName() + " §r§e(" + ClassUtilities.getUtilities().classes.get(player.getName()) + ")!");
+                player.teleport(MapUtilities.getUtilities().loadTeamSpawn(GameUtilities.getUtilities().getCurrentMap(player), GameUtilities.getUtilities().getTeam(player)));
+                player.sendMessage("ï¿½e[TF2] You were killed by " + GameUtilities.getUtilities().getTeamColor(killer) + killer.getName() + " ï¿½rï¿½e(" + ClassUtilities.getUtilities().classes.get(killer.getName()) + ")!");
+                killer.sendMessage("ï¿½e[TF2] You killed " + GameUtilities.getUtilities().getTeamColor(player) + player.getName() + " ï¿½rï¿½e(" + ClassUtilities.getUtilities().classes.get(player.getName()) + ")!");
                 killer.playSound(killer.getLocation(), Sound.valueOf(GameUtilities.getUtilities().plugin.getConfig().getString("killsound.sound")), GameUtilities.getUtilities().plugin.getConfig().getInt("killsound.volume"), GameUtilities.getUtilities().plugin.getConfig().getInt("killsound.pitch"));
 
                 GameUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncDelayedTask(GameUtilities.getUtilities().plugin, new Runnable() {
@@ -216,8 +216,8 @@ public class PlayerListeners implements Listener {
                     }
                 }, 40L);
 
-                GameUtilities.getUtilities().kills.put(player.getName(), 0);
-                Integer kills = GameUtilities.getUtilities().kills.get(killer.getName());
+                GameUtilities.getUtilities().setKills(player, 0);
+                Integer kills = GameUtilities.getUtilities().getKills(killer);
                 Integer tkills = GameUtilities.getUtilities().totalkills.get(killer.getName());
 
                 if (tkills == null) {
@@ -227,15 +227,15 @@ public class PlayerListeners implements Listener {
                 }
 
                 if (kills != null && kills != 0) {
-                    GameUtilities.getUtilities().kills.put(killer.getName(), kills + 1);
+                    GameUtilities.getUtilities().setKills(killer, kills + 1);
                     if ((kills + 1) % GameUtilities.getUtilities().plugin.getConfig().getInt("killstreaks") == 0) {
-                        GameUtilities.getUtilities().broadcast(GameUtilities.getUtilities().getCurrentMap(killer), "§e[TF2] " + GameUtilities.getUtilities().getTeamColor(killer) + killer.getName() + " §r§eis on a §4§l" + (kills + 1) + " §r§ekill streak!");
+                        GameUtilities.getUtilities().broadcast(GameUtilities.getUtilities().getCurrentMap(killer), "ï¿½e[TF2] " + GameUtilities.getUtilities().getTeamColor(killer) + killer.getName() + " ï¿½rï¿½eis on a ï¿½4ï¿½l" + (kills + 1) + " ï¿½rï¿½ekill streak!");
                     } else {
-                        killer.sendMessage("§e[TF2] You have made " + (kills + 1) + " kills!");
+                        killer.sendMessage("ï¿½e[TF2] You have made " + (kills + 1) + " kills!");
                     }
 
                 } else {
-                    GameUtilities.getUtilities().kills.put(killer.getName(), 1);
+                    GameUtilities.getUtilities().setKills(killer, 1);
                 }
                 player.setHealth(20);
                 player.updateInventory();
@@ -269,7 +269,7 @@ public class PlayerListeners implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLoseHunger(FoodLevelChangeEvent event) {
-        if (GameUtilities.getUtilities().ingame.containsKey(event.getEntity().getName())) {
+        if (event.getEntity() instanceof Player && GameUtilities.getUtilities().isIngame((Player) event.getEntity())) {
             event.setCancelled(true);
         }
     }
@@ -308,19 +308,19 @@ public class PlayerListeners implements Listener {
                             cp.startCapturing(player);
                         }
                     } else {
-                        event.getPlayer().sendMessage("§e[TF2] You must capture point #" + (id - 1) + " first!");
+                        event.getPlayer().sendMessage("ï¿½e[TF2] You must capture point #" + (id - 1) + " first!");
                     }
 
                 } else if (map.getCapturePoint(id).getStatus().string().equalsIgnoreCase("captured")) {
-                    event.getPlayer().sendMessage("§e[TF2] This point has already been captured! Head to #" + (id + 1) + "!");
+                    event.getPlayer().sendMessage("ï¿½e[TF2] This point has already been captured! Head to #" + (id + 1) + "!");
                 } else if (map.getCapturePoint(id).getStatus().string().equalsIgnoreCase("capturing")) {
-                    event.getPlayer().sendMessage("§e[TF2] This point is being captured by " + cp.capturing.getName() + "!");
+                    event.getPlayer().sendMessage("ï¿½e[TF2] This point is being captured by " + cp.capturing.getName() + "!");
                 }
             } else {
                 if (!map.getCapturePoint(id).getStatus().string().equalsIgnoreCase("captured")) {
-                    event.getPlayer().sendMessage("§e[TF2] You must be on the §4§lred §r§eteam to capture points! §9§lBlue §r§eis for defending.");
+                    event.getPlayer().sendMessage("ï¿½e[TF2] You must be on the ï¿½4ï¿½lred ï¿½rï¿½eteam to capture points! ï¿½9ï¿½lBlue ï¿½rï¿½eis for defending.");
                 } else {
-                    event.getPlayer().sendMessage("§e[TF2] The §4§lred §r§eteam has already captured this point!");
+                    event.getPlayer().sendMessage("ï¿½e[TF2] The ï¿½4ï¿½lred ï¿½rï¿½eteam has already captured this point!");
                 }
             }
         }
@@ -330,14 +330,14 @@ public class PlayerListeners implements Listener {
     public void onItemDrop(PlayerDropItemEvent event) {
         if (GameUtilities.getUtilities().isIngame(event.getPlayer())) {
             ItemStack[] armor = event.getPlayer().getInventory().getArmorContents();
-            event.getPlayer().sendMessage("§e[TF2] You cannot drop items while in a game!");
+            event.getPlayer().sendMessage("ï¿½e[TF2] You cannot drop items while in a game!");
             event.setCancelled(true);
             event.getPlayer().getInventory().setArmorContents(armor);
         }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onDeath(final PlayerDeathEvent e) {
+    public void onDeath(PlayerDeathEvent e) {
         final Player damaged = e.getEntity();
         if (GameUtilities.getUtilities().isIngame(damaged)) {
             damaged.setHealth(20);
@@ -359,7 +359,7 @@ public class PlayerListeners implements Listener {
     public void onCommand(PlayerCommandPreprocessEvent event) {
         if (GameUtilities.getUtilities().isIngame(event.getPlayer()) && !event.getMessage().startsWith("/tf2") && !event.getPlayer().hasPermission("tf2.create")) {
             event.setCancelled(true);
-            event.getPlayer().sendMessage("§e[TF2] You cannot use commands while in a game!");
+            event.getPlayer().sendMessage("ï¿½e[TF2] You cannot use commands while in a game!");
         }
     }
 

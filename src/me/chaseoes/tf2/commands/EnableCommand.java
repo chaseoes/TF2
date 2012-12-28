@@ -32,9 +32,9 @@ public class EnableCommand {
         if (strings.length == 2) {
             String map = strings[1];
             MapUtilities.getUtilities().enableMap(map);
-            GameUtilities.getUtilities().gamestatus.put(map, GameStatus.WAITING);
+            GameUtilities.getUtilities().setStatus(map, GameStatus.WAITING);
             LobbyWall.getWall().unDisable(map);
-            cs.sendMessage("§e[TF2] Successfully enabled §l" + map + "§r§e.");
+            cs.sendMessage("ï¿½e[TF2] Successfully enabled ï¿½l" + map + "ï¿½rï¿½e.");
         } else {
             h.wrongArgs();
         }
