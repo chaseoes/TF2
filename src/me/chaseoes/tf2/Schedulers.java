@@ -2,7 +2,6 @@ package me.chaseoes.tf2;
 
 import java.util.HashMap;
 
-import me.chaseoes.tf2.classes.GameUtilities;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.utilities.LocationStore;
 

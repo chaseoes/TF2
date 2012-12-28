@@ -63,8 +63,12 @@ public class GameUtilities {
     public void joinGame(Player player, String map, String team) {
         inventories.put(player.getName(), player.getInventory().getContents());
         armorinventories.put(player.getName(), player.getInventory().getArmorContents());
+        // Clear their inventory.
         player.getInventory().clear();
-        player.updateInventory();
+        player.getInventory().setHelmet(new ItemStack(Material.AIR));
+        player.getInventory().setChestplate(new ItemStack(Material.AIR));
+        player.getInventory().setLeggings(new ItemStack(Material.AIR));
+        player.getInventory().setBoots(new ItemStack(Material.AIR));
         ingame.put(player.getName(), map);
         teams.put(player.getName(), team);
         gameinlobby.add(map);

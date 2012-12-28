@@ -5,7 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
-import me.chaseoes.tf2.classes.GameUtilities;
+import me.chaseoes.tf2.classes.ClassUtilities;
 import me.chaseoes.tf2.commands.CommandManager;
 import me.chaseoes.tf2.commands.CreateCommand;
 import me.chaseoes.tf2.commands.DebugCommand;

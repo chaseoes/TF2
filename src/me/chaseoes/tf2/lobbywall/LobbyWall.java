@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.logging.Level;
 
 import me.chaseoes.tf2.DataConfiguration;
+import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.MapConfiguration;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
-import me.chaseoes.tf2.classes.GameUtilities;
 
 import org.bukkit.Location;
 import org.bukkit.Material;

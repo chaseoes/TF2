@@ -2,7 +2,6 @@ package me.chaseoes.tf2;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import me.chaseoes.tf2.classes.GameUtilities;
 
 import org.bukkit.entity.Player;
 

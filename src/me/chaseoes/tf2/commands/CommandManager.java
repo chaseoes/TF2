@@ -4,7 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 
-import me.chaseoes.tf2.classes.GameUtilities;
+import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.utilities.IconMenu;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

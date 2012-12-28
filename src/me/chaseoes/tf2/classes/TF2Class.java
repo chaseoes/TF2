@@ -3,6 +3,8 @@ package me.chaseoes.tf2.classes;
 import java.util.ArrayList;
 
 
+import me.chaseoes.tf2.GameUtilities;
+
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;

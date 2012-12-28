@@ -4,7 +4,7 @@ import java.util.List;
 
 import me.chaseoes.tf2.capturepoints.CapturePoint;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
-import me.chaseoes.tf2.classes.GameUtilities;
+import me.chaseoes.tf2.classes.ClassUtilities;
 import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.events.TF2DeathEvent;
 import me.chaseoes.tf2.lobbywall.LobbyWall;

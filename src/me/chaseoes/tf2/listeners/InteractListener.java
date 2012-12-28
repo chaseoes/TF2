@@ -1,11 +1,11 @@
 package me.chaseoes.tf2.listeners;
 
-import me.chaseoes.tf2.ClassUtilities;
+import me.chaseoes.tf2.classes.ClassUtilities;
 import me.chaseoes.tf2.DataConfiguration;
+import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.MapConfiguration;
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.Queue;
-import me.chaseoes.tf2.classes.GameUtilities;
 import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.utilities.DataChecker;
 import me.chaseoes.tf2.utilities.GeneralUtilities;
