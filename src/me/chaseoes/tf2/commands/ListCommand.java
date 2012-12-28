@@ -39,17 +39,17 @@ public class ListCommand {
                     }
                 } else {
                     if (GameUtilities.getUtilities().getTeam(plugin.getServer().getPlayerExact(pl)).equalsIgnoreCase("red")) {
-                        red.append("�4�l").append(pl).append("�r�f, ");
+                        red.append("§4§l").append(pl).append("§r§f, ");
                     } else {
-                        blue.append("�4�l").append(pl).append("�r�f, ");
+                        blue.append("§4§l").append(pl).append("§r§f, ");
                     }
                 }
 
             }
             
-            cs.sendMessage("�e[TF2] Displaying players in the map �l" + strings[1] + "�r�e:");
-            cs.sendMessage("�4�lRed team: �r\n" + red.toString());
-            cs.sendMessage("�9�lBlue team: �r\n" + blue.toString());
+            cs.sendMessage("§e[TF2] Displaying players in the map §l" + strings[1] + "§r§e:");
+            cs.sendMessage("§4§lRed team: §r\n" + red.toString());
+            cs.sendMessage("§9§lBlue team: §r\n" + blue.toString());
         } else if (GameUtilities.getUtilities().isIngame((Player) cs)) {
             String map = GameUtilities.getUtilities().getCurrentMap((Player) cs);
             StringBuilder red = new StringBuilder();
@@ -67,19 +67,19 @@ public class ListCommand {
                     }
                 } else {
                     if (GameUtilities.getUtilities().getTeam(plugin.getServer().getPlayerExact(pl)).equalsIgnoreCase("red")) {
-                        red.append("�4�l").append(pl).append("�r�f, ");
+                        red.append("§4§l").append(pl).append("§r§f, ");
                         redc++;
                     } else {
-                        blue.append("�4�l").append(pl).append("�r�f, ");
+                        blue.append("§4§l").append(pl).append("§r§f, ");
                         bluec++;
                     }
                 }
 
             }
             
-            cs.sendMessage("�e[TF2] Displaying players in the map �l" + map + "�r�e:");
-            cs.sendMessage("�4�lRed team (" + redc + "): �r\n" + red.toString());
-            cs.sendMessage("�9�lBlue team (" + bluec + "): �r\n" + blue.toString());
+            cs.sendMessage("§e[TF2] Displaying players in the map §l" + map + "§r§e:");
+            cs.sendMessage("§4§lRed team (" + redc + "): §r\n" + red.toString());
+            cs.sendMessage("§9§lBlue team (" + bluec + "): §r\n" + blue.toString());
         } else {
             h.wrongArgs();
         }

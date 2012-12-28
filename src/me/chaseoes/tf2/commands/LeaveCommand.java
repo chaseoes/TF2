@@ -29,7 +29,7 @@ public class LeaveCommand {
         try {
         Player player = (Player) cs;
         GameUtilities.getUtilities().leaveCurrentGame(player);
-        cs.sendMessage("§e[TF2] Successfully left the game.");
+        cs.sendMessage("Â§e[TF2] Successfully left the game.");
         } catch (Exception e) {
             e.printStackTrace();
         }
