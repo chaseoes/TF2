@@ -10,7 +10,7 @@ public class Queue {
     public CopyOnWriteArrayList<String> inqueue;
 
     public Queue(String m) {
-        m = map;
+        map = m;
         inqueue = new CopyOnWriteArrayList<String>();
     }
 

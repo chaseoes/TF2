@@ -255,7 +255,7 @@ public class Game {
         if (getStatus().equals(GameStatus.WAITING) || getStatus().equals(GameStatus.STARTING)) {
             return "Not Started";
         }
-        Integer time = time = getTimeLeftSeconds();
+        Integer time = getTimeLeftSeconds();
         int hours = time / (60 * 60);
         time = time % (60 * 60);
         int minutes = time / 60;
