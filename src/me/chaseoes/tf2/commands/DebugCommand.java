@@ -36,17 +36,17 @@ public class DebugCommand {
     }
 
     public void execDebugCommand(final CommandSender cs, String[] strings, Command cmnd) {
-        cs.sendMessage("§e[TF2] Uploading debug information to Pastebin...");
+        cs.sendMessage("ï¿½e[TF2] Uploading debug information to Pastebin...");
         PastebinPoster.paste(getDebugInformation(), new PasteCallback() {
 
             @Override
             public void handleSuccess(String url) {
-                cs.sendMessage("§e[TF2] Debug information available for 1 day at:\n" + url);
+                cs.sendMessage("ï¿½e[TF2] Debug information available for 1 day at:\n" + url);
             }
 
             @Override
             public void handleError(String err) {
-                cs.sendMessage("§e[TF2] Error encountered while uploading to Pastebin.");
+                cs.sendMessage("ï¿½e[TF2] Error encountered while uploading to Pastebin.");
             }
         });
     }
@@ -54,13 +54,13 @@ public class DebugCommand {
     public String getDebugInformation() {
         StringBuilder info = new StringBuilder();
         info.append("====== SERVER INFORMATION ======\n");
-        info.append("TF2 Version: " + plugin.getDescription().getVersion() + "\n");
-        info.append("Bukkit Version: " + plugin.getServer().getVersion() + "\n");
+        info.append("TF2 Version: ").append(plugin.getDescription().getVersion()).append("\n");
+        info.append("Bukkit Version: ").append(plugin.getServer().getVersion()).append("\n");
         StringBuilder plugins = new StringBuilder();
         for (Plugin plug : plugin.getServer().getPluginManager().getPlugins()) {
-            plugins.append(plug.getName() + ", ");
+            plugins.append(plug.getName()).append(", ");
         }
-        info.append("Plugins: " + plugins.toString().substring(0, plugins.toString().length() - 1) + "\n\n");
+        info.append("Plugins: ").append(plugins.toString().substring(0, plugins.toString().length() - 1)).append("\n\n");
         info.append("====== TF2 CONFIGURATION ======\n");
         File config = new File(plugin.getDataFolder() + "/config.yml").getAbsoluteFile();
         File data = new File(plugin.getDataFolder() + "/data.yml").getAbsoluteFile();
@@ -73,7 +73,7 @@ public class DebugCommand {
             for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
                 File mf = new File(plugin.getDataFolder() + "/" + map + ".yml").getAbsoluteFile();
                 String mapfile = new Scanner(mf).useDelimiter("\\A").next();
-                info.append("\n====== " + map + " MAP CONFIGURATION ======\n");
+                info.append("\n====== ").append(map).append(" MAP CONFIGURATION ======\n");
                 info.append(mapfile);
             }
         } catch (FileNotFoundException e) {
