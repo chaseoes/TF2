@@ -3,6 +3,7 @@ package me.chaseoes.tf2;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -68,7 +69,7 @@ public class Game {
         for (String player : getIngameList()) {
             Player p = Bukkit.getPlayerExact(player);
             leaveGame(p);
-            p.sendMessage("§e[TF2] The game has ended.");
+            p.sendMessage(ChatColor.YELLOW + "[TF2] The game has ended.");
         }
         redHasBeenTeleported = false;
     }
@@ -76,15 +77,15 @@ public class Game {
     public void winGame(String team) {
         String[] winlines = new String[4];
         winlines[0] = " ";
-        winlines[1] = "§4§lRed Team";
+        winlines[1] = "" + ChatColor.DARK_RED + ChatColor.BOLD + "Red Team";
         if (team.equalsIgnoreCase("blue")) {
-            winlines[1] = "§9§lBlue Team";
+            winlines[1] = ChatColor.BLUE + "" + ChatColor.BOLD + "Blue Team";
         }
-        winlines[2] = "§a§lWins!";
+        winlines[2] = ChatColor.GREEN + "" + ChatColor.BOLD + "Wins!";
         winlines[3] = " ";
-        String te = " §4§lred §r§e";
+        String te = " " + ChatColor.DARK_RED + "" + ChatColor.BOLD + "red " + ChatColor.RESET + ChatColor.YELLOW;
         if (team.equalsIgnoreCase("blue")) {
-            te = " §9§lblue §r§e";
+            te = " " + ChatColor.BLUE + "" + ChatColor.BOLD + "blue " + ChatColor.RESET + ChatColor.YELLOW;
         }
         LobbyWall.getWall().setAllLines(map.getName(), null, winlines, false, true);
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
@@ -92,14 +93,14 @@ public class Game {
             public void run() {
                 String[] creditlines = new String[4];
                 creditlines[0] = " ";
-                creditlines[1] = "§lTF2 Plugin By:";
-                creditlines[2] = "§9chaseoes";
+                creditlines[1] = ChatColor.BOLD + "TF2 Plugin By:";
+                creditlines[2] = ChatColor.BLUE + "chaseoes";
                 creditlines[3] = " ";
                 LobbyWall.getWall().unsetNoUpdate(map.getName());
                 LobbyWall.getWall().setAllLines(map.getName(), 4, creditlines, false, true);
             }
         }, 120L);
-        plugin.getServer().broadcastMessage("§eThe" + te + "team has won on the map §l" + map.getName() + "§r§e!");
+        plugin.getServer().broadcastMessage(ChatColor.YELLOW + "The" + te + "team has won on the map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
         stopMatch();
     }
 
@@ -212,9 +213,9 @@ public class Game {
     }
 
     public String getTeamColor(Player player) {
-        String color = "§9§l";
+        String color = "" + ChatColor.BLUE + ChatColor.BOLD;
         if (GameUtilities.getUtilities().getTeam(player).equalsIgnoreCase("red")) {
-            color = "§4§l";
+            color = "" + ChatColor.DARK_RED + ChatColor.BOLD;
         }
         return color;
     }
@@ -263,12 +264,12 @@ public class Game {
 
         if (hours == 0) {
             if (time == 0) {
-                return minutes + " §9minutes";
+                return minutes + " " + ChatColor.BLUE + "minutes";
             }
             if (minutes == 0) {
-                return time + " §9seconds";
+                return time + " " + ChatColor.BLUE + "seconds";
             }
-            return minutes + " §9minutes §b" + time + " §9seconds";
+            return minutes + " " + ChatColor.BLUE + "minutes " + ChatColor.AQUA + time + " " + ChatColor.BLUE + "seconds";
         }
         return Math.abs(hours) + "h " + Math.abs(minutes) + "m " + Math.abs(time) + "s";
     }
@@ -295,7 +296,7 @@ public class Game {
                                 q.remove(p.getName());
                             }
                             if (!(position <= MapConfiguration.getMaps().getMap(map.getName()).getInt("playerlimit"))) {
-                                p.sendMessage("§e[TF2] You are #" + position + " in line for the map §l" + map + "§r§e.");
+                                p.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + position + " in line for the map " + ChatColor.BOLD + map + ChatColor.RESET + ChatColor.YELLOW + ".");
                             } else {
                                 joinGame(p, team);
                                 q.remove(p.getName());

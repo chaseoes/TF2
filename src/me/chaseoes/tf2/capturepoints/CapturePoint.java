@@ -3,6 +3,7 @@ package me.chaseoes.tf2.capturepoints;
 import me.chaseoes.tf2.GameUtilities;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -43,7 +44,7 @@ public class CapturePoint {
     public void startCapturing(final Player player) {
         capturing = player;
         setStatus(CaptureStatus.CAPTURING);
-        GameUtilities.getUtilities().broadcast(map, "§e[TF2] Capture point §4#" + id + " §eis being captured!");
+        GameUtilities.getUtilities().broadcast(map, ChatColor.YELLOW + "[TF2] Capture point " + ChatColor.DARK_RED + "#" + id + " " + ChatColor.YELLOW + "is being captured!");
 
         task = CapturePointUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncRepeatingTask(CapturePointUtilities.getUtilities().plugin, new Runnable() {
             Integer timeRemaining = CapturePointUtilities.getUtilities().plugin.getConfig().getInt("capture-timer");
@@ -51,7 +52,7 @@ public class CapturePoint {
             @Override
             public void run() {
                 if (timeRemaining != 0) {
-                    player.sendMessage("§e[TF2] §l§4" + timeRemaining + " §r§cseconds remaining!");
+                    player.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.BOLD  + ChatColor.DARK_RED  + timeRemaining + " " + ChatColor.RESET + ChatColor.RED + "seconds remaining!");
 //                    if (timeRemaining == timeTotal) {
 //                        player.setExp((float) 0.1);
 //                    } else {
@@ -63,7 +64,7 @@ public class CapturePoint {
                 if (timeRemaining == 0) {
                     stopCapturing();
                     setStatus(CaptureStatus.CAPTURED);
-                    GameUtilities.getUtilities().broadcast(map, "§e[TF2] Capture point §4#" + id + " §ehas been captured by §4§l" + player.getName() + "§r§e!");
+                    GameUtilities.getUtilities().broadcast(map, ChatColor.YELLOW + "[TF2] Capture point " + ChatColor.DARK_RED + "#" + id + " " + ChatColor.YELLOW + "has been captured by " + ChatColor.DARK_RED + ChatColor.BOLD + player.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
 
                     if (CapturePointUtilities.getUtilities().allCaptured(map)) {
                         GameUtilities.getUtilities().winGame(map, "red");

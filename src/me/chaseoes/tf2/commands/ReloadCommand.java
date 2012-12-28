@@ -7,6 +7,7 @@ import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -38,7 +39,7 @@ public class ReloadCommand {
             MapConfiguration.getMaps().saveMap(map);
         }
         LobbyWall.getWall().update();
-        cs.sendMessage("§e[TF2] Successfully reloaded the configuration.");
+        cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully reloaded the configuration.");
     }
 
 }

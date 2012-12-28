@@ -3,6 +3,7 @@ package me.chaseoes.tf2.commands;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.TF2;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -39,17 +40,17 @@ public class ListCommand {
                     }
                 } else {
                     if (GameUtilities.getUtilities().getTeam(plugin.getServer().getPlayerExact(pl)).equalsIgnoreCase("red")) {
-                        red.append("§4§l").append(pl).append("§r§f, ");
+                        red.append(ChatColor.DARK_RED).append(ChatColor.BOLD).append(pl).append(ChatColor.RESET).append(ChatColor.WHITE).append(", ");
                     } else {
-                        blue.append("§4§l").append(pl).append("§r§f, ");
+                        blue.append(ChatColor.DARK_RED).append(ChatColor.BOLD).append(pl).append(ChatColor.RESET).append(ChatColor.WHITE).append(", ");
                     }
                 }
 
             }
             
-            cs.sendMessage("§e[TF2] Displaying players in the map §l" + strings[1] + "§r§e:");
-            cs.sendMessage("§4§lRed team: §r\n" + red.toString());
-            cs.sendMessage("§9§lBlue team: §r\n" + blue.toString());
+            cs.sendMessage(ChatColor.YELLOW + "[TF2] Displaying players in the map " + ChatColor.BOLD + strings[1] + ChatColor.RESET + ChatColor.YELLOW + ":");
+            cs.sendMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Red team: " + ChatColor.RESET + "\n" + red.toString());
+            cs.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "Blue team: " + ChatColor.RESET + "\n" + blue.toString());
         } else if (GameUtilities.getUtilities().isIngame((Player) cs)) {
             String map = GameUtilities.getUtilities().getCurrentMap((Player) cs);
             StringBuilder red = new StringBuilder();
@@ -67,19 +68,19 @@ public class ListCommand {
                     }
                 } else {
                     if (GameUtilities.getUtilities().getTeam(plugin.getServer().getPlayerExact(pl)).equalsIgnoreCase("red")) {
-                        red.append("§4§l").append(pl).append("§r§f, ");
+                        red.append(ChatColor.DARK_RED).append(ChatColor.BOLD).append(pl).append(ChatColor.RESET).append(ChatColor.WHITE).append(", ");
                         redc++;
                     } else {
-                        blue.append("§4§l").append(pl).append("§r§f, ");
+                        blue.append(ChatColor.DARK_RED).append(ChatColor.BOLD).append(pl).append(ChatColor.RESET).append(ChatColor.WHITE).append(", ");
                         bluec++;
                     }
                 }
 
             }
             
-            cs.sendMessage("§e[TF2] Displaying players in the map §l" + map + "§r§e:");
-            cs.sendMessage("§4§lRed team (" + redc + "): §r\n" + red.toString());
-            cs.sendMessage("§9§lBlue team (" + bluec + "): §r\n" + blue.toString());
+            cs.sendMessage(ChatColor.YELLOW + "[TF2] Displaying players in the map " + ChatColor.BOLD + map + ChatColor.RESET + ChatColor.YELLOW + ":");
+            cs.sendMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Red team (" + redc + "): " + ChatColor.RESET + "\n" + red.toString());
+            cs.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "Blue team (" + bluec + "): " + ChatColor.RESET + "\n" + blue.toString());
         } else {
             h.wrongArgs();
         }

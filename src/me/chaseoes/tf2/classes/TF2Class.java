@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import me.chaseoes.tf2.GameUtilities;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
@@ -113,7 +114,7 @@ public class TF2Class {
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("[TF2] The error encountered while changing a player's class is above! Note that TF2 v2.0 has a new format for defining items - click here to view the new default configuration: http://goo.gl/LdKKR");
-                player.sendMessage("§e[TF2] §4An error occoured while changing your class. Notify the administrator to check their server log for the error.");
+                player.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.DARK_RED + "An error occoured while changing your class. Notify the administrator to check their server log for the error.");
                 clearInventory(player);
             }
         }

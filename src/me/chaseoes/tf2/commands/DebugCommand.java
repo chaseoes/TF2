@@ -14,6 +14,7 @@ import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.utilities.PastebinPoster;
 import me.chaseoes.tf2.utilities.PastebinPoster.PasteCallback;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
@@ -36,17 +37,17 @@ public class DebugCommand {
     }
 
     public void execDebugCommand(final CommandSender cs, String[] strings, Command cmnd) {
-        cs.sendMessage("§e[TF2] Uploading debug information to Pastebin...");
+        cs.sendMessage(ChatColor.YELLOW + "[TF2] Uploading debug information to Pastebin...");
         PastebinPoster.paste(getDebugInformation(), new PasteCallback() {
 
             @Override
             public void handleSuccess(String url) {
-                cs.sendMessage("§e[TF2] Debug information available for 1 day at:\n" + url);
+                cs.sendMessage(ChatColor.YELLOW + "[TF2] Debug information available for 1 day at:\n" + url);
             }
 
             @Override
             public void handleError(String err) {
-                cs.sendMessage("§e[TF2] Error encountered while uploading to Pastebin.");
+                cs.sendMessage(ChatColor.YELLOW + "[TF2] Error encountered while uploading to Pastebin.");
             }
         });
     }

@@ -11,6 +11,7 @@ import me.chaseoes.tf2.MapConfiguration;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
@@ -88,13 +89,13 @@ public class LobbyWall {
 //                                timeleft = (Sign) nztimeleft.getBlock().getState();
 //                            }
 //
-//                            LobbyWallUtilities.getUtilities().setSignLines(startsign, "Team Fortress 2", "Click here", "to join:", "§l" + map);
+//                            LobbyWallUtilities.getUtilities().setSignLines(startsign, "Team Fortress 2", "Click here", "to join:", "" + ChatColor.BOLD + "" + map);
 //                            if (!GameUtilities.getUtilities().getGameStatus(map).equalsIgnoreCase("disabled")) {
-//                                LobbyWallUtilities.getUtilities().setSignLines(status, " ", "§4§lStatus:", GameUtilities.getUtilities().getGameStatus(map), " ");
-//                                LobbyWallUtilities.getUtilities().setSignLines(teamcount, "§4§lRed Team:", GameUtilities.getUtilities().getAmountOnTeam(map, "red") + "/" + MapConfiguration.getMaps().getMap(map).getInt("playerlimit") / 2 + " Players", "§9§lBlue Team:", GameUtilities.getUtilities().getAmountOnTeam(map, "blue") + "/" + MapConfiguration.getMaps().getMap(map).getInt("playerlimit") / 2 + " Players");
-//                                LobbyWallUtilities.getUtilities().setSignLines(timeleft, " ", "§9§lTime Left:", GameUtilities.getUtilities().getTimeLeft(map), " ");
+//                                LobbyWallUtilities.getUtilities().setSignLines(status, " ", "" + ChatColor.DARK_RED + "" + ChatColor.BOLD + "Status:", GameUtilities.getUtilities().getGameStatus(map), " ");
+//                                LobbyWallUtilities.getUtilities().setSignLines(teamcount, "" + ChatColor.DARK_RED + "" + ChatColor.BOLD + "Red Team:", GameUtilities.getUtilities().getAmountOnTeam(map, "red") + "/" + MapConfiguration.getMaps().getMap(map).getInt("playerlimit") / 2 + " Players", "" + ChatColor.BLUE + "" + ChatColor.BOLD + "Blue Team:", GameUtilities.getUtilities().getAmountOnTeam(map, "blue") + "/" + MapConfiguration.getMaps().getMap(map).getInt("playerlimit") / 2 + " Players");
+//                                LobbyWallUtilities.getUtilities().setSignLines(timeleft, " ", "" + ChatColor.BLUE + "" + ChatColor.BOLD + "Time Left:", GameUtilities.getUtilities().getTimeLeft(map), " ");
 //                            } else {
-//                                LobbyWallUtilities.getUtilities().setSignLines(status, " ", "§lStatus:", "§4§lDisabled", " ");
+//                                LobbyWallUtilities.getUtilities().setSignLines(status, " ", "" + ChatColor.BOLD + "Status:", "" + ChatColor.DARK_RED + "" + ChatColor.BOLD + "Disabled", " ");
 //                                LobbyWallUtilities.getUtilities().setSignLines(teamcount, " ", "---------------------------------------------", "-------------------------------------", " ");
 //                                LobbyWallUtilities.getUtilities().setSignLines(timeleft, " ", "---------------------------------------------", "-------------------------------------", " ");
 //                            }
@@ -122,9 +123,9 @@ public class LobbyWall {
 //                                    po = (Sign) nzl.getBlock().getState();
 //                                }
 //
-//                                String color = "§9§l";
+//                                String color = "" + ChatColor.BLUE + "" + ChatColor.BOLD + "";
 //                                if (getFriendlyCaptureStatus(map, id).equalsIgnoreCase("captured")) {
-//                                    color = "§4§l";
+//                                    color = "" + ChatColor.DARK_RED + "" + ChatColor.BOLD + "";
 //                                }
 //
 //                                if (!GameUtilities.getUtilities().getGameStatus(map).equalsIgnoreCase("disabled")) {
@@ -201,13 +202,13 @@ public class LobbyWall {
                                 timeleft = (Sign) nztimeleft.getBlock().getState();
                             }
 
-                            LobbyWallUtilities.getUtilities().setSignLines(startsign, "Team Fortress 2", "Click here", "to join:", "§l" + map);
+                            LobbyWallUtilities.getUtilities().setSignLines(startsign, "Team Fortress 2", "Click here", "to join:", ChatColor.BOLD + "" + map);
                             if (!GameUtilities.getUtilities().getGameStatus(map).equalsIgnoreCase("disabled")) {
-                                LobbyWallUtilities.getUtilities().setSignLines(status, " ", "§4§lStatus:", GameUtilities.getUtilities().getGameStatus(map), " ");
-                                LobbyWallUtilities.getUtilities().setSignLines(teamcount, "§4§lRed Team:", GameUtilities.getUtilities().getAmountOnTeam(map, "red") + "/" + MapConfiguration.getMaps().getMap(map).getInt("playerlimit") / 2 + " Players", "§9§lBlue Team:", GameUtilities.getUtilities().getAmountOnTeam(map, "blue") + "/" + MapConfiguration.getMaps().getMap(map).getInt("playerlimit") / 2 + " Players");
-                                LobbyWallUtilities.getUtilities().setSignLines(timeleft, " ", "§9§lTime Left:", GameUtilities.getUtilities().getTimeLeft(map), " ");
+                                LobbyWallUtilities.getUtilities().setSignLines(status, " ", "" + ChatColor.DARK_RED + ChatColor.BOLD + "Status:", GameUtilities.getUtilities().getGameStatus(map), " ");
+                                LobbyWallUtilities.getUtilities().setSignLines(teamcount, "" + ChatColor.DARK_RED + ChatColor.BOLD + "Red Team:", GameUtilities.getUtilities().getAmountOnTeam(map, "red") + "/" + MapConfiguration.getMaps().getMap(map).getInt("playerlimit") / 2 + " Players", ChatColor.BLUE + "" + ChatColor.BOLD + "Blue Team:", GameUtilities.getUtilities().getAmountOnTeam(map, "blue") + "/" + MapConfiguration.getMaps().getMap(map).getInt("playerlimit") / 2 + " Players");
+                                LobbyWallUtilities.getUtilities().setSignLines(timeleft, " ", ChatColor.BLUE + "" + ChatColor.BOLD + "Time Left:", GameUtilities.getUtilities().getTimeLeft(map), " ");
                             } else {
-                                LobbyWallUtilities.getUtilities().setSignLines(status, " ", "§lStatus:", "§4§lDisabled", " ");
+                                LobbyWallUtilities.getUtilities().setSignLines(status, " ", ChatColor.BOLD + "Status:", ChatColor.DARK_RED + "" + ChatColor.BOLD + "Disabled", " ");
                                 LobbyWallUtilities.getUtilities().setSignLines(teamcount, " ", "---------------------------------------------", "-------------------------------------", " ");
                                 LobbyWallUtilities.getUtilities().setSignLines(timeleft, " ", "---------------------------------------------", "-------------------------------------", " ");
                             }
@@ -235,9 +236,9 @@ public class LobbyWall {
                                     po = (Sign) nzl.getBlock().getState();
                                 }
 
-                                String color = "§9§l";
+                                String color = ChatColor.BLUE + "" + ChatColor.BOLD;
                                 if (getFriendlyCaptureStatus(map, id).equalsIgnoreCase("captured")) {
-                                    color = "§4§l";
+                                    color = ChatColor.DARK_RED + "" + ChatColor.BOLD;
                                 }
 
                                 if (!GameUtilities.getUtilities().getGameStatus(map).equalsIgnoreCase("disabled")) {
@@ -318,16 +319,16 @@ public class LobbyWall {
                     if (s1) {
                         LobbyWallUtilities.getUtilities().setSignLines(startsign, lines[0], lines[1], lines[2], lines[3]);
                     } else {
-                        LobbyWallUtilities.getUtilities().setSignLines(startsign, "Team Fortress 2", "Click here", "to join:", "§l" + map);
+                        LobbyWallUtilities.getUtilities().setSignLines(startsign, "Team Fortress 2", "Click here", "to join:", ChatColor.BOLD + "" + map);
                     }
 
                     if (s2) {
                         LobbyWallUtilities.getUtilities().setSignLines(status, lines[0], lines[1], lines[2], lines[3]);
                     } else {
                         if (!GameUtilities.getUtilities().getGameStatus(map).equalsIgnoreCase("disabled")) {
-                            LobbyWallUtilities.getUtilities().setSignLines(status, " ", "§4§lStatus:", GameUtilities.getUtilities().getGameStatus(map), " ");
+                            LobbyWallUtilities.getUtilities().setSignLines(status, " ", "" + ChatColor.DARK_RED + ChatColor.BOLD + "Status:", GameUtilities.getUtilities().getGameStatus(map), " ");
                         } else {
-                            LobbyWallUtilities.getUtilities().setSignLines(status, " ", "§lStatus:", "§4§lDisabled", " ");
+                            LobbyWallUtilities.getUtilities().setSignLines(status, " ", ChatColor.BOLD + "Status:", "" + ChatColor.DARK_RED + ChatColor.BOLD + "Disabled", " ");
                         }
                     }
 

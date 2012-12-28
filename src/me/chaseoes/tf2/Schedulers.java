@@ -2,6 +2,7 @@ package me.chaseoes.tf2;
 
 import java.util.HashMap;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -52,7 +53,7 @@ public class Schedulers {
                                 
                                 if (afklimit == afktime) {
                                     GameUtilities.getUtilities().leaveCurrentGame(player);
-                                    player.sendMessage("§e[TF2] You have been kicked from the map for being AFK.");
+                                    player.sendMessage(ChatColor.YELLOW + "[TF2] You have been kicked from the map for being AFK.");
                                     LocationStore.setAFKTime(player, null);
                                     LocationStore.unsetLastLocation(player);
                                 }
@@ -91,7 +92,7 @@ public class Schedulers {
                     if (secondsleft % 10 == 0 || secondsleft < 6) {
                         for (String playe : GameUtilities.getUtilities().getIngameList(map)) {
                             if (GameUtilities.getUtilities().getTeam(plugin.getServer().getPlayerExact(playe)).equalsIgnoreCase("red")) {
-                                plugin.getServer().getPlayerExact(playe).sendMessage("§e[TF2] §4§lRed §r§eteam, you will be teleported in " + secondsleft + " seconds.");
+                                plugin.getServer().getPlayerExact(playe).sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.DARK_RED + ChatColor.BOLD + "Red " + ChatColor.RESET + ChatColor.YELLOW + "team, you will be teleported in " + secondsleft + " seconds.");
                             }
                         }
                     }
@@ -110,7 +111,7 @@ public class Schedulers {
             public void run() {
                 if (secondsLeft != 0) {
                     if (secondsLeft % 10 == 0 || secondsLeft < 6) {
-                        GameUtilities.getUtilities().broadcast(map, "§9Game starting in §b" + secondsLeft + " §9seconds!");
+                        GameUtilities.getUtilities().broadcast(map, ChatColor.BLUE + "Game starting in " + ChatColor.AQUA + secondsLeft + " " + ChatColor.BLUE + "seconds!");
                     }
                     secondsLeft--;
                 } else {
@@ -137,7 +138,7 @@ try {
                 GameUtilities.getUtilities().gametimes.put(map, current);
                 if (secondsleft != 0) {
                     if (secondsleft % 60 == 0 || secondsleft < 10) {
-                        GameUtilities.getUtilities().broadcast(map, "§9Game ending in §b" + GameUtilities.getUtilities().getTimeLeftPretty(map) + "§9!");
+                        GameUtilities.getUtilities().broadcast(map, ChatColor.BLUE + "Game ending in " + ChatColor.AQUA + GameUtilities.getUtilities().getTimeLeftPretty(map) + ChatColor.BLUE + "!");
                     }
                 }
                 secondsleft--;

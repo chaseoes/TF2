@@ -19,31 +19,31 @@ public class CommandManager implements CommandExecutor {
         CommandHelper h = new CommandHelper(cs, cmnd);
 
         if (strings.length == 0) {
-            cs.sendMessage("§3Team Fortress 2 Plugin by chaseoes.");
+            cs.sendMessage(ChatColor.DARK_AQUA + "Team Fortress 2 Plugin by chaseoes.");
             return true;
         }
 
         if (strings[0].equalsIgnoreCase("help")) {
             if (strings.length == 2 && strings[1].equalsIgnoreCase("3")) {
-                cs.sendMessage("§b[§6-----------§b] §3TF2 Help §b3 §3(§7/tf2 help [page #]§3) §b[§6-----------§b]");
-                cs.sendMessage("§c/tf2 set spawn lobby§7: Sets the global lobby spawn (no team).");
-                cs.sendMessage("§b/tf2 join <map id> [team]§7: Join a map. If a team is not provided, you will be placed randomly.");
-                cs.sendMessage("§b/tf2 leave§7: Leave the current game.");
-                cs.sendMessage("§b/tf2 list [map]§7: List players currently in the game.");
+                cs.sendMessage(ChatColor.AQUA + "[" + ChatColor.GOLD + "-----------" + ChatColor.AQUA + "] " + ChatColor.DARK_AQUA + "TF2 Help " + ChatColor.AQUA + "3 " + ChatColor.DARK_AQUA + "(" + ChatColor.GRAY + "/tf2 help [page #]" + ChatColor.DARK_AQUA + ") " + ChatColor.AQUA + "[" + ChatColor.GOLD + "-----------" + ChatColor.AQUA + "]");
+                cs.sendMessage(ChatColor.RED + "/tf2 set spawn lobby" + ChatColor.GRAY + ": Sets the global lobby spawn (no team).");
+                cs.sendMessage(ChatColor.AQUA + "/tf2 join <map id> [team]" + ChatColor.GRAY + ": Join a map. If a team is not provided, you will be placed randomly.");
+                cs.sendMessage(ChatColor.AQUA + "/tf2 leave" + ChatColor.GRAY + ": Leave the current game.");
+                cs.sendMessage(ChatColor.AQUA + "/tf2 list [map]" + ChatColor.GRAY + ": List players currently in the game.");
                 return true;
             } else if (strings.length == 2 && strings[1].equalsIgnoreCase("2")) {
-                cs.sendMessage("§b[§6-----------§b] §3TF2 Help §b2 §3(§7/tf2 help [page #]§3) §b[§6-----------§b]");
-                cs.sendMessage("§c/tf2 set timelimit <map id> <#>§7: Sets the time limit for a map (# must be in seconds).");
-                cs.sendMessage("§c/tf2 set capturepoint <map id> <#>§7: Defines capture point number <#> on the pressure plate you're standing on.");
-                cs.sendMessage("§c/tf2 set spawn <redlobby | bluelobby> <map id>§7: Sets the lobby spawn for the given team.");
-                cs.sendMessage("§c/tf2 set spawn <redteam | blueteam> <map id>§7: Sets the spawn for the given team.");
+                cs.sendMessage(ChatColor.AQUA + "[" + ChatColor.GOLD + "-----------" + ChatColor.AQUA + "] " + ChatColor.DARK_AQUA + "TF2 Help " + ChatColor.AQUA + "2 " + ChatColor.DARK_AQUA + "(" + ChatColor.GRAY + "/tf2 help [page #]" + ChatColor.DARK_AQUA + ") " + ChatColor.AQUA + "[" + ChatColor.GOLD + "-----------" + ChatColor.AQUA + "]");
+                cs.sendMessage(ChatColor.RED + "/tf2 set timelimit <map id> <#>" + ChatColor.GRAY + ": Sets the time limit for a map (# must be in seconds).");
+                cs.sendMessage(ChatColor.RED + "/tf2 set capturepoint <map id> <#>" + ChatColor.GRAY + ": Defines capture point number <#> on the pressure plate you're standing on.");
+                cs.sendMessage(ChatColor.RED + "/tf2 set spawn <redlobby | bluelobby> <map id>" + ChatColor.GRAY + ": Sets the lobby spawn for the given team.");
+                cs.sendMessage(ChatColor.RED + "/tf2 set spawn <redteam | blueteam> <map id>" + ChatColor.GRAY + ": Sets the spawn for the given team.");
                 return true;
             } else {
-                cs.sendMessage("§b[§6-----------§b] §3TF2 Help §b1 §3(§f/tf2 help [page #]§3) §b[§6-----------§b]");
-                cs.sendMessage("§c/tf2 create map <id>§7: Creates a map, <id> being the name. A WorldEdit selection is required.");
-                cs.sendMessage("§c/tf2 create classbutton <normal | donator> <class>§7: Gives you a button, which when placed, becomes a class button.");
-                cs.sendMessage("§c/tf2 create changeclassbutton§7: Gives you a button, which when placed, becomes a change class button.");
-                cs.sendMessage("§c/tf2 set playerlimit <map id> <#>§7: Sets the player limit for a map (# must be even).");
+                cs.sendMessage(ChatColor.AQUA + "[" + ChatColor.GOLD + "-----------" + ChatColor.AQUA + "] " + ChatColor.DARK_AQUA + "TF2 Help " + ChatColor.AQUA + "1 " + ChatColor.DARK_AQUA + "(" + ChatColor.WHITE + "/tf2 help [page #]" + ChatColor.DARK_AQUA + ") " + ChatColor.AQUA + "[" + ChatColor.GOLD + "-----------" + ChatColor.AQUA + "]");
+                cs.sendMessage(ChatColor.RED + "/tf2 create map <id>" + ChatColor.GRAY + ": Creates a map, <id> being the name. A WorldEdit selection is required.");
+                cs.sendMessage(ChatColor.RED + "/tf2 create classbutton <normal | donator> <class>" + ChatColor.GRAY + ": Gives you a button, which when placed, becomes a class button.");
+                cs.sendMessage(ChatColor.RED + "/tf2 create changeclassbutton" + ChatColor.GRAY + ": Gives you a button, which when placed, becomes a change class button.");
+                cs.sendMessage(ChatColor.RED + "/tf2 set playerlimit <map id> <#>" + ChatColor.GRAY + ": Sets the player limit for a map (# must be even).");
                 return true;
             }
         }

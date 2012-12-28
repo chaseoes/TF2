@@ -1,5 +1,6 @@
 package me.chaseoes.tf2.commands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -14,7 +15,7 @@ public class CommandHelper {
     }
 
     public void noPermission() {
-        sender.sendMessage("§e[TF2] You don't have permission for that.");
+        sender.sendMessage(ChatColor.YELLOW + "[TF2] You don't have permission for that.");
     }
 
     public void noConsole() {
@@ -22,13 +23,13 @@ public class CommandHelper {
     }
 
     public void wrongArgs() {
-        sender.sendMessage("§e[TF2] Incorrect command usage!");
-        sender.sendMessage("§eUsage: §o" + cmd.getUsage());
+        sender.sendMessage(ChatColor.YELLOW + "[TF2] Incorrect command usage!");
+        sender.sendMessage(ChatColor.YELLOW + "Usage: " + ChatColor.ITALIC + cmd.getUsage());
     }
     
     public void unknownCommand() {
-        sender.sendMessage("§e[TF2] Unknown command!");
-        sender.sendMessage("§e[TF2] Type §6/tf2 help §efor help.");
+        sender.sendMessage(ChatColor.YELLOW + "[TF2] Unknown command!");
+        sender.sendMessage(ChatColor.YELLOW + "[TF2] Type " + ChatColor.GOLD + "/tf2 help " + ChatColor.YELLOW + "for help.");
     }
 
 }
