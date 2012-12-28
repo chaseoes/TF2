@@ -1,6 +1,6 @@
 package me.chaseoes.tf2.capturepoints;
 
-import me.chaseoes.tf2.GameUtilities;
+import me.chaseoes.tf2.classes.GameUtilities;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

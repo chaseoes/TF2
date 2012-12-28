@@ -1,8 +1,8 @@
 package me.chaseoes.tf2.commands;
 
-import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
+import me.chaseoes.tf2.classes.GameUtilities;
 
 import org.bukkit.Material;
 import org.bukkit.command.Command;

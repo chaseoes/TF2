@@ -8,6 +8,7 @@ import org.bukkit.Location;
 
 import me.chaseoes.tf2.capturepoints.CapturePoint;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
+import me.chaseoes.tf2.classes.GameUtilities;
 
 public class Map {
     

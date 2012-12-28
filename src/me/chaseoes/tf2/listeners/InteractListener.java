@@ -2,10 +2,11 @@ package me.chaseoes.tf2.listeners;
 
 import me.chaseoes.tf2.ClassUtilities;
 import me.chaseoes.tf2.DataConfiguration;
-import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.MapConfiguration;
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.Queue;
+import me.chaseoes.tf2.classes.GameUtilities;
+import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.utilities.DataChecker;
 import me.chaseoes.tf2.utilities.GeneralUtilities;
 
@@ -102,7 +103,8 @@ public class InteractListener implements Listener {
                     for (String s : DataConfiguration.getData().getDataFile().getStringList("classbuttons")) {
                         if (ClassUtilities.getUtilities().loadClassButtonLocation(s).toString().equalsIgnoreCase(event.getClickedBlock().getLocation().toString())) {
                             if (player.hasPermission("tf2.button." + ClassUtilities.getUtilities().loadClassButtonTypeFromLocation(s))) {
-                                ClassUtilities.getUtilities().changeClass(player, ClassUtilities.getUtilities().loadClassFromLocation(s));
+                                TF2Class c = new TF2Class(ClassUtilities.getUtilities().loadClassFromLocation(s));
+                                c.apply(player);
                                 return;
                             }
                             event.getPlayer().sendMessage("§e[TF2] " + GeneralUtilities.colorize(GameUtilities.getUtilities().plugin.getConfig().getString("donor-button-noperm")));

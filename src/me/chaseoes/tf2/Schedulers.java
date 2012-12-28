@@ -2,14 +2,15 @@ package me.chaseoes.tf2;
 
 import java.util.HashMap;
 
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
-
+import me.chaseoes.tf2.classes.GameUtilities;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.utilities.LocationStore;
 
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+
 public class Schedulers {
-    
+
     private TF2 plugin;
     static Schedulers instance = new Schedulers();
     Integer afkchecker;
@@ -28,59 +29,59 @@ public class Schedulers {
     public void setup(TF2 p) {
         plugin = p;
     }
-    
+
     public void startAFKChecker() {
         final Integer afklimit = plugin.getConfig().getInt("afk-timer");
         afkchecker = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             @Override
             public void run() {
                 try {
-                for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
-                    for (String p : GameUtilities.getUtilities().getIngameList(map)) {
-                        Player player = plugin.getServer().getPlayerExact(p);
-                        Integer afktime = LocationStore.getAFKTime(player);
-                        Location lastloc = LocationStore.getLastLocation(player);
-                        Location currentloc = new Location(player.getWorld(), player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ());
-                        if (lastloc != null) {
-                            if (lastloc.getWorld().getName() == currentloc.getWorld().getName() && lastloc.getBlockX() == currentloc.getBlockX() && lastloc.getBlockY() == currentloc.getBlockY() && lastloc.getBlockZ() == currentloc.getBlockZ()) {
+                    for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
+                        for (String p : GameUtilities.getUtilities().getIngameList(map)) {
+                            Player player = plugin.getServer().getPlayerExact(p);
+                            Integer afktime = LocationStore.getAFKTime(player);
+                            Location lastloc = LocationStore.getLastLocation(player);
+                            Location currentloc = new Location(player.getWorld(), player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ());
+                            if (lastloc != null) {
+                                if (lastloc.getWorld().getName() == currentloc.getWorld().getName() && lastloc.getBlockX() == currentloc.getBlockX() && lastloc.getBlockY() == currentloc.getBlockY() && lastloc.getBlockZ() == currentloc.getBlockZ()) {
 
-                                if (afktime == null) {
-                                    LocationStore.setAFKTime(player, 1);
+                                    if (afktime == null) {
+                                        LocationStore.setAFKTime(player, 1);
+                                    } else {
+                                        LocationStore.setAFKTime(player, afktime + 1);
+                                    }
+
+                                    if (afklimit == afktime) {
+                                        GameUtilities.getUtilities().leaveCurrentGame(player);
+                                        player.sendMessage("§e[TF2] You have been kicked from the map for being AFK.");
+                                        LocationStore.setAFKTime(player, null);
+                                        LocationStore.unsetLastLocation(player);
+                                    }
                                 } else {
-                                    LocationStore.setAFKTime(player, afktime + 1);
-                                }
-                                
-                                if (afklimit == afktime) {
-                                    GameUtilities.getUtilities().leaveCurrentGame(player);
-                                    player.sendMessage("§e[TF2] You have been kicked from the map for being AFK.");
                                     LocationStore.setAFKTime(player, null);
                                     LocationStore.unsetLastLocation(player);
                                 }
+                                LocationStore.setLastLocation(player);
                             } else {
-                                LocationStore.setAFKTime(player, null);
-                                LocationStore.unsetLastLocation(player);
+                                LocationStore.setLastLocation(player);
                             }
-                            LocationStore.setLastLocation(player);
-                        } else {
-                            LocationStore.setLastLocation(player);
+
                         }
-                        
                     }
-                }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }, 0L, 20L);
     }
-    
+
     public void stopAFKChecker() {
         if (afkchecker != null) {
             plugin.getServer().getScheduler().cancelTask(afkchecker);
         }
         afkchecker = null;
     }
-    
+
     public void startRedTeamCountdown(final String map) {
         redcounter.put(map, plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             int secondsleft = MapConfiguration.getMaps().getMap(map).getInt("teleport-red-team");
@@ -100,7 +101,7 @@ public class Schedulers {
             }
         }, 0L, 20L));
     }
-    
+
     public void startCountdown(final String map) {
         GameUtilities.getUtilities().gamestatus.put(map, GameStatus.STARTING);
         countdowns.put(map, plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
@@ -132,24 +133,24 @@ public class Schedulers {
 
             @Override
             public void run() {
-try {
-                LobbyWall.getWall().update();
-                GameUtilities.getUtilities().gametimes.put(map, current);
-                if (secondsleft != 0) {
-                    if (secondsleft % 60 == 0 || secondsleft < 10) {
-                        GameUtilities.getUtilities().broadcast(map, "§9Game ending in §b" + GameUtilities.getUtilities().getTimeLeftPretty(map) + "§9!");
+                try {
+                    LobbyWall.getWall().update();
+                    GameUtilities.getUtilities().gametimes.put(map, current);
+                    if (secondsleft != 0) {
+                        if (secondsleft % 60 == 0 || secondsleft < 10) {
+                            GameUtilities.getUtilities().broadcast(map, "§9Game ending in §b" + GameUtilities.getUtilities().getTimeLeftPretty(map) + "§9!");
+                        }
                     }
+                    secondsleft--;
+                    if (current >= limit) {
+                        GameUtilities.getUtilities().winGame(map, "blue");
+                        stopTimeLimitCounter(map);
+                        GameUtilities.getUtilities().gametimes.remove(map);
+                    }
+                    current++;
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                secondsleft--;
-                if (current >= limit) {
-                    GameUtilities.getUtilities().winGame(map, "blue");
-                    stopTimeLimitCounter(map);
-                    GameUtilities.getUtilities().gametimes.remove(map);
-                }
-                current++;
-} catch (Exception e) {
-    e.printStackTrace();
-}
             }
         }, 0L, 20L));
     }
@@ -159,7 +160,7 @@ try {
             plugin.getServer().getScheduler().cancelTask(redcounter.get(map));
         }
     }
-    
+
     public void stopTimeLimitCounter(String map) {
         if (timelimitcounter.get(map) != null) {
             plugin.getServer().getScheduler().cancelTask(timelimitcounter.get(map));

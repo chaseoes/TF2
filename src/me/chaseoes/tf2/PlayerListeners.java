@@ -4,6 +4,8 @@ import java.util.List;
 
 import me.chaseoes.tf2.capturepoints.CapturePoint;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
+import me.chaseoes.tf2.classes.GameUtilities;
+import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.events.TF2DeathEvent;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.lobbywall.LobbyWallUtilities;
@@ -237,7 +239,8 @@ public class PlayerListeners implements Listener {
                 }
                 player.setHealth(20);
                 player.updateInventory();
-                ClassUtilities.getUtilities().changeClass(player, ClassUtilities.getUtilities().classes.get(player.getName()));
+                TF2Class c = new TF2Class(ClassUtilities.getUtilities().classes.get(player.getName()));
+                c.apply(player);
                 GameUtilities.getUtilities().justspawned.add(player.getName());
             }
         }, 1L);
@@ -334,7 +337,7 @@ public class PlayerListeners implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onDeath(PlayerDeathEvent e) {
+    public void onDeath(final PlayerDeathEvent e) {
         final Player damaged = e.getEntity();
         if (GameUtilities.getUtilities().isIngame(damaged)) {
             damaged.setHealth(20);
@@ -344,7 +347,8 @@ public class PlayerListeners implements Listener {
             GameUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncDelayedTask(GameUtilities.getUtilities().plugin, new Runnable() {
                 @Override
                 public void run() {
-                    ClassUtilities.getUtilities().changeClass(damaged, ClassUtilities.getUtilities().classes.get(damaged.getName()));
+                    TF2Class c = new TF2Class(ClassUtilities.getUtilities().classes.get(damaged.getName()));
+                    c.apply(damaged);
                     damaged.updateInventory();
                 }
             }, 1L);
