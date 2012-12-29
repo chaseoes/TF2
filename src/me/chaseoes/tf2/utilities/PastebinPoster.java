@@ -50,6 +50,7 @@ public class PastebinPoster {
             this.callback = callback;
         }
         
+        @SuppressWarnings("resource")
         public void run() {
             HttpURLConnection conn = null;
             OutputStream out = null;
@@ -78,7 +79,7 @@ public class PastebinPoster {
                 out.flush();
                 out.close();
                 
-                if (conn.getResponseCode() == 200) {//Get Response
+                if (conn.getResponseCode() == 200) {
                     in = conn.getInputStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(in));
                     String line;

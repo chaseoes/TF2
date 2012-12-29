@@ -4,7 +4,6 @@ import me.chaseoes.tf2.GameStatus;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
-import me.chaseoes.tf2.lobbywall.LobbyWall;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

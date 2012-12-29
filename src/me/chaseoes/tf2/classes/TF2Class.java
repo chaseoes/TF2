@@ -1,6 +1,6 @@
 package me.chaseoes.tf2.classes;
 
-import java.util.ArrayList;
+import java.util.logging.Level;
 
 
 import me.chaseoes.tf2.GameUtilities;
@@ -28,6 +28,7 @@ public class TF2Class {
     }
 
     // Apply the class to a player (returns true if it was successful).
+    @SuppressWarnings("deprecation")
     public boolean apply(Player player) {
         if (GameUtilities.getUtilities().isIngame(player)) {
             try {
@@ -86,7 +87,6 @@ public class TF2Class {
                 player.getInventory().setBoots(armor[3]);
 
                 // Loop through inventory items.
-                ArrayList<ItemStack> inventory = new ArrayList<ItemStack>();
                 for (String fullitem : config.getStringList("inventory")) {
                     String[] items = fullitem.split("\\.");
                     ItemStack i = new ItemStack(Material.getMaterial(Integer.parseInt(items[0])), Integer.parseInt(items[1]));
@@ -113,7 +113,7 @@ public class TF2Class {
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
-                System.out.println("[TF2] The error encountered while changing a player's class is above! Note that TF2 v2.0 has a new format for defining items - click here to view the new default configuration: http://goo.gl/LdKKR");
+                GameUtilities.getUtilities().plugin.getLogger().log(Level.SEVERE, "The error encountered while changing a player's class is above! Note that TF2 v2.0 has a new format for defining items - click here to view the new default configuration: http://goo.gl/LdKKR");
                 player.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.DARK_RED + "An error occoured while changing your class. Notify the administrator to check their server log for the error.");
                 clearInventory(player);
             }
@@ -121,6 +121,7 @@ public class TF2Class {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     public void clearInventory(Player player) {
         player.getInventory().clear();
         player.getInventory().setHelmet(new ItemStack(Material.AIR));

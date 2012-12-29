@@ -7,7 +7,6 @@ import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import me.chaseoes.tf2.classes.ClassUtilities;
 import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.events.TF2DeathEvent;
-import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.lobbywall.LobbyWallUtilities;
 import me.chaseoes.tf2.utilities.DataChecker;
 import me.chaseoes.tf2.utilities.LocationStore;
@@ -65,7 +64,6 @@ public class PlayerListeners implements Listener {
                 DataConfiguration.getData().reloadData();
                 MapConfiguration.getMaps().saveMap(map);
                 DataConfiguration.getData().saveData();
-                TF2 plugin = GameUtilities.getUtilities().plugin;
                 event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] Successfully created a join sign!");
             }
         }
@@ -231,7 +229,6 @@ public class PlayerListeners implements Listener {
                     GameUtilities.getUtilities().setKills(killer, 1);
                 }
                 player.setHealth(20);
-                player.updateInventory();
                 TF2Class c = new TF2Class(ClassUtilities.getUtilities().classes.get(player.getName()));
                 c.apply(player);
                 GameUtilities.getUtilities().justspawned.add(player.getName());
@@ -342,7 +339,6 @@ public class PlayerListeners implements Listener {
                 public void run() {
                     TF2Class c = new TF2Class(ClassUtilities.getUtilities().classes.get(damaged.getName()));
                     c.apply(damaged);
-                    damaged.updateInventory();
                 }
             }, 1L);
         }

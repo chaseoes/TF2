@@ -4,7 +4,6 @@ import me.chaseoes.tf2.DataConfiguration;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.MapConfiguration;
 import me.chaseoes.tf2.MapUtilities;
-import me.chaseoes.tf2.Queue;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.utilities.DataChecker;
 

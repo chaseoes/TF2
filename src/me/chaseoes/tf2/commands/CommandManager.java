@@ -1,15 +1,10 @@
 package me.chaseoes.tf2.commands;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 
-import me.chaseoes.tf2.GameUtilities;
-import me.chaseoes.tf2.utilities.IconMenu;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 public class CommandManager implements CommandExecutor {
 

@@ -74,7 +74,7 @@ public class LobbyWall {
                         int amountonred = GameUtilities.getUtilities().getAmountOnTeam(map, "red");
                         int amountonblue = GameUtilities.getUtilities().getAmountOnTeam(map, "blue");
                         String maptimeleft = GameUtilities.getUtilities().getTimeLeft(map);
-                        System.out.println(mapstatus);
+                        
                         LobbyWallUtilities.getUtilities().setSignLines(startsign, "Team Fortress 2", "Click here", "to join:", ChatColor.BOLD + "" + map);
                         if (!GameUtilities.getUtilities().getGameStatus(map).equalsIgnoreCase("disabled")) {
                             LobbyWallUtilities.getUtilities().setSignLines(status, " ", "" + ChatColor.DARK_RED + ChatColor.BOLD + "Status:", mapstatus, " ");
@@ -171,7 +171,8 @@ public class LobbyWall {
             LobbyWallUtilities.getUtilities().setSignLines(timeleft, lines[0], lines[1], lines[2], lines[3]);
 
             Sign po = timeleft;
-            for (Location point : plugin.getMap(map).getCapturePoints()) {
+            int i = 0;
+            while (i <= plugin.getMap(map).getCapturePoints().size()) {
                 if (!po.getBlock().getRelative(direction).getType().equals(Material.WALL_SIGN)) {
                     Block block = po.getBlock().getRelative(direction);
                     block.setTypeIdAndData(Material.WALL_SIGN.getId(), startblock.getData(), false);
@@ -180,6 +181,7 @@ public class LobbyWall {
                 }
                 po = (Sign) po.getBlock().getRelative(direction).getState();
                 LobbyWallUtilities.getUtilities().setSignLines(po, lines[0], lines[1], lines[2], lines[3]);
+                i++;
             }
             if (duration != null) {
                 plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
@@ -209,6 +211,7 @@ public class LobbyWall {
         return null;
     }
 
+    @SuppressWarnings("incomplete-switch")
     public BlockFace rotate90Deg(BlockFace face) {
         switch (face) {
             case NORTH:
@@ -231,7 +234,6 @@ public class LobbyWall {
                 @Override
                 public void run() {
                     for (final String map : DataConfiguration.getData().getDataFile().getStringList("enabled-maps")) {
-                        System.out.println(lobby);
                         updateWall(map);
                     }
                 }

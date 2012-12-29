@@ -109,6 +109,7 @@ public class Game {
         stopMatch();
     }
 
+    @SuppressWarnings("deprecation")
     public void joinGame(Player player, String team) {
         inventories.put(player.getName(), player.getInventory().getContents());
         armorinventories.put(player.getName(), player.getInventory().getArmorContents());
@@ -134,6 +135,7 @@ public class Game {
         player.updateInventory();
     }
 
+    @SuppressWarnings("deprecation")
     public void leaveGame(Player player) {
         kills.remove(player.getName());
         deaths.remove(player.getName());

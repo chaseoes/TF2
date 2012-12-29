@@ -1,12 +1,7 @@
 package me.chaseoes.tf2.commands;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
-import java.nio.charset.Charset;
 import java.util.Scanner;
 
 import me.chaseoes.tf2.MapUtilities;
@@ -81,19 +76,6 @@ public class DebugCommand {
             e.printStackTrace();
         }
         return info.toString();
-    }
-
-    private static String readFile(File path) throws IOException {
-        FileInputStream stream = new FileInputStream(path);
-        try {
-            FileChannel fc = stream.getChannel();
-            MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
-            /* Instead of using default, pass in a decoder. */
-            fc.close();
-            return Charset.defaultCharset().decode(bb).toString();
-        } finally {
-            stream.close();
-        }
     }
 
 }
