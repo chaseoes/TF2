@@ -226,7 +226,7 @@ public class LobbyWall {
     int lobby = -1;
 
     public void startTask() {
-        if (lobby != -1) {
+        if (lobby == -1) {
             lobby = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
                 @Override
                 public void run() {
