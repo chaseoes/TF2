@@ -123,12 +123,14 @@ public class Game {
         TagAPI.refreshPlayer(player);
         kills.put(player.getName(), 0);
         deaths.put(player.getName(), 0);
+        double currentpercent = (double) getIngameList().size() / MapConfiguration.getMaps().getMap(map.getName()).getInt("playerlimit") * 100;
         if (getStatus().equals(GameStatus.WAITING)) {
-            if ((double) getIngameList().size() / MapConfiguration.getMaps().getMap(map.getName()).getInt("playerlimit") * 100 >= plugin.getConfig().getInt("autostart-percent")) {
+            if (currentpercent >= plugin.getConfig().getInt("autostart-percent")) {
                 Schedulers.getSchedulers().startCountdown(map.getName());
                 setStatus(GameStatus.STARTING);
             }
         }
+        player.sendMessage(ChatColor.YELLOW + "[TF2] The game will start when " + plugin.getConfig().getInt("autostart-percent") + "% of the maximum amount of players for this map have joined.");
         player.updateInventory();
     }
 

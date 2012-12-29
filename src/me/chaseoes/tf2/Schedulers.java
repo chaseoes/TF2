@@ -132,7 +132,7 @@ public class Schedulers {
             @Override
             public void run() {
                 try {
-                    GameUtilities.getUtilities().gametimes.put(map, current);
+                    GameUtilities.getUtilities().games.get(map).time = current;
                     if (secondsleft != 0) {
                         if (secondsleft % 60 == 0 || secondsleft < 10) {
                             GameUtilities.getUtilities().broadcast(map, ChatColor.BLUE + "Game ending in " + ChatColor.AQUA + GameUtilities.getUtilities().getTimeLeftPretty(map) + ChatColor.BLUE + "!");
