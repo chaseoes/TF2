@@ -35,6 +35,7 @@ import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
@@ -369,6 +370,19 @@ public class PlayerListeners implements Listener {
             return null;
         }
         return s.replaceAll("&([l-ok0-8k9a-f])", "\u00A7$1");
+    }
+
+    @EventHandler
+    public void onLogin(PlayerJoinEvent event) {
+        final Player player = event.getPlayer();
+        if (player.hasPermission("tf2.create") && GameUtilities.getUtilities().plugin.uc.needsUpdate()) {
+            GameUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncDelayedTask(GameUtilities.getUtilities().plugin, new Runnable() {
+                @Override
+                public void run() {
+                    GameUtilities.getUtilities().plugin.uc.nagPlayer(player);
+                }
+            }, 60L);
+        }
     }
 
 }

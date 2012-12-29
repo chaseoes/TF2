@@ -21,6 +21,7 @@ import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.lobbywall.LobbyWallUtilities;
 import me.chaseoes.tf2.lobbywall.WorldEditUtilities;
 import me.chaseoes.tf2.utilities.SerializableLocation;
+import me.chaseoes.tf2.utilities.UpdateChecker;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -28,6 +29,7 @@ public class TF2 extends JavaPlugin {
 
     public HashMap<String, Queue> queues = new HashMap<String, Queue>();
     public HashMap<String, Map> maps = new HashMap<String, Map>();
+    UpdateChecker uc;
 
     @Override
     public void onEnable() {
@@ -37,34 +39,37 @@ public class TF2 extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
-        
+
         if (getServer().getPluginManager().getPlugin("WorldEdit") == null) {
             getLogger().log(Level.SEVERE, "The WorldEdit plugin is required to run TF2. Disabling...");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
-        
+
         getCommand("tf2").setExecutor(new CommandManager());
         getServer().getPluginManager().registerEvents(new PlayerListeners(), this);
         getServer().getPluginManager().registerEvents(new InteractListener(), this);
         getConfig().options().copyDefaults(true);
         saveConfig();
         Schedulers.getSchedulers().startAFKChecker();
-        
+
         for (String map : DataConfiguration.getData().getDataFile().getStringList("enabled-maps")) {
             maps.put(map, new Map(map));
             GameUtilities.getUtilities().addGame(maps.get(map));
             queues.put(map, new Queue(map));
             GameUtilities.getUtilities().setRedHasBeenTeleported(map, false);
         }
-        
+
         GameUtilities.getUtilities().coolpeople.add("chaseoes");
         GameUtilities.getUtilities().coolpeople.add("skitscape");
         GameUtilities.getUtilities().coolpeople.add("AntVenom");
         GameUtilities.getUtilities().coolpeople.add("Fawdz");
         GameUtilities.getUtilities().coolpeople.add("Double0Negative");
-        
+
         LobbyWall.getWall().startTask();
+
+        uc = new UpdateChecker(this);
+        uc.startTask();
     }
 
     @Override
@@ -100,7 +105,7 @@ public class TF2 extends JavaPlugin {
         SetCommand.getCommand().setup(this);
         DebugCommand.getCommand().setup(this);
         SerializableLocation.getUtilities().setup(this);
-        
+
     }
 
     public Queue getQueue(String map) {
