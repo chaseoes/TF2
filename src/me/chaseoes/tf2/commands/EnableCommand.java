@@ -34,7 +34,6 @@ public class EnableCommand {
             String map = strings[1];
             MapUtilities.getUtilities().enableMap(map);
             GameUtilities.getUtilities().setStatus(map, GameStatus.WAITING);
-            LobbyWall.getWall().unDisable(map);
             cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully enabled " + ChatColor.BOLD + map + ChatColor.RESET + ChatColor.YELLOW + ".");
         } else {
             h.wrongArgs();

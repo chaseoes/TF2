@@ -45,11 +45,9 @@ public class InteractListener implements Listener {
 
             if (event.hasBlock() && (event.getClickedBlock().getType() == Material.WALL_SIGN || event.getClickedBlock().getType() == Material.SIGN_POST)) {
                 Sign s = (Sign) event.getClickedBlock().getState();
-                String map = ChatColor.stripColor(s.getLine(3));
-                String team = GameUtilities.getUtilities().decideTeam(map);
-                
-
                 if (s.getLine(0).equalsIgnoreCase("Team Fortress 2") && s.getLine(2).equalsIgnoreCase("to join:")) {
+                    String map = ChatColor.stripColor(s.getLine(3));
+                    String team = GameUtilities.getUtilities().decideTeam(map);
                     DataChecker dc = new DataChecker(map);
                     if (!dc.allGood()) {
                         player.sendMessage(ChatColor.YELLOW + "[TF2] This map has not yet been setup.");

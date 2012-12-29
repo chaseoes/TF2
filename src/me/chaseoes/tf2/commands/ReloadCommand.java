@@ -38,7 +38,6 @@ public class ReloadCommand {
             MapConfiguration.getMaps().reloadMap(map);
             MapConfiguration.getMaps().saveMap(map);
         }
-        LobbyWall.getWall().update();
         cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully reloaded the configuration.");
     }
 

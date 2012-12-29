@@ -51,12 +51,12 @@ public class PlayerListeners implements Listener {
                 String map = event.getLine(2);
                 final Player player = event.getPlayer();
                 DataChecker dc = new DataChecker(map);
-                if (!dc.allGood()) {
+                if (!dc.allGoodExceptLobbyWall()) {
                     player.sendMessage(ChatColor.YELLOW + "[TF2] This map has not yet been setup.");
                     player.sendMessage(ChatColor.YELLOW + "[TF2] Type " + ChatColor.GOLD + "/tf2 checkdata " + map + " " + ChatColor.YELLOW + "to see what else needs to be done.");
                     event.setLine(0, "");
-                    event.setLine(1, "");
-                    event.setLine(2, "");
+                    event.setLine(1, "/tf2 checkdata");
+                    event.setLine(2, "default");
                     event.setLine(3, "");
                     return;
                 }
@@ -66,13 +66,6 @@ public class PlayerListeners implements Listener {
                 MapConfiguration.getMaps().saveMap(map);
                 DataConfiguration.getData().saveData();
                 TF2 plugin = GameUtilities.getUtilities().plugin;
-                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-                    @Override
-                    public void run() {
-                        LobbyWall.getWall().update();
-                        player.performCommand("tf2 reload");
-                    }
-                }, 60L);
                 event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] Successfully created a join sign!");
             }
         }

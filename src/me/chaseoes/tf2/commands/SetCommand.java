@@ -72,7 +72,6 @@ public class SetCommand {
             if (strings.length == 4) {
                 if (Integer.parseInt(strings[3]) % 2 == 0) {
                     MapUtilities.getUtilities().setPlayerLimit(strings[2], Integer.parseInt(strings[3]));
-                    LobbyWall.getWall().update();
                     cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully set the playerlimit for " + strings[2] + " to " + strings[3] + ".");
                 } else {
                     cs.sendMessage(ChatColor.YELLOW + "[TF2] Yo! Don't use no odd numbers for dat shit, mofo.");

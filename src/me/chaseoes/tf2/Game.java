@@ -1,7 +1,15 @@
 package me.chaseoes.tf2;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
+import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -9,8 +17,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.kitteh.tag.TagAPI;
-
-import java.util.*;
 
 public class Game {
 
@@ -28,7 +34,7 @@ public class Game {
     public HashMap<String, String> teams = new HashMap<String, String>();
     public HashMap<String, String> capturepoints = new HashMap<String, String>();
 
-    //TODO: Convert to player metadata
+    // TODO: Convert to player metadata
     public HashSet<String> makingchangeclassbutton = new HashSet<String>();
     public HashSet<String> usingchangeclassbutton = new HashSet<String>();
 
@@ -96,7 +102,6 @@ public class Game {
                 creditlines[1] = ChatColor.BOLD + "TF2 Plugin By:";
                 creditlines[2] = ChatColor.BLUE + "chaseoes";
                 creditlines[3] = " ";
-                LobbyWall.getWall().unsetNoUpdate(map.getName());
                 LobbyWall.getWall().setAllLines(map.getName(), 4, creditlines, false, true);
             }
         }, 120L);
@@ -107,14 +112,14 @@ public class Game {
     public void joinGame(Player player, String team) {
         inventories.put(player.getName(), player.getInventory().getContents());
         armorinventories.put(player.getName(), player.getInventory().getArmorContents());
-        player.getInventory().clear();
+        TF2Class c = new TF2Class("NONE");
+        c.clearInventory(player);
         playersInGame.add(player.getName());
         teams.put(player.getName(), team);
         player.setHealth(20);
         player.setFoodLevel(20);
         player.setGameMode(GameMode.SURVIVAL);
         player.teleport(MapUtilities.getUtilities().loadTeamLobby(map.getName(), team));
-        LobbyWall.getWall().update();
         TagAPI.refreshPlayer(player);
         kills.put(player.getName(), 0);
         deaths.put(player.getName(), 0);
@@ -145,9 +150,8 @@ public class Game {
         if (getIngameList().size() == 0) {
             stopMatch();
         }
-        LobbyWall.getWall().update();
-        player.getInventory().setArmorContents(null);
-        player.getInventory().setContents(null);
+        TF2Class c = new TF2Class("NONE");
+        c.clearInventory(player);
         if (inventories.containsKey(player.getName())) {
             player.getInventory().setContents(inventories.get(player.getName()));
             inventories.remove(player.getName());
@@ -202,13 +206,14 @@ public class Game {
         return status;
     }
 
-    public String getName(){
+    public String getName() {
         return map.getName();
     }
 
     public String getTeam(Player p) {
-        if (p != null)
+        if (p != null) {
             return teams.get(p.getName());
+        }
         return null;
     }
 
@@ -274,8 +279,8 @@ public class Game {
         return Math.abs(hours) + "h " + Math.abs(minutes) + "m " + Math.abs(time) + "s";
     }
 
-    public void broadcast(String message){
-        for(String player : playersInGame){
+    public void broadcast(String message) {
+        for (String player : playersInGame) {
             Bukkit.getServer().getPlayerExact(player).sendMessage(message);
         }
     }

@@ -1,5 +1,6 @@
 package me.chaseoes.tf2.utilities;
 
+import me.chaseoes.tf2.DataConfiguration;
 import me.chaseoes.tf2.MapConfiguration;
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
@@ -84,8 +85,22 @@ public class DataChecker {
         }
         return true;
     }
+    
+    public Boolean lobbyWallHasBeenSet() {
+        if (DataConfiguration.getData().getDataFile().getString("lobbywall." + map + ".w") != null) {
+            return true;
+        }
+        return false;
+    }
 
     public Boolean allGood() {
+        if (globalLobbySet() && capturePointOneHasBeenSet() && teamLobbyHasBeenSet("red") && teamLobbyHasBeenSet("blue") && teamSpawnHasBeenSet("red") && teamSpawnHasBeenSet("blue") && playerLimitHasBeenSet() && timeLimitHasBeenSet() && redTPHasBeenSet() && lobbyWallHasBeenSet()) {
+            return true;
+        }
+        return false;
+    }
+    
+    public Boolean allGoodExceptLobbyWall() {
         if (globalLobbySet() && capturePointOneHasBeenSet() && teamLobbyHasBeenSet("red") && teamLobbyHasBeenSet("blue") && teamSpawnHasBeenSet("red") && teamSpawnHasBeenSet("blue") && playerLimitHasBeenSet() && timeLimitHasBeenSet() && redTPHasBeenSet()) {
             return true;
         }

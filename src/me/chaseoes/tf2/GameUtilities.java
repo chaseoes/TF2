@@ -3,19 +3,11 @@ package me.chaseoes.tf2;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 
-import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
-import me.chaseoes.tf2.lobbywall.LobbyWall;
-
-import org.bukkit.GameMode;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.kitteh.tag.TagAPI;
 
 public class GameUtilities {
 
@@ -53,7 +45,7 @@ public class GameUtilities {
         plugin = p;
     }
 
-    public void addGame(Map map){
+    public void addGame(Map map) {
         games.put(map.getName(), new Game(map, plugin));
     }
 
@@ -62,8 +54,12 @@ public class GameUtilities {
     }
 
     public void leaveCurrentGame(Player player) {
-        String map = getCurrentMap(player);
-        games.get(map).leaveGame(player);
+        if (isIngame(player)) {
+            String map = getCurrentMap(player);
+            games.get(map).leaveGame(player);
+        } else {
+            player.sendMessage(ChatColor.YELLOW + "[TF2] You are not playing TF2!");
+        }
     }
 
     public void startMatch(final String map) {
@@ -100,7 +96,11 @@ public class GameUtilities {
     }
 
     public List<String> getIngameList(String map) {
-        return games.get(map).getIngameList();
+        if (games.containsKey(map)) {
+            return games.get(map).getIngameList();
+        }
+        List<String> list = new ArrayList<String>();
+        return list;
     }
 
     public String getTeam(Player player) {
@@ -113,25 +113,28 @@ public class GameUtilities {
     }
 
     public String getCurrentMap(Player player) {
-        for(Game game : games.values()){
-            if(game.isIngame(player))
+        for (Game game : games.values()) {
+            if (game.isIngame(player)) {
                 return game.getName();
+            }
         }
         return null;
     }
 
     public String getGameStatus(String map) {
-        GameStatus status = games.get(map).getStatus();
-        if (status == GameStatus.INGAME) {
-            return "In-Game";
-        } else if (status == GameStatus.STARTING) {
-            return "Starting";
-        } else if (status == GameStatus.WAITING) {
-            return "Waiting";
-        } else if (status == GameStatus.DISABLED) {
-            return "Disabled";
+        if (games.containsKey(map)) {
+            GameStatus status = games.get(map).getStatus();
+            if (status == GameStatus.INGAME) {
+                return "In-Game";
+            } else if (status == GameStatus.STARTING) {
+                return "Starting";
+            } else if (status == GameStatus.WAITING) {
+                return "Waiting";
+            } else if (status == GameStatus.DISABLED) {
+                return "Disabled";
+            }
         }
-        return null;
+        return "ERROR";
     }
 
     public String getTimeLeft(String map) {
@@ -155,23 +158,23 @@ public class GameUtilities {
         games.get(map).checkQueue();
     }
 
-    public void setKills(Player player, int kills){
+    public void setKills(Player player, int kills) {
         games.get(getCurrentMap(player)).kills.put(player.getName(), kills);
     }
 
-    public Integer getKills(Player player){
+    public Integer getKills(Player player) {
         return games.get(getCurrentMap(player)).kills.get(player.getName());
     }
 
-    public boolean getRedHasBeenTeleported(String map){
+    public boolean getRedHasBeenTeleported(String map) {
         return games.get(map).redHasBeenTeleported;
     }
 
-    public void setRedHasBeenTeleported(String map, boolean bool){
+    public void setRedHasBeenTeleported(String map, boolean bool) {
         games.get(map).redHasBeenTeleported = bool;
     }
 
-    public void setStatus(String map, GameStatus status){
+    public void setStatus(String map, GameStatus status) {
         games.get(map).setStatus(status);
     }
 

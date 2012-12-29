@@ -54,10 +54,9 @@ public class TF2 extends JavaPlugin {
         
         for (String map : DataConfiguration.getData().getDataFile().getStringList("enabled-maps")) {
             maps.put(map, new Map(map));
-            queues.put(map, new Queue(map));
-            LobbyWall.getWall().update();
-            GameUtilities.getUtilities().setRedHasBeenTeleported(map, false);
             GameUtilities.getUtilities().addGame(maps.get(map));
+            queues.put(map, new Queue(map));
+            GameUtilities.getUtilities().setRedHasBeenTeleported(map, false);
         }
         
         GameUtilities.getUtilities().coolpeople.add("chaseoes");
@@ -65,7 +64,8 @@ public class TF2 extends JavaPlugin {
         GameUtilities.getUtilities().coolpeople.add("AntVenom");
         GameUtilities.getUtilities().coolpeople.add("Fawdz");
         GameUtilities.getUtilities().coolpeople.add("Double0Negative");
-        getServer().getScheduler().cancelTasks(this);
+        
+        LobbyWall.getWall().startTask();
     }
 
     @Override
@@ -74,6 +74,7 @@ public class TF2 extends JavaPlugin {
         for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
             GameUtilities.getUtilities().stopMatch(map);
         }
+        getServer().getScheduler().cancelTasks(this);
     }
 
     public void setupClasses() {
