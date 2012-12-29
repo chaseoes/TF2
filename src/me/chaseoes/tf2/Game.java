@@ -77,6 +77,7 @@ public class Game {
             leaveGame(p);
             p.sendMessage(ChatColor.YELLOW + "[TF2] The game has ended.");
         }
+        CapturePointUtilities.getUtilities().uncaptureAll(map);
         redHasBeenTeleported = false;
     }
 
@@ -105,6 +106,7 @@ public class Game {
                 LobbyWall.getWall().setAllLines(map.getName(), 4, creditlines, false, true);
             }
         }, 120L);
+        CapturePointUtilities.getUtilities().uncaptureAll(map);
         plugin.getServer().broadcastMessage(ChatColor.YELLOW + "The" + te + "team has won on the map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
         stopMatch();
     }

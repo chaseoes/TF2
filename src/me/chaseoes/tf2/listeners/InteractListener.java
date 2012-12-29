@@ -21,6 +21,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class InteractListener implements Listener {
 
+    @SuppressWarnings("deprecation")
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerInteract(PlayerInteractEvent event) {
         try {
