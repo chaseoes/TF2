@@ -223,17 +223,19 @@ public class LobbyWall {
         return null;
     }
 
-    int lobby;
+    int lobby = -1;
 
     public void startTask() {
-        lobby = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
-            @Override
-            public void run() {
-                for (final String map : DataConfiguration.getData().getDataFile().getStringList("enabled-maps")) {
-                    System.out.println(lobby);
-                    updateWall(map);
+        if (lobby != -1) {
+            lobby = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+                @Override
+                public void run() {
+                    for (final String map : DataConfiguration.getData().getDataFile().getStringList("enabled-maps")) {
+                        System.out.println(lobby);
+                        updateWall(map);
+                    }
                 }
-            }
-        }, 0L, 20L);
+            }, 0L, 20L);
+        }
     }
 }
