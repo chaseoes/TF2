@@ -172,7 +172,7 @@ public class LobbyWall {
 
             Sign po = timeleft;
             int i = 0;
-            while (i <= plugin.getMap(map).getCapturePoints().size()) {
+            while (i < plugin.getMap(map).getCapturePoints().size()) {
                 if (!po.getBlock().getRelative(direction).getType().equals(Material.WALL_SIGN)) {
                     Block block = po.getBlock().getRelative(direction);
                     block.setTypeIdAndData(Material.WALL_SIGN.getId(), startblock.getData(), false);
