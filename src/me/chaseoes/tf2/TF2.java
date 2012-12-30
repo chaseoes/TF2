@@ -19,11 +19,11 @@ import me.chaseoes.tf2.commands.SetCommand;
 import me.chaseoes.tf2.listeners.BlockBreakListener;
 import me.chaseoes.tf2.listeners.BlockPlaceListener;
 import me.chaseoes.tf2.listeners.FoodLevelChangeListener;
-import me.chaseoes.tf2.listeners.PlayerInteractListener;
 import me.chaseoes.tf2.listeners.PlayerCommandPreprocessListener;
 import me.chaseoes.tf2.listeners.PlayerDamageByEntityListener;
 import me.chaseoes.tf2.listeners.PlayerDeathListener;
 import me.chaseoes.tf2.listeners.PlayerDropItemListener;
+import me.chaseoes.tf2.listeners.PlayerInteractListener;
 import me.chaseoes.tf2.listeners.PlayerJoinListener;
 import me.chaseoes.tf2.listeners.PlayerMoveListener;
 import me.chaseoes.tf2.listeners.PlayerQuitListener;
@@ -35,9 +35,13 @@ import me.chaseoes.tf2.listeners.TF2DeathListener;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.lobbywall.LobbyWallUtilities;
 import me.chaseoes.tf2.lobbywall.WorldEditUtilities;
+import me.chaseoes.tf2.utilities.IconMenu;
 import me.chaseoes.tf2.utilities.SerializableLocation;
 import me.chaseoes.tf2.utilities.UpdateChecker;
 
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -45,10 +49,12 @@ public class TF2 extends JavaPlugin {
 
     public HashMap<String, Queue> queues = new HashMap<String, Queue>();
     public HashMap<String, Map> maps = new HashMap<String, Map>();
+    public HashMap<String, String> usingSetSpawnMenu = new HashMap<String, String>();
     public UpdateChecker uc;
+    public IconMenu setSpawnMenu;
     private static TF2 instance;
 
-    public static TF2 getInstance(){
+    public static TF2 getInstance() {
         return instance;
     }
 
@@ -82,6 +88,32 @@ public class TF2 extends JavaPlugin {
 
         uc = new UpdateChecker(this);
         uc.startTask();
+
+        setSpawnMenu = new IconMenu("Set Spawns", 9, new IconMenu.OptionClickEventHandler() {
+            @Override
+            public void onOptionClick(IconMenu.OptionClickEvent event) {
+                String map = usingSetSpawnMenu.get(event.getPlayer().getName());
+                String name = ChatColor.stripColor(event.getName());
+                if (name.equalsIgnoreCase("Blue Lobby")) {
+                    MapUtilities.getUtilities().setTeamLobby(map, Team.BLUE, event.getPlayer().getLocation());
+                    event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] Successfully set the blue team's lobby.");
+                    usingSetSpawnMenu.remove(event.getPlayer().getName());
+                } else if (name.equalsIgnoreCase("Red Lobby")) {
+                    MapUtilities.getUtilities().setTeamLobby(map, Team.RED, event.getPlayer().getLocation());
+                    event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] Successfully set the red team's lobby.");
+                    usingSetSpawnMenu.remove(event.getPlayer().getName());
+                } else if (name.equalsIgnoreCase("Blue Spawn")) {
+                    MapUtilities.getUtilities().setTeamSpawn(map, Team.BLUE, event.getPlayer().getLocation());
+                    event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] Successfully set the blue team's spawn.");
+                    usingSetSpawnMenu.remove(event.getPlayer().getName());
+                } else if (name.equalsIgnoreCase("Red Spawn")) {
+                    MapUtilities.getUtilities().setTeamSpawn(map, Team.RED, event.getPlayer().getLocation());
+                    event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] Successfully set the red team's spawn.");
+                    usingSetSpawnMenu.remove(event.getPlayer().getName());
+                }
+                event.setWillClose(true);
+            }
+        }, this).setOption(2, new ItemStack(Material.getMaterial(331), 1), ChatColor.DARK_RED + "" + ChatColor.BOLD + "Red Lobby" + ChatColor.RESET, ChatColor.WHITE + "Set the red team lobby.").setOption(3, new ItemStack(Material.getMaterial(351), 1, (short) 4), ChatColor.AQUA + "" + ChatColor.BOLD + "Blue Lobby" + ChatColor.RESET, ChatColor.WHITE + "Set the blue team lobby.").setOption(4, new ItemStack(Material.WOOL, 1, (short) 14), ChatColor.DARK_RED + "" + ChatColor.BOLD + "Red Spawn" + ChatColor.RESET, ChatColor.WHITE + "Set the red team's spawn.").setOption(5, new ItemStack(Material.WOOL, 1, (short) 11), ChatColor.AQUA + "" + ChatColor.BOLD + "Blue Spawn" + ChatColor.RESET, ChatColor.WHITE + "Set the blue team's spawn.").setOption(6, new ItemStack(Material.BEDROCK, 1), ChatColor.RED + "" + ChatColor.BOLD + "Exit" + ChatColor.RESET, ChatColor.RED + "Exit this menu.");
     }
 
     @Override
@@ -146,7 +178,7 @@ public class TF2 extends JavaPlugin {
         return maps.get(map);
     }
 
-    public void addMap(String map){
+    public void addMap(String map) {
         maps.put(map, new Map(this, map));
         GameUtilities.getUtilities().addGame(maps.get(map));
         queues.put(map, new Queue(map));

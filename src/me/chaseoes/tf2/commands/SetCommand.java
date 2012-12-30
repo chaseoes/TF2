@@ -1,17 +1,13 @@
 package me.chaseoes.tf2.commands;
 
-import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
-import me.chaseoes.tf2.Team;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import me.chaseoes.tf2.utilities.IconMenu;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 public class SetCommand {
 
@@ -41,26 +37,8 @@ public class SetCommand {
                     cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully set the global lobby.");
                 } else {
                     final String map = strings[2];
-                    IconMenu menu = new IconMenu("Map: " + ChatColor.BOLD + map, 9, new IconMenu.OptionClickEventHandler() {
-                        @Override
-                        public void onOptionClick(IconMenu.OptionClickEvent event) {
-                            String name = ChatColor.stripColor(event.getName());
-                            if (name.equalsIgnoreCase("Blue Lobby")) {
-                                MapUtilities.getUtilities().setTeamLobby(map, Team.BLUE, player.getLocation());
-                                cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully set the blue team's lobby.");
-                            } else if (name.equalsIgnoreCase("Red Lobby")) {
-                                MapUtilities.getUtilities().setTeamLobby(map, Team.RED, player.getLocation());
-                                cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully set the red team's lobby.");
-                            } else if (name.equalsIgnoreCase("Blue Spawn")) {
-                                MapUtilities.getUtilities().setTeamSpawn(map, Team.BLUE, player.getLocation());
-                                cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully set the blue team's spawn.");
-                            } else if (name.equalsIgnoreCase("Red Spawn")) {
-                                MapUtilities.getUtilities().setTeamSpawn(map, Team.RED, player.getLocation());
-                                cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully set the red team's spawn.");
-                            }
-                            event.setWillClose(true);
-                        }
-                    }, GameUtilities.getUtilities().plugin).setOption(2, new ItemStack(Material.getMaterial(331), 1), ChatColor.DARK_RED + "" + ChatColor.BOLD + "Red Lobby" + ChatColor.RESET, ChatColor.WHITE + "Set the red team lobby.").setOption(3, new ItemStack(Material.getMaterial(351), 1, (short) 4), ChatColor.AQUA + "" + ChatColor.BOLD + "Blue Lobby" + ChatColor.RESET, ChatColor.WHITE + "Set the blue team lobby.").setOption(4, new ItemStack(Material.WOOL, 1, (short) 14), ChatColor.DARK_RED + "" + ChatColor.BOLD + "Red Spawn" + ChatColor.RESET, ChatColor.WHITE + "Set the red team's spawn.").setOption(5, new ItemStack(Material.WOOL, 1, (short) 11), ChatColor.AQUA + "" + ChatColor.BOLD + "Blue Spawn" + ChatColor.RESET, ChatColor.WHITE + "Set the blue team's spawn.").setOption(6, new ItemStack(Material.BEDROCK, 1), ChatColor.RED + "" + ChatColor.BOLD + "Exit" + ChatColor.RESET, ChatColor.RED + "Exit this menu.");
+                    TF2.getInstance().usingSetSpawnMenu.put(cs.getName(), map);
+                    IconMenu menu = TF2.getInstance().setSpawnMenu;
                     menu.open((Player) cs);
                 }
             } else {

@@ -132,11 +132,11 @@ public class Game {
         playersInGame.add(player);
         player.setMap(getName());
         player.setInLobby(true);
+        player.setTeam(team);
         TF2Class c = new TF2Class("NONE");
 
         player.saveInventory();
         c.clearInventory(player.getPlayer());
-        player.setTeam(team);
         player.getPlayer().setHealth(20);
         player.getPlayer().setFoodLevel(20);
         player.getPlayer().setGameMode(GameMode.SURVIVAL);
