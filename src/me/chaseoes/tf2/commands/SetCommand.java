@@ -1,12 +1,11 @@
 package me.chaseoes.tf2.commands;
 
 import me.chaseoes.tf2.GameUtilities;
-import me.chaseoes.tf2.MapConfiguration;
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
+import me.chaseoes.tf2.Team;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import me.chaseoes.tf2.utilities.IconMenu;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -47,16 +46,16 @@ public class SetCommand {
                         public void onOptionClick(IconMenu.OptionClickEvent event) {
                             String name = ChatColor.stripColor(event.getName());
                             if (name.equalsIgnoreCase("Blue Lobby")) {
-                                MapUtilities.getUtilities().setTeamLobby(map, "blue", player.getLocation());
+                                MapUtilities.getUtilities().setTeamLobby(map, Team.BLUE, player.getLocation());
                                 cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully set the blue team's lobby.");
                             } else if (name.equalsIgnoreCase("Red Lobby")) {
-                                MapUtilities.getUtilities().setTeamLobby(map, "red", player.getLocation());
+                                MapUtilities.getUtilities().setTeamLobby(map, Team.RED, player.getLocation());
                                 cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully set the red team's lobby.");
                             } else if (name.equalsIgnoreCase("Blue Spawn")) {
-                                MapUtilities.getUtilities().setTeamSpawn(map, "blue", player.getLocation());
+                                MapUtilities.getUtilities().setTeamSpawn(map, Team.BLUE, player.getLocation());
                                 cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully set the blue team's spawn.");
                             } else if (name.equalsIgnoreCase("Red Spawn")) {
-                                MapUtilities.getUtilities().setTeamSpawn(map, "red", player.getLocation());
+                                MapUtilities.getUtilities().setTeamSpawn(map, Team.RED, player.getLocation());
                                 cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully set the red team's spawn.");
                             }
                             event.setWillClose(true);
@@ -88,8 +87,7 @@ public class SetCommand {
             }
         } else if (strings[1].equalsIgnoreCase("redtp")) {
             if (strings.length == 4) {
-                MapConfiguration.getMaps().getMap(strings[2]).set("teleport-red-team", Integer.parseInt(strings[3]));
-                MapConfiguration.getMaps().saveMap(strings[2]);
+                TF2.getInstance().getMap(strings[2]).setRedTeamTeleportTime(Integer.parseInt(strings[3]));
                 cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully set the red teleport time for " + strings[2] + " to " + strings[3] + ".");
             }
         } else {

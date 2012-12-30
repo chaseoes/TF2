@@ -2,6 +2,7 @@ package me.chaseoes.tf2.listeners;
 
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.MapUtilities;
+import me.chaseoes.tf2.Team;
 import me.chaseoes.tf2.classes.ClassUtilities;
 import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.events.TF2DeathEvent;
@@ -22,7 +23,7 @@ public class TF2DeathListener implements Listener {
                 final Player player = event.getPlayer();
                 final Player killer = event.getKiller();
 
-                player.teleport(MapUtilities.getUtilities().loadTeamSpawn(GameUtilities.getUtilities().getCurrentMap(player), GameUtilities.getUtilities().getTeam(player)));
+                player.teleport(MapUtilities.getUtilities().loadTeamSpawn(GameUtilities.getUtilities().getCurrentMap(player), Team.match(GameUtilities.getUtilities().getTeam(player))));
                 player.sendMessage(ChatColor.YELLOW + "[TF2] You were killed by " + GameUtilities.getUtilities().getTeamColor(killer) + killer.getName() + " " + ChatColor.RESET + ChatColor.YELLOW + "(" + ClassUtilities.getUtilities().classes.get(killer.getName()) + ")!");
                 killer.sendMessage(ChatColor.YELLOW + "[TF2] You killed " + GameUtilities.getUtilities().getTeamColor(player) + player.getName() + " " + ChatColor.RESET + ChatColor.YELLOW + "(" + ClassUtilities.getUtilities().classes.get(player.getName()) + ")!");
                 killer.playSound(killer.getLocation(), Sound.valueOf(GameUtilities.getUtilities().plugin.getConfig().getString("killsound.sound")), GameUtilities.getUtilities().plugin.getConfig().getInt("killsound.volume"), GameUtilities.getUtilities().plugin.getConfig().getInt("killsound.pitch"));

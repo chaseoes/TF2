@@ -1,8 +1,9 @@
 package me.chaseoes.tf2.utilities;
 
 import me.chaseoes.tf2.DataConfiguration;
-import me.chaseoes.tf2.MapConfiguration;
 import me.chaseoes.tf2.MapUtilities;
+import me.chaseoes.tf2.TF2;
+import me.chaseoes.tf2.Team;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 
 public class DataChecker {
@@ -24,7 +25,7 @@ public class DataChecker {
 
     public Boolean teamLobbyHasBeenSet(String team) {
         try {
-            MapUtilities.getUtilities().loadTeamLobby(map, team);
+            MapUtilities.getUtilities().loadTeamLobby(map, Team.match(team));
         } catch (Exception e) {
             return false;
         }
@@ -33,7 +34,7 @@ public class DataChecker {
 
     public Boolean teamSpawnHasBeenSet(String team) {
         try {
-            MapUtilities.getUtilities().loadTeamSpawn(map, team);
+            MapUtilities.getUtilities().loadTeamSpawn(map, Team.match(team));
         } catch (Exception e) {
             return false;
         }
@@ -41,40 +42,40 @@ public class DataChecker {
     }
 
     public Boolean playerLimitHasBeenSet() {
-        if (MapConfiguration.getMaps().getMap(map).getInt("playerlimit") >= 2) {
+        if (TF2.getInstance().getMap(map).getPlayerlimit() >= 2) {
             return true;
         }
         return false;
     }
 
     public Integer getPlayerLimit() {
-        return MapConfiguration.getMaps().getMap(map).getInt("playerlimit");
+        return TF2.getInstance().getMap(map).getPlayerlimit();
     }
 
     public Boolean timeLimitHasBeenSet() {
-        if (MapConfiguration.getMaps().getMap(map).getInt("timelimit") >= 1) {
+        if (TF2.getInstance().getMap(map).getTimelimit() >= 1) {
             return true;
         }
         return false;
     }
 
     public Integer getTimeLimit() {
-        return MapConfiguration.getMaps().getMap(map).getInt("timelimit");
+        return TF2.getInstance().getMap(map).getTimelimit();
     }
 
     public Boolean redTPHasBeenSet() {
-        if (MapConfiguration.getMaps().getMap(map).getInt("teleport-red-team") >= 1) {
+        if (TF2.getInstance().getMap(map).getRedTeamTeleportTime() >= 1) {
             return true;
         }
         return false;
     }
 
     public Integer getRedTP() {
-        return MapConfiguration.getMaps().getMap(map).getInt("teleport-red-team");
+        return TF2.getInstance().getMap(map).getRedTeamTeleportTime();
     }
 
     public Integer totalNumberOfCapturePoints() {
-        return MapConfiguration.getMaps().getMap(map).getConfigurationSection("capture-points").getKeys(false).size();
+        return TF2.getInstance().getMap(map).getCapturePoints().size();
     }
 
     public Boolean globalLobbySet() {

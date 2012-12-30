@@ -41,7 +41,7 @@ public class Game {
         for (GamePlayer gp : playersInGame) {
             Player player = gp.getPlayer();
             if (gp.getTeam() == Team.BLUE) {
-                player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), "blue"));
+                player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), Team.BLUE));
             }
         }
         
@@ -51,14 +51,14 @@ public class Game {
                 for (GamePlayer gp : playersInGame) {
                     Player player = gp.getPlayer();
                     if (gp.getTeam() == Team.RED) {
-                        player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), "red"));
+                        player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), Team.RED));
                     }
                 }
                 
                 redHasBeenTeleported = true;
                 Schedulers.getSchedulers().stopRedTeamCountdown(map.getName());
             }
-        }, MapConfiguration.getMaps().getMap(map.getName()).getInt("teleport-red-team") * 20L);
+        }, map.getRedTeamTeleportTime() * 20L);
     }
 
     public void stopMatch() {
@@ -124,10 +124,10 @@ public class Game {
         player.setHealth(20);
         player.setFoodLevel(20);
         player.setGameMode(GameMode.SURVIVAL);
-        player.teleport(MapUtilities.getUtilities().loadTeamLobby(map.getName(), team.name()));
+        player.teleport(MapUtilities.getUtilities().loadTeamLobby(map.getName(), team));
         TagAPI.refreshPlayer(player);
 
-        double currentpercent = (double) playersInGame.size() / MapConfiguration.getMaps().getMap(map.getName()).getInt("playerlimit") * 100;
+        double currentpercent = (double) playersInGame.size() / map.getPlayerlimit() * 100;
         if (getStatus().equals(GameStatus.WAITING)) {
             if (currentpercent >= plugin.getConfig().getInt("autostart-percent")) {
                 Schedulers.getSchedulers().startCountdown(map.getName());
@@ -136,7 +136,7 @@ public class Game {
         }
         
         player.sendMessage(ChatColor.YELLOW + "[TF2] You joined the map " + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
-        player.sendMessage(ChatColor.YELLOW + "The game will start when " + (((MapConfiguration.getMaps().getMap(map.getName()).getInt("playerlimit") * 100) / plugin.getConfig().getInt("autostart-percent")) - playersInGame.size() * MapConfiguration.getMaps().getMap(map.getName()).getInt("playerlimit")) + " players have joined.");
+        player.sendMessage(ChatColor.YELLOW + "The game will start when " + (((map.getPlayerlimit() * 100) / plugin.getConfig().getInt("autostart-percent")) - playersInGame.size() * map.getPlayerlimit()) + " players have joined.");
         player.updateInventory();
         player.setMetadata("tf2.inclasslobby", new FixedMetadataValue(plugin, true));
     }
@@ -216,7 +216,7 @@ public class Game {
     }
 
     public Integer getTimeLeftSeconds() {
-        return MapConfiguration.getMaps().getMap(map.getName()).getInt("timelimit") - time;
+        return map.getTimelimit() - time;
     }
 
     public String getTimeLeft() {
@@ -280,7 +280,7 @@ public class Game {
                             if (q.contains(p)) {
                                 q.remove(p.getName());
                             }
-                            if (!(position <= MapConfiguration.getMaps().getMap(map.getName()).getInt("playerlimit"))) {
+                            if (!(position <= map.getPlayerlimit())) {
                                 p.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + position + " in line for the map " + ChatColor.BOLD + map + ChatColor.RESET + ChatColor.YELLOW + ".");
                             } else {
                                 joinGame(p, team);

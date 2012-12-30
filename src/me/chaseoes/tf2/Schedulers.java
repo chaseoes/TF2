@@ -83,7 +83,7 @@ public class Schedulers {
 
     public void startRedTeamCountdown(final String map) {
         redcounter.put(map, plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
-            int secondsleft = MapConfiguration.getMaps().getMap(map).getInt("teleport-red-team");
+            int secondsleft = plugin.getMap(map).getRedTeamTeleportTime();
 
             @Override
             public void run() {
@@ -124,10 +124,10 @@ public class Schedulers {
     }
 
     public void startTimeLimitCounter(final String map) {
-        final int limit = MapConfiguration.getMaps().getMap(map).getInt("timelimit");
+        final int limit = plugin.getMap(map).getTimelimit();
         timelimitcounter.put(map, plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             int current = 0;
-            int secondsleft = MapConfiguration.getMaps().getMap(map).getInt("timelimit");
+            int secondsleft = plugin.getMap(map).getTimelimit();
 
             @Override
             public void run() {

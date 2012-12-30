@@ -1,22 +1,20 @@
 package me.chaseoes.tf2.lobbywall;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-
 import me.chaseoes.tf2.DataConfiguration;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.Map;
-import me.chaseoes.tf2.MapConfiguration;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
 
 public class LobbyWall {
 
@@ -81,7 +79,7 @@ public class LobbyWall {
                         LobbyWallUtilities.getUtilities().setSignLines(startsign, "Team Fortress 2", "Click here", "to join:", ChatColor.BOLD + "" + map);
                         if (!GameUtilities.getUtilities().getGameStatus(map).equalsIgnoreCase("disabled")) {
                             LobbyWallUtilities.getUtilities().setSignLines(status, " ", "" + ChatColor.DARK_RED + ChatColor.BOLD + "Status:", mapstatus, " ");
-                            LobbyWallUtilities.getUtilities().setSignLines(teamcount, "" + ChatColor.DARK_RED + ChatColor.BOLD + "Red Team:", amountonred + "/" + MapConfiguration.getMaps().getMap(map).getInt("playerlimit") / 2 + " Players", ChatColor.BLUE + "" + ChatColor.BOLD + "Blue Team:", amountonblue + "/" + MapConfiguration.getMaps().getMap(map).getInt("playerlimit") / 2 + " Players");
+                            LobbyWallUtilities.getUtilities().setSignLines(teamcount, "" + ChatColor.DARK_RED + ChatColor.BOLD + "Red Team:", amountonred + "/" + plugin.getMap(map).getPlayerlimit() / 2 + " Players", ChatColor.BLUE + "" + ChatColor.BOLD + "Blue Team:", amountonblue + "/" + plugin.getMap(map).getPlayerlimit() / 2 + " Players");
                             LobbyWallUtilities.getUtilities().setSignLines(timeleft, " ", ChatColor.BLUE + "" + ChatColor.BOLD + "Time Left:", maptimeleft, " ");
                         } else {
                             LobbyWallUtilities.getUtilities().setSignLines(status, " ", ChatColor.BOLD + "Status:", ChatColor.DARK_RED + "" + ChatColor.BOLD + "Disabled", " ");
@@ -91,7 +89,7 @@ public class LobbyWall {
                         // Last sign that isnt a capture point so we can
                         // bounce off of it
                         Sign po = timeleft;
-                        for (Location point : m.getCapturePoints()) {
+                        for (Location point : m.getCapturePointsLocations()) {      //TODO: FIX THIS FROM OUT OF ORDERNESS
                             Integer id = CapturePointUtilities.getUtilities().getIDFromLocation(point);
                             if (!po.getBlock().getRelative(direction).getType().equals(Material.WALL_SIGN)) {
                                 Block block = po.getBlock().getRelative(direction);
@@ -117,6 +115,7 @@ public class LobbyWall {
 
             } catch (Exception e) {
                 plugin.getLogger().log(Level.WARNING, "Encountered an error while trying to update the lobby wall.");
+                e.printStackTrace();
             }
         }
     }

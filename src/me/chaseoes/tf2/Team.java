@@ -14,4 +14,12 @@ public enum Team {
     public String getName(){
         return name;
     }
+
+    public static Team match(String str){
+        for (Team team : Team.values()){
+            if(team.getName().equalsIgnoreCase(str))
+                return team;
+        }
+        return null;
+    }
 }
