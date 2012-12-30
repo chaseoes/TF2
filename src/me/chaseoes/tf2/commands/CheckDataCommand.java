@@ -65,7 +65,7 @@ public class CheckDataCommand {
                 cs.sendMessage(ChatColor.AQUA + "Red team teleport timer defined? " + ChatColor.DARK_RED + ChatColor.BOLD + "No.");
             }
             if (dc.lobbyWallHasBeenSet()) {
-                cs.sendMessage(ChatColor.AQUA + "Lobby wall has been created? " + ChatColor.DARK_GREEN + "Yes. " + ChatColor.GRAY + "(" + ChatColor.DARK_GREEN + dc.getRedTP() + ChatColor.GRAY + ")");
+                cs.sendMessage(ChatColor.AQUA + "Lobby wall has been created? " + ChatColor.DARK_GREEN + "Yes.");
             } else {
                 cs.sendMessage(ChatColor.AQUA + "Lobby wall has been created? " + ChatColor.DARK_RED + ChatColor.BOLD + "No.");
             }
