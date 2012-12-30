@@ -36,7 +36,6 @@ public class LobbyWall {
 
     private void updateWall(String map) {
         if (!cantUpdate.contains(map)) {
-            System.out.println("UPDATING");
             try {
                 Map m = plugin.getMap(map);
                 if (DataConfiguration.getData().getDataFile().getString("lobbywall." + map + ".w") != null) {
@@ -125,7 +124,6 @@ public class LobbyWall {
             if (!cantUpdate.contains(map)) {
                 cantUpdate.add(map);
             }
-            System.out.println("CANT UPDATE");
             final Block startblock = LobbyWallUtilities.getUtilities().loadSignLocation(map).getBlock();
             final Sign startsign = (Sign) startblock.getState();
             final org.bukkit.material.Sign matSign = (org.bukkit.material.Sign) startblock.getState().getData();
@@ -194,7 +192,6 @@ public class LobbyWall {
                     @Override
                     public void run() {
                         cantUpdate.remove(map);
-                        System.out.println("CAN UPDATE");
                     }
                 }, duration * 20L);
             }
@@ -240,7 +237,6 @@ public class LobbyWall {
             lobby = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
                 @Override
                 public void run() {
-                    System.out.println(cantUpdate);
                     for (final String map : DataConfiguration.getData().getDataFile().getStringList("enabled-maps")) {
                         if (!cantUpdate.contains(map)) {
                             updateWall(map);
