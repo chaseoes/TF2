@@ -1,5 +1,20 @@
 package me.chaseoes.tf2.listeners;
 
-public class FoodLevelChangeListener {
+import me.chaseoes.tf2.GameUtilities;
+
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
+
+public class FoodLevelChangeListener implements Listener {
+    
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onLoseHunger(FoodLevelChangeEvent event) {
+        if (event.getEntity() instanceof Player && GameUtilities.getUtilities().isIngame((Player) event.getEntity())) {
+            event.setCancelled(true);
+        }
+    }
 
 }
