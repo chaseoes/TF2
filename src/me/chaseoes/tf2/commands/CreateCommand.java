@@ -1,5 +1,6 @@
 package me.chaseoes.tf2.commands;
 
+import me.chaseoes.tf2.GamePlayer;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
@@ -49,9 +50,11 @@ public class CreateCommand {
         } else if (strings[1].equalsIgnoreCase("classbutton")) {
             if (strings.length == 4 && (strings[2].equalsIgnoreCase("normal") || strings[2].equalsIgnoreCase("donator"))) {
                 Player p = (Player) cs;
+                GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(p);
                 String classname = strings[3];
-                GameUtilities.getUtilities().makingclassbutton.put(p.getName(), classname);
-                GameUtilities.getUtilities().makingclassbuttontype.put(p.getName(), strings[2]);
+                gp.setMakingClassButton(true);
+                gp.setClassButtonName(classname);
+                gp.setClassButtonType(strings[2]);
                 if (p.getGameMode() == GameMode.CREATIVE) {
                     if (!p.getInventory().contains(Material.STONE_BUTTON)) {
                         p.getInventory().addItem(new ItemStack(Material.STONE_BUTTON));
@@ -66,7 +69,7 @@ public class CreateCommand {
         } else if (strings[1].equalsIgnoreCase("changeclassbutton")) {
             if (strings.length == 2) {
                 Player p = (Player) cs;
-                GameUtilities.getUtilities().makingchangeclassbutton.add(p.getName());
+                GameUtilities.getUtilities().getGamePlayer(p).setMakingChangeClassButton(true);
                 if (p.getGameMode() == GameMode.CREATIVE) {
                     if (!p.getInventory().contains(Material.STONE_BUTTON)) {
                         p.getInventory().addItem(new ItemStack(Material.STONE_BUTTON));

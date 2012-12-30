@@ -2,6 +2,7 @@ package me.chaseoes.tf2.listeners;
 
 import me.chaseoes.tf2.GameUtilities;
 
+import me.chaseoes.tf2.TF2;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,11 +13,12 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void onLogin(PlayerJoinEvent event) {
         final Player player = event.getPlayer();
+        GameUtilities.getUtilities().playerJoinServer(player);
         if (player.hasPermission("tf2.create") && GameUtilities.getUtilities().plugin.uc.needsUpdate()) {
-            GameUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncDelayedTask(GameUtilities.getUtilities().plugin, new Runnable() {
+            TF2.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(TF2.getInstance(), new Runnable() {
                 @Override
                 public void run() {
-                    GameUtilities.getUtilities().plugin.uc.nagPlayer(player);
+                    TF2.getInstance().uc.nagPlayer(player);
                 }
             }, 60L);
         }

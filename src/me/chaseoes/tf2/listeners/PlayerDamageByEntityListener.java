@@ -1,6 +1,7 @@
 package me.chaseoes.tf2.listeners;
 
 import me.chaseoes.tf2.GameUtilities;
+import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.events.TF2DeathEvent;
 import me.chaseoes.tf2.utilities.LocationStore;
 
@@ -57,7 +58,7 @@ public class PlayerDamageByEntityListener implements Listener {
                     }
 
                     if (damaged.getHealth() - event.getDamage() <= 0) {
-                        GameUtilities.getUtilities().plugin.getServer().getPluginManager().callEvent(new TF2DeathEvent(damaged, damager));
+                        TF2.getInstance().getServer().getPluginManager().callEvent(new TF2DeathEvent(damaged, damager));
                     }
 
                 }
@@ -80,7 +81,7 @@ public class PlayerDamageByEntityListener implements Listener {
                         }
 
                         if (damaged.getHealth() - event.getDamage() <= 0) {
-                            GameUtilities.getUtilities().plugin.getServer().getPluginManager().callEvent(new TF2DeathEvent(damaged, damager));
+                            TF2.getInstance().getServer().getPluginManager().callEvent(new TF2DeathEvent(damaged, damager));
                             event.setCancelled(true);
                         }
                     }

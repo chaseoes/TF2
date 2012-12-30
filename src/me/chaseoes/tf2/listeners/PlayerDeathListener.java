@@ -1,6 +1,7 @@
 package me.chaseoes.tf2.listeners;
 
 import me.chaseoes.tf2.GameUtilities;
+import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.events.TF2DeathEvent;
 
@@ -21,10 +22,10 @@ public class PlayerDeathListener implements Listener {
             e.getDrops().clear();
             e.setDeathMessage(null);
             Bukkit.getServer().getPluginManager().callEvent(new TF2DeathEvent(damaged, damaged));
-            GameUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncDelayedTask(GameUtilities.getUtilities().plugin, new Runnable() {
+            TF2.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(TF2.getInstance(), new Runnable() {
                 @Override
                 public void run() {
-                    TF2Class c = GameUtilities.getUtilities().getCurrentGame(damaged).getPlayer(damaged).getCurrentClass();
+                    TF2Class c = GameUtilities.getUtilities().getGamePlayer(damaged).getCurrentClass();
                     c.apply(damaged);
                 }
             }, 1L);

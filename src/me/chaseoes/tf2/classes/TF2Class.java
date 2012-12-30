@@ -35,7 +35,7 @@ public class TF2Class {
         if (GameUtilities.getUtilities().isIngame(player)) {
             try {
                 // Clear their inventory.
-                GamePlayer gp = GameUtilities.getUtilities().getCurrentGame(player).getPlayer(player);
+                GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(player);
                 clearInventory(player);
 
                 // Loop through potion effects.

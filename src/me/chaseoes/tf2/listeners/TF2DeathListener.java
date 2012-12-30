@@ -23,9 +23,9 @@ public class TF2DeathListener implements Listener {
             @Override
             public void run() {
                 final Player player = event.getPlayer();
-                GamePlayer playerg = GameUtilities.getUtilities().getCurrentGame(player).getPlayer(player);
+                GamePlayer playerg = GameUtilities.getUtilities().getGamePlayer(player);
                 final Player killer = event.getKiller();
-                GamePlayer killerg = GameUtilities.getUtilities().getCurrentGame(killer).getPlayer(killer);
+                GamePlayer killerg = GameUtilities.getUtilities().getGamePlayer(killer);
 
                 player.teleport(MapUtilities.getUtilities().loadTeamSpawn(GameUtilities.getUtilities().getCurrentMap(player), Team.match(GameUtilities.getUtilities().getTeam(player))));
                 player.sendMessage(ChatColor.YELLOW + "[TF2] You were killed by " + GameUtilities.getUtilities().getTeamColor(killer) + killer.getName() + " " + ChatColor.RESET + ChatColor.YELLOW + "(" + killerg.getCurrentClass().getName() + ")!");

@@ -17,6 +17,9 @@ public class GamePlayer {
     boolean inLobby;
     boolean usingChangeClassButton;
     boolean makingChangeClassButton;
+    boolean makingClassButton;
+    String classButtonType;
+    String classButtonName;
     TF2Class currentClass;
 
     ItemStack[] savedInventoryItems;
@@ -160,6 +163,30 @@ public class GamePlayer {
 
     public boolean isMakingChangeClassButton() {
         return makingChangeClassButton;
+    }
+
+    public void setMakingClassButton(boolean b) {
+        makingClassButton = b;
+    }
+
+    public boolean isMakingClassButton() {
+        return makingClassButton;
+    }
+
+    public void setClassButtonType(String s) {
+        classButtonType = s;
+    }
+
+    public String getClassButtonType() {
+        return classButtonType;
+    }
+
+    public void setClassButtonName(String name) {
+        classButtonName = name;
+    }
+
+    public String getClassButtonName() {
+        return classButtonName;
     }
 
     public TF2Class getCurrentClass() {

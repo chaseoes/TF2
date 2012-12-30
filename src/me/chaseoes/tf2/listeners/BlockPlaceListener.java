@@ -3,6 +3,7 @@ package me.chaseoes.tf2.listeners;
 import java.util.List;
 
 import me.chaseoes.tf2.DataConfiguration;
+import me.chaseoes.tf2.GamePlayer;
 import me.chaseoes.tf2.GameUtilities;
 
 import org.bukkit.ChatColor;
@@ -18,22 +19,24 @@ public class BlockPlaceListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
-        if (GameUtilities.getUtilities().makingclassbutton.containsKey(player.getName()) && (event.getBlockPlaced().getType() == Material.STONE_BUTTON || event.getBlockPlaced().getType() == Material.WOOD_BUTTON)) {
+        GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(player);
+        if (gp.isMakingClassButton() && (event.getBlockPlaced().getType() == Material.STONE_BUTTON || event.getBlockPlaced().getType() == Material.WOOD_BUTTON)) {
             List<String> classbs = DataConfiguration.getData().getDataFile().getStringList("classbuttons");
-            classbs.add(event.getBlockPlaced().getWorld().getName() + "." + event.getBlockPlaced().getLocation().getBlockX() + "." + event.getBlockPlaced().getLocation().getBlockY() + "." + event.getBlockPlaced().getLocation().getBlockZ() + "." + GameUtilities.getUtilities().makingclassbuttontype.get(player.getName()) + "." + GameUtilities.getUtilities().makingclassbutton.get(player.getName()));
+            classbs.add(event.getBlockPlaced().getWorld().getName() + "." + event.getBlockPlaced().getLocation().getBlockX() + "." + event.getBlockPlaced().getLocation().getBlockY() + "." + event.getBlockPlaced().getLocation().getBlockZ() + "." + gp.getClassButtonType() + "." + gp.getClassButtonName());
             DataConfiguration.getData().saveData();
             DataConfiguration.getData().getDataFile().set("classbuttons", classbs);
             DataConfiguration.getData().saveData();
-            player.sendMessage(ChatColor.YELLOW + "[TF2] Successfully made a " + GameUtilities.getUtilities().makingclassbuttontype.get(player.getName()) + " class button for the class " + ChatColor.ITALIC + GameUtilities.getUtilities().makingclassbutton.get(player.getName()) + ChatColor.RESET + "" + ChatColor.YELLOW + ".");
-            GameUtilities.getUtilities().makingclassbutton.remove(player.getName());
-            GameUtilities.getUtilities().makingclassbuttontype.remove(player.getName());
+            player.sendMessage(ChatColor.YELLOW + "[TF2] Successfully made a " + gp.getClassButtonType() + " class button for the class " + ChatColor.ITALIC + gp.getClassButtonName() + ChatColor.RESET + "" + ChatColor.YELLOW + ".");
+            gp.setMakingClassButton(false);
+            gp.setClassButtonName(null);
+            gp.setClassButtonType(null);
         }
 
-        if (GameUtilities.getUtilities().makingchangeclassbutton.contains(player.getName()) && (event.getBlockPlaced().getType() == Material.STONE_BUTTON || event.getBlockPlaced().getType() == Material.WOOD_BUTTON)) {
+        if (GameUtilities.getUtilities().getGamePlayer(player).isMakingChangeClassButton() && (event.getBlockPlaced().getType() == Material.STONE_BUTTON || event.getBlockPlaced().getType() == Material.WOOD_BUTTON)) {
             List<String> classbs = DataConfiguration.getData().getDataFile().getStringList("changeclassbuttons");
             classbs.add(event.getBlockPlaced().getWorld().getName() + "." + event.getBlockPlaced().getLocation().getBlockX() + "." + event.getBlockPlaced().getLocation().getBlockY() + "." + event.getBlockPlaced().getLocation().getBlockZ());
             DataConfiguration.getData().getDataFile().set("changeclassbuttons", classbs);
-            GameUtilities.getUtilities().makingchangeclassbutton.remove(player.getName());
+            gp.setMakingChangeClassButton(false);
             DataConfiguration.getData().saveData();
             player.sendMessage(ChatColor.YELLOW + "[TF2] Successfully made a change class button.");
         }

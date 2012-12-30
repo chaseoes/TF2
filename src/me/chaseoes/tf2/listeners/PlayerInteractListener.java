@@ -29,7 +29,7 @@ public class PlayerInteractListener implements Listener {
         try {
             Player player = event.getPlayer();
             if (GameUtilities.getUtilities().isIngame(player)) {
-                GamePlayer gp = GameUtilities.getUtilities().getCurrentGame(player).getPlayer(player);
+                GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(player);
                 if (player.getItemInHand().getType() == Material.getMaterial(373) || player.getItemInHand().getType() == Material.BOW) {
                     if (GameUtilities.getUtilities().justspawned.contains(player.getName())) {
                         event.setCancelled(true);
@@ -99,7 +99,7 @@ public class PlayerInteractListener implements Listener {
 
             if (event.hasBlock() && (event.getClickedBlock().getType() == Material.STONE_BUTTON || event.getClickedBlock().getType() == Material.WOOD_BUTTON)) {
                 if (GameUtilities.getUtilities().isIngame(player)) {
-                    GamePlayer gp = GameUtilities.getUtilities().getCurrentGame(player).getPlayer(player);
+                    GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(player);
                     for (String s : DataConfiguration.getData().getDataFile().getStringList("classbuttons")) {
                         if (ClassUtilities.getUtilities().loadClassButtonLocation(s).toString().equalsIgnoreCase(event.getClickedBlock().getLocation().toString())) {
                             if (player.hasPermission("tf2.button." + ClassUtilities.getUtilities().loadClassButtonTypeFromLocation(s))) {

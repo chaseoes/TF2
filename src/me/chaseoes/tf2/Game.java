@@ -128,21 +128,20 @@ public class Game {
     }
 
     @SuppressWarnings("deprecation")
-    public void joinGame(Player player, Team team) {
-        playersInGame.add(new GamePlayer(player));
-        GamePlayer gp = getPlayer(player);
-        gp.setMap(getName());
-        gp.setInLobby(true);
+    public void joinGame(GamePlayer player, Team team) {
+        playersInGame.add(player);
+        player.setMap(getName());
+        player.setInLobby(true);
         TF2Class c = new TF2Class("NONE");
 
-        gp.saveInventory();
-        c.clearInventory(player);
-        gp.setTeam(team);
-        player.setHealth(20);
-        player.setFoodLevel(20);
-        player.setGameMode(GameMode.SURVIVAL);
-        player.teleport(MapUtilities.getUtilities().loadTeamLobby(map.getName(), team));
-        TagAPI.refreshPlayer(player);
+        player.saveInventory();
+        c.clearInventory(player.getPlayer());
+        player.setTeam(team);
+        player.getPlayer().setHealth(20);
+        player.getPlayer().setFoodLevel(20);
+        player.getPlayer().setGameMode(GameMode.SURVIVAL);
+        player.getPlayer().teleport(MapUtilities.getUtilities().loadTeamLobby(map.getName(), team));
+        TagAPI.refreshPlayer(player.getPlayer());
 
         double currentpercent = (double) playersInGame.size() / map.getPlayerlimit() * 100;
         if (getStatus().equals(GameStatus.WAITING)) {
@@ -152,13 +151,13 @@ public class Game {
             }
         }
 
-        player.sendMessage(ChatColor.YELLOW + "[TF2] You joined the map " + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
+        player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You joined the map " + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
         if (getStatus() == GameStatus.WAITING) {
-            player.sendMessage(ChatColor.YELLOW + "The game will start when " + (map.getPlayerlimit() * 100 / plugin.getConfig().getInt("autostart-percent") - playersInGame.size() * map.getPlayerlimit()) + " players have joined.");
+            player.getPlayer().sendMessage(ChatColor.YELLOW + "The game will start when " + (map.getPlayerlimit() * 100 / plugin.getConfig().getInt("autostart-percent") - playersInGame.size() * map.getPlayerlimit()) + " players have joined.");
         } else {
-            gp.setUsingChangeClassButton(true);
+            player.setUsingChangeClassButton(true);
         }
-        player.updateInventory();
+        player.getPlayer().updateInventory();
     }
 
     public void leaveGame(Player player, Boolean endGame) {
@@ -306,7 +305,7 @@ public class Game {
                             if (!(position <= map.getPlayerlimit())) {
                                 p.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + position + " in line for the map " + ChatColor.BOLD + map + ChatColor.RESET + ChatColor.YELLOW + ".");
                             } else {
-                                joinGame(p, team);
+                                joinGame(GameUtilities.getUtilities().getGamePlayer(p), team);
                                 q.remove(p.getName());
                             }
                         }
@@ -324,6 +323,6 @@ public class Game {
                 return gp;
             }
         }
-        return new GamePlayer(player);
+        return GameUtilities.getUtilities().getGamePlayer(player);
     }
 }

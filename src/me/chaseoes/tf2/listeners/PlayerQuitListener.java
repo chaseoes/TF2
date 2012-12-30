@@ -21,6 +21,7 @@ public class PlayerQuitListener implements Listener {
             Queue q = GameUtilities.getUtilities().plugin.getQueue(map);
             q.remove(name);
         }
+        GameUtilities.getUtilities().playerLeaveServer(event.getPlayer());
     }
 
 }

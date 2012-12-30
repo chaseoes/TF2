@@ -14,12 +14,10 @@ public class GameUtilities {
     static GameUtilities instance = new GameUtilities();
 
     public HashMap<String, Game> games = new HashMap<String, Game>();
+    public HashMap<String, GamePlayer> players = new HashMap<String, GamePlayer>();
 
     public HashMap<String, Integer> afktimes = new HashMap<String, Integer>();
     public HashMap<String, Location> afklocations = new HashMap<String, Location>();
-    public HashMap<String, String> makingclassbutton = new HashMap<String, String>();
-    public HashMap<String, String> makingclassbuttontype = new HashMap<String, String>();
-    public HashSet<String> makingchangeclassbutton = new HashSet<String>();
     public HashSet<String> gamestarted = new HashSet<String>(); // map
     public HashSet<String> gameinlobby = new HashSet<String>(); // map
     public HashSet<String> gamestarting = new HashSet<String>(); // map
@@ -76,22 +74,37 @@ public class GameUtilities {
     }
 
     public void joinGame(Player player, String map, Team team) {
-        games.get(map).joinGame(player, team);
+        GamePlayer gp = getGamePlayer(player);
+        games.get(map).joinGame(gp, team);
     }
 
     public boolean isIngame(Player player) {
         return getCurrentGame(player) != null;
     }
 
-    public Game getCurrentGame(Player player) {
+    public GamePlayer getGamePlayer(Player player) {
         for (Game g : games.values()) {
             for (GamePlayer gp : g.playersInGame) {
                 if (gp.getName().equalsIgnoreCase(player.getName())) {
-                    return g;
+                    return gp;
                 }
             }
         }
         return null;
+    }
+
+    public void playerJoinServer(Player player) {
+        GamePlayer gp = new GamePlayer(player);
+        players.put(player.getName(), gp);
+    }
+
+    public void playerLeaveServer(Player player ){
+        players.remove(player.getName());
+    }
+
+    public Game getCurrentGame(Player player) {
+        GamePlayer gp = getGamePlayer(player);
+        return gp.getGame();
     }
 
     public void startMatch(final String map) {
