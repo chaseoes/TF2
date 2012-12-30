@@ -2,11 +2,9 @@ package me.chaseoes.tf2.commands;
 
 import me.chaseoes.tf2.DataConfiguration;
 import me.chaseoes.tf2.GameUtilities;
-import me.chaseoes.tf2.MapConfiguration;
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.utilities.DataChecker;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -77,14 +75,14 @@ public class JoinCommand {
                 return;
             }
 
-            if (GameUtilities.getUtilities().getIngameList(map).size() == MapConfiguration.getMaps().getMap(map).getInt("playerlimit") && !(strings.length == 3)) {
+            if (GameUtilities.getUtilities().getIngameList(map).size() == TF2.getInstance().getMap(map).getPlayerlimit() && !(strings.length == 3)) {
                 player.sendMessage(ChatColor.YELLOW + "[TF2] That map is currently full.");
                 return;
             }
             
             GameUtilities.getUtilities().joinGame(player, map, team);
 
-            if (GameUtilities.getUtilities().getIngameList(map).size() >= MapConfiguration.getMaps().getMap(map).getInt("playerlimit")) {
+            if (GameUtilities.getUtilities().getIngameList(map).size() >= TF2.getInstance().getMap(map).getPlayerlimit()) {
                 player.sendMessage(ChatColor.YELLOW + "[TF2] You have joined a full map.");
             }
 

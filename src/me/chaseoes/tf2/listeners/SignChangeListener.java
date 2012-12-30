@@ -1,10 +1,9 @@
 package me.chaseoes.tf2.listeners;
 
 import me.chaseoes.tf2.DataConfiguration;
-import me.chaseoes.tf2.MapConfiguration;
+import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.lobbywall.LobbyWallUtilities;
 import me.chaseoes.tf2.utilities.DataChecker;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -33,9 +32,8 @@ public class SignChangeListener implements Listener {
                     return;
                 }
                 LobbyWallUtilities.getUtilities().saveSignLocation(event.getLine(2), bl);
-                MapConfiguration.getMaps().reloadMap(event.getLine(2));
+                TF2.getInstance().getMap(event.getLine(2)).load();
                 DataConfiguration.getData().reloadData();
-                MapConfiguration.getMaps().saveMap(map);
                 DataConfiguration.getData().saveData();
                 event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] Successfully created a join sign!");
             }

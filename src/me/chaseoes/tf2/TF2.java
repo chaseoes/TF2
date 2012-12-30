@@ -45,9 +45,15 @@ public class TF2 extends JavaPlugin {
     public HashMap<String, Queue> queues = new HashMap<String, Queue>();
     public HashMap<String, Map> maps = new HashMap<String, Map>();
     public UpdateChecker uc;
+    private static TF2 instance;
+
+    public static TF2 getInstance(){
+        return instance;
+    }
 
     @Override
     public void onEnable() {
+        instance = this;
         getServer().getScheduler().cancelTasks(this);
         setupClasses();
         if (getServer().getPluginManager().getPlugin("TagAPI") == null) {
@@ -68,10 +74,7 @@ public class TF2 extends JavaPlugin {
         Schedulers.getSchedulers().startAFKChecker();
 
         for (String map : DataConfiguration.getData().getDataFile().getStringList("enabled-maps")) {
-            maps.put(map, new Map(map));
-            GameUtilities.getUtilities().addGame(maps.get(map));
-            queues.put(map, new Queue(map));
-            GameUtilities.getUtilities().setRedHasBeenTeleported(map, false);
+            addMap(map);
         }
 
         GameUtilities.getUtilities().coolpeople.add("chaseoes");
@@ -93,10 +96,10 @@ public class TF2 extends JavaPlugin {
             GameUtilities.getUtilities().stopMatch(map);
         }
         getServer().getScheduler().cancelTasks(this);
+        instance = null;
     }
 
     public void setupClasses() {
-        MapConfiguration.getMaps().setup(this);
         MapUtilities.getUtilities().setup(this);
         WorldEditUtilities.getWEUtilities().setup(this);
         CreateCommand.getCommand().setup(this);
@@ -147,4 +150,10 @@ public class TF2 extends JavaPlugin {
         return maps.get(map);
     }
 
+    public void addMap(String map){
+        maps.put(map, new Map(this, map));
+        GameUtilities.getUtilities().addGame(maps.get(map));
+        queues.put(map, new Queue(map));
+        GameUtilities.getUtilities().setRedHasBeenTeleported(map, false);
+    }
 }

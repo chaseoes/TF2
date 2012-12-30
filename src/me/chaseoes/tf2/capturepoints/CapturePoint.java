@@ -17,12 +17,12 @@ public class CapturePoint {
     CaptureStatus status;
     public Player capturing;
 
-    public CapturePoint(String m, Integer i) {
+    public CapturePoint(String map, Integer i, Location loc){
         capturing = null;
         setStatus(CaptureStatus.UNCAPTURED);
         id = i;
-        map = m;
-        location = CapturePointUtilities.getUtilities().getLocationFromID(m, i);
+        this.map = map;
+        location = loc;
     }
 
     public Integer getId() {
@@ -32,7 +32,7 @@ public class CapturePoint {
     public Location getLocation() {
         return location;
     }
-    
+
     public CaptureStatus getStatus() {
         return status;
     }
@@ -49,10 +49,11 @@ public class CapturePoint {
         task = CapturePointUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncRepeatingTask(CapturePointUtilities.getUtilities().plugin, new Runnable() {
             Integer timeRemaining = CapturePointUtilities.getUtilities().plugin.getConfig().getInt("capture-timer");
             Integer timeTotal = CapturePointUtilities.getUtilities().plugin.getConfig().getInt("capture-timer");
+
             @Override
             public void run() {
                 if (timeRemaining != 0) {
-                    player.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.BOLD + ChatColor.DARK_RED  + timeRemaining + " " + ChatColor.RESET + ChatColor.RED + "seconds remaining!");
+                    player.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.BOLD + ChatColor.DARK_RED + timeRemaining + " " + ChatColor.RESET + ChatColor.RED + "seconds remaining!");
 //                    if (timeRemaining == timeTotal) {
 //                        player.setExp((float) 0.1);
 //                    } else {

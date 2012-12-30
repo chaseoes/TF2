@@ -1,14 +1,14 @@
 package me.chaseoes.tf2.capturepoints;
 
-public class CaptureStatus {
-    
-    public static CaptureStatus CAPTURED = new CaptureStatus("captured");
-    public static CaptureStatus UNCAPTURED = new CaptureStatus("uncaptured");
-    public static CaptureStatus CAPTURING = new CaptureStatus("capturing");
+public enum CaptureStatus {
 
-    String status;
+    CAPTURED("captured"),
+    UNCAPTURED("uncaptured"),
+    CAPTURING("capturing");
+
+    private String status;
     
-    public CaptureStatus(String s) {
+    private CaptureStatus(String s) {
         status = s;
     }
 
