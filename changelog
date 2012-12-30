@@ -1,3 +1,40 @@
+v2.0
+Class system overhauled - changing classes is now more efficient, less buggy, and contains better error handling.
+Game handling improved, refactored most game specific methods. Games now run smoother.
+Fixed issues with the queue not working correctly.
+Updated all color codes to use Bukkit's ChatColor class.
+Updated configuration, enchanted items are now applied a level with a dash instead of a period (BREAKING! Update your current configuration to match the new default one!).
+Overhauled the lobby wall, now works much smoother. Fixed various lobby wall bugs and improved error handling. A row of signs is no longer needed - place one and the rest will be created for you.
+Fixed possible issues with the game not ending properly.
+Implemented efficient update checking.
+Players can no longer use bows/potions while in the lobby.
+Various debugging messages removed - never be spammed again!
+Games now end properly when the last player in a game leaves.
+Other various code refactoring, rewriting, and optimization.
+Fixed changeclass buttons so you get properly teleported to your team's spawn.
+You are no longer given potion effects while in the lobby, these are applied when the game starts.
+Fixed the /tf2 disable/enable commands not working quite right and the lobby wall reflecting the map being disabled.
+Players will not be teleported out of the lobby if they fail to choose a class.
+Properly handle class buttons, changeclass buttons, and lobby wall signs being destroyed.
+Allow wooden buttons to be used for class and changeclass buttons.
+Fix NPE thrown when restarting between map creation and capture point creation.
+Fixed armor not getting colored correctly.
+Fix exception thrown when a game is won.
+Fixed certain errors thrown upon respawn.
+Amount of kills is now displayed on-screen instead of spamming the player.
+Fixed possible cases of players joining late not getting teleported when the game starts.
+Fixed the game not stopping completely if a player leaves while the countdown is in progress.
+
+v1.4.4
+Fix some death issues where health etc. wasn't getting reset.
+
+v1.4.3
+Fix error thrown when clicking class buttons and leather armor not getting colored.
+
+v1.4.2
+Update to CraftBukkit 1.4.5-R1.0 (the latest reccomended build). Older builds will not work.
+Fix error while trying to set spawns (sorry :().
+
 v1.4.1
 Compatible with Craftbukkit 1.4.5-R0.3 ONLY.
 BREAKING: Fix various capture-point related errors. You will need to remove the "capture-points" section from all your maps respective .yml files and re-define all your capture points.

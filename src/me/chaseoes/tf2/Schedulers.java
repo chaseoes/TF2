@@ -165,7 +165,9 @@ public class Schedulers {
     }
 
     public void stopCountdown(String map) {
-        plugin.getServer().getScheduler().cancelTask(countdowns.get(map));
+        if (countdowns.get(map) != null) {
+            plugin.getServer().getScheduler().cancelTask(countdowns.get(map));
+        }
     }
 
 }
