@@ -15,6 +15,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.metadata.LazyMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.kitteh.tag.TagAPI;
 
@@ -135,6 +137,7 @@ public class Game {
         }
         player.sendMessage(ChatColor.YELLOW + "[TF2] The game will start when " + plugin.getConfig().getInt("autostart-percent") + "% of the maximum amount of players for this map have joined.");
         player.updateInventory();
+        player.setMetadata("tf2.inclasslobby", new FixedMetadataValue(plugin, true));
     }
 
     @SuppressWarnings("deprecation")
@@ -167,6 +170,7 @@ public class Game {
             armorinventories.remove(player.getName());
         }
         player.updateInventory();
+        player.removeMetadata("tf2.inclasslobby", plugin);
     }
 
     public Integer getAmountOnTeam(String team) {

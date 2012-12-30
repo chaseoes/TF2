@@ -1,5 +1,6 @@
 package me.chaseoes.tf2.listeners;
 
+import me.chaseoes.tf2.GameStatus;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.TF2;
@@ -22,14 +23,14 @@ public class PlayerMoveListener implements Listener {
         if (!(event.getFrom().getBlockX() != event.getTo().getBlockX() || event.getFrom().getBlockY() != event.getTo().getBlockY() || event.getFrom().getBlockZ() != event.getTo().getBlockZ())) {
             return;
         }
-
+        if(event.getPlayer().hasMetadata("tf2.inclasslobby"))
+            return;
         Player player = event.getPlayer();
         Block b = event.getTo().getBlock();
         TF2 plugin = GameUtilities.getUtilities().plugin;
-
+        Map map = plugin.getMap(CapturePointUtilities.getUtilities().getMapFromLocation(b.getLocation()));
         // Capture Points
-        if ((b.getType() == Material.STONE_PLATE || b.getType() == Material.WOOD_PLATE) && GameUtilities.getUtilities().isIngame(player) && CapturePointUtilities.getUtilities().locationIsCapturePoint(b.getLocation())) {
-            Map map = plugin.getMap(CapturePointUtilities.getUtilities().getMapFromLocation(b.getLocation()));
+        if ((b.getType() == Material.STONE_PLATE || b.getType() == Material.WOOD_PLATE) && GameUtilities.getUtilities().isIngame(player) && CapturePointUtilities.getUtilities().locationIsCapturePoint(b.getLocation()) && GameUtilities.getUtilities().getGameStatus(map.getName()).equals(GameStatus.INGAME)) {
             Integer id = CapturePointUtilities.getUtilities().getIDFromLocation(b.getLocation());
             CapturePoint cp = map.getCapturePoint(id);
             if (GameUtilities.getUtilities().getTeam(player).equalsIgnoreCase("red")) {

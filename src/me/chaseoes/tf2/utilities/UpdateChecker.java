@@ -17,6 +17,7 @@ public class UpdateChecker {
 
     public UpdateChecker(TF2 p) {
         plugin = p;
+        latestVersion = plugin.getDescription().getVersion();
     }
 
     public boolean needsUpdate() {
@@ -34,13 +35,6 @@ public class UpdateChecker {
             @Override
             public void run() {
                 checkForUpdate();
-                if (needsUpdate()) {
-                    for (Player player : plugin.getServer().getOnlinePlayers()) {
-                        if (player.hasPermission("tf2.create")) {
-                            nagPlayer(player);
-                        }
-                    }
-                }
             }
         }, 0L, 36000L);
     }
