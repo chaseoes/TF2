@@ -13,7 +13,6 @@ import me.chaseoes.tf2.lobbywall.LobbyWall;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
-import org.bukkit.metadata.FixedMetadataValue;
 import org.kitteh.tag.TagAPI;
 
 public class Game {
@@ -41,6 +40,7 @@ public class Game {
         for (GamePlayer gp : playersInGame) {
             Player player = gp.getPlayer();
             if (gp.getTeam() == Team.BLUE) {
+                gp.setInLobby(false);
                 player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), Team.BLUE));
             }
         }
@@ -51,6 +51,7 @@ public class Game {
                 for (GamePlayer gp : playersInGame) {
                     Player player = gp.getPlayer();
                     if (gp.getTeam() == Team.RED) {
+                        gp.setInLobby(false);
                         player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), Team.RED));
                     }
                 }
@@ -116,6 +117,8 @@ public class Game {
     public void joinGame(Player player, Team team) {
         playersInGame.add(new GamePlayer(player));
         GamePlayer gp = getPlayer(player);
+        gp.setMap(getName());
+        gp.setInLobby(true);
         TF2Class c = new TF2Class("NONE");
         
         gp.saveInventory();
@@ -138,12 +141,11 @@ public class Game {
         player.sendMessage(ChatColor.YELLOW + "[TF2] You joined the map " + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
         player.sendMessage(ChatColor.YELLOW + "The game will start when " + (((map.getPlayerlimit() * 100) / plugin.getConfig().getInt("autostart-percent")) - playersInGame.size() * map.getPlayerlimit()) + " players have joined.");
         player.updateInventory();
-        player.setMetadata("tf2.inclasslobby", new FixedMetadataValue(plugin, true));
     }
 
     public void leaveGame(Player player) {
         GamePlayer gp = getPlayer(player);
-        
+        gp.setInLobby(false);
         player.teleport(MapUtilities.getUtilities().loadLobby());
         TagAPI.refreshPlayer(player);
         

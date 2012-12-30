@@ -1,10 +1,17 @@
 package me.chaseoes.tf2.listeners;
 
-import me.chaseoes.tf2.*;
+import me.chaseoes.tf2.DataConfiguration;
+import me.chaseoes.tf2.GamePlayer;
+import me.chaseoes.tf2.GameUtilities;
+import me.chaseoes.tf2.MapUtilities;
+import me.chaseoes.tf2.Queue;
+import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.classes.ClassUtilities;
 import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.utilities.DataChecker;
 import me.chaseoes.tf2.utilities.GeneralUtilities;
+import me.chaseoes.tf2.Team;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
@@ -13,7 +20,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.metadata.FixedMetadataValue;
 
 public class PlayerInteractListener implements Listener {
 
@@ -22,14 +28,14 @@ public class PlayerInteractListener implements Listener {
     public void onPlayerInteract(PlayerInteractEvent event) {
         try {
             Player player = event.getPlayer();
-
             if (GameUtilities.getUtilities().isIngame(player)) {
-                if (player.getItemInHand().getType() == Material.getMaterial(373)) {
+                GamePlayer gp = GameUtilities.getUtilities().getCurrentGame(player).getPlayer(player);
+                if (player.getItemInHand().getType() == Material.getMaterial(373) || player.getItemInHand().getType() == Material.BOW) {
                     if (GameUtilities.getUtilities().justspawned.contains(player.getName())) {
                         event.setCancelled(true);
                         player.updateInventory();
                     }
-                    if (!GameUtilities.getUtilities().getGameStatus(GameUtilities.getUtilities().getCurrentMap(player)).equalsIgnoreCase("in-game")) {
+                    if (gp.isInLobby()) {
                         event.setCancelled(true);
                         player.updateInventory();
                     }
@@ -93,12 +99,17 @@ public class PlayerInteractListener implements Listener {
 
             if (event.hasBlock() && event.getClickedBlock().getType() == Material.STONE_BUTTON) {
                 if (GameUtilities.getUtilities().isIngame(player)) {
+                    GamePlayer gp = GameUtilities.getUtilities().getCurrentGame(player).getPlayer(player);
                     for (String s : DataConfiguration.getData().getDataFile().getStringList("classbuttons")) {
                         if (ClassUtilities.getUtilities().loadClassButtonLocation(s).toString().equalsIgnoreCase(event.getClickedBlock().getLocation().toString())) {
                             if (player.hasPermission("tf2.button." + ClassUtilities.getUtilities().loadClassButtonTypeFromLocation(s))) {
                                 TF2Class c = new TF2Class(ClassUtilities.getUtilities().loadClassFromLocation(s));
                                 c.apply(player);
-                                player.removeMetadata("tf2.inclasslobby", TF2.getInstance());
+                                if (gp.isUsingChangeClassButton()) {
+                                    player.teleport(MapUtilities.getUtilities().loadTeamSpawn(gp.getGame().getName(), Team.match(GameUtilities.getUtilities().getTeam(player))));
+                                    gp.setInLobby(false);
+                                    gp.setUsingChangeClassButton(false);
+                                }
                                 return;
                             }
                             event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] " + GeneralUtilities.colorize(GameUtilities.getUtilities().plugin.getConfig().getString("donor-button-noperm")));
@@ -107,7 +118,8 @@ public class PlayerInteractListener implements Listener {
 
                     for (String s : DataConfiguration.getData().getDataFile().getStringList("changeclassbuttons")) {
                         if (ClassUtilities.getUtilities().loadClassButtonLocation(s).toString().equalsIgnoreCase(event.getClickedBlock().getLocation().toString())) {
-                            player.setMetadata("tf2.inclasslobby", new FixedMetadataValue(GameUtilities.getUtilities().plugin, true));
+                            gp.setInLobby(true);
+                            gp.setUsingChangeClassButton(true);
                             event.getPlayer().teleport(MapUtilities.getUtilities().loadTeamLobby(GameUtilities.getUtilities().getCurrentMap(player), Team.match(GameUtilities.getUtilities().getTeam(player))));
                         }
                     }
