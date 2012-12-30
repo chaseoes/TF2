@@ -5,8 +5,11 @@ import java.util.logging.Level;
 import me.chaseoes.tf2.GamePlayer;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.TF2;
+import me.chaseoes.tf2.Team;
+import me.chaseoes.tf2.utilities.ArmorUtilities;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
@@ -61,7 +64,11 @@ public class TF2Class {
                 int armorindex = 0;
                 for (String armortype : config.getConfigurationSection("armor").getKeys(false)) {
                     String[] items = config.getString("armor." + armortype).split("\\.");
-                    ItemStack i = new ItemStack(Material.getMaterial(Integer.parseInt(items[0])));
+                    Color c = Color.RED;
+                    if (gp.getTeam() == Team.BLUE) {
+                        c = Color.BLUE;
+                    }
+                    ItemStack i = ArmorUtilities.setColor(new ItemStack(Material.getMaterial(Integer.parseInt(items[0]))), c);
 
                     if (Integer.parseInt(items[0]) == 0) {
                         i = new ItemStack(Material.AIR);
