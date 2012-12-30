@@ -149,6 +149,11 @@ public class Game {
         player.teleport(MapUtilities.getUtilities().loadLobby());
         TagAPI.refreshPlayer(player);
         
+        TF2Class c = new TF2Class("NONE");
+        c.clearInventory(player);
+        gp.loadInventory();
+        playersInGame.remove(gp);
+        
         if (getStatus() == GameStatus.STARTING && playersInGame.size() == 1) {
             stopMatch();
         }
@@ -158,10 +163,6 @@ public class Game {
             stopMatch();
         }
         
-        TF2Class c = new TF2Class("NONE");
-        c.clearInventory(player);
-        gp.loadInventory();
-        playersInGame.remove(gp);
     }
 
     public Integer getAmountOnTeam(Team team) {
