@@ -2,7 +2,6 @@ package me.chaseoes.tf2.classes;
 
 import java.util.logging.Level;
 
-
 import me.chaseoes.tf2.GameUtilities;
 
 import org.bukkit.ChatColor;
@@ -11,6 +10,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.MaterialData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -19,12 +19,9 @@ public class TF2Class {
     String name;
     ConfigurationSection config;
 
-    public TF2Class(String n) throws NullPointerException {
+    public TF2Class(String n) {
         name = n;
         config = GameUtilities.getUtilities().plugin.getConfig().getConfigurationSection("classes." + n);
-        if (n == null) {
-            throw new NullPointerException("Attempted to use class button for non-existant class!");
-        }
     }
 
     // Apply the class to a player (returns true if it was successful).
@@ -89,7 +86,15 @@ public class TF2Class {
                 // Loop through inventory items.
                 for (String fullitem : config.getStringList("inventory")) {
                     String[] items = fullitem.split("\\.");
-                    ItemStack i = new ItemStack(Material.getMaterial(Integer.parseInt(items[0])), Integer.parseInt(items[1]));
+                    String[] item = items[0].split("\\,");
+                    byte data = 0;
+                    if (item.length > 1) {
+                        data = (byte) Integer.parseInt(item[1]);
+                    }
+
+                    MaterialData md = new MaterialData(Integer.parseInt(item[0]), data);
+                    ItemStack i = md.toItemStack();
+                    i.setAmount(Integer.parseInt(items[1]));
 
                     int enchantindex = 0;
                     for (String enchant : items) {
