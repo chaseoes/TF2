@@ -44,6 +44,7 @@ public class Game {
                     gp.setInLobby(false);
                     player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), Team.BLUE));
                     gp.getCurrentClass().apply(player);
+                    gp.setUsingChangeClassButton(false);
                 } else {
                     gp.setUsingChangeClassButton(true);
                     player.sendMessage(ChatColor.YELLOW + "[TF2] You will be teleported when you choose a class.");
@@ -61,6 +62,7 @@ public class Game {
                             gp.setInLobby(false);
                             player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), Team.RED));
                             gp.getCurrentClass().apply(player);
+                            gp.setUsingChangeClassButton(false);
                         } else {
                             gp.setUsingChangeClassButton(true);
                             player.sendMessage(ChatColor.YELLOW + "[TF2] You will be teleported when you choose a class.");
@@ -152,7 +154,7 @@ public class Game {
         }
 
         player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You joined the map " + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
-        if (getStatus() == GameStatus.WAITING) {
+        if (getStatus() == GameStatus.WAITING || getStatus() == GameStatus.STARTING) {
             player.getPlayer().sendMessage(ChatColor.YELLOW + "The game will start when " + (map.getPlayerlimit() * 100 / plugin.getConfig().getInt("autostart-percent") - playersInGame.size() * map.getPlayerlimit()) + " players have joined.");
         } else {
             player.setUsingChangeClassButton(true);
@@ -169,8 +171,11 @@ public class Game {
         TF2Class c = new TF2Class("NONE");
         c.clearInventory(player);
         gp.loadInventory();
-        if (!endGame) {
+        
+        try {
             playersInGame.remove(gp);
+        } catch (Exception e) {
+            
         }
 
         if (getStatus() == GameStatus.STARTING && playersInGame.size() == 1) {

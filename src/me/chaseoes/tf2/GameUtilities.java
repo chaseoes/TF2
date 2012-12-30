@@ -63,10 +63,25 @@ public class GameUtilities {
     }
 
     public boolean isIngame(Player player) {
-        return getCurrentGame(player) != null;
+        try {
+            getCurrentGame(player);
+            return true;
+        } catch (NullPointerException e) {
+            return false;
+        }
     }
 
     public GamePlayer getGamePlayer(Player player) {
+        for (Game g : games.values()) {
+            for (GamePlayer gp : g.playersInGame) {
+                if (gp.getName().equalsIgnoreCase(player.getName())) {
+                    return gp;
+                }
+            }
+        }
+        if (!players.containsKey(player.getName())) {
+            players.put(player.getName(), new GamePlayer(player));
+        }
         return players.get(player.getName());
     }
 
@@ -80,8 +95,14 @@ public class GameUtilities {
     }
 
     public Game getCurrentGame(Player player) {
-        GamePlayer gp = getGamePlayer(player);
-        return gp.getGame();
+        for (Game g : games.values()) {
+            for (GamePlayer gp : g.playersInGame) {
+                if (gp.getName().equalsIgnoreCase(player.getName())) {
+                    return g;
+                }
+            }
+        }
+        return null;
     }
 
     public void startMatch(final String map) {

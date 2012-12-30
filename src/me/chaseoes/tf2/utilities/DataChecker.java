@@ -24,21 +24,11 @@ public class DataChecker {
     }
 
     public Boolean teamLobbyHasBeenSet(String team) {
-        try {
-            MapUtilities.getUtilities().loadTeamLobby(map, Team.match(team));
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
+        return MapUtilities.getUtilities().loadTeamLobby(map, Team.match(team)) != null;
     }
 
     public Boolean teamSpawnHasBeenSet(String team) {
-        try {
-            MapUtilities.getUtilities().loadTeamSpawn(map, Team.match(team));
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
+        return MapUtilities.getUtilities().loadTeamSpawn(map, Team.match(team)) != null;
     }
 
     public Boolean playerLimitHasBeenSet() {

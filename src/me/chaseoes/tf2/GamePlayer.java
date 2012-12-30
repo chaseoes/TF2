@@ -64,7 +64,7 @@ public class GamePlayer {
     }
 
     public boolean isIngame() {
-        return getCurrentMap() != null;
+        return team != null;
     }
 
     public boolean isInLobby() {

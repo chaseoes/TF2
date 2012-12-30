@@ -47,6 +47,7 @@ public class PlayerInteractListener implements Listener {
             }
 
             if (event.hasBlock() && (event.getClickedBlock().getType() == Material.WALL_SIGN || event.getClickedBlock().getType() == Material.SIGN_POST)) {
+                GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(player);
                 Sign s = (Sign) event.getClickedBlock().getState();
                 if (s.getLine(0).equalsIgnoreCase("Team Fortress 2") && s.getLine(2).equalsIgnoreCase("to join:")) {
                     String map = ChatColor.stripColor(s.getLine(3));
@@ -64,7 +65,7 @@ public class PlayerInteractListener implements Listener {
                         return;
                     }
 
-                    if (GameUtilities.getUtilities().isIngame(player)) {
+                    if (gp.isIngame()) {
                         event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You are already playing on a map!");
                         return;
                     }
