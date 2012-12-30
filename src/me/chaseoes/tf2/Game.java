@@ -42,6 +42,7 @@ public class Game {
             if (gp.getTeam() == Team.BLUE) {
                 gp.setInLobby(false);
                 player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), Team.BLUE));
+                gp.getCurrentClass().apply(player);
             }
         }
         
@@ -53,6 +54,7 @@ public class Game {
                     if (gp.getTeam() == Team.RED) {
                         gp.setInLobby(false);
                         player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), Team.RED));
+                        gp.getCurrentClass().apply(player);
                     }
                 }
                 

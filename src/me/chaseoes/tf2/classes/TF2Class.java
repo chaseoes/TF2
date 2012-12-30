@@ -2,7 +2,9 @@ package me.chaseoes.tf2.classes;
 
 import java.util.logging.Level;
 
+import me.chaseoes.tf2.GamePlayer;
 import me.chaseoes.tf2.GameUtilities;
+import me.chaseoes.tf2.TF2;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -30,21 +32,28 @@ public class TF2Class {
         if (GameUtilities.getUtilities().isIngame(player)) {
             try {
                 // Clear their inventory.
+                GamePlayer gp = GameUtilities.getUtilities().getCurrentGame(player).getPlayer(player);
                 clearInventory(player);
 
                 // Loop through potion effects.
-                for (String effect : config.getStringList("potion-effects")) {
-                    String[] effects = effect.split("\\.");
-                    PotionEffectType et = PotionEffectType.getByName(effects[0]);
-                    int amplifier = Integer.parseInt(effects[1]) - 1;
-                    int duration = 0;
-                    if (effects[2].equalsIgnoreCase("forever")) {
-                        duration = Integer.MAX_VALUE;
-                    } else {
-                        duration = Integer.parseInt(effects[2]);
+                boolean apply = true;
+                if (gp.isInLobby() && TF2.getInstance().getConfig().getBoolean("potion-effects-after-start")) {
+                    apply = false;
+                }
+                if (apply) {
+                    for (String effect : config.getStringList("potion-effects")) {
+                        String[] effects = effect.split("\\.");
+                        PotionEffectType et = PotionEffectType.getByName(effects[0]);
+                        int amplifier = Integer.parseInt(effects[1]) - 1;
+                        int duration = 0;
+                        if (effects[2].equalsIgnoreCase("forever")) {
+                            duration = Integer.MAX_VALUE;
+                        } else {
+                            duration = Integer.parseInt(effects[2]);
+                        }
+                        PotionEffect e = new PotionEffect(et, duration, amplifier);
+                        player.addPotionEffect(e);
                     }
-                    PotionEffect e = new PotionEffect(et, duration, amplifier);
-                    player.addPotionEffect(e);
                 }
 
                 // Loop through armor items.
@@ -114,6 +123,8 @@ public class TF2Class {
                     player.getInventory().addItem(i);
                 }
 
+                gp.setCurrentClass(this);
+
                 player.updateInventory();
                 return true;
             } catch (Exception e) {
@@ -124,6 +135,10 @@ public class TF2Class {
             }
         }
         return false;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @SuppressWarnings("deprecation")

@@ -1,5 +1,7 @@
 package me.chaseoes.tf2;
 
+import me.chaseoes.tf2.classes.TF2Class;
+
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -15,6 +17,7 @@ public class GamePlayer {
     boolean inLobby;
     boolean usingChangeClassButton;
     boolean makingChangeClassButton;
+    TF2Class currentClass;
     
     ItemStack[] savedInventoryItems;
     ItemStack[] savedArmorItems;
@@ -157,6 +160,14 @@ public class GamePlayer {
     
     public boolean isMakingChangeClassButton() {
         return makingChangeClassButton;
+    }
+    
+    public TF2Class getCurrentClass() {
+        return currentClass;
+    }
+    
+    public void setCurrentClass(TF2Class c) {
+        currentClass = c;
     }
 
 }
