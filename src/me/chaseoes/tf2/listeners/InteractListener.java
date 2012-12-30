@@ -84,7 +84,6 @@ public class InteractListener implements Listener {
                         if (GameUtilities.getUtilities().getIngameList(map).size() + 1 <= MapConfiguration.getMaps().getMap(map).getInt("playerlimit")) {
                             q.remove(position);
                             GameUtilities.getUtilities().joinGame(player, map, team);
-                            player.sendMessage(ChatColor.YELLOW + "[TF2] You joined the " + map + " " + ChatColor.RESET + ChatColor.YELLOW + "map!");
                         } else {
                             player.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + position + " in line for this map.");
                         }
@@ -93,7 +92,6 @@ public class InteractListener implements Listener {
                     }
 
                     event.setCancelled(true);
-                    player.sendMessage(ChatColor.YELLOW + "[TF2] You joined the " + map + " " + ChatColor.RESET + ChatColor.YELLOW + "map!");
                 }
             }
 

@@ -1,5 +1,7 @@
 package me.chaseoes.tf2.lobbywall;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 import me.chaseoes.tf2.DataConfiguration;
@@ -20,7 +22,7 @@ public class LobbyWall {
 
     private TF2 plugin;
     static LobbyWall instance = new LobbyWall();
-    boolean canUpdate = true;
+    List<String> cantUpdate = new ArrayList<String>();
 
     private LobbyWall() {
 
@@ -35,7 +37,8 @@ public class LobbyWall {
     }
 
     private void updateWall(String map) {
-        if (canUpdate) {
+        if (!cantUpdate.contains(map)) {
+            System.out.println("UPDATING");
             try {
                 Map m = plugin.getMap(map);
                 if (DataConfiguration.getData().getDataFile().getString("lobbywall." + map + ".w") != null) {
@@ -74,7 +77,7 @@ public class LobbyWall {
                         int amountonred = GameUtilities.getUtilities().getAmountOnTeam(map, "red");
                         int amountonblue = GameUtilities.getUtilities().getAmountOnTeam(map, "blue");
                         String maptimeleft = GameUtilities.getUtilities().getTimeLeft(map);
-                        
+
                         LobbyWallUtilities.getUtilities().setSignLines(startsign, "Team Fortress 2", "Click here", "to join:", ChatColor.BOLD + "" + map);
                         if (!GameUtilities.getUtilities().getGameStatus(map).equalsIgnoreCase("disabled")) {
                             LobbyWallUtilities.getUtilities().setSignLines(status, " ", "" + ChatColor.DARK_RED + ChatColor.BOLD + "Status:", mapstatus, " ");
@@ -120,7 +123,10 @@ public class LobbyWall {
 
     public void setAllLines(final String map, final Integer duration, final String[] lines, final Boolean s1, final Boolean s2) {
         try {
-            canUpdate = false;
+            if (!cantUpdate.contains(map)) {
+                cantUpdate.add(map);
+            }
+            System.out.println("CANT UPDATE");
             final Block startblock = LobbyWallUtilities.getUtilities().loadSignLocation(map).getBlock();
             final Sign startsign = (Sign) startblock.getState();
             final org.bukkit.material.Sign matSign = (org.bukkit.material.Sign) startblock.getState().getData();
@@ -183,11 +189,13 @@ public class LobbyWall {
                 LobbyWallUtilities.getUtilities().setSignLines(po, lines[0], lines[1], lines[2], lines[3]);
                 i++;
             }
+
             if (duration != null) {
                 plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
                     @Override
                     public void run() {
-                        canUpdate = true;
+                        cantUpdate.remove(map);
+                        System.out.println("CAN UPDATE");
                     }
                 }, duration * 20L);
             }
@@ -233,8 +241,11 @@ public class LobbyWall {
             lobby = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
                 @Override
                 public void run() {
+                    System.out.println(cantUpdate);
                     for (final String map : DataConfiguration.getData().getDataFile().getStringList("enabled-maps")) {
-                        updateWall(map);
+                        if (!cantUpdate.contains(map)) {
+                            updateWall(map);
+                        }
                     }
                 }
             }, 0L, 20L);

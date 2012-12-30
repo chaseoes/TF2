@@ -1,9 +1,10 @@
 countdown: 10
 capture-timer: 10
-autostart-percent: 75
+autostart-percent: 50
 donor-button-noperm: '&eYou do not have permission to use that button!'
 afk-timer: 60
 killstreaks: 5
+update-checking: true
 killsound:
   sound: CAT_HIT
   volume: 20

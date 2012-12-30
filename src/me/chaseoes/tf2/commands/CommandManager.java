@@ -1,5 +1,7 @@
 package me.chaseoes.tf2.commands;
 
+import me.chaseoes.tf2.GameUtilities;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 
@@ -41,6 +43,10 @@ public class CommandManager implements CommandExecutor {
                 cs.sendMessage(ChatColor.RED + "/tf2 set playerlimit <map id> <#>" + ChatColor.GRAY + ": Sets the player limit for a map (# must be even).");
                 return true;
             }
+        }
+        
+        if (strings[0].equalsIgnoreCase("test")) {
+            GameUtilities.getUtilities().winGame("default", "red");
         }
         
         if (strings[0].equalsIgnoreCase("checkdata")) {

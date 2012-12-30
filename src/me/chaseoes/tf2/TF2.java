@@ -48,6 +48,7 @@ public class TF2 extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        getServer().getScheduler().cancelTasks(this);
         setupClasses();
         if (getServer().getPluginManager().getPlugin("TagAPI") == null) {
             getLogger().log(Level.SEVERE, "The TagAPI plugin is required to run TF2. Disabling...");

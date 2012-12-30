@@ -133,7 +133,8 @@ public class Game {
                 setStatus(GameStatus.STARTING);
             }
         }
-        player.sendMessage(ChatColor.YELLOW + "[TF2] The game will start when " + plugin.getConfig().getInt("autostart-percent") + "% of the maximum amount of players for this map have joined.");
+        player.sendMessage(ChatColor.YELLOW + "[TF2] You joined the map " + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
+        player.sendMessage(ChatColor.YELLOW + "The game will start when " + (((MapConfiguration.getMaps().getMap(map.getName()).getInt("playerlimit") * 100) / plugin.getConfig().getInt("autostart-percent")) - getIngameList().size() * MapConfiguration.getMaps().getMap(map.getName()).getInt("playerlimit")) + " players have joined.");
         player.updateInventory();
     }
 
