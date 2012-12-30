@@ -1,7 +1,6 @@
 package me.chaseoes.tf2.listeners;
 
 import me.chaseoes.tf2.GameUtilities;
-import me.chaseoes.tf2.classes.ClassUtilities;
 import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.events.TF2DeathEvent;
 

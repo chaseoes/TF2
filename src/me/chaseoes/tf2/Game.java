@@ -40,9 +40,14 @@ public class Game {
         for (GamePlayer gp : playersInGame) {
             Player player = gp.getPlayer();
             if (gp.getTeam() == Team.BLUE) {
-                gp.setInLobby(false);
-                player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), Team.BLUE));
-                gp.getCurrentClass().apply(player);
+                if (gp.getCurrentClass() != null) {
+                    gp.setInLobby(false);
+                    player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), Team.BLUE));
+                    gp.getCurrentClass().apply(player);
+                } else {
+                    gp.setUsingChangeClassButton(true);
+                    player.sendMessage(ChatColor.YELLOW + "[TF2] You will be teleported when you choose a class.");
+                }
             }
         }
 
@@ -79,7 +84,7 @@ public class Game {
             leaveGame(player, true);
             gp.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] The game has ended.");
         }
-        
+
         playersInGame = new HashSet<GamePlayer>();
         CapturePointUtilities.getUtilities().uncaptureAll(map);
         redHasBeenTeleported = false;
@@ -161,7 +166,7 @@ public class Game {
         c.clearInventory(player);
         gp.loadInventory();
         if (!endGame) {
-        playersInGame.remove(gp);
+            playersInGame.remove(gp);
         }
 
         if (getStatus() == GameStatus.STARTING && playersInGame.size() == 1) {
