@@ -50,12 +50,7 @@ public class TF2DeathListener implements Listener {
                 if (kills % GameUtilities.getUtilities().plugin.getConfig().getInt("killstreaks") == 0) {
                     GameUtilities.getUtilities().broadcast(GameUtilities.getUtilities().getCurrentMap(killer), ChatColor.YELLOW + "[TF2] " + GameUtilities.getUtilities().getTeamColor(killer) + killer.getName() + " " + ChatColor.RESET + ChatColor.YELLOW + "is on a " + ChatColor.DARK_RED + ChatColor.BOLD + "" + kills + " " + ChatColor.RESET + ChatColor.YELLOW + "kill streak!");
                 } else {
-                    ItemStack inHand = killer.getInventory().getItem(0);
-                    ItemMeta im = inHand.getItemMeta();
-                    im.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + kills + " kills!");
-                    inHand.setItemMeta(im);
-                    killer.setItemInHand(inHand);
-                    // killer.sendMessage(ChatColor.YELLOW + "[TF2] You have made " + kills + " kills!");
+                    killer.sendMessage(ChatColor.YELLOW + "[TF2] You have made " + kills + " kills!");
                 }
 
                 player.setHealth(20);

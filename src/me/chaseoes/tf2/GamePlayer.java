@@ -129,7 +129,7 @@ public class GamePlayer {
     }
 
     public void leaveCurrentGame() {
-        getGame().leaveGame(player, false);
+        getGame().leave(player, false);
     }
 
     public void saveInventory() {

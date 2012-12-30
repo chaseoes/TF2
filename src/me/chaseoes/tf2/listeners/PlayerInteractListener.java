@@ -65,7 +65,7 @@ public class PlayerInteractListener implements Listener {
                         return;
                     }
 
-                    if (gp.isIngame()) {
+                    if (GameUtilities.getUtilities().isIngame(player)) {
                         event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You are already playing on a map!");
                         return;
                     }

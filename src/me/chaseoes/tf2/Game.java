@@ -30,6 +30,15 @@ public class Game {
         map = m;
         this.plugin = plugin;
     }
+    
+    public void leave(Player player, Boolean gameIsStopping) {
+        if (gameIsStopping) {
+            leaveCurrentGame(player);
+        } else {
+            playersInGame.remove(getPlayer(player));
+            leaveCurrentGame(player);
+        }
+    }
 
     public void startMatch() {
         setStatus(GameStatus.INGAME);
@@ -84,13 +93,13 @@ public class Game {
 
         for (GamePlayer gp : playersInGame) {
             Player player = gp.getPlayer();
-            leaveGame(player, true);
+            leave(player, true);
             gp.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] The game has ended.");
         }
 
-        playersInGame = new HashSet<GamePlayer>();
         CapturePointUtilities.getUtilities().uncaptureAll(map);
         redHasBeenTeleported = false;
+        playersInGame.clear();
     }
 
     public void winGame(String team) {
@@ -154,15 +163,17 @@ public class Game {
         }
 
         player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You joined the map " + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
+        
         if (getStatus() == GameStatus.WAITING || getStatus() == GameStatus.STARTING) {
             player.getPlayer().sendMessage(ChatColor.YELLOW + "The game will start when " + (map.getPlayerlimit() * 100 / plugin.getConfig().getInt("autostart-percent") - playersInGame.size() * map.getPlayerlimit()) + " players have joined.");
         } else {
             player.setUsingChangeClassButton(true);
         }
+        
         player.getPlayer().updateInventory();
     }
 
-    public void leaveGame(Player player, Boolean endGame) {
+    public void leaveCurrentGame(Player player) {
         GamePlayer gp = getPlayer(player);
         gp.setInLobby(false);
         player.teleport(MapUtilities.getUtilities().loadLobby());
@@ -171,12 +182,6 @@ public class Game {
         TF2Class c = new TF2Class("NONE");
         c.clearInventory(player);
         gp.loadInventory();
-        
-        try {
-            playersInGame.remove(gp);
-        } catch (Exception e) {
-            
-        }
 
         if (getStatus() == GameStatus.STARTING && playersInGame.size() == 1) {
             stopMatch();
@@ -186,7 +191,6 @@ public class Game {
         if (playersInGame.size() == 0) {
             stopMatch();
         }
-
     }
 
     public Integer getAmountOnTeam(Team team) {

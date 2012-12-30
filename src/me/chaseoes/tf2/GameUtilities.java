@@ -28,11 +28,11 @@ public class GameUtilities {
     public void addGame(Map map) {
         games.put(map.getName(), new Game(map, plugin));
     }
-    
+
     public void leaveCurrentGame(Player player) {
-        getCurrentGame(player).leaveGame(player, false);
+        getCurrentGame(player).leave(player, false);
     }
-    
+
     public Team teamFromString(String s) {
         Team t = Team.BLUE;
         if (s.equalsIgnoreCase("red")) {
@@ -40,7 +40,7 @@ public class GameUtilities {
         }
         return t;
     }
-    
+
     public int getAmountOnTeam(String map, String team) {
         return getAmountOnTeam(map, teamFromString(team));
     }
@@ -48,13 +48,13 @@ public class GameUtilities {
     public void joinGame(Player player, String map, String team) {
         joinGame(player, map, teamFromString(team));
     }
-    
+
     public int getKills(Player player) {
         return getCurrentGame(player).getPlayer(player).getKills();
     }
-    
+
     public void setKills(Player player, int i) {
-       getCurrentGame(player).getPlayer(player).setKills(i);
+        getCurrentGame(player).getPlayer(player).setKills(i);
     }
 
     public void joinGame(Player player, String map, Team team) {
@@ -63,12 +63,10 @@ public class GameUtilities {
     }
 
     public boolean isIngame(Player player) {
-        try {
-            getCurrentGame(player);
+        if (getCurrentGame(player) != null) {
             return true;
-        } catch (NullPointerException e) {
-            return false;
         }
+        return false;
     }
 
     public GamePlayer getGamePlayer(Player player) {
@@ -90,7 +88,7 @@ public class GameUtilities {
         players.put(player.getName(), gp);
     }
 
-    public void playerLeaveServer(Player player ){
+    public void playerLeaveServer(Player player) {
         players.remove(player.getName());
     }
 
