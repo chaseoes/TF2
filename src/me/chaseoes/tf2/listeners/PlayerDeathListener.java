@@ -25,7 +25,7 @@ public class PlayerDeathListener implements Listener {
             GameUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncDelayedTask(GameUtilities.getUtilities().plugin, new Runnable() {
                 @Override
                 public void run() {
-                    TF2Class c = new TF2Class(ClassUtilities.getUtilities().classes.get(damaged.getName()));
+                    TF2Class c = GameUtilities.getUtilities().getCurrentGame(damaged).getPlayer(damaged).getCurrentClass();
                     c.apply(damaged);
                 }
             }, 1L);

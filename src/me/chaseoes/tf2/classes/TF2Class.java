@@ -26,7 +26,7 @@ public class TF2Class {
 
     public TF2Class(String n) {
         name = n;
-        config = GameUtilities.getUtilities().plugin.getConfig().getConfigurationSection("classes." + n);
+        config = TF2.getInstance().getConfig().getConfigurationSection("classes." + name);
     }
 
     // Apply the class to a player (returns true if it was successful).
@@ -44,7 +44,7 @@ public class TF2Class {
                     apply = false;
                 }
                 if (apply) {
-                    for (String effect : config.getStringList("potion-effects")) {
+                    for (String effect : TF2.getInstance().getConfig().getStringList("classes." + name + ".potion-effects")) {
                         String[] effects = effect.split("\\.");
                         PotionEffectType et = PotionEffectType.getByName(effects[0]);
                         int amplifier = Integer.parseInt(effects[1]) - 1;
@@ -62,7 +62,7 @@ public class TF2Class {
                 // Loop through armor items.
                 ItemStack[] armor = new ItemStack[4];
                 int armorindex = 0;
-                for (String armortype : config.getConfigurationSection("armor").getKeys(false)) {
+                for (String armortype : TF2.getInstance().getConfig().getConfigurationSection("classes." + name + ".armor").getKeys(false)) {
                     String[] items = config.getString("armor." + armortype).split("\\.");
                     Color c = Color.RED;
                     if (gp.getTeam() == Team.BLUE) {
@@ -100,7 +100,7 @@ public class TF2Class {
                 player.getInventory().setBoots(armor[3]);
 
                 // Loop through inventory items.
-                for (String fullitem : config.getStringList("inventory")) {
+                for (String fullitem : TF2.getInstance().getConfig().getStringList("classes." + name + ".inventory")) {
                     String[] items = fullitem.split("\\.");
                     String[] item = items[0].split("\\,");
                     byte data = 0;
