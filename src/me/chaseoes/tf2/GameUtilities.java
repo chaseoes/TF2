@@ -21,7 +21,6 @@ public class GameUtilities {
     public HashMap<String, String> makingclassbutton = new HashMap<String, String>();
     public HashMap<String, String> makingclassbuttontype = new HashMap<String, String>();
     public HashSet<String> makingchangeclassbutton = new HashSet<String>();
-    public HashSet<String> usingchangeclassbutton = new HashSet<String>();
     public HashSet<String> gamestarted = new HashSet<String>(); // map
     public HashSet<String> gameinlobby = new HashSet<String>(); // map
     public HashSet<String> gamestarting = new HashSet<String>(); // map

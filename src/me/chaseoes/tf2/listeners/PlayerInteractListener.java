@@ -18,6 +18,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.metadata.FixedMetadataValue;
 
 public class PlayerInteractListener implements Listener {
 
@@ -102,6 +103,7 @@ public class PlayerInteractListener implements Listener {
                             if (player.hasPermission("tf2.button." + ClassUtilities.getUtilities().loadClassButtonTypeFromLocation(s))) {
                                 TF2Class c = new TF2Class(ClassUtilities.getUtilities().loadClassFromLocation(s));
                                 c.apply(player);
+                                player.removeMetadata("tf2.inclasslobby", GameUtilities.getUtilities().plugin);
                                 return;
                             }
                             event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] " + GeneralUtilities.colorize(GameUtilities.getUtilities().plugin.getConfig().getString("donor-button-noperm")));
@@ -110,7 +112,7 @@ public class PlayerInteractListener implements Listener {
 
                     for (String s : DataConfiguration.getData().getDataFile().getStringList("changeclassbuttons")) {
                         if (ClassUtilities.getUtilities().loadClassButtonLocation(s).toString().equalsIgnoreCase(event.getClickedBlock().getLocation().toString())) {
-                            GameUtilities.getUtilities().usingchangeclassbutton.add(event.getPlayer().getName());
+                            player.setMetadata("tf2.inclasslobby", new FixedMetadataValue(GameUtilities.getUtilities().plugin, true));
                             event.getPlayer().teleport(MapUtilities.getUtilities().loadTeamLobby(GameUtilities.getUtilities().getCurrentMap(player), GameUtilities.getUtilities().getTeam(player)));
                         }
                     }

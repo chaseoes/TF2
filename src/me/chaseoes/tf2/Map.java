@@ -25,6 +25,10 @@ public class Map {
     public CapturePoint getCapturePoint(Integer id) {
         return points.get(id);
     }
+
+    public void addCapturePoint(Integer id, CapturePoint point){
+        points.put(id, point);
+    }
     
     public List<Location> getCapturePoints() {
         List<Location> locs = new ArrayList<Location>();
