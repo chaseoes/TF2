@@ -23,6 +23,7 @@ public class BlockPlaceListener implements Listener {
             classbs.add(event.getBlockPlaced().getWorld().getName() + "." + event.getBlockPlaced().getLocation().getBlockX() + "." + event.getBlockPlaced().getLocation().getBlockY() + "." + event.getBlockPlaced().getLocation().getBlockZ() + "." + GameUtilities.getUtilities().makingclassbuttontype.get(player.getName()) + "." + GameUtilities.getUtilities().makingclassbutton.get(player.getName()));
             DataConfiguration.getData().saveData();
             DataConfiguration.getData().getDataFile().set("classbuttons", classbs);
+            DataConfiguration.getData().saveData();
             player.sendMessage(ChatColor.YELLOW + "[TF2] Successfully made a " + GameUtilities.getUtilities().makingclassbuttontype.get(player.getName()) + " class button for the class " + ChatColor.ITALIC + GameUtilities.getUtilities().makingclassbutton.get(player.getName()) + ChatColor.RESET + "" + ChatColor.YELLOW + ".");
             GameUtilities.getUtilities().makingclassbutton.remove(player.getName());
             GameUtilities.getUtilities().makingclassbuttontype.remove(player.getName());

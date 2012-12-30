@@ -36,7 +36,7 @@ public class Game {
         CapturePointUtilities.getUtilities().uncaptureAll(map);
         Schedulers.getSchedulers().startTimeLimitCounter(map.getName());
         Schedulers.getSchedulers().startRedTeamCountdown(map.getName());
-        
+
         for (GamePlayer gp : playersInGame) {
             Player player = gp.getPlayer();
             if (gp.getTeam() == Team.BLUE) {
@@ -45,19 +45,24 @@ public class Game {
                 gp.getCurrentClass().apply(player);
             }
         }
-        
+
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
             @Override
             public void run() {
                 for (GamePlayer gp : playersInGame) {
                     Player player = gp.getPlayer();
                     if (gp.getTeam() == Team.RED) {
-                        gp.setInLobby(false);
-                        player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), Team.RED));
-                        gp.getCurrentClass().apply(player);
+                        if (gp.getCurrentClass() != null) {
+                            gp.setInLobby(false);
+                            player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), Team.RED));
+                            gp.getCurrentClass().apply(player);
+                        } else {
+                            gp.setUsingChangeClassButton(true);
+                            player.sendMessage(ChatColor.YELLOW + "[TF2] You will be teleported when you choose a class.");
+                        }
                     }
                 }
-                
+
                 redHasBeenTeleported = true;
                 Schedulers.getSchedulers().stopRedTeamCountdown(map.getName());
             }
@@ -68,13 +73,13 @@ public class Game {
         setStatus(GameStatus.WAITING);
         Schedulers.getSchedulers().stopRedTeamCountdown(map.getName());
         Schedulers.getSchedulers().stopTimeLimitCounter(map.getName());
-        
+
         for (GamePlayer gp : playersInGame) {
             Player player = gp.getPlayer();
             leaveGame(player);
             gp.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] The game has ended.");
         }
-        
+
         CapturePointUtilities.getUtilities().uncaptureAll(map);
         redHasBeenTeleported = false;
     }
@@ -83,21 +88,21 @@ public class Game {
         String[] winlines = new String[4];
         winlines[0] = " ";
         winlines[1] = "" + ChatColor.DARK_RED + ChatColor.BOLD + "Red Team";
-        
+
         if (team.equalsIgnoreCase("blue")) {
             winlines[1] = ChatColor.BLUE + "" + ChatColor.BOLD + "Blue Team";
         }
-        
+
         winlines[2] = ChatColor.GREEN + "" + ChatColor.BOLD + "Wins!";
         winlines[3] = " ";
         String te = " " + ChatColor.DARK_RED + "" + ChatColor.BOLD + "red " + ChatColor.RESET + ChatColor.YELLOW;
-        
+
         if (team.equalsIgnoreCase("blue")) {
             te = " " + ChatColor.BLUE + "" + ChatColor.BOLD + "blue " + ChatColor.RESET + ChatColor.YELLOW;
         }
-        
+
         LobbyWall.getWall().setAllLines(map.getName(), null, winlines, false, true);
-        
+
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
             @Override
             public void run() {
@@ -109,7 +114,7 @@ public class Game {
                 LobbyWall.getWall().setAllLines(map.getName(), 4, creditlines, false, true);
             }
         }, 120L);
-        
+
         CapturePointUtilities.getUtilities().uncaptureAll(map);
         plugin.getServer().broadcastMessage(ChatColor.YELLOW + "The" + te + "team has won on the map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
         stopMatch();
@@ -122,7 +127,7 @@ public class Game {
         gp.setMap(getName());
         gp.setInLobby(true);
         TF2Class c = new TF2Class("NONE");
-        
+
         gp.saveInventory();
         c.clearInventory(player);
         gp.setTeam(team);
@@ -139,9 +144,9 @@ public class Game {
                 setStatus(GameStatus.STARTING);
             }
         }
-        
+
         player.sendMessage(ChatColor.YELLOW + "[TF2] You joined the map " + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
-        player.sendMessage(ChatColor.YELLOW + "The game will start when " + (((map.getPlayerlimit() * 100) / plugin.getConfig().getInt("autostart-percent")) - playersInGame.size() * map.getPlayerlimit()) + " players have joined.");
+        player.sendMessage(ChatColor.YELLOW + "The game will start when " + (map.getPlayerlimit() * 100 / plugin.getConfig().getInt("autostart-percent") - playersInGame.size() * map.getPlayerlimit()) + " players have joined.");
         player.updateInventory();
     }
 
@@ -150,21 +155,21 @@ public class Game {
         gp.setInLobby(false);
         player.teleport(MapUtilities.getUtilities().loadLobby());
         TagAPI.refreshPlayer(player);
-        
+
         TF2Class c = new TF2Class("NONE");
         c.clearInventory(player);
         gp.loadInventory();
         playersInGame.remove(gp);
-        
+
         if (getStatus() == GameStatus.STARTING && playersInGame.size() == 1) {
             stopMatch();
         }
-        
+
         checkQueue();
         if (playersInGame.size() == 0) {
             stopMatch();
         }
-        
+
     }
 
     public Integer getAmountOnTeam(Team team) {
@@ -174,12 +179,12 @@ public class Game {
             if (player.getTeam() == Team.RED) {
                 red++;
             }
-            
+
             if (player.getTeam() == Team.BLUE) {
                 blue++;
             }
         }
-        
+
         if (team == Team.BLUE) {
             return blue;
         }
@@ -189,7 +194,7 @@ public class Game {
     public Team decideTeam() {
         int red = getAmountOnTeam(Team.RED);
         int blue = getAmountOnTeam(Team.BLUE);
-        
+
         if (red > blue) {
             return Team.BLUE;
         }
@@ -228,7 +233,7 @@ public class Game {
         if (getStatus().equals(GameStatus.WAITING) || getStatus().equals(GameStatus.STARTING)) {
             return "Not Started";
         }
-        
+
         int time = getTimeLeftSeconds();
         int hours = time / (60 * 60);
         time = time % (60 * 60);
@@ -238,7 +243,7 @@ public class Game {
         if (hours == 0) {
             return minutes + "m " + time + "s";
         }
-        
+
         return Math.abs(hours) + "h " + Math.abs(minutes) + "m " + Math.abs(time) + "s";
     }
 
@@ -299,7 +304,7 @@ public class Game {
             e.printStackTrace();
         }
     }
-    
+
     public GamePlayer getPlayer(Player player) {
         for (GamePlayer gp : playersInGame) {
             if (player.getName().equalsIgnoreCase(gp.getName())) {

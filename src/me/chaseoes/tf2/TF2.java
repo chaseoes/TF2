@@ -16,6 +16,7 @@ import me.chaseoes.tf2.commands.LeaveCommand;
 import me.chaseoes.tf2.commands.ListCommand;
 import me.chaseoes.tf2.commands.ReloadCommand;
 import me.chaseoes.tf2.commands.SetCommand;
+import me.chaseoes.tf2.listeners.BlockBreakListener;
 import me.chaseoes.tf2.listeners.BlockPlaceListener;
 import me.chaseoes.tf2.listeners.FoodLevelChangeListener;
 import me.chaseoes.tf2.listeners.PlayerInteractListener;
@@ -140,6 +141,7 @@ public class TF2 extends JavaPlugin {
         pm.registerEvents(new ProjectileLaunchListener(), this);
         pm.registerEvents(new SignChangeListener(), this);
         pm.registerEvents(new TF2DeathListener(), this);
+        pm.registerEvents(new BlockBreakListener(), this);
     }
 
     public Queue getQueue(String map) {
