@@ -16,12 +16,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 public class BlockBreakListener implements Listener {
-    
+
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         Block b = event.getBlock();
         Player player = event.getPlayer();
-        if (b.getType() == Material.STONE_BUTTON && player.hasPermission("tf2.create")) {
+        if ((b.getType() == Material.STONE_BUTTON || b.getType() == Material.WOOD_BUTTON) && player.hasPermission("tf2.create")) {
             for (String s : DataConfiguration.getData().getDataFile().getStringList("classbuttons")) {
                 if (ClassUtilities.getUtilities().loadClassButtonLocation(s).toString().equalsIgnoreCase(b.getLocation().toString())) {
                     List<String> buttons = DataConfiguration.getData().getDataFile().getStringList("classbuttons");
@@ -31,7 +31,7 @@ public class BlockBreakListener implements Listener {
                     player.sendMessage(ChatColor.YELLOW + "[TF2] Successfully removed class button.");
                 }
             }
-            
+
             for (String s : DataConfiguration.getData().getDataFile().getStringList("changeclassbuttons")) {
                 if (ClassUtilities.getUtilities().loadClassButtonLocation(s).toString().equalsIgnoreCase(b.getLocation().toString())) {
                     List<String> buttons = DataConfiguration.getData().getDataFile().getStringList("changeclassbuttons");
@@ -42,7 +42,7 @@ public class BlockBreakListener implements Listener {
                 }
             }
         }
-        
+
         if (b.getType() == Material.WALL_SIGN) {
             Sign s = (Sign) b.getState();
             if (s.getLine(0).equalsIgnoreCase("Team Fortress 2") && s.getLine(1).equalsIgnoreCase("Click here")) {

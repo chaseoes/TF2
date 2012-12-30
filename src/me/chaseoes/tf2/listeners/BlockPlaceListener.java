@@ -18,7 +18,7 @@ public class BlockPlaceListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
-        if (GameUtilities.getUtilities().makingclassbutton.containsKey(player.getName()) && event.getBlockPlaced().getType() == Material.STONE_BUTTON) {
+        if (GameUtilities.getUtilities().makingclassbutton.containsKey(player.getName()) && (event.getBlockPlaced().getType() == Material.STONE_BUTTON || event.getBlockPlaced().getType() == Material.WOOD_BUTTON)) {
             List<String> classbs = DataConfiguration.getData().getDataFile().getStringList("classbuttons");
             classbs.add(event.getBlockPlaced().getWorld().getName() + "." + event.getBlockPlaced().getLocation().getBlockX() + "." + event.getBlockPlaced().getLocation().getBlockY() + "." + event.getBlockPlaced().getLocation().getBlockZ() + "." + GameUtilities.getUtilities().makingclassbuttontype.get(player.getName()) + "." + GameUtilities.getUtilities().makingclassbutton.get(player.getName()));
             DataConfiguration.getData().saveData();
@@ -29,7 +29,7 @@ public class BlockPlaceListener implements Listener {
             GameUtilities.getUtilities().makingclassbuttontype.remove(player.getName());
         }
 
-        if (GameUtilities.getUtilities().makingchangeclassbutton.contains(player.getName()) && event.getBlockPlaced().getType() == Material.STONE_BUTTON) {
+        if (GameUtilities.getUtilities().makingchangeclassbutton.contains(player.getName()) && (event.getBlockPlaced().getType() == Material.STONE_BUTTON || event.getBlockPlaced().getType() == Material.WOOD_BUTTON)) {
             List<String> classbs = DataConfiguration.getData().getDataFile().getStringList("changeclassbuttons");
             classbs.add(event.getBlockPlaced().getWorld().getName() + "." + event.getBlockPlaced().getLocation().getBlockX() + "." + event.getBlockPlaced().getLocation().getBlockY() + "." + event.getBlockPlaced().getLocation().getBlockZ());
             DataConfiguration.getData().getDataFile().set("changeclassbuttons", classbs);

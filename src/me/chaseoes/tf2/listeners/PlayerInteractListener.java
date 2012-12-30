@@ -97,7 +97,7 @@ public class PlayerInteractListener implements Listener {
                 }
             }
 
-            if (event.hasBlock() && event.getClickedBlock().getType() == Material.STONE_BUTTON) {
+            if (event.hasBlock() && (event.getClickedBlock().getType() == Material.STONE_BUTTON || event.getClickedBlock().getType() == Material.WOOD_BUTTON)) {
                 if (GameUtilities.getUtilities().isIngame(player)) {
                     GamePlayer gp = GameUtilities.getUtilities().getCurrentGame(player).getPlayer(player);
                     for (String s : DataConfiguration.getData().getDataFile().getStringList("classbuttons")) {
