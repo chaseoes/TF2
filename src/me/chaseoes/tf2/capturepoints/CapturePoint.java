@@ -52,7 +52,7 @@ public class CapturePoint {
             @Override
             public void run() {
                 if (timeRemaining != 0) {
-                    player.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.BOLD  + ChatColor.DARK_RED  + timeRemaining + " " + ChatColor.RESET + ChatColor.RED + "seconds remaining!");
+                    player.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.BOLD + ChatColor.DARK_RED  + timeRemaining + " " + ChatColor.RESET + ChatColor.RED + "seconds remaining!");
 //                    if (timeRemaining == timeTotal) {
 //                        player.setExp((float) 0.1);
 //                    } else {
