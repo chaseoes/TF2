@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -47,18 +46,52 @@ public class GameUtilities {
     public void addGame(Map map) {
         games.put(map.getName(), new Game(map, plugin));
     }
+    
+    public void leaveCurrentGame(Player player) {
+        getCurrentGame(player).leaveGame(player);
+    }
+    
+    public Team teamFromString(String s) {
+        Team t = Team.BLUE;
+        if (s.equalsIgnoreCase("red")) {
+            t = Team.RED;
+        }
+        return t;
+    }
+    
+    public int getAmountOnTeam(String map, String team) {
+        return getAmountOnTeam(map, teamFromString(team));
+    }
 
     public void joinGame(Player player, String map, String team) {
+        joinGame(player, map, teamFromString(team));
+    }
+    
+    public int getKills(Player player) {
+        return getCurrentGame(player).getPlayer(player).getKills();
+    }
+    
+    public void setKills(Player player, int i) {
+       getCurrentGame(player).getPlayer(player).setKills(i);
+    }
+
+    public void joinGame(Player player, String map, Team team) {
         games.get(map).joinGame(player, team);
     }
 
-    public void leaveCurrentGame(Player player) {
-        if (isIngame(player)) {
-            String map = getCurrentMap(player);
-            games.get(map).leaveGame(player);
-        } else {
-            player.sendMessage(ChatColor.YELLOW + "[TF2] You are not playing TF2!");
+    public boolean isIngame(Player player) {
+        return getCurrentGame(player) != null;
+    }
+
+    public Game getCurrentGame(Player player) {
+        for (Game g : games.values()) {
+            for (GamePlayer gp : g.playersInGame) {
+                if (gp.getName().equalsIgnoreCase(player.getName())) {
+                    return g;
+                }
+            }
         }
+        return null;
     }
 
     public void startMatch(final String map) {
@@ -77,20 +110,21 @@ public class GameUtilities {
         games.get(map).winGame(team);
     }
 
-    public Integer getAmountOnTeam(String map, String team) {
+    public Integer getAmountOnTeam(String map, Team team) {
         return games.get(map).getAmountOnTeam(team);
     }
 
     public String getTeamColor(Player player) {
-        String map = getCurrentMap(player);
-        return games.get(map).getTeamColor(player);
+        Game g = getCurrentGame(player);
+        return g.getPlayer(player).getTeamColor(player);
     }
 
     public Integer getTimeLeftSeconds(String map) {
         return games.get(map).getTimeLeftSeconds();
     }
 
-    public String decideTeam(String map) {
+    public Team decideTeam(Map m) {
+        String map = m.getName();
         return games.get(map).decideTeam();
     }
 
@@ -102,22 +136,17 @@ public class GameUtilities {
         return list;
     }
 
-    public String getTeam(Player player) {
-        String map = getCurrentMap(player);
-        return games.get(map).getTeam(player);
-    }
-
-    public Boolean isIngame(Player player) {
-        return getCurrentMap(player) != null;
+    public String decideTeam(String map) {
+        return games.get(map).decideTeam().name();
     }
 
     public String getCurrentMap(Player player) {
-        for (Game game : games.values()) {
-            if (game.isIngame(player)) {
-                return game.getName();
-            }
-        }
-        return null;
+        return getCurrentGame(player).getName();
+    }
+
+    public String getTeam(Player player) {
+        Game g = getCurrentGame(player);
+        return g.getPlayer(player).getTeam().name();
     }
 
     public String getGameStatus(String map) {
@@ -155,14 +184,6 @@ public class GameUtilities {
 
     public void checkQueue(String map) {
         games.get(map).checkQueue();
-    }
-
-    public void setKills(Player player, int kills) {
-        games.get(getCurrentMap(player)).kills.put(player.getName(), kills);
-    }
-
-    public Integer getKills(Player player) {
-        return games.get(getCurrentMap(player)).kills.get(player.getName());
     }
 
     public boolean getRedHasBeenTeleported(String map) {

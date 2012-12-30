@@ -99,6 +99,7 @@ public class MapUtilities {
     }
     
     public Location loadTeamLobby(String map, String team) {
+        team = team.toLowerCase();
         return new Location(plugin.getServer().getWorld(MapConfiguration.getMaps().getMap(map).getString(team + ".lobby.w")), MapConfiguration.getMaps().getMap(map).getInt(team + ".lobby.x") + .5, MapConfiguration.getMaps().getMap(map).getInt(team + ".lobby.y"), MapConfiguration.getMaps().getMap(map).getInt(team + ".lobby.z") + .5, MapConfiguration.getMaps().getMap(map).getInt(team + ".lobby.yaw"), MapConfiguration.getMaps().getMap(map).getInt(team + ".lobby.pitch"));
     }
     

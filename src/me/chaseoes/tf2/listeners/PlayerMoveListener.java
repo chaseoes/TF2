@@ -30,7 +30,7 @@ public class PlayerMoveListener implements Listener {
         TF2 plugin = GameUtilities.getUtilities().plugin;
         Map map = plugin.getMap(CapturePointUtilities.getUtilities().getMapFromLocation(b.getLocation()));
         // Capture Points
-        if ((b.getType() == Material.STONE_PLATE || b.getType() == Material.WOOD_PLATE) && GameUtilities.getUtilities().isIngame(player) && CapturePointUtilities.getUtilities().locationIsCapturePoint(b.getLocation()) && GameUtilities.getUtilities().getGameStatus(map.getName()).equals(GameStatus.INGAME)) {
+        if ((b.getType() == Material.STONE_PLATE || b.getType() == Material.WOOD_PLATE) && GameUtilities.getUtilities().isIngame(player) && CapturePointUtilities.getUtilities().locationIsCapturePoint(b.getLocation()) && GameUtilities.getUtilities().games.get(map.getName()).getStatus() == GameStatus.INGAME) {
             Integer id = CapturePointUtilities.getUtilities().getIDFromLocation(b.getLocation());
             CapturePoint cp = map.getCapturePoint(id);
             if (GameUtilities.getUtilities().getTeam(player).equalsIgnoreCase("red")) {

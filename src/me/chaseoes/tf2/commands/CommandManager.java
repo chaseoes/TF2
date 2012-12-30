@@ -45,10 +45,6 @@ public class CommandManager implements CommandExecutor {
             }
         }
         
-        if (strings[0].equalsIgnoreCase("test")) {
-            GameUtilities.getUtilities().winGame("default", "red");
-        }
-        
         if (strings[0].equalsIgnoreCase("checkdata")) {
             if (cs.hasPermission("tf2.create")) {
                 CheckDataCommand.getCommand().execCheckDataCommand(cs, strings, cmnd);
