@@ -114,7 +114,6 @@ public class Schedulers {
                     }
                     secondsLeft--;
                 } else {
-                    GameUtilities.getUtilities().gamestarting.remove(map);
                     GameUtilities.getUtilities().startMatch(map);
                     GameUtilities.getUtilities().setStatus(map, GameStatus.INGAME);
                     stopCountdown(map);
@@ -142,7 +141,6 @@ public class Schedulers {
                     if (current >= limit) {
                         GameUtilities.getUtilities().winGame(map, "blue");
                         stopTimeLimitCounter(map);
-                        GameUtilities.getUtilities().gametimes.remove(map);
                     }
                     current++;
                 } catch (Exception e) {

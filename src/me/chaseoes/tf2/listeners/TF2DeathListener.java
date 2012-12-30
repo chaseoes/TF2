@@ -23,7 +23,7 @@ public class TF2DeathListener implements Listener {
             @Override
             public void run() {
                 final Player player = event.getPlayer();
-                GamePlayer playerg = GameUtilities.getUtilities().getGamePlayer(player);
+                final GamePlayer playerg = GameUtilities.getUtilities().getGamePlayer(player);
                 final Player killer = event.getKiller();
                 GamePlayer killerg = GameUtilities.getUtilities().getGamePlayer(killer);
 
@@ -35,7 +35,7 @@ public class TF2DeathListener implements Listener {
                 GameUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncDelayedTask(GameUtilities.getUtilities().plugin, new Runnable() {
                     @Override
                     public void run() {
-                        GameUtilities.getUtilities().justspawned.remove(player.getName());
+                        playerg.setJustSpawned(false);
                     }
                 }, 40L);
 
@@ -61,7 +61,7 @@ public class TF2DeathListener implements Listener {
                 player.setHealth(20);
                 TF2Class c = playerg.getCurrentClass();
                 c.apply(player);
-                GameUtilities.getUtilities().justspawned.add(player.getName());
+                playerg.setJustSpawned(true);
             }
         }, 1L);
     }

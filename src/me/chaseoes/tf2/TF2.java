@@ -78,12 +78,6 @@ public class TF2 extends JavaPlugin {
             addMap(map);
         }
 
-        GameUtilities.getUtilities().coolpeople.add("chaseoes");
-        GameUtilities.getUtilities().coolpeople.add("skitscape");
-        GameUtilities.getUtilities().coolpeople.add("AntVenom");
-        GameUtilities.getUtilities().coolpeople.add("Fawdz");
-        GameUtilities.getUtilities().coolpeople.add("Double0Negative");
-
         LobbyWall.getWall().startTask();
 
         uc = new UpdateChecker(this);

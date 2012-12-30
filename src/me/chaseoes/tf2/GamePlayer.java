@@ -14,10 +14,13 @@ public class GamePlayer {
     Team team;
     int kills;
     int deaths;
+    int totalKills;
+    int totalDeaths;
     boolean inLobby;
     boolean usingChangeClassButton;
     boolean makingChangeClassButton;
     boolean makingClassButton;
+    boolean justSpawned;
     String classButtonType;
     String classButtonName;
     TF2Class currentClass;
@@ -195,6 +198,38 @@ public class GamePlayer {
 
     public void setCurrentClass(TF2Class c) {
         currentClass = c;
+    }
+
+    public int getTotalKills() {
+        return totalKills;
+    }
+
+    public void setTotalKills(int i) {
+        if (i == -1) {
+            totalKills++;
+        } else {
+            totalKills = i;
+        }
+    }
+
+    public int getTotalDeaths() {
+        return totalDeaths;
+    }
+
+    public void settotalDeaths(int i) {
+        if (i == -1) {
+            totalDeaths++;
+        } else {
+            totalDeaths = i;
+        }
+    }
+    
+    public boolean justSpawned() {
+        return justSpawned;
+    }
+    
+    public void setJustSpawned(Boolean b) {
+        justSpawned = b;
     }
 
 }

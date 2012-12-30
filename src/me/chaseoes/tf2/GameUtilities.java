@@ -2,32 +2,16 @@ package me.chaseoes.tf2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public class GameUtilities {
 
     public TF2 plugin;
     static GameUtilities instance = new GameUtilities();
-
     public HashMap<String, Game> games = new HashMap<String, Game>();
     public HashMap<String, GamePlayer> players = new HashMap<String, GamePlayer>();
-
-    public HashMap<String, Integer> afktimes = new HashMap<String, Integer>();
-    public HashMap<String, Location> afklocations = new HashMap<String, Location>();
-    public HashSet<String> gamestarted = new HashSet<String>(); // map
-    public HashSet<String> gameinlobby = new HashSet<String>(); // map
-    public HashSet<String> gamestarting = new HashSet<String>(); // map
-    public HashSet<String> justspawned = new HashSet<String>(); // player
-    public HashMap<String, Integer> gametimes = new HashMap<String, Integer>();
-    public HashMap<String, Integer> arrows = new HashMap<String, Integer>();
-    public HashMap<String, Integer> totalkills = new HashMap<String, Integer>();
-    public HashMap<String, Integer> totaldeaths = new HashMap<String, Integer>();
-    public List<String> coolpeople = new ArrayList<String>();
-    public Integer afkchecker;
 
     private GameUtilities() {
 
@@ -108,14 +92,10 @@ public class GameUtilities {
     }
 
     public void startMatch(final String map) {
-        gamestarted.add(map);
-        gameinlobby.remove(map);
         games.get(map).startMatch();
     }
 
     public void stopMatch(String map) {
-        gamestarted.remove(map);
-        gameinlobby.add(map);
         games.get(map).stopMatch();
     }
 

@@ -1,5 +1,8 @@
 package me.chaseoes.tf2.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.TF2;
 
@@ -12,6 +15,7 @@ public class ListCommand {
 
     private TF2 plugin;
     static ListCommand instance = new ListCommand();
+    public List<String> highlightNames = new ArrayList<String>();
 
     private ListCommand() {
 
@@ -27,12 +31,18 @@ public class ListCommand {
 
     public void execListCommand(CommandSender cs, String[] strings, Command cmnd) {
         CommandHelper h = new CommandHelper(cs, cmnd);
+        highlightNames.add("chaseoes");
+        highlightNames.add("skitscape");
+        highlightNames.add("AntVenom");
+        highlightNames.add("Fawdz");
+        highlightNames.add("Double0Negative");
+        
         if (strings.length == 2) {
             StringBuilder red = new StringBuilder();
             StringBuilder blue = new StringBuilder();
             for (String pl : GameUtilities.getUtilities().getIngameList(strings[1])) {
 
-                if (!GameUtilities.getUtilities().coolpeople.contains(pl)) {
+                if (!highlightNames.contains(pl)) {
                     if (GameUtilities.getUtilities().getTeam(plugin.getServer().getPlayerExact(pl)).equalsIgnoreCase("red")) {
                         red.append(pl).append(", ");
                     } else {
@@ -58,7 +68,7 @@ public class ListCommand {
             Integer redc = 0;
             Integer bluec = 0;
             for (String pl : GameUtilities.getUtilities().getIngameList(map)) {
-                if (!GameUtilities.getUtilities().coolpeople.contains(pl)) {
+                if (!highlightNames.contains(pl)) {
                     if (GameUtilities.getUtilities().getTeam(plugin.getServer().getPlayerExact(pl)).equalsIgnoreCase("red")) {
                         red.append(pl).append(", ");
                         redc++;
