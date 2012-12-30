@@ -4,6 +4,7 @@ import me.chaseoes.tf2.GameStatus;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
+import me.chaseoes.tf2.lobbywall.LobbyWall;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -33,6 +34,7 @@ public class EnableCommand {
             String map = strings[1];
             MapUtilities.getUtilities().enableMap(map);
             GameUtilities.getUtilities().setStatus(map, GameStatus.WAITING);
+            LobbyWall.getWall().cantUpdate.remove(map);
             cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully enabled " + ChatColor.BOLD + map + ChatColor.RESET + ChatColor.YELLOW + ".");
         } else {
             h.wrongArgs();

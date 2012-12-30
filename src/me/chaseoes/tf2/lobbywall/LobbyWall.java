@@ -20,7 +20,7 @@ public class LobbyWall {
 
     private TF2 plugin;
     static LobbyWall instance = new LobbyWall();
-    List<String> cantUpdate = new ArrayList<String>();
+    public List<String> cantUpdate = new ArrayList<String>();
 
     private LobbyWall() {
 
