@@ -48,7 +48,7 @@ public class GameUtilities {
     }
     
     public void leaveCurrentGame(Player player) {
-        getCurrentGame(player).leaveGame(player);
+        getCurrentGame(player).leaveGame(player, false);
     }
     
     public Team teamFromString(String s) {

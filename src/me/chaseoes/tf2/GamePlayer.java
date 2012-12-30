@@ -18,7 +18,7 @@ public class GamePlayer {
     boolean usingChangeClassButton;
     boolean makingChangeClassButton;
     TF2Class currentClass;
-    
+
     ItemStack[] savedInventoryItems;
     ItemStack[] savedArmorItems;
     GameMode savedGameMode;
@@ -42,7 +42,7 @@ public class GamePlayer {
         savedHealth = 0;
         savedGameMode = null;
     }
-    
+
     public Game getGame() {
         return GameUtilities.getUtilities().games.get(getCurrentMap());
     }
@@ -90,11 +90,11 @@ public class GamePlayer {
     public void setKills(int i) {
         if (i == -1) {
             kills++;
+        } else {
+            kills = i;
         }
-
-        kills = i;
     }
-    
+
     public int getDeaths() {
         return deaths;
     }
@@ -102,28 +102,28 @@ public class GamePlayer {
     public void setDeaths(int i) {
         if (i == -1) {
             deaths++;
+        } else {
+            deaths = i;
         }
-
-        deaths = i;
     }
 
     public String getTeamColor(Player player) {
         if (!isIngame()) {
             return null;
         }
-        
+
         String color = "" + ChatColor.BLUE + ChatColor.BOLD;
         if (getTeam() == Team.RED) {
             color = "" + ChatColor.DARK_RED + ChatColor.BOLD;
         }
-        
+
         return color;
     }
-    
+
     public void leaveCurrentGame() {
-        getGame().leaveGame(player);
+        getGame().leaveGame(player, false);
     }
-    
+
     public void saveInventory() {
         savedInventoryItems = player.getInventory().getContents();
         savedArmorItems = player.getInventory().getArmorContents();
@@ -133,7 +133,7 @@ public class GamePlayer {
         savedHealth = player.getHealth();
         savedGameMode = player.getGameMode();
     }
-    
+
     @SuppressWarnings("deprecation")
     public void loadInventory() {
         player.getInventory().setContents(savedInventoryItems);
@@ -145,27 +145,27 @@ public class GamePlayer {
         player.setGameMode(savedGameMode);
         player.updateInventory();
     }
-    
+
     public void setUsingChangeClassButton(Boolean b) {
         usingChangeClassButton = b;
     }
-    
+
     public void setMakingChangeClassButton(Boolean b) {
         makingChangeClassButton = b;
     }
-    
+
     public boolean isUsingChangeClassButton() {
         return usingChangeClassButton;
     }
-    
+
     public boolean isMakingChangeClassButton() {
         return makingChangeClassButton;
     }
-    
+
     public TF2Class getCurrentClass() {
         return currentClass;
     }
-    
+
     public void setCurrentClass(TF2Class c) {
         currentClass = c;
     }

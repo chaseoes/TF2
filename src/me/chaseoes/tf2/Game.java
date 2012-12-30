@@ -76,10 +76,11 @@ public class Game {
 
         for (GamePlayer gp : playersInGame) {
             Player player = gp.getPlayer();
-            leaveGame(player);
+            leaveGame(player, true);
             gp.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] The game has ended.");
         }
-
+        
+        playersInGame = new HashSet<GamePlayer>();
         CapturePointUtilities.getUtilities().uncaptureAll(map);
         redHasBeenTeleported = false;
     }
@@ -150,7 +151,7 @@ public class Game {
         player.updateInventory();
     }
 
-    public void leaveGame(Player player) {
+    public void leaveGame(Player player, Boolean endGame) {
         GamePlayer gp = getPlayer(player);
         gp.setInLobby(false);
         player.teleport(MapUtilities.getUtilities().loadLobby());
@@ -159,7 +160,9 @@ public class Game {
         TF2Class c = new TF2Class("NONE");
         c.clearInventory(player);
         gp.loadInventory();
+        if (!endGame) {
         playersInGame.remove(gp);
+        }
 
         if (getStatus() == GameStatus.STARTING && playersInGame.size() == 1) {
             stopMatch();
