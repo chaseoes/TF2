@@ -5,6 +5,7 @@ import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -51,7 +52,13 @@ public class CreateCommand {
                 String classname = strings[3];
                 GameUtilities.getUtilities().makingclassbutton.put(p.getName(), classname);
                 GameUtilities.getUtilities().makingclassbuttontype.put(p.getName(), strings[2]);
-                p.getInventory().addItem(new ItemStack(Material.STONE_BUTTON));
+                if (p.getGameMode() == GameMode.CREATIVE) {
+                    if (!p.getInventory().contains(Material.STONE_BUTTON)) {
+                        p.getInventory().addItem(new ItemStack(Material.STONE_BUTTON));
+                    }
+                } else {
+                    p.getInventory().addItem(new ItemStack(Material.STONE_BUTTON));
+                }
                 cs.sendMessage(ChatColor.YELLOW + "[TF2] Place the button to create a " + strings[2] + " class button for the class " + classname + ".");
             } else {
                 h.wrongArgs();
@@ -60,7 +67,13 @@ public class CreateCommand {
             if (strings.length == 2) {
                 Player p = (Player) cs;
                 GameUtilities.getUtilities().makingchangeclassbutton.add(p.getName());
-                p.getInventory().addItem(new ItemStack(Material.STONE_BUTTON));
+                if (p.getGameMode() == GameMode.CREATIVE) {
+                    if (!p.getInventory().contains(Material.STONE_BUTTON)) {
+                        p.getInventory().addItem(new ItemStack(Material.STONE_BUTTON));
+                    }
+                } else {
+                    p.getInventory().addItem(new ItemStack(Material.STONE_BUTTON));
+                }
                 cs.sendMessage(ChatColor.YELLOW + "[TF2] Place the button to create a changeclass button.");
             } else {
                 h.wrongArgs();
