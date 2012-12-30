@@ -1,15 +1,10 @@
 package me.chaseoes.tf2.listeners;
 
-import me.chaseoes.tf2.DataConfiguration;
-import me.chaseoes.tf2.GameUtilities;
-import me.chaseoes.tf2.MapConfiguration;
-import me.chaseoes.tf2.MapUtilities;
-import me.chaseoes.tf2.Queue;
+import me.chaseoes.tf2.*;
 import me.chaseoes.tf2.classes.ClassUtilities;
 import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.utilities.DataChecker;
 import me.chaseoes.tf2.utilities.GeneralUtilities;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
@@ -82,7 +77,7 @@ public class PlayerInteractListener implements Listener {
                         q.add(player);
                         Integer position = q.getPosition(player.getName());
 
-                        if (GameUtilities.getUtilities().getIngameList(map).size() + 1 <= MapConfiguration.getMaps().getMap(map).getInt("playerlimit")) {
+                        if (GameUtilities.getUtilities().getIngameList(map).size() + 1 <= TF2.getInstance().getMap(map).getPlayerlimit()) {
                             q.remove(position);
                             GameUtilities.getUtilities().joinGame(player, map, team);
                         } else {
@@ -103,7 +98,7 @@ public class PlayerInteractListener implements Listener {
                             if (player.hasPermission("tf2.button." + ClassUtilities.getUtilities().loadClassButtonTypeFromLocation(s))) {
                                 TF2Class c = new TF2Class(ClassUtilities.getUtilities().loadClassFromLocation(s));
                                 c.apply(player);
-                                player.removeMetadata("tf2.inclasslobby", GameUtilities.getUtilities().plugin);
+                                player.removeMetadata("tf2.inclasslobby", TF2.getInstance());
                                 return;
                             }
                             event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] " + GeneralUtilities.colorize(GameUtilities.getUtilities().plugin.getConfig().getString("donor-button-noperm")));
@@ -113,7 +108,7 @@ public class PlayerInteractListener implements Listener {
                     for (String s : DataConfiguration.getData().getDataFile().getStringList("changeclassbuttons")) {
                         if (ClassUtilities.getUtilities().loadClassButtonLocation(s).toString().equalsIgnoreCase(event.getClickedBlock().getLocation().toString())) {
                             player.setMetadata("tf2.inclasslobby", new FixedMetadataValue(GameUtilities.getUtilities().plugin, true));
-                            event.getPlayer().teleport(MapUtilities.getUtilities().loadTeamLobby(GameUtilities.getUtilities().getCurrentMap(player), GameUtilities.getUtilities().getTeam(player)));
+                            event.getPlayer().teleport(MapUtilities.getUtilities().loadTeamLobby(GameUtilities.getUtilities().getCurrentMap(player), Team.match(GameUtilities.getUtilities().getTeam(player))));
                         }
                     }
                 }

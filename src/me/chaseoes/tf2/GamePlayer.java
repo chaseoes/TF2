@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 public class GamePlayer {
 
     Player player;
-    Map map;
+    String map;
     Team team;
     int kills;
     int deaths;
@@ -41,9 +41,6 @@ public class GamePlayer {
     }
     
     public Game getGame() {
-        if (!isIngame()) {
-            return null;
-        }
         return GameUtilities.getUtilities().games.get(getCurrentMap());
     }
 
@@ -67,11 +64,11 @@ public class GamePlayer {
         inLobby = b;
     }
 
-    public Map getCurrentMap() {
+    public String getCurrentMap() {
         return map;
     }
 
-    public void setMap(Map m) {
+    public void setMap(String m) {
         map = m;
     }
 
