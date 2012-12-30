@@ -6,11 +6,11 @@ import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.Queue;
 import me.chaseoes.tf2.TF2;
+import me.chaseoes.tf2.Team;
 import me.chaseoes.tf2.classes.ClassUtilities;
 import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.utilities.DataChecker;
 import me.chaseoes.tf2.utilities.GeneralUtilities;
-import me.chaseoes.tf2.Team;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -63,7 +63,7 @@ public class PlayerInteractListener implements Listener {
                         event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You do not have permission.");
                         return;
                     }
-                    
+
                     if (GameUtilities.getUtilities().isIngame(player)) {
                         event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You are already playing on a map!");
                         return;
@@ -104,11 +104,12 @@ public class PlayerInteractListener implements Listener {
                         if (ClassUtilities.getUtilities().loadClassButtonLocation(s).toString().equalsIgnoreCase(event.getClickedBlock().getLocation().toString())) {
                             if (player.hasPermission("tf2.button." + ClassUtilities.getUtilities().loadClassButtonTypeFromLocation(s))) {
                                 TF2Class c = new TF2Class(ClassUtilities.getUtilities().loadClassFromLocation(s));
-                                c.apply(player);
-                                if (gp.isUsingChangeClassButton()) {
-                                    player.teleport(MapUtilities.getUtilities().loadTeamSpawn(gp.getGame().getName(), Team.match(GameUtilities.getUtilities().getTeam(player))));
-                                    gp.setInLobby(false);
-                                    gp.setUsingChangeClassButton(false);
+                                if (c.apply(player)) {
+                                    if (gp.isUsingChangeClassButton()) {
+                                        player.teleport(MapUtilities.getUtilities().loadTeamSpawn(gp.getGame().getName(), Team.match(GameUtilities.getUtilities().getTeam(player))));
+                                        gp.setInLobby(false);
+                                        gp.setUsingChangeClassButton(false);
+                                    }
                                 }
                                 return;
                             }
