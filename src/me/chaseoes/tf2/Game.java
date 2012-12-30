@@ -152,7 +152,11 @@ public class Game {
         }
 
         player.sendMessage(ChatColor.YELLOW + "[TF2] You joined the map " + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
-        player.sendMessage(ChatColor.YELLOW + "The game will start when " + (map.getPlayerlimit() * 100 / plugin.getConfig().getInt("autostart-percent") - playersInGame.size() * map.getPlayerlimit()) + " players have joined.");
+        if (getStatus() == GameStatus.WAITING) {
+            player.sendMessage(ChatColor.YELLOW + "The game will start when " + (map.getPlayerlimit() * 100 / plugin.getConfig().getInt("autostart-percent") - playersInGame.size() * map.getPlayerlimit()) + " players have joined.");
+        } else {
+            gp.setUsingChangeClassButton(true);
+        }
         player.updateInventory();
     }
 
