@@ -78,6 +78,7 @@ public class Game {
         setStatus(GameStatus.WAITING);
         Schedulers.getSchedulers().stopRedTeamCountdown(map.getName());
         Schedulers.getSchedulers().stopTimeLimitCounter(map.getName());
+        Schedulers.getSchedulers().stopCountdown(map.getName());
 
         for (GamePlayer gp : playersInGame) {
             Player player = gp.getPlayer();
