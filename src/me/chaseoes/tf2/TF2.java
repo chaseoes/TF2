@@ -18,7 +18,7 @@ import me.chaseoes.tf2.commands.ReloadCommand;
 import me.chaseoes.tf2.commands.SetCommand;
 import me.chaseoes.tf2.listeners.BlockPlaceListener;
 import me.chaseoes.tf2.listeners.FoodLevelChangeListener;
-import me.chaseoes.tf2.listeners.InteractListener;
+import me.chaseoes.tf2.listeners.PlayerInteractListener;
 import me.chaseoes.tf2.listeners.PlayerCommandPreprocessListener;
 import me.chaseoes.tf2.listeners.PlayerDamageByEntityListener;
 import me.chaseoes.tf2.listeners.PlayerDeathListener;
@@ -124,7 +124,7 @@ public class TF2 extends JavaPlugin {
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new BlockPlaceListener(), this);
         pm.registerEvents(new FoodLevelChangeListener(), this);
-        pm.registerEvents(new InteractListener(), this);
+        pm.registerEvents(new PlayerInteractListener(), this);
         pm.registerEvents(new PlayerCommandPreprocessListener(), this);
         pm.registerEvents(new PlayerDamageByEntityListener(), this);
         pm.registerEvents(new PlayerDeathListener(), this);
