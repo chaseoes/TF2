@@ -50,6 +50,8 @@ public class GamePlayer {
     }
 
     public Game getGame() {
+        if(getCurrentMap() == null)
+            return null;
         return GameUtilities.getUtilities().games.get(getCurrentMap());
     }
 

@@ -67,14 +67,7 @@ public class GameUtilities {
     }
 
     public GamePlayer getGamePlayer(Player player) {
-        for (Game g : games.values()) {
-            for (GamePlayer gp : g.playersInGame) {
-                if (gp.getName().equalsIgnoreCase(player.getName())) {
-                    return gp;
-                }
-            }
-        }
-        return null;
+        return players.get(player.getName());
     }
 
     public void playerJoinServer(Player player) {
