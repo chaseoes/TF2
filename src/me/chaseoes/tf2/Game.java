@@ -181,12 +181,7 @@ public class Game {
         c.clearInventory(player.getPlayer());
         player.getPlayer().setHealth(20);
         player.getPlayer().setFoodLevel(20);
-        String gamemode = plugin.getConfig().getString("gamemode");
-        if (gamemode.equalsIgnoreCase("adventure")){
-            player.getPlayer().setGameMode(GameMode.ADVENTURE);
-        } else {
-            player.getPlayer().setGameMode(GameMode.SURVIVAL);
-        }
+        player.getPlayer().setGameMode(GameMode.valueOf(plugin.getConfig().getString("gamemode").toUpperCase()));
         player.getPlayer().setLevel(0);
         player.getPlayer().setExp(0);
         switch (team) {
@@ -197,6 +192,7 @@ public class Game {
                 player.getPlayer().teleport(map.getRedLobby());
                 break;
         }
+        
         TagAPI.refreshPlayer(player.getPlayer());
 
         double currentpercent = (double) playersInGame.size() / map.getPlayerlimit() * 100;

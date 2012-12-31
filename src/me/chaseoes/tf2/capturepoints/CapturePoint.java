@@ -1,6 +1,7 @@
 package me.chaseoes.tf2.capturepoints;
 
 import me.chaseoes.tf2.Game;
+import me.chaseoes.tf2.GamePlayer;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.Team;
@@ -8,6 +9,7 @@ import me.chaseoes.tf2.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 public class CapturePoint {
@@ -61,11 +63,22 @@ public class CapturePoint {
             public void run() {
                 game.setExpOfPlayers(diff * currentTick);
                 if (timeRemaining != 0 && currentTick % 20 == 0) {
-                    // player.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.BOLD + ChatColor.DARK_RED + timeRemaining + " " + ChatColor.RESET + ChatColor.RED + "seconds remaining!");
+                    // player.sendMessage(ChatColor.YELLOW + "[TF2] " +
+                    // ChatColor.BOLD + ChatColor.DARK_RED + timeRemaining + " "
+                    // + ChatColor.RESET + ChatColor.RED +
+                    // "seconds remaining!");
                     player.getWorld().strikeLightningEffect(player.getLocation());
                 }
 
                 if (timeRemaining == 0 && currentTick % 20 == 0) {
+                    for (final GamePlayer gp : game.playersInGame.values()) {
+                        TF2.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(TF2.getInstance(), new Runnable() {
+                            @Override
+                            public void run() {
+                                gp.getPlayer().playSound(gp.getPlayer().getLocation(), Sound.ANVIL_LAND, 1, 1);
+                            }
+                        }, 1L);
+                    }
                     stopCapturing();
                     setStatus(CaptureStatus.CAPTURED);
                     game.broadcast(ChatColor.YELLOW + "[TF2] Capture point " + ChatColor.DARK_RED + "#" + id + " " + ChatColor.YELLOW + "has been captured by " + ChatColor.DARK_RED + ChatColor.BOLD + player.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");

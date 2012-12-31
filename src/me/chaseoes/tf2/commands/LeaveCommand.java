@@ -3,6 +3,7 @@ package me.chaseoes.tf2.commands;
 import me.chaseoes.tf2.GamePlayer;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.TF2;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -29,13 +30,11 @@ public class LeaveCommand {
     public void execLeaveCommand(CommandSender cs, String[] strings, Command cmnd) {
         Player player = (Player) cs;
         GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(player);
-        try {
-            if (gp.isIngame()) {
-                gp.leaveCurrentGame();
-                cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully left the game.");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (gp.isIngame()) {
+            gp.leaveCurrentGame();
+            cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully left the game.");
+        } else {
+            cs.sendMessage(ChatColor.YELLOW + "[TF2] You are not playing in a game.");
         }
     }
 
