@@ -106,3 +106,17 @@ classes:
     - 262.64
     potion-effects:
     - DAMAGE_RESISTANCE.1.50
+  spy:
+    armor:
+      helmet: 0
+      chest: 0
+      legs: 0
+      boots: 0
+    inventory:
+    - 276.1.DAMAGE_ALL-1
+    - 261.1.ARROW_INFINITE-1
+    - 373,16421.5
+    - 262.1
+    potion-effects:
+    - INVISIBILITY.1.forever
+    - SPEED.1.forever

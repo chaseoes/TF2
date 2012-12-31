@@ -205,8 +205,8 @@ public class Game {
 
         player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You joined the map " + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
 
-        if (getStatus() == GameStatus.WAITING || getStatus() == GameStatus.STARTING) {
-            player.getPlayer().sendMessage(ChatColor.YELLOW + "The game will start when " + (map.getPlayerlimit() * 100 / plugin.getConfig().getInt("autostart-percent") - playersInGame.size() * map.getPlayerlimit()) + " players have joined.");
+        if (getStatus() == GameStatus.WAITING) {
+            player.getPlayer().sendMessage(ChatColor.YELLOW + "The game will start when " + plugin.getConfig().getInt("autostart-percent")  + "% of players have joined.");
         } else {
             player.setUsingChangeClassButton(true);
         }

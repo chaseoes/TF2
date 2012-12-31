@@ -32,8 +32,16 @@ public class TF2Class {
     // Apply the class to a player (returns true if it was successful).
     @SuppressWarnings("deprecation")
     public boolean apply(Player player) {
+        // Check that the class exists.
+        if (config == null) {
+            player.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.DARK_RED + "That class does not exist (" + name + ").");
+            clearInventory(player);
+            return false;
+        }
+        
         if (GameUtilities.getUtilities().isIngame(player)) {
             try {
+
                 // Clear their inventory.
                 GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(player);
                 clearInventory(player);

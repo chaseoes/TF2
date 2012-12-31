@@ -157,7 +157,7 @@ public class TF2 extends JavaPlugin {
         Map m = new Map(this, map);
         maps.put(map, m);
         GameUtilities.getUtilities().addGame(m);
-        queues.put(map, new Queue(map));
+        queues.put(map, new Queue(m.getName()));
         GameUtilities.getUtilities().getGame(m).redHasBeenTeleported = false;
     }
 }

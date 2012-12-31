@@ -25,13 +25,16 @@ public class PlayerMoveListener implements Listener {
         if (!(event.getFrom().getBlockX() != event.getTo().getBlockX() || event.getFrom().getBlockY() != event.getTo().getBlockY() || event.getFrom().getBlockZ() != event.getTo().getBlockZ())) {
             return;
         }
+        
         if (GameUtilities.getUtilities().getGamePlayer(event.getPlayer()).isInLobby()) {
             return;
         }
+        
         Player player = event.getPlayer();
         Block b = event.getTo().getBlock();
         TF2 plugin = TF2.getInstance();
         Map map = plugin.getMap(CapturePointUtilities.getUtilities().getMapFromLocation(b.getLocation()));
+        
         // Capture Points
         if ((b.getType() == Material.STONE_PLATE || b.getType() == Material.WOOD_PLATE) && GameUtilities.getUtilities().isIngame(player) && CapturePointUtilities.getUtilities().locationIsCapturePoint(b.getLocation()) && GameUtilities.getUtilities().games.get(map.getName()).getStatus() == GameStatus.INGAME) {
             Integer id = CapturePointUtilities.getUtilities().getIDFromLocation(b.getLocation());

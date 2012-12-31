@@ -61,7 +61,7 @@ public class CapturePoint {
             public void run() {
                 game.setExpOfPlayers(diff * currentTick);
                 if (timeRemaining != 0 && currentTick % 20 == 0) {
-                    player.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.BOLD + ChatColor.DARK_RED + timeRemaining + " " + ChatColor.RESET + ChatColor.RED + "seconds remaining!");
+                    // player.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.BOLD + ChatColor.DARK_RED + timeRemaining + " " + ChatColor.RESET + ChatColor.RED + "seconds remaining!");
                     player.getWorld().strikeLightningEffect(player.getLocation());
                 }
 
@@ -111,7 +111,7 @@ public class CapturePoint {
             task = 0;
         }
 
-        if (capturing != null) {
+        if (capturing != null && GameUtilities.getUtilities().getCurrentGame(capturing) != null) {
             GameUtilities.getUtilities().getCurrentGame(capturing).setExpOfPlayers(0d);
             capturing = null;
         }
