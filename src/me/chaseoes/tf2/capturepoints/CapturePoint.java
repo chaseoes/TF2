@@ -1,7 +1,6 @@
 package me.chaseoes.tf2.capturepoints;
 
 import me.chaseoes.tf2.Game;
-import me.chaseoes.tf2.GamePlayer;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.TF2;
 import org.bukkit.Bukkit;
@@ -15,7 +14,6 @@ public class CapturePoint {
     Integer id;
     Location location;
     Integer task = 0;
-    Integer xpTask = 0;
     Integer ptask = 0;
     CaptureStatus status;
     public Player capturing;
@@ -98,20 +96,6 @@ public class CapturePoint {
                 }
             }
         }, 0L, 1L);
-        xpTask = TF2.getInstance().getServer().getScheduler().scheduleSyncRepeatingTask(TF2.getInstance(), new Runnable() {
-            Integer timeTotal = CapturePointUtilities.getUtilities().plugin.getConfig().getInt("capture-timer");
-            Game game = GameUtilities.getUtilities().getCurrentGame(capturing);
-            double diff = 1.0d / (timeTotal * 20);
-            int currentTick = 0;
-
-            @Override
-            public void run() {
-                currentTick++;
-                for (GamePlayer player : game.playersInGame.values()) {
-                    player.getPlayer().setExp((float) (diff * currentTick));
-                }
-            }
-        }, 0l, 1l);
     }
 
     public void stopCapturing() {
@@ -122,10 +106,6 @@ public class CapturePoint {
         if (task != 0) {
             Bukkit.getScheduler().cancelTask(task);
             task = 0;
-        }
-        if (xpTask != 0) {
-            Bukkit.getScheduler().cancelTask(xpTask);
-            xpTask = 0;
         }
         GameUtilities.getUtilities().getCurrentGame(capturing).setExpOfPlayers(0d);
         capturing = null;
