@@ -24,6 +24,7 @@ Fixed certain errors thrown upon respawn.
 Amount of kills is now displayed on-screen instead of spamming the player.
 Fixed possible cases of players joining late not getting teleported when the game starts.
 Fixed the game not stopping completely if a player leaves while the countdown is in progress.
+You are now returned to the GameMode you were previous to joining a game.
 
 v1.4.4
 Fix some death issues where health etc. wasn't getting reset.

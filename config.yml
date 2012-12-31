@@ -1,5 +1,5 @@
 countdown: 10
-capture-timer: 10
+capture-timer: 5
 autostart-percent: 50
 donor-button-noperm: '&eYou do not have permission to use that button!'
 afk-timer: 60
