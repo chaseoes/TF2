@@ -1,18 +1,16 @@
 package me.chaseoes.tf2.commands;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.utilities.PastebinPoster;
 import me.chaseoes.tf2.utilities.PastebinPoster.PasteCallback;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.Plugin;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class DebugCommand {
 
@@ -53,10 +51,13 @@ public class DebugCommand {
         info.append("TF2 Version: ").append(plugin.getDescription().getVersion()).append("\n");
         info.append("Bukkit Version: ").append(plugin.getServer().getVersion()).append("\n");
         StringBuilder plugins = new StringBuilder();
-        for (Plugin plug : plugin.getServer().getPluginManager().getPlugins()) {
-            plugins.append(plug.getName()).append(", ");
+        for (int i = 0; i < plugin.getServer().getPluginManager().getPlugins().length; i++) {
+            plugins.append(plugin.getServer().getPluginManager().getPlugins()[i]);
+            if (i + 1 < plugin.getServer().getPluginManager().getPlugins().length) {
+                plugins.append(", ");
+            }
         }
-        info.append("Plugins: ").append(plugins.toString().substring(0, plugins.toString().length() - 1)).append("\n\n");
+        info.append("Plugins: ").append(plugins.toString().trim()).append("\n\n");
         info.append("====== TF2 CONFIGURATION ======\n");
         File config = new File(plugin.getDataFolder() + "/config.yml").getAbsoluteFile();
         File data = new File(plugin.getDataFolder() + "/data.yml").getAbsoluteFile();
