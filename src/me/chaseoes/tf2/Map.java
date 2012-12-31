@@ -24,9 +24,9 @@ public class Map {
     private Location blueSpawn;
     private Location redSpawn;
     private HashMap<Integer, CapturePoint> points = new HashMap<Integer, CapturePoint>();
-    private int redTeamTeleportTime;
-    private int timelimit;
-    private int playerlimit;
+    private Integer redTeamTeleportTime;
+    private Integer timelimit;
+    private Integer playerlimit;
 
     private File customConfigFile;
     private FileConfiguration customConfig;
@@ -40,23 +40,36 @@ public class Map {
     public void load() {
         customConfigFile = new File(plugin.getDataFolder(), name + ".yml");
         customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
+        points.clear();
         if (customConfig.isString("region.p1.w")) {
             p1 = new Location(Bukkit.getWorld(customConfig.getString("region.p1.w")), customConfig.getInt("region.p1.x"), customConfig.getInt("region.p1.y"), customConfig.getInt("region.p1.z"));
+        } else {
+            p1 = null;
         }
         if (customConfig.isString("region.p2.w")) {
             p2 = new Location(Bukkit.getWorld(customConfig.getString("region.p2.w")), customConfig.getInt("region.p2.x"), customConfig.getInt("region.p2.y"), customConfig.getInt("region.p2.z"));
+        } else {
+            p2 = null;
         }
         if (customConfig.isString("blue.lobby.w")) {
             blueLobby = new Location(Bukkit.getWorld(customConfig.getString("blue.lobby.w")), customConfig.getInt("blue.lobby.x"), customConfig.getInt("blue.lobby.y"), customConfig.getInt("blue.lobby.z"), (float) customConfig.getDouble("blue.lobby.yaw"), (float) customConfig.getDouble("blue.lobby.pitch"));
+        } else {
+            blueLobby = null;
         }
         if (customConfig.isString("red.lobby.w")) {
             redLobby = new Location(Bukkit.getWorld(customConfig.getString("red.lobby.w")), customConfig.getInt("red.lobby.x"), customConfig.getInt("red.lobby.y"), customConfig.getInt("red.lobby.z"), (float) customConfig.getDouble("red.lobby.yaw"), (float) customConfig.getDouble("red.lobby.pitch"));
+        } else {
+            redLobby = null;
         }
         if (customConfig.isString("blue.spawn.w")) {
             blueSpawn = new Location(Bukkit.getWorld(customConfig.getString("blue.spawn.w")), customConfig.getInt("blue.spawn.x"), customConfig.getInt("blue.spawn.y"), customConfig.getInt("blue.spawn.z"), (float) customConfig.getDouble("blue.spawn.yaw"), (float) customConfig.getDouble("blue.spawn.pitch"));
+        } else {
+            blueSpawn = null;
         }
         if (customConfig.isString("red.spawn.w")) {
             redSpawn = new Location(Bukkit.getWorld(customConfig.getString("red.spawn.w")), customConfig.getInt("red.spawn.x"), customConfig.getInt("red.spawn.y"), customConfig.getInt("red.spawn.z"), (float) customConfig.getDouble("red.spawn.yaw"), (float) customConfig.getDouble("red.spawn.pitch"));
+        } else {
+            redSpawn = null;
         }
         if (customConfig.isConfigurationSection("capture-points")) {
             for (String id : customConfig.getConfigurationSection("capture-points").getKeys(false)) {
@@ -67,12 +80,18 @@ public class Map {
         }
         if (customConfig.isInt("teleport-red-team")) {
             redTeamTeleportTime = customConfig.getInt("teleport-red-team");
+        } else {
+            redTeamTeleportTime = null;
         }
         if (customConfig.isInt("timelimit")) {
             timelimit = customConfig.getInt("timelimit");
+        } else {
+            timelimit = null;
         }
         if (customConfig.isInt("playerlimit")) {
             playerlimit = customConfig.getInt("playerlimit");
+        } else {
+            playerlimit = null;
         }
     }
 
@@ -98,20 +117,25 @@ public class Map {
     }
 
     public void setCapturePoint(Integer id, CapturePoint point) {
-        points.put(id, point);
-        customConfig.set("capture-points." + id, SerializableLocation.getUtilities().locationToString(point.getLocation()));
+        if (point != null) {
+            points.put(id, point);
+            customConfig.set("capture-points." + id, SerializableLocation.getUtilities().locationToString(point.getLocation()));
+        } else {
+            points.remove(id);
+            customConfig.set("capture-points." + id, null);
+        }
         saveConfig();
     }
 
     public List<Location> getCapturePointsLocations() {
         List<Location> locs = new ArrayList<Location>();
-        for (CapturePoint point : points.values()){
+        for (CapturePoint point : points.values()) {
             locs.add(point.getLocation());
         }
         return locs;
     }
 
-    public Set<CapturePoint> getCapturePoints(){
+    public Set<CapturePoint> getCapturePoints() {
         return new HashSet<CapturePoint>(points.values());
     }
 
@@ -205,31 +229,31 @@ public class Map {
         saveConfig();
     }
 
-    public int getRedTeamTeleportTime() {
+    public Integer getRedTeamTeleportTime() {
         return redTeamTeleportTime;
     }
 
-    public void setRedTeamTeleportTime(int redTeamTeleportTime) {
+    public void setRedTeamTeleportTime(Integer redTeamTeleportTime) {
         this.redTeamTeleportTime = redTeamTeleportTime;
         customConfig.set("teleport-red-team", redTeamTeleportTime);
         saveConfig();
     }
 
-    public int getTimelimit() {
+    public Integer getTimelimit() {
         return timelimit;
     }
 
-    public void setTimelimit(int timelimit) {
+    public void setTimelimit(Integer timelimit) {
         this.timelimit = timelimit;
         customConfig.set("timelimit", timelimit);
         saveConfig();
     }
 
-    public int getPlayerlimit() {
+    public Integer getPlayerlimit() {
         return playerlimit;
     }
 
-    public void setPlayerlimit(int playerlimit) {
+    public void setPlayerlimit(Integer playerlimit) {
         this.playerlimit = playerlimit;
         customConfig.set("playerlimit", playerlimit);
         saveConfig();
@@ -238,9 +262,9 @@ public class Map {
     public Boolean allCaptured() {
         Integer possiblepoints = 0;
         Integer captured = 0;
-        for(CapturePoint point : points.values()){
+        for (CapturePoint point : points.values()) {
             possiblepoints++;
-            if(point.getStatus() == CaptureStatus.CAPTURED)
+            if (point.getStatus() == CaptureStatus.CAPTURED)
                 captured++;
         }
 
@@ -258,7 +282,7 @@ public class Map {
     }
 
     public void uncaptureAll() {
-        for(CapturePoint point : points.values()){
+        for (CapturePoint point : points.values()) {
             point.setStatus(CaptureStatus.UNCAPTURED);
         }
     }
