@@ -181,12 +181,12 @@ public class Map {
 
     public void setBlueSpawn(Location blueSpawn) {
         this.blueSpawn = blueSpawn;
-        customConfig.set("blue.spawn.w", blueLobby.getWorld().getName());
-        customConfig.set("blue.spawn.x", blueLobby.getBlockX());
-        customConfig.set("blue.spawn.y", blueLobby.getBlockY());
-        customConfig.set("blue.spawn.z", blueLobby.getBlockZ());
-        customConfig.set("blue.spawn.pitch", blueLobby.getPitch());
-        customConfig.set("blue.spawn.yaw", blueLobby.getYaw());
+        customConfig.set("blue.spawn.w", blueSpawn.getWorld().getName());
+        customConfig.set("blue.spawn.x", blueSpawn.getBlockX());
+        customConfig.set("blue.spawn.y", blueSpawn.getBlockY());
+        customConfig.set("blue.spawn.z", blueSpawn.getBlockZ());
+        customConfig.set("blue.spawn.pitch", blueSpawn.getPitch());
+        customConfig.set("blue.spawn.yaw", blueSpawn.getYaw());
         saveConfig();
     }
 
@@ -196,12 +196,12 @@ public class Map {
 
     public void setRedSpawn(Location redSpawn) {
         this.redSpawn = redSpawn;
-        customConfig.set("red.spawn.w", redLobby.getWorld().getName());
-        customConfig.set("red.spawn.x", redLobby.getBlockX());
-        customConfig.set("red.spawn.y", redLobby.getBlockY());
-        customConfig.set("red.spawn.z", redLobby.getBlockZ());
-        customConfig.set("red.spawn.pitch", redLobby.getPitch());
-        customConfig.set("red.spawn.yaw", redLobby.getYaw());
+        customConfig.set("red.spawn.w", redSpawn.getWorld().getName());
+        customConfig.set("red.spawn.x", redSpawn.getBlockX());
+        customConfig.set("red.spawn.y", redSpawn.getBlockY());
+        customConfig.set("red.spawn.z", redSpawn.getBlockZ());
+        customConfig.set("red.spawn.pitch", redSpawn.getPitch());
+        customConfig.set("red.spawn.yaw", redSpawn.getYaw());
         saveConfig();
     }
 

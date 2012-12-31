@@ -99,7 +99,7 @@ public class PlayerInteractListener implements Listener {
                                 TF2Class c = new TF2Class(ClassUtilities.getUtilities().loadClassFromLocation(s));
                                 if (c.apply(player)) {
                                     if (gp.isUsingChangeClassButton()) {
-                                        player.teleport(MapUtilities.getUtilities().loadTeamSpawn(gp.getGame().getName(), Team.match(GameUtilities.getUtilities().getTeam(player))));
+                                        player.teleport(MapUtilities.getUtilities().loadTeamSpawn(gp.getGame().getName(), gp.getTeam()));
                                         gp.setInLobby(false);
                                         gp.setUsingChangeClassButton(false);
                                     }
@@ -114,7 +114,7 @@ public class PlayerInteractListener implements Listener {
                         if (ClassUtilities.getUtilities().loadClassButtonLocation(s).toString().equalsIgnoreCase(event.getClickedBlock().getLocation().toString())) {
                             gp.setInLobby(true);
                             gp.setUsingChangeClassButton(true);
-                            event.getPlayer().teleport(MapUtilities.getUtilities().loadTeamLobby(GameUtilities.getUtilities().getCurrentMap(player), Team.match(GameUtilities.getUtilities().getTeam(player))));
+                            event.getPlayer().teleport(MapUtilities.getUtilities().loadTeamLobby(GameUtilities.getUtilities().getCurrentMap(player), gp.getTeam()));
                         }
                     }
                 }

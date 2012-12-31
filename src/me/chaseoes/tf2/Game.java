@@ -1,5 +1,6 @@
 package me.chaseoes.tf2;
 
+import me.chaseoes.tf2.capturepoints.CapturePoint;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
@@ -39,7 +40,7 @@ public class Game {
             if (gp.getTeam() == Team.BLUE) {
                 if (gp.getCurrentClass() != null) {
                     gp.setInLobby(false);
-                    player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), Team.BLUE));
+                    player.teleport(map.getBlueSpawn());
                     gp.getCurrentClass().apply(player);
                     gp.setUsingChangeClassButton(false);
                 } else {
@@ -57,7 +58,7 @@ public class Game {
                     if (gp.getTeam() == Team.RED) {
                         if (gp.getCurrentClass() != null) {
                             gp.setInLobby(false);
-                            player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), Team.RED));
+                            player.teleport(map.getRedSpawn());
                             gp.getCurrentClass().apply(player);
                             gp.setUsingChangeClassButton(false);
                         } else {
@@ -86,6 +87,9 @@ public class Game {
         }
 
         CapturePointUtilities.getUtilities().uncaptureAll(map);
+        for (CapturePoint cp : map.getCapturePoints()) {
+            cp.stopCapturing();
+        }
         redHasBeenTeleported = false;
         playersInGame.clear();
     }
@@ -139,7 +143,14 @@ public class Game {
         player.getPlayer().setHealth(20);
         player.getPlayer().setFoodLevel(20);
         player.getPlayer().setGameMode(GameMode.SURVIVAL);
-        player.getPlayer().teleport(MapUtilities.getUtilities().loadTeamLobby(map.getName(), team));
+        switch (team) {
+            case BLUE:
+                player.getPlayer().teleport(map.getBlueLobby());
+                break;
+            case RED:
+                player.getPlayer().teleport(map.getRedLobby());
+                break;
+        }
         TagAPI.refreshPlayer(player.getPlayer());
 
         double currentpercent = (double) playersInGame.size() / map.getPlayerlimit() * 100;
@@ -151,13 +162,13 @@ public class Game {
         }
 
         player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You joined the map " + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
-        
+
         if (getStatus() == GameStatus.WAITING || getStatus() == GameStatus.STARTING) {
             player.getPlayer().sendMessage(ChatColor.YELLOW + "The game will start when " + (map.getPlayerlimit() * 100 / plugin.getConfig().getInt("autostart-percent") - playersInGame.size() * map.getPlayerlimit()) + " players have joined.");
         } else {
             player.setUsingChangeClassButton(true);
         }
-        
+
         player.getPlayer().updateInventory();
     }
 
@@ -321,7 +332,7 @@ public class Game {
     }
 
     public void setExpOfPlayers(double expOfPlayers) {
-        for (GamePlayer gp : playersInGame.values()){
+        for (GamePlayer gp : playersInGame.values()) {
             gp.getPlayer().setExp((float) expOfPlayers);
         }
     }
