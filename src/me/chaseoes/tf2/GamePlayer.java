@@ -128,11 +128,10 @@ public class GamePlayer {
     }
 
     public void leaveCurrentGame() {
-        setInLobby(false);
-        setUsingChangeClassButton(false);
         TF2Class c = new TF2Class("NONE");
         c.clearInventory(player);
         loadInventory();
+        clear();
     }
 
     public void saveInventory() {
@@ -235,6 +234,30 @@ public class GamePlayer {
     
     public void setJustSpawned(Boolean b) {
         justSpawned = b;
+    }
+
+    public void clear(){
+        map = null;
+        team = null;
+        kills = 0;
+        deaths = 0;
+        totalKills = 0;
+        totalDeaths = 0;
+        inLobby = false;
+        usingChangeClassButton = false;
+        makingChangeClassButton = false;
+        makingClassButton = false;
+        justSpawned = false;
+        classButtonType = null;
+        classButtonName = null;
+        currentClass = null;
+        savedInventoryItems = null;
+        savedArmorItems = null;
+        savedGameMode = null;
+        savedXPCount = 0f;
+        savedLevelCount = 0;
+        savedFoodLevel = 0;
+        savedHealth = 0;
     }
 
 }
