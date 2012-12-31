@@ -23,12 +23,24 @@ public class DataChecker {
         return true;
     }
 
-    public Boolean teamLobbyHasBeenSet(String team) {
-        return MapUtilities.getUtilities().loadTeamLobby(map, Team.match(team)) != null;
+    public Boolean teamLobbyHasBeenSet(Team team) {
+        switch (team) {
+            case RED:
+                return TF2.getInstance().getMap(map).getRedLobby() != null;
+            case BLUE:
+                return TF2.getInstance().getMap(map).getBlueLobby() != null;
+        }
+        return null;
     }
 
-    public Boolean teamSpawnHasBeenSet(String team) {
-        return MapUtilities.getUtilities().loadTeamSpawn(map, Team.match(team)) != null;
+    public Boolean teamSpawnHasBeenSet(Team team) {
+        switch (team){
+            case RED:
+                return TF2.getInstance().getMap(map).getRedSpawn() != null;
+            case BLUE:
+                return TF2.getInstance().getMap(map).getBlueSpawn() != null;
+        }
+        return null;
     }
 
     public Boolean playerLimitHasBeenSet() {
@@ -73,11 +85,11 @@ public class DataChecker {
     }
 
     public Boolean allGood() {
-        return globalLobbySet() && capturePointOneHasBeenSet() && teamLobbyHasBeenSet("red") && teamLobbyHasBeenSet("blue") && teamSpawnHasBeenSet("red") && teamSpawnHasBeenSet("blue") && playerLimitHasBeenSet() && timeLimitHasBeenSet() && redTPHasBeenSet() && lobbyWallHasBeenSet();
+        return globalLobbySet() && capturePointOneHasBeenSet() && teamLobbyHasBeenSet(Team.RED) && teamLobbyHasBeenSet(Team.BLUE) && teamSpawnHasBeenSet(Team.RED) && teamSpawnHasBeenSet(Team.BLUE) && playerLimitHasBeenSet() && timeLimitHasBeenSet() && redTPHasBeenSet() && lobbyWallHasBeenSet();
     }
     
     public Boolean allGoodExceptLobbyWall() {
-        return globalLobbySet() && capturePointOneHasBeenSet() && teamLobbyHasBeenSet("red") && teamLobbyHasBeenSet("blue") && teamSpawnHasBeenSet("red") && teamSpawnHasBeenSet("blue") && playerLimitHasBeenSet() && timeLimitHasBeenSet() && redTPHasBeenSet();
+        return globalLobbySet() && capturePointOneHasBeenSet() && teamLobbyHasBeenSet(Team.RED) && teamLobbyHasBeenSet(Team.BLUE) && teamSpawnHasBeenSet(Team.RED) && teamSpawnHasBeenSet(Team.BLUE) && playerLimitHasBeenSet() && timeLimitHasBeenSet() && redTPHasBeenSet();
     }
 
 }

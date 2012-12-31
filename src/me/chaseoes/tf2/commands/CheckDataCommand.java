@@ -1,7 +1,7 @@
 package me.chaseoes.tf2.commands;
 
+import me.chaseoes.tf2.Team;
 import me.chaseoes.tf2.utilities.DataChecker;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -29,22 +29,22 @@ public class CheckDataCommand {
             } else {
                 cs.sendMessage(ChatColor.AQUA + "At least one capture point set? " + ChatColor.DARK_RED + ChatColor.BOLD + "No.");
             }
-            if (dc.teamLobbyHasBeenSet("red")) {
+            if (dc.teamLobbyHasBeenSet(Team.RED)) {
                 cs.sendMessage(ChatColor.AQUA + "Red team lobby has set? " + ChatColor.DARK_GREEN + "Yes.");
             } else {
                 cs.sendMessage(ChatColor.AQUA + "Red team lobby has set? " + ChatColor.DARK_RED + ChatColor.BOLD + "No.");
             }
-            if (dc.teamLobbyHasBeenSet("blue")) {
+            if (dc.teamLobbyHasBeenSet(Team.BLUE)) {
                 cs.sendMessage(ChatColor.AQUA + "Blue team lobby has set? " + ChatColor.DARK_GREEN + "Yes.");
             } else {
                 cs.sendMessage(ChatColor.AQUA + "Blue team lobby has set? " + ChatColor.DARK_RED + ChatColor.BOLD + "No.");
             }
-            if (dc.teamSpawnHasBeenSet("red")) {
+            if (dc.teamSpawnHasBeenSet(Team.RED)) {
                 cs.sendMessage(ChatColor.AQUA + "Red team spawn has set? " + ChatColor.DARK_GREEN + "Yes.");
             } else {
                 cs.sendMessage(ChatColor.AQUA + "Red team spawn has set? " + ChatColor.DARK_RED + ChatColor.BOLD + "No.");
             }
-            if (dc.teamSpawnHasBeenSet("blue")) {
+            if (dc.teamSpawnHasBeenSet(Team.BLUE)) {
                 cs.sendMessage(ChatColor.AQUA + "Blue team spawn has set? " + ChatColor.DARK_GREEN + "Yes.");
             } else {
                 cs.sendMessage(ChatColor.AQUA + "Blue team spawn has set? " + ChatColor.DARK_RED + ChatColor.BOLD + "No.");

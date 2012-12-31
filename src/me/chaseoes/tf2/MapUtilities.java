@@ -83,8 +83,10 @@ public class MapUtilities {
         switch (team) {
             case RED:
                 plugin.getMap(map).setRedSpawn(l);
+                break;
             case BLUE:
                 plugin.getMap(map).setBlueSpawn(l);
+                break;
         }
     }
 
@@ -92,8 +94,10 @@ public class MapUtilities {
         switch (team) {
             case RED:
                 plugin.getMap(map).setRedLobby(l);
+                break;
             case BLUE:
                 plugin.getMap(map).setBlueLobby(l);
+                break;
         }
     }
 

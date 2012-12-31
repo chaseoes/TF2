@@ -1,19 +1,18 @@
 package me.chaseoes.tf2;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
 import me.chaseoes.tf2.capturepoints.CapturePoint;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
-
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.kitteh.tag.TagAPI;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 public class Game {
 
@@ -207,7 +206,7 @@ public class Game {
 
         if (getStatus() == GameStatus.WAITING) {
             player.getPlayer().sendMessage(ChatColor.YELLOW + "The game will start when " + plugin.getConfig().getInt("autostart-percent")  + "% of players have joined.");
-        } else {
+        } else if (getStatus() == GameStatus.INGAME) {
             player.setUsingChangeClassButton(true);
         }
 
