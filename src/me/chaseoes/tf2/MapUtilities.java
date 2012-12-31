@@ -1,14 +1,12 @@
 package me.chaseoes.tf2;
 
-import java.util.List;
-
+import com.sk89q.worldedit.EmptyClipboardException;
+import com.sk89q.worldedit.bukkit.selections.Selection;
 import me.chaseoes.tf2.lobbywall.WorldEditUtilities;
-
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import com.sk89q.worldedit.EmptyClipboardException;
-import com.sk89q.worldedit.bukkit.selections.Selection;
+import java.util.List;
 
 public class MapUtilities {
 
@@ -133,7 +131,7 @@ public class MapUtilities {
     }
 
     public boolean mapIsEnabled(String map) {
-        return MapUtilities.getUtilities().getEnabledMaps().contains(map);
+        return getEnabledMaps().contains(map);
     }
 
 }

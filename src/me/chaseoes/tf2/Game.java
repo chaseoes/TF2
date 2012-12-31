@@ -1,19 +1,17 @@
 package me.chaseoes.tf2;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
-
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.kitteh.tag.TagAPI;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 public class Game {
 
@@ -23,21 +21,11 @@ public class Game {
     public boolean redHasBeenTeleported = false;
     public int time = 0;
 
-    public HashSet<GamePlayer> playersInGame = new HashSet<GamePlayer>();
-    public HashMap<String, String> capturepoints = new HashMap<String, String>();
+    public HashMap<String, GamePlayer> playersInGame = new HashMap<String, GamePlayer>();
 
     public Game(Map m, TF2 plugin) {
         map = m;
         this.plugin = plugin;
-    }
-    
-    public void leave(Player player, Boolean gameIsStopping) {
-        if (gameIsStopping) {
-            leaveCurrentGame(player);
-        } else {
-            playersInGame.remove(getPlayer(player));
-            leaveCurrentGame(player);
-        }
     }
 
     public void startMatch() {
@@ -46,7 +34,7 @@ public class Game {
         Schedulers.getSchedulers().startTimeLimitCounter(map.getName());
         Schedulers.getSchedulers().startRedTeamCountdown(map.getName());
 
-        for (GamePlayer gp : playersInGame) {
+        for (GamePlayer gp : playersInGame.values()) {
             Player player = gp.getPlayer();
             if (gp.getTeam() == Team.BLUE) {
                 if (gp.getCurrentClass() != null) {
@@ -64,7 +52,7 @@ public class Game {
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
             @Override
             public void run() {
-                for (GamePlayer gp : playersInGame) {
+                for (GamePlayer gp : playersInGame.values()) {
                     Player player = gp.getPlayer();
                     if (gp.getTeam() == Team.RED) {
                         if (gp.getCurrentClass() != null) {
@@ -91,9 +79,9 @@ public class Game {
         Schedulers.getSchedulers().stopTimeLimitCounter(map.getName());
         Schedulers.getSchedulers().stopCountdown(map.getName());
 
-        for (GamePlayer gp : playersInGame) {
+        for (GamePlayer gp : playersInGame.values()) {
             Player player = gp.getPlayer();
-            leave(player, true);
+            leaveCurrentGame(player);
             gp.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] The game has ended.");
         }
 
@@ -140,7 +128,7 @@ public class Game {
 
     @SuppressWarnings("deprecation")
     public void joinGame(GamePlayer player, Team team) {
-        playersInGame.add(player);
+        playersInGame.put(player.getName(), player);
         player.setMap(getName());
         player.setInLobby(true);
         player.setTeam(team);
@@ -175,13 +163,10 @@ public class Game {
 
     public void leaveCurrentGame(Player player) {
         GamePlayer gp = getPlayer(player);
-        gp.setInLobby(false);
+        playersInGame.remove(gp.getName());
+        gp.leaveCurrentGame();
         player.teleport(MapUtilities.getUtilities().loadLobby());
         TagAPI.refreshPlayer(player);
-
-        TF2Class c = new TF2Class("NONE");
-        c.clearInventory(player);
-        gp.loadInventory();
 
         if (getStatus() == GameStatus.STARTING && playersInGame.size() == 1) {
             stopMatch();
@@ -196,7 +181,7 @@ public class Game {
     public Integer getAmountOnTeam(Team team) {
         int red = 0;
         int blue = 0;
-        for (GamePlayer player : playersInGame) {
+        for (GamePlayer player : playersInGame.values()) {
             if (player.getTeam() == Team.RED) {
                 red++;
             }
@@ -236,7 +221,7 @@ public class Game {
 
     public List<String> getIngameList() {
         List<String> l = new ArrayList<String>();
-        for (GamePlayer gp : playersInGame) {
+        for (GamePlayer gp : playersInGame.values()) {
             l.add(gp.getName());
         }
         return l;
@@ -291,7 +276,7 @@ public class Game {
     }
 
     public void broadcast(String message) {
-        for (GamePlayer player : playersInGame) {
+        for (GamePlayer player : playersInGame.values()) {
             player.getPlayer().sendMessage(message);
         }
     }
@@ -327,7 +312,7 @@ public class Game {
     }
 
     public GamePlayer getPlayer(Player player) {
-        for (GamePlayer gp : playersInGame) {
+        for (GamePlayer gp : playersInGame.values()) {
             if (player.getName().equalsIgnoreCase(gp.getName())) {
                 return gp;
             }

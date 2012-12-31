@@ -1,49 +1,23 @@
 package me.chaseoes.tf2;
 
-import java.util.HashMap;
-import java.util.logging.Level;
-
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import me.chaseoes.tf2.classes.ClassUtilities;
-import me.chaseoes.tf2.commands.CommandManager;
-import me.chaseoes.tf2.commands.CreateCommand;
-import me.chaseoes.tf2.commands.DebugCommand;
-import me.chaseoes.tf2.commands.DeleteCommand;
-import me.chaseoes.tf2.commands.DisableCommand;
-import me.chaseoes.tf2.commands.EnableCommand;
-import me.chaseoes.tf2.commands.JoinCommand;
-import me.chaseoes.tf2.commands.LeaveCommand;
-import me.chaseoes.tf2.commands.ListCommand;
-import me.chaseoes.tf2.commands.ReloadCommand;
-import me.chaseoes.tf2.commands.SetCommand;
-import me.chaseoes.tf2.listeners.BlockBreakListener;
-import me.chaseoes.tf2.listeners.BlockPlaceListener;
-import me.chaseoes.tf2.listeners.FoodLevelChangeListener;
-import me.chaseoes.tf2.listeners.PlayerCommandPreprocessListener;
-import me.chaseoes.tf2.listeners.PlayerDamageByEntityListener;
-import me.chaseoes.tf2.listeners.PlayerDeathListener;
-import me.chaseoes.tf2.listeners.PlayerDropItemListener;
-import me.chaseoes.tf2.listeners.PlayerInteractListener;
-import me.chaseoes.tf2.listeners.PlayerJoinListener;
-import me.chaseoes.tf2.listeners.PlayerMoveListener;
-import me.chaseoes.tf2.listeners.PlayerQuitListener;
-import me.chaseoes.tf2.listeners.PlayerReceiveNameTagListener;
-import me.chaseoes.tf2.listeners.PotionSplashListener;
-import me.chaseoes.tf2.listeners.ProjectileLaunchListener;
-import me.chaseoes.tf2.listeners.SignChangeListener;
-import me.chaseoes.tf2.listeners.TF2DeathListener;
+import me.chaseoes.tf2.commands.*;
+import me.chaseoes.tf2.listeners.*;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.lobbywall.LobbyWallUtilities;
 import me.chaseoes.tf2.lobbywall.WorldEditUtilities;
 import me.chaseoes.tf2.utilities.IconMenu;
 import me.chaseoes.tf2.utilities.SerializableLocation;
 import me.chaseoes.tf2.utilities.UpdateChecker;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.HashMap;
+import java.util.logging.Level;
 
 public class TF2 extends JavaPlugin {
 
@@ -80,7 +54,7 @@ public class TF2 extends JavaPlugin {
         saveConfig();
         Schedulers.getSchedulers().startAFKChecker();
 
-        for (String map : DataConfiguration.getData().getDataFile().getStringList("enabled-maps")) {
+        for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
             addMap(map);
         }
 

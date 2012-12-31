@@ -1,10 +1,10 @@
 package me.chaseoes.tf2;
 
+import org.bukkit.entity.Player;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import org.bukkit.entity.Player;
 
 public class GameUtilities {
 
@@ -30,7 +30,7 @@ public class GameUtilities {
     }
 
     public void leaveCurrentGame(Player player) {
-        getCurrentGame(player).leave(player, false);
+        getCurrentGame(player).leaveCurrentGame(player);
     }
 
     public Team teamFromString(String s) {
@@ -63,15 +63,12 @@ public class GameUtilities {
     }
 
     public boolean isIngame(Player player) {
-        if (getCurrentGame(player) != null) {
-            return true;
-        }
-        return false;
+        return getCurrentGame(player) != null;
     }
 
     public GamePlayer getGamePlayer(Player player) {
         for (Game g : games.values()) {
-            for (GamePlayer gp : g.playersInGame) {
+            for (GamePlayer gp : g.playersInGame.values()) {
                 if (gp.getName().equalsIgnoreCase(player.getName())) {
                     return gp;
                 }
@@ -94,7 +91,7 @@ public class GameUtilities {
 
     public Game getCurrentGame(Player player) {
         for (Game g : games.values()) {
-            for (GamePlayer gp : g.playersInGame) {
+            for (GamePlayer gp : g.playersInGame.values()) {
                 if (gp.getName().equalsIgnoreCase(player.getName())) {
                     return g;
                 }
@@ -137,8 +134,7 @@ public class GameUtilities {
         if (games.containsKey(map)) {
             return games.get(map).getIngameList();
         }
-        List<String> list = new ArrayList<String>();
-        return list;
+        return new ArrayList<String>();
     }
 
     public String decideTeam(String map) {

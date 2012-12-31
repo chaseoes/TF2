@@ -231,7 +231,7 @@ public class Map {
 
     public void setPlayerlimit(int playerlimit) {
         this.playerlimit = playerlimit;
-        playerlimit = customConfig.getInt("playerlimit");
+        customConfig.set("playerlimit", playerlimit);
         saveConfig();
     }
 
@@ -244,11 +244,8 @@ public class Map {
                 captured++;
         }
 
-        if (possiblepoints == captured) {
-            return true;
-        }
+        return possiblepoints.equals(captured);
 
-        return false;
     }
 
     public Boolean capturePointBeforeHasBeenCaptured(Integer i) {
@@ -257,10 +254,7 @@ public class Map {
         }
         Integer before = i - 1;
         String capped = getCapturePoint(before).getStatus().string();
-        if (capped.equalsIgnoreCase("captured")) {
-            return true;
-        }
-        return false;
+        return capped.equalsIgnoreCase("captured");
     }
 
     public void uncaptureAll() {

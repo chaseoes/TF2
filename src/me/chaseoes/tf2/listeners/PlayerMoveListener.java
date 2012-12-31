@@ -6,7 +6,6 @@ import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.capturepoints.CapturePoint;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -23,7 +22,7 @@ public class PlayerMoveListener implements Listener {
         if (!(event.getFrom().getBlockX() != event.getTo().getBlockX() || event.getFrom().getBlockY() != event.getTo().getBlockY() || event.getFrom().getBlockZ() != event.getTo().getBlockZ())) {
             return;
         }
-        if(event.getPlayer().hasMetadata("tf2.inclasslobby"))
+        if(GameUtilities.getUtilities().getGamePlayer(event.getPlayer()).isInLobby())
             return;
         Player player = event.getPlayer();
         Block b = event.getTo().getBlock();

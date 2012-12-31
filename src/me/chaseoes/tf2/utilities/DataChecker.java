@@ -32,10 +32,7 @@ public class DataChecker {
     }
 
     public Boolean playerLimitHasBeenSet() {
-        if (TF2.getInstance().getMap(map).getPlayerlimit() >= 2) {
-            return true;
-        }
-        return false;
+        return TF2.getInstance().getMap(map).getPlayerlimit() >= 2;
     }
 
     public Integer getPlayerLimit() {
@@ -43,10 +40,7 @@ public class DataChecker {
     }
 
     public Boolean timeLimitHasBeenSet() {
-        if (TF2.getInstance().getMap(map).getTimelimit() >= 1) {
-            return true;
-        }
-        return false;
+        return TF2.getInstance().getMap(map).getTimelimit() >= 1;
     }
 
     public Integer getTimeLimit() {
@@ -54,10 +48,7 @@ public class DataChecker {
     }
 
     public Boolean redTPHasBeenSet() {
-        if (TF2.getInstance().getMap(map).getRedTeamTeleportTime() >= 1) {
-            return true;
-        }
-        return false;
+        return TF2.getInstance().getMap(map).getRedTeamTeleportTime() >= 1;
     }
 
     public Integer getRedTP() {
@@ -78,24 +69,15 @@ public class DataChecker {
     }
     
     public Boolean lobbyWallHasBeenSet() {
-        if (DataConfiguration.getData().getDataFile().getString("lobbywall." + map + ".w") != null) {
-            return true;
-        }
-        return false;
+        return DataConfiguration.getData().getDataFile().getString("lobbywall." + map + ".w") != null;
     }
 
     public Boolean allGood() {
-        if (globalLobbySet() && capturePointOneHasBeenSet() && teamLobbyHasBeenSet("red") && teamLobbyHasBeenSet("blue") && teamSpawnHasBeenSet("red") && teamSpawnHasBeenSet("blue") && playerLimitHasBeenSet() && timeLimitHasBeenSet() && redTPHasBeenSet() && lobbyWallHasBeenSet()) {
-            return true;
-        }
-        return false;
+        return globalLobbySet() && capturePointOneHasBeenSet() && teamLobbyHasBeenSet("red") && teamLobbyHasBeenSet("blue") && teamSpawnHasBeenSet("red") && teamSpawnHasBeenSet("blue") && playerLimitHasBeenSet() && timeLimitHasBeenSet() && redTPHasBeenSet() && lobbyWallHasBeenSet();
     }
     
     public Boolean allGoodExceptLobbyWall() {
-        if (globalLobbySet() && capturePointOneHasBeenSet() && teamLobbyHasBeenSet("red") && teamLobbyHasBeenSet("blue") && teamSpawnHasBeenSet("red") && teamSpawnHasBeenSet("blue") && playerLimitHasBeenSet() && timeLimitHasBeenSet() && redTPHasBeenSet()) {
-            return true;
-        }
-        return false;
+        return globalLobbySet() && capturePointOneHasBeenSet() && teamLobbyHasBeenSet("red") && teamLobbyHasBeenSet("blue") && teamSpawnHasBeenSet("red") && teamSpawnHasBeenSet("blue") && playerLimitHasBeenSet() && timeLimitHasBeenSet() && redTPHasBeenSet();
     }
 
 }

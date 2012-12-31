@@ -1,9 +1,8 @@
 package me.chaseoes.tf2.utilities;
 
+import me.chaseoes.tf2.TF2;
 import org.bukkit.Location;
 import org.bukkit.World;
-
-import me.chaseoes.tf2.TF2;
 
 public class SerializableLocation {
     
@@ -50,11 +49,8 @@ public class SerializableLocation {
         int checky = two.getBlockZ();
         int checkz = two.getBlockZ();
 
-        if (w.equalsIgnoreCase(checkw) && x == checkx && y == checky && z == checkz) {
-            return true;
-        }
-        return false;
-        
+        return w.equalsIgnoreCase(checkw) && x == checkx && y == checky && z == checkz;
+
         // if (locationToString(one).equalsIgnoreCase(locationToString(two)) {
         // return true;
         // }

@@ -1,7 +1,6 @@
 package me.chaseoes.tf2;
 
 import me.chaseoes.tf2.classes.TF2Class;
-
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -129,7 +128,11 @@ public class GamePlayer {
     }
 
     public void leaveCurrentGame() {
-        getGame().leave(player, false);
+        setInLobby(false);
+        setUsingChangeClassButton(false);
+        TF2Class c = new TF2Class("NONE");
+        c.clearInventory(player);
+        loadInventory();
     }
 
     public void saveInventory() {

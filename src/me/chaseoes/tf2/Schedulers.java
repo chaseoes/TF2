@@ -1,12 +1,11 @@
 package me.chaseoes.tf2;
 
-import java.util.HashMap;
-
 import me.chaseoes.tf2.utilities.LocationStore;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+
+import java.util.HashMap;
 
 public class Schedulers {
 
@@ -42,7 +41,7 @@ public class Schedulers {
                             Location lastloc = LocationStore.getLastLocation(player);
                             Location currentloc = new Location(player.getWorld(), player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ());
                             if (lastloc != null) {
-                                if (lastloc.getWorld().getName() == currentloc.getWorld().getName() && lastloc.getBlockX() == currentloc.getBlockX() && lastloc.getBlockY() == currentloc.getBlockY() && lastloc.getBlockZ() == currentloc.getBlockZ()) {
+                                if (lastloc.getWorld().getName().equals(currentloc.getWorld().getName()) && lastloc.getBlockX() == currentloc.getBlockX() && lastloc.getBlockY() == currentloc.getBlockY() && lastloc.getBlockZ() == currentloc.getBlockZ()) {
 
                                     if (afktime == null) {
                                         LocationStore.setAFKTime(player, 1);
@@ -50,7 +49,7 @@ public class Schedulers {
                                         LocationStore.setAFKTime(player, afktime + 1);
                                     }
 
-                                    if (afklimit == afktime) {
+                                    if (afklimit.equals(afktime)) {
                                         GameUtilities.getUtilities().leaveCurrentGame(player);
                                         player.sendMessage(ChatColor.YELLOW + "[TF2] You have been kicked from the map for being AFK.");
                                         LocationStore.setAFKTime(player, null);

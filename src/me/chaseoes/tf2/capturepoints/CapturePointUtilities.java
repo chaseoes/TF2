@@ -64,10 +64,6 @@ public class CapturePointUtilities {
         return false;
     }
 
-    public Boolean allCaptured(String map) {
-        return plugin.getMap(map).allCaptured();
-    }
-
     public Boolean capturePointBeforeHasBeenCaptured(Map map, Integer i) {
         return map.capturePointBeforeHasBeenCaptured(i);
     }
