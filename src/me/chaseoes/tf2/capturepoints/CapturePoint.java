@@ -1,7 +1,8 @@
 package me.chaseoes.tf2.capturepoints;
 
+import me.chaseoes.tf2.Game;
+import me.chaseoes.tf2.GamePlayer;
 import me.chaseoes.tf2.GameUtilities;
-
 import me.chaseoes.tf2.TF2;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,11 +15,12 @@ public class CapturePoint {
     Integer id;
     Location location;
     Integer task = 0;
+    Integer xpTask = 0;
     Integer ptask = 0;
     CaptureStatus status;
     public Player capturing;
 
-    public CapturePoint(String map, Integer i, Location loc){
+    public CapturePoint(String map, Integer i, Location loc) {
         capturing = null;
         setStatus(CaptureStatus.UNCAPTURED);
         id = i;
@@ -50,34 +52,36 @@ public class CapturePoint {
         task = CapturePointUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncRepeatingTask(CapturePointUtilities.getUtilities().plugin, new Runnable() {
             Integer timeRemaining = CapturePointUtilities.getUtilities().plugin.getConfig().getInt("capture-timer");
             Integer timeTotal = CapturePointUtilities.getUtilities().plugin.getConfig().getInt("capture-timer");
+            Game game = GameUtilities.getUtilities().getCurrentGame(capturing);
+            double diff = 1.0d / (timeTotal * 20);
+            int currentTick = 0;
 
             @Override
             public void run() {
-                if (timeRemaining != 0) {
+                game.setExpOfPlayers(diff * currentTick);
+                if (timeRemaining != 0 && currentTick % 20 == 0) {
                     player.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.BOLD + ChatColor.DARK_RED + timeRemaining + " " + ChatColor.RESET + ChatColor.RED + "seconds remaining!");
-//                    if (timeRemaining == timeTotal) {
-//                        player.setExp((float) 0.1);
-//                    } else {
-//                        player.setExp((float) (player.getExp() + 0.1));
-//                    }
                     player.getWorld().strikeLightningEffect(player.getLocation());
                 }
 
-                if (timeRemaining == 0) {
+                if (timeRemaining == 0 && currentTick % 20 == 0) {
                     stopCapturing();
                     setStatus(CaptureStatus.CAPTURED);
                     GameUtilities.getUtilities().broadcast(map, ChatColor.YELLOW + "[TF2] Capture point " + ChatColor.DARK_RED + "#" + id + " " + ChatColor.YELLOW + "has been captured by " + ChatColor.DARK_RED + ChatColor.BOLD + player.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
+                    game.setExpOfPlayers(0);
 
                     if (TF2.getInstance().getMap(map).allCaptured()) {
                         GameUtilities.getUtilities().winGame(map, "red");
                         return;
                     }
                 }
-
-                timeRemaining--;
-                timeTotal++;
+                currentTick++;
+                if (currentTick % 20 == 0) {
+                    timeRemaining--;
+                    timeTotal++;
+                }
             }
-        }, 0L, 20L);
+        }, 0L, 1L);
 
         ptask = CapturePointUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncRepeatingTask(CapturePointUtilities.getUtilities().plugin, new Runnable() {
             @Override
@@ -94,6 +98,20 @@ public class CapturePoint {
                 }
             }
         }, 0L, 1L);
+        xpTask = TF2.getInstance().getServer().getScheduler().scheduleSyncRepeatingTask(TF2.getInstance(), new Runnable() {
+            Integer timeTotal = CapturePointUtilities.getUtilities().plugin.getConfig().getInt("capture-timer");
+            Game game = GameUtilities.getUtilities().getCurrentGame(capturing);
+            double diff = 1.0d / (timeTotal * 20);
+            int currentTick = 0;
+
+            @Override
+            public void run() {
+                currentTick++;
+                for (GamePlayer player : game.playersInGame.values()) {
+                    player.getPlayer().setExp((float) (diff * currentTick));
+                }
+            }
+        }, 0l, 1l);
     }
 
     public void stopCapturing() {
@@ -105,6 +123,11 @@ public class CapturePoint {
             Bukkit.getScheduler().cancelTask(task);
             task = 0;
         }
+        if (xpTask != 0) {
+            Bukkit.getScheduler().cancelTask(xpTask);
+            xpTask = 0;
+        }
+        GameUtilities.getUtilities().getCurrentGame(capturing).setExpOfPlayers(0d);
         capturing = null;
         setStatus(CaptureStatus.UNCAPTURED);
     }

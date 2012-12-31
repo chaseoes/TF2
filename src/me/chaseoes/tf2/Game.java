@@ -319,4 +319,10 @@ public class Game {
         }
         return GameUtilities.getUtilities().getGamePlayer(player);
     }
+
+    public void setExpOfPlayers(double expOfPlayers) {
+        for (GamePlayer gp : playersInGame.values()){
+            gp.getPlayer().setExp((float) expOfPlayers);
+        }
+    }
 }
