@@ -2,6 +2,7 @@ package me.chaseoes.tf2.capturepoints;
 
 import me.chaseoes.tf2.GameUtilities;
 
+import me.chaseoes.tf2.TF2;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -67,7 +68,7 @@ public class CapturePoint {
                     setStatus(CaptureStatus.CAPTURED);
                     GameUtilities.getUtilities().broadcast(map, ChatColor.YELLOW + "[TF2] Capture point " + ChatColor.DARK_RED + "#" + id + " " + ChatColor.YELLOW + "has been captured by " + ChatColor.DARK_RED + ChatColor.BOLD + player.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
 
-                    if (CapturePointUtilities.getUtilities().allCaptured(map)) {
+                    if (TF2.getInstance().getMap(map).allCaptured()) {
                         GameUtilities.getUtilities().winGame(map, "red");
                         return;
                     }

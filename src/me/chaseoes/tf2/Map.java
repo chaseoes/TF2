@@ -155,8 +155,8 @@ public class Map {
         customConfig.set("red.lobby.x", redLobby.getBlockX());
         customConfig.set("red.lobby.y", redLobby.getBlockY());
         customConfig.set("red.lobby.z", redLobby.getBlockZ());
-        customConfig.set("red.lobby.pitch", redLobby.getYaw());
-        customConfig.set("red.lobby.yaw", redLobby.getPitch());
+        customConfig.set("red.lobby.pitch", redLobby.getPitch());
+        customConfig.set("red.lobby.yaw", redLobby.getYaw());
         saveConfig();
     }
 
@@ -170,8 +170,8 @@ public class Map {
         customConfig.set("blue.lobby.x", blueLobby.getBlockX());
         customConfig.set("blue.lobby.y", blueLobby.getBlockY());
         customConfig.set("blue.lobby.z", blueLobby.getBlockZ());
-        customConfig.set("blue.lobby.pitch", blueLobby.getYaw());
-        customConfig.set("blue.lobby.yaw", blueLobby.getPitch());
+        customConfig.set("blue.lobby.pitch", blueLobby.getPitch());
+        customConfig.set("blue.lobby.yaw", blueLobby.getYaw());
         saveConfig();
     }
 
@@ -179,14 +179,14 @@ public class Map {
         return blueSpawn;
     }
 
-    public void setBlueSpawn(Location b) {
-        blueSpawn = b;
-        customConfig.set("blue.spawn.w", b.getWorld().getName());
-        customConfig.set("blue.spawn.x", b.getBlockX());
-        customConfig.set("blue.spawn.y", b.getBlockY());
-        customConfig.set("blue.spawn.z", b.getBlockZ());
-        customConfig.set("blue.spawn.pitch", b.getYaw());
-        customConfig.set("blue.spawn.yaw", b.getPitch());
+    public void setBlueSpawn(Location blueSpawn) {
+        this.blueSpawn = blueSpawn;
+        customConfig.set("blue.spawn.w", blueLobby.getWorld().getName());
+        customConfig.set("blue.spawn.x", blueLobby.getBlockX());
+        customConfig.set("blue.spawn.y", blueLobby.getBlockY());
+        customConfig.set("blue.spawn.z", blueLobby.getBlockZ());
+        customConfig.set("blue.spawn.pitch", blueLobby.getPitch());
+        customConfig.set("blue.spawn.yaw", blueLobby.getYaw());
         saveConfig();
     }
 
@@ -194,14 +194,14 @@ public class Map {
         return redSpawn;
     }
 
-    public void setRedSpawn(Location r) {
-        redSpawn = r;
-        customConfig.set("red.spawn.w", r.getWorld().getName());
-        customConfig.set("red.spawn.x", r.getBlockX());
-        customConfig.set("red.spawn.y", r.getBlockY());
-        customConfig.set("red.spawn.z", r.getBlockZ());
-        customConfig.set("red.spawn.pitch", r.getYaw());
-        customConfig.set("red.spawn.yaw", r.getPitch());
+    public void setRedSpawn(Location redSpawn) {
+        this.redSpawn = redSpawn;
+        customConfig.set("red.spawn.w", redLobby.getWorld().getName());
+        customConfig.set("red.spawn.x", redLobby.getBlockX());
+        customConfig.set("red.spawn.y", redLobby.getBlockY());
+        customConfig.set("red.spawn.z", redLobby.getBlockZ());
+        customConfig.set("red.spawn.pitch", redLobby.getPitch());
+        customConfig.set("red.spawn.yaw", redLobby.getYaw());
         saveConfig();
     }
 
@@ -236,9 +236,10 @@ public class Map {
     }
 
     public Boolean allCaptured() {
-        Integer possiblepoints = getCapturePoints().size();
+        Integer possiblepoints = 0;
         Integer captured = 0;
         for(CapturePoint point : points.values()){
+            possiblepoints++;
             if(point.getStatus() == CaptureStatus.CAPTURED)
                 captured++;
         }
