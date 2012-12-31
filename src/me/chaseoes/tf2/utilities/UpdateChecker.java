@@ -36,13 +36,14 @@ public class UpdateChecker {
             public void run() {
                 checkForUpdate();
             }
-        }, 0L, 36000L);
+        }, 0L, 12000L);
     }
 
     public void checkForUpdate() {
         if (plugin.getConfig().getBoolean("update-checking")) {
             try {
-                final URL url = new URL("http://plugins.skitscape.com/tf2/latest.php");
+                String channel = "http://plugins.skitscape.com/latestVersion.php?pid=1&label=" + plugin.getConfig().getString("update-channel");
+                final URL url = new URL(channel);
                 InputStream i = url.openStream();
                 Scanner scan = new Scanner(i);
                 String ver = scan.nextLine();
