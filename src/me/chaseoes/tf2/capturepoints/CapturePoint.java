@@ -107,8 +107,10 @@ public class CapturePoint {
             Bukkit.getScheduler().cancelTask(task);
             task = 0;
         }
-        GameUtilities.getUtilities().getCurrentGame(capturing).setExpOfPlayers(0d);
-        capturing = null;
+        if (capturing != null) {
+            GameUtilities.getUtilities().getCurrentGame(capturing).setExpOfPlayers(0d);
+            capturing = null;
+        }
         setStatus(CaptureStatus.UNCAPTURED);
     }
 
