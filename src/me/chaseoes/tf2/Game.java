@@ -143,6 +143,8 @@ public class Game {
         player.getPlayer().setHealth(20);
         player.getPlayer().setFoodLevel(20);
         player.getPlayer().setGameMode(GameMode.SURVIVAL);
+        player.getPlayer().setLevel(0);
+        player.getPlayer().setExp(0);
         switch (team) {
             case BLUE:
                 player.getPlayer().teleport(map.getBlueLobby());
@@ -162,13 +164,13 @@ public class Game {
         }
 
         player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You joined the map " + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
-
+        
         if (getStatus() == GameStatus.WAITING || getStatus() == GameStatus.STARTING) {
             player.getPlayer().sendMessage(ChatColor.YELLOW + "The game will start when " + (map.getPlayerlimit() * 100 / plugin.getConfig().getInt("autostart-percent") - playersInGame.size() * map.getPlayerlimit()) + " players have joined.");
         } else {
             player.setUsingChangeClassButton(true);
         }
-
+        
         player.getPlayer().updateInventory();
     }
 
@@ -332,7 +334,7 @@ public class Game {
     }
 
     public void setExpOfPlayers(double expOfPlayers) {
-        for (GamePlayer gp : playersInGame.values()) {
+        for (GamePlayer gp : playersInGame.values()){
             gp.getPlayer().setExp((float) expOfPlayers);
         }
     }
