@@ -92,9 +92,10 @@ public class TF2 extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        reloadConfig();
         saveConfig();
-        for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
-            GameUtilities.getUtilities().stopMatch(map);
+        for (Map map : MapUtilities.getUtilities().getMaps()) {
+            GameUtilities.getUtilities().getGame(map).stopMatch();
         }
         getServer().getScheduler().cancelTasks(this);
         instance = null;
@@ -153,9 +154,10 @@ public class TF2 extends JavaPlugin {
     }
 
     public void addMap(String map) {
-        maps.put(map, new Map(this, map));
-        GameUtilities.getUtilities().addGame(maps.get(map));
+        Map m = new Map(this, map);
+        maps.put(map, m);
+        GameUtilities.getUtilities().addGame(m);
         queues.put(map, new Queue(map));
-        GameUtilities.getUtilities().setRedHasBeenTeleported(map, false);
+        GameUtilities.getUtilities().getGame(m).redHasBeenTeleported = false;
     }
 }

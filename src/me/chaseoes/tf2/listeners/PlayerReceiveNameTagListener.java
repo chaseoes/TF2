@@ -1,6 +1,8 @@
 package me.chaseoes.tf2.listeners;
 
+import me.chaseoes.tf2.GamePlayer;
 import me.chaseoes.tf2.GameUtilities;
+import me.chaseoes.tf2.Team;
 
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -12,16 +14,13 @@ public class PlayerReceiveNameTagListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onNameTag(PlayerReceiveNameTagEvent event) {
-        try {
-            if (GameUtilities.getUtilities().isIngame(event.getNamedPlayer())) {
-                if (GameUtilities.getUtilities().getTeam(event.getNamedPlayer()).equalsIgnoreCase("red")) {
-                    event.setTag(ChatColor.RED + event.getNamedPlayer().getName());
-                } else if (GameUtilities.getUtilities().getTeam(event.getNamedPlayer()).equalsIgnoreCase("blue")) {
-                    event.setTag(ChatColor.BLUE + event.getNamedPlayer().getName());
-                }
+        if (GameUtilities.getUtilities().isIngame(event.getNamedPlayer())) {
+            GamePlayer namedPlayer = GameUtilities.getUtilities().getCurrentGame(event.getNamedPlayer()).getPlayer(event.getNamedPlayer());
+            if (namedPlayer.getTeam() == Team.RED) {
+                event.setTag(ChatColor.RED + event.getNamedPlayer().getName());
+            } else if (namedPlayer.getTeam() == Team.BLUE) {
+                event.setTag(ChatColor.BLUE + event.getNamedPlayer().getName());
             }
-        } catch (Exception e) {
-
         }
     }
 

@@ -1,10 +1,12 @@
 package me.chaseoes.tf2;
 
 import me.chaseoes.tf2.classes.TF2Class;
+
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.kitteh.tag.TagAPI;
 
 public class GamePlayer {
 
@@ -49,8 +51,9 @@ public class GamePlayer {
     }
 
     public Game getGame() {
-        if(getCurrentMap() == null)
+        if (getCurrentMap() == null) {
             return null;
+        }
         return GameUtilities.getUtilities().games.get(getCurrentMap());
     }
 
@@ -114,7 +117,7 @@ public class GamePlayer {
         }
     }
 
-    public String getTeamColor(Player player) {
+    public String getTeamColor() {
         if (!isIngame()) {
             return null;
         }
@@ -128,9 +131,24 @@ public class GamePlayer {
     }
 
     public void leaveCurrentGame() {
+        Game game = getGame();
+        game.playersInGame.remove(player.getName());
         TF2Class c = new TF2Class("NONE");
         c.clearInventory(player);
         loadInventory();
+        
+        player.teleport(MapUtilities.getUtilities().loadLobby());
+        TagAPI.refreshPlayer(player);
+
+        if (game.getStatus() == GameStatus.STARTING && game.playersInGame.size() == 1) {
+            game.stopMatch();
+        }
+
+        game.checkQueue();
+        if (game.playersInGame.size() == 0) {
+            game.stopMatch();
+        }
+        
         clear();
     }
 
@@ -227,16 +245,16 @@ public class GamePlayer {
             totalDeaths = i;
         }
     }
-    
+
     public boolean justSpawned() {
         return justSpawned;
     }
-    
+
     public void setJustSpawned(Boolean b) {
         justSpawned = b;
     }
 
-    public void clear(){
+    public void clear() {
         map = null;
         team = null;
         kills = 0;

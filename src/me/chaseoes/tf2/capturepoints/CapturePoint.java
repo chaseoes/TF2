@@ -3,6 +3,8 @@ package me.chaseoes.tf2.capturepoints;
 import me.chaseoes.tf2.Game;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.TF2;
+import me.chaseoes.tf2.Team;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -45,7 +47,8 @@ public class CapturePoint {
     public void startCapturing(final Player player) {
         capturing = player;
         setStatus(CaptureStatus.CAPTURING);
-        GameUtilities.getUtilities().broadcast(map, ChatColor.YELLOW + "[TF2] Capture point " + ChatColor.DARK_RED + "#" + id + " " + ChatColor.YELLOW + "is being captured!");
+        Game game = GameUtilities.getUtilities().getCurrentGame(player);
+        game.broadcast(ChatColor.YELLOW + "[TF2] Capture point " + ChatColor.DARK_RED + "#" + id + " " + ChatColor.YELLOW + "is being captured!");
 
         task = CapturePointUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncRepeatingTask(CapturePointUtilities.getUtilities().plugin, new Runnable() {
             Integer timeRemaining = CapturePointUtilities.getUtilities().plugin.getConfig().getInt("capture-timer");
@@ -65,11 +68,11 @@ public class CapturePoint {
                 if (timeRemaining == 0 && currentTick % 20 == 0) {
                     stopCapturing();
                     setStatus(CaptureStatus.CAPTURED);
-                    GameUtilities.getUtilities().broadcast(map, ChatColor.YELLOW + "[TF2] Capture point " + ChatColor.DARK_RED + "#" + id + " " + ChatColor.YELLOW + "has been captured by " + ChatColor.DARK_RED + ChatColor.BOLD + player.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
+                    game.broadcast(ChatColor.YELLOW + "[TF2] Capture point " + ChatColor.DARK_RED + "#" + id + " " + ChatColor.YELLOW + "has been captured by " + ChatColor.DARK_RED + ChatColor.BOLD + player.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
                     game.setExpOfPlayers(0);
 
                     if (TF2.getInstance().getMap(map).allCaptured()) {
-                        GameUtilities.getUtilities().winGame(map, "red");
+                        game.winMatch(Team.RED);
                         return;
                     }
                 }
@@ -107,6 +110,7 @@ public class CapturePoint {
             Bukkit.getScheduler().cancelTask(task);
             task = 0;
         }
+
         if (capturing != null) {
             GameUtilities.getUtilities().getCurrentGame(capturing).setExpOfPlayers(0d);
             capturing = null;

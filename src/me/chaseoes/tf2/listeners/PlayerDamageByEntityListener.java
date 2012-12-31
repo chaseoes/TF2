@@ -1,5 +1,8 @@
 package me.chaseoes.tf2.listeners;
 
+import me.chaseoes.tf2.Game;
+import me.chaseoes.tf2.GamePlayer;
+import me.chaseoes.tf2.GameStatus;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.events.TF2DeathEvent;
@@ -41,14 +44,17 @@ public class PlayerDamageByEntityListener implements Listener {
                 LocationStore.unsetLastLocation(damaged);
 
                 // Check Game Status
-                if (!GameUtilities.getUtilities().getGameStatus(GameUtilities.getUtilities().getCurrentMap(damaged)).equalsIgnoreCase("in-game")) {
+                Game game = GameUtilities.getUtilities().getCurrentGame(damaged);
+                GamePlayer gdamaged = game.getPlayer(damaged);
+                if (game.getStatus() != GameStatus.INGAME) {
                     event.setCancelled(true);
                     return;
                 }
 
                 if (event.getDamager() instanceof Player) {
                     Player damager = (Player) event.getDamager();
-                    if (GameUtilities.getUtilities().getTeam(damaged).equalsIgnoreCase(GameUtilities.getUtilities().getTeam(damager))) {
+                    GamePlayer gdamager = game.getPlayer(damager);
+                    if (gdamaged.getTeam() == gdamager.getTeam()) {
                         event.setCancelled(true);
                         return;
                     }
@@ -67,7 +73,8 @@ public class PlayerDamageByEntityListener implements Listener {
                     Projectile pro = (Projectile) event.getDamager();
                     if (pro.getShooter() instanceof Player) {
                         Player damager = (Player) pro.getShooter();
-                        if (GameUtilities.getUtilities().getTeam(damaged).equalsIgnoreCase(GameUtilities.getUtilities().getTeam(damager))) {
+                        GamePlayer gdamager = game.getPlayer(damager);
+                        if (gdamaged.getTeam() == gdamager.getTeam()) {
                             event.setCancelled(true);
                             return;
                         }

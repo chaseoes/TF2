@@ -1,9 +1,11 @@
 package me.chaseoes.tf2.listeners;
 
+import me.chaseoes.tf2.Game;
 import me.chaseoes.tf2.GamePlayer;
 import me.chaseoes.tf2.GameUtilities;
+import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.MapUtilities;
-import me.chaseoes.tf2.Team;
+import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.events.TF2DeathEvent;
 
@@ -24,10 +26,13 @@ public class TF2DeathListener implements Listener {
                 final GamePlayer playerg = GameUtilities.getUtilities().getGamePlayer(player);
                 final Player killer = event.getKiller();
                 GamePlayer killerg = GameUtilities.getUtilities().getGamePlayer(killer);
-
-                player.teleport(MapUtilities.getUtilities().loadTeamSpawn(GameUtilities.getUtilities().getCurrentMap(player), Team.match(GameUtilities.getUtilities().getTeam(player))));
-                player.sendMessage(ChatColor.YELLOW + "[TF2] You were killed by " + GameUtilities.getUtilities().getTeamColor(killer) + killer.getName() + " " + ChatColor.RESET + ChatColor.YELLOW + "(" + killerg.getCurrentClass().getName() + ")!");
-                killer.sendMessage(ChatColor.YELLOW + "[TF2] You killed " + GameUtilities.getUtilities().getTeamColor(player) + player.getName() + " " + ChatColor.RESET + ChatColor.YELLOW + "(" + playerg.getCurrentClass().getName() + ")!");
+                
+                Game game = GameUtilities.getUtilities().getCurrentGame(player);
+                Map map = TF2.getInstance().getMap(game.getMapName());
+                
+                player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), playerg.getTeam()));
+                player.sendMessage(ChatColor.YELLOW + "[TF2] You were killed by " + killerg.getTeamColor() + killer.getName() + " " + ChatColor.RESET + ChatColor.YELLOW + "(" + killerg.getCurrentClass().getName() + ")!");
+                killer.sendMessage(ChatColor.YELLOW + "[TF2] You killed " + playerg.getTeamColor() + player.getName() + " " + ChatColor.RESET + ChatColor.YELLOW + "(" + playerg.getCurrentClass().getName() + ")!");
                 killer.playSound(killer.getLocation(), Sound.valueOf(GameUtilities.getUtilities().plugin.getConfig().getString("killsound.sound")), GameUtilities.getUtilities().plugin.getConfig().getInt("killsound.volume"), GameUtilities.getUtilities().plugin.getConfig().getInt("killsound.pitch"));
 
                 GameUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncDelayedTask(GameUtilities.getUtilities().plugin, new Runnable() {
@@ -47,11 +52,9 @@ public class TF2DeathListener implements Listener {
                 killer.setLevel(killerg.getTotalKills());
                 killerg.setKills(-1);
                 int kills = killerg.getKills();
-
+                
                 if (kills % GameUtilities.getUtilities().plugin.getConfig().getInt("killstreaks") == 0) {
-                    GameUtilities.getUtilities().broadcast(GameUtilities.getUtilities().getCurrentMap(killer), ChatColor.YELLOW + "[TF2] " + GameUtilities.getUtilities().getTeamColor(killer) + killer.getName() + " " + ChatColor.RESET + ChatColor.YELLOW + "is on a " + ChatColor.DARK_RED + ChatColor.BOLD + "" + kills + " " + ChatColor.RESET + ChatColor.YELLOW + "kill streak!");
-                } else {
-                    killer.sendMessage(ChatColor.YELLOW + "[TF2] You have made " + kills + " kills!");
+                    game.broadcast(ChatColor.YELLOW + "[TF2] " + playerg.getTeamColor() + killer.getName() + " " + ChatColor.RESET + ChatColor.YELLOW + "is on a " + ChatColor.DARK_RED + ChatColor.BOLD + "" + kills + " " + ChatColor.RESET + ChatColor.YELLOW + "kill streak!");
                 }
 
                 player.setHealth(20);

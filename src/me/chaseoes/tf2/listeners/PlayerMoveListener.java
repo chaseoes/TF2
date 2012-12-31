@@ -1,9 +1,11 @@
 package me.chaseoes.tf2.listeners;
 
+import me.chaseoes.tf2.Game;
 import me.chaseoes.tf2.GameStatus;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.TF2;
+import me.chaseoes.tf2.Team;
 import me.chaseoes.tf2.capturepoints.CapturePoint;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 
@@ -34,7 +36,8 @@ public class PlayerMoveListener implements Listener {
         if ((b.getType() == Material.STONE_PLATE || b.getType() == Material.WOOD_PLATE) && GameUtilities.getUtilities().isIngame(player) && CapturePointUtilities.getUtilities().locationIsCapturePoint(b.getLocation()) && GameUtilities.getUtilities().games.get(map.getName()).getStatus() == GameStatus.INGAME) {
             Integer id = CapturePointUtilities.getUtilities().getIDFromLocation(b.getLocation());
             CapturePoint cp = map.getCapturePoint(id);
-            if (GameUtilities.getUtilities().getTeam(player).equalsIgnoreCase("red")) {
+            Game game = GameUtilities.getUtilities().getGame(map);
+            if (game.getPlayer(player).getTeam() == Team.RED) {
                 if (cp.getStatus().string().equalsIgnoreCase("uncaptured")) {
                     if (CapturePointUtilities.getUtilities().capturePointBeforeHasBeenCaptured(map, id)) {
                         if (cp.capturing == null) {

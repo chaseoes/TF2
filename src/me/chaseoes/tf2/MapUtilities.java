@@ -6,6 +6,7 @@ import me.chaseoes.tf2.lobbywall.WorldEditUtilities;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MapUtilities {
@@ -59,6 +60,14 @@ public class MapUtilities {
             DataConfiguration.getData().getDataFile().set("disabled-maps", enabled);
             DataConfiguration.getData().saveData();
         }
+    }
+    
+    public List<Map> getMaps() {
+        List<Map> maps = new ArrayList<Map>();
+        for (String m : getEnabledMaps()) {
+            maps.add(plugin.getMap(m));
+        }
+        return maps;
     }
 
     public List<String> getEnabledMaps() {

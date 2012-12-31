@@ -1,5 +1,6 @@
 package me.chaseoes.tf2.commands;
 
+import me.chaseoes.tf2.Game;
 import me.chaseoes.tf2.GameStatus;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.MapUtilities;
@@ -12,7 +13,6 @@ import org.bukkit.command.CommandSender;
 
 public class DisableCommand {
 
-    @SuppressWarnings("unused")
     private TF2 plugin;
     static DisableCommand instance = new DisableCommand();
 
@@ -32,9 +32,10 @@ public class DisableCommand {
         CommandHelper h = new CommandHelper(cs, cmnd);
         if (strings.length == 2) {
             String map = strings[1];
-            GameUtilities.getUtilities().stopMatch(map);
+            Game game = GameUtilities.getUtilities().getGame(plugin.getMap(map));
+            game.stopMatch();
             MapUtilities.getUtilities().disableMap(map);
-            GameUtilities.getUtilities().setStatus(map, GameStatus.DISABLED);
+            game.setStatus(GameStatus.DISABLED);
             String[] creditlines = new String[4];
             creditlines[0] = " ";
             creditlines[1] = "--------------------------";

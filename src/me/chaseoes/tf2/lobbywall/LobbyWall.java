@@ -1,9 +1,12 @@
 package me.chaseoes.tf2.lobbywall;
 
 import me.chaseoes.tf2.DataConfiguration;
+import me.chaseoes.tf2.Game;
+import me.chaseoes.tf2.GameStatus;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.TF2;
+import me.chaseoes.tf2.Team;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -40,6 +43,7 @@ public class LobbyWall {
                 Map m = plugin.getMap(map);
                 if (DataConfiguration.getData().getDataFile().getString("lobbywall." + map + ".w") != null) {
                     Location start = LobbyWallUtilities.getUtilities().loadSignLocation(map);
+                    Game game = GameUtilities.getUtilities().getGame(m);
                     final Block startblock = start.getBlock();
                     final Sign startsign = (Sign) start.getBlock().getState();
                     final org.bukkit.material.Sign matSign = (org.bukkit.material.Sign) start.getBlock().getState().getData();
@@ -70,13 +74,13 @@ public class LobbyWall {
                             block.getState().update();
                         }
                         timeleft = (Sign) teamcount.getBlock().getRelative(direction).getState();
-                        String mapstatus = GameUtilities.getUtilities().getGameStatus(map);
-                        int amountonred = GameUtilities.getUtilities().getAmountOnTeam(map, "red");
-                        int amountonblue = GameUtilities.getUtilities().getAmountOnTeam(map, "blue");
-                        String maptimeleft = GameUtilities.getUtilities().getTimeLeft(map);
+                        String mapstatus = game.getPrettyStatus();
+                        int amountonred = game.getSizeOfTeam(Team.RED);
+                        int amountonblue = game.getSizeOfTeam(Team.BLUE);
+                        String maptimeleft = game.getTimeLeft();
 
                         LobbyWallUtilities.getUtilities().setSignLines(startsign, "Team Fortress 2", "Click here", "to join:", ChatColor.BOLD + "" + map);
-                        if (!GameUtilities.getUtilities().getGameStatus(map).equalsIgnoreCase("disabled")) {
+                        if (game.getStatus() != GameStatus.DISABLED) {
                             LobbyWallUtilities.getUtilities().setSignLines(status, " ", "" + ChatColor.DARK_RED + ChatColor.BOLD + "Status:", mapstatus, " ");
                             LobbyWallUtilities.getUtilities().setSignLines(teamcount, "" + ChatColor.DARK_RED + ChatColor.BOLD + "Red Team:", amountonred + "/" + plugin.getMap(map).getPlayerlimit() / 2 + " Players", ChatColor.BLUE + "" + ChatColor.BOLD + "Blue Team:", amountonblue + "/" + plugin.getMap(map).getPlayerlimit() / 2 + " Players");
                             LobbyWallUtilities.getUtilities().setSignLines(timeleft, " ", ChatColor.BLUE + "" + ChatColor.BOLD + "Time Left:", maptimeleft, " ");
@@ -102,7 +106,7 @@ public class LobbyWall {
                                 color = ChatColor.DARK_RED + "" + ChatColor.BOLD;
                             }
 
-                            if (!GameUtilities.getUtilities().getGameStatus(map).equalsIgnoreCase("disabled")) {
+                            if (game.getStatus() != GameStatus.DISABLED) {
                                 LobbyWallUtilities.getUtilities().setSignLines(po, "Capture Point", "#" + id, "Status:", color + getFriendlyCaptureStatus(map, id));
                             } else {
                                 LobbyWallUtilities.getUtilities().setSignLines(po, " ", "---------------------------------------------", "-------------------------------------", " ");
@@ -124,6 +128,8 @@ public class LobbyWall {
             if (!cantUpdate.contains(map)) {
                 cantUpdate.add(map);
             }
+            Map m = plugin.getMap(map);
+            Game game = GameUtilities.getUtilities().getGame(m);
             final Block startblock = LobbyWallUtilities.getUtilities().loadSignLocation(map).getBlock();
             final Sign startsign = (Sign) startblock.getState();
             final org.bukkit.material.Sign matSign = (org.bukkit.material.Sign) startblock.getState().getData();
@@ -163,8 +169,8 @@ public class LobbyWall {
             if (s2) {
                 LobbyWallUtilities.getUtilities().setSignLines(status, lines[0], lines[1], lines[2], lines[3]);
             } else {
-                if (!GameUtilities.getUtilities().getGameStatus(map).equalsIgnoreCase("disabled")) {
-                    LobbyWallUtilities.getUtilities().setSignLines(status, " ", "" + ChatColor.DARK_RED + ChatColor.BOLD + "Status:", GameUtilities.getUtilities().getGameStatus(map), " ");
+                if (game.getStatus() != GameStatus.DISABLED) {
+                    LobbyWallUtilities.getUtilities().setSignLines(status, " ", "" + ChatColor.DARK_RED + ChatColor.BOLD + "Status:", game.getPrettyStatus(), " ");
                 } else {
                     LobbyWallUtilities.getUtilities().setSignLines(status, " ", ChatColor.BOLD + "Status:", "" + ChatColor.DARK_RED + ChatColor.BOLD + "Disabled", " ");
                 }

@@ -1,9 +1,11 @@
 package me.chaseoes.tf2.commands;
 
 import me.chaseoes.tf2.DataConfiguration;
+import me.chaseoes.tf2.Game;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
+import me.chaseoes.tf2.Team;
 import me.chaseoes.tf2.utilities.DataChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -12,7 +14,6 @@ import org.bukkit.entity.Player;
 
 public class JoinCommand {
 
-    @SuppressWarnings("unused")
     private TF2 plugin;
     static JoinCommand instance = new JoinCommand();
 
@@ -46,14 +47,15 @@ public class JoinCommand {
         }
         if (strings.length == 2 || strings.length == 3) {
             String map = strings[1];
-            String team = GameUtilities.getUtilities().decideTeam(map);
+            Game game = GameUtilities.getUtilities().getGame(plugin.getMap(map));
+            Team team = game.decideTeam();
             
             if (strings.length == 3) {
                 if (!player.hasPermission("tf2.join.specific")) {
                     h.noPermission();
                     return;
                 }
-                team = strings[2];
+                team = Team.match(strings[2]);
             }
             
             DataChecker dc = new DataChecker(map);
@@ -75,14 +77,14 @@ public class JoinCommand {
                 return;
             }
 
-            if (GameUtilities.getUtilities().getIngameList(map).size() == TF2.getInstance().getMap(map).getPlayerlimit() && !(strings.length == 3)) {
+            if (game.getPlayersIngame().size() == TF2.getInstance().getMap(map).getPlayerlimit() && !(strings.length == 3)) {
                 player.sendMessage(ChatColor.YELLOW + "[TF2] That map is currently full.");
                 return;
             }
             
-            GameUtilities.getUtilities().joinGame(player, map, team);
+            game.joinGame(GameUtilities.getUtilities().getGamePlayer(player), team);
 
-            if (GameUtilities.getUtilities().getIngameList(map).size() >= TF2.getInstance().getMap(map).getPlayerlimit()) {
+            if (game.getPlayersIngame().size() >= TF2.getInstance().getMap(map).getPlayerlimit()) {
                 player.sendMessage(ChatColor.YELLOW + "[TF2] You have joined a full map.");
             }
 

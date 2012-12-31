@@ -4,13 +4,13 @@ import me.chaseoes.tf2.DataConfiguration;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 public class ReloadCommand {
 
-    @SuppressWarnings("unused")
     private TF2 plugin;
     static ReloadCommand instance = new ReloadCommand();
 
@@ -27,7 +27,8 @@ public class ReloadCommand {
     }
 
     public void execReloadCommand(CommandSender cs, String[] strings, Command cmnd) {
-        GameUtilities.getUtilities().reloadConfig();
+        plugin.reloadConfig();
+        plugin.saveConfig();
         GameUtilities.getUtilities().plugin.saveConfig();
         DataConfiguration.getData().reloadData();
         DataConfiguration.getData().reloadData();

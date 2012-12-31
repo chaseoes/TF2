@@ -1,5 +1,6 @@
 package me.chaseoes.tf2.listeners;
 
+import me.chaseoes.tf2.Game;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.Queue;
 
@@ -16,9 +17,9 @@ public class PlayerQuitListener implements Listener {
         if (GameUtilities.getUtilities().isIngame(event.getPlayer())) {
             Player player = event.getPlayer();
             String name = player.getName();
-            String map = GameUtilities.getUtilities().getCurrentMap(player);
-            GameUtilities.getUtilities().leaveCurrentGame(player);
-            Queue q = GameUtilities.getUtilities().plugin.getQueue(map);
+            Game game = GameUtilities.getUtilities().getCurrentGame(player);
+            game.leaveGame(player);
+            Queue q = GameUtilities.getUtilities().plugin.getQueue(game.getMapName());
             q.remove(name);
         }
         GameUtilities.getUtilities().playerLeaveServer(event.getPlayer());

@@ -43,7 +43,8 @@ public class PlayerInteractListener implements Listener {
                 Sign s = (Sign) event.getClickedBlock().getState();
                 if (s.getLine(0).equalsIgnoreCase("Team Fortress 2") && s.getLine(2).equalsIgnoreCase("to join:")) {
                     String map = ChatColor.stripColor(s.getLine(3));
-                    String team = GameUtilities.getUtilities().decideTeam(map);
+                    Game game = GameUtilities.getUtilities().getGame(TF2.getInstance().getMap(map));
+                    Team team = game.decideTeam();
                     DataChecker dc = new DataChecker(map);
                     if (!dc.allGood()) {
                         player.sendMessage(ChatColor.YELLOW + "[TF2] This map has not yet been setup.");
@@ -76,14 +77,14 @@ public class PlayerInteractListener implements Listener {
                         q.add(player);
                         Integer position = q.getPosition(player.getName());
 
-                        if (GameUtilities.getUtilities().getIngameList(map).size() + 1 <= TF2.getInstance().getMap(map).getPlayerlimit()) {
+                        if (game.getPlayersIngame().size() + 1 <= TF2.getInstance().getMap(map).getPlayerlimit()) {
                             q.remove(position);
-                            GameUtilities.getUtilities().joinGame(player, map, team);
+                            game.joinGame(GameUtilities.getUtilities().getGamePlayer(player), team);
                         } else {
                             player.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + position + " in line for this map.");
                         }
                     } else {
-                        GameUtilities.getUtilities().joinGame(player, map, team);
+                        game.joinGame(GameUtilities.getUtilities().getGamePlayer(player), team);
                     }
 
                     event.setCancelled(true);
@@ -99,7 +100,7 @@ public class PlayerInteractListener implements Listener {
                                 TF2Class c = new TF2Class(ClassUtilities.getUtilities().loadClassFromLocation(s));
                                 if (c.apply(player)) {
                                     if (gp.isUsingChangeClassButton()) {
-                                        player.teleport(MapUtilities.getUtilities().loadTeamSpawn(gp.getGame().getName(), gp.getTeam()));
+                                        player.teleport(MapUtilities.getUtilities().loadTeamSpawn(gp.getGame().getMapName(), gp.getTeam()));
                                         gp.setInLobby(false);
                                         gp.setUsingChangeClassButton(false);
                                     }
@@ -114,7 +115,7 @@ public class PlayerInteractListener implements Listener {
                         if (ClassUtilities.getUtilities().loadClassButtonLocation(s).toString().equalsIgnoreCase(event.getClickedBlock().getLocation().toString())) {
                             gp.setInLobby(true);
                             gp.setUsingChangeClassButton(true);
-                            event.getPlayer().teleport(MapUtilities.getUtilities().loadTeamLobby(GameUtilities.getUtilities().getCurrentMap(player), gp.getTeam()));
+                            event.getPlayer().teleport(MapUtilities.getUtilities().loadTeamLobby(GameUtilities.getUtilities().getGamePlayer(player).getCurrentMap(), gp.getTeam()));
                         }
                     }
                 }
