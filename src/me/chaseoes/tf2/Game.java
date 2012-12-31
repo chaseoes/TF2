@@ -139,6 +139,8 @@ public class Game {
         player.getPlayer().setHealth(20);
         player.getPlayer().setFoodLevel(20);
         player.getPlayer().setGameMode(GameMode.SURVIVAL);
+        player.getPlayer().setLevel(0);
+        player.getPlayer().setExp(0);
         player.getPlayer().teleport(MapUtilities.getUtilities().loadTeamLobby(map.getName(), team));
         TagAPI.refreshPlayer(player.getPlayer());
 

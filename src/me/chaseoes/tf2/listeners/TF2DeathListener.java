@@ -40,8 +40,11 @@ public class TF2DeathListener implements Listener {
                 // Reset the kills of the player who died.
                 playerg.setKills(0);
                 playerg.setDeaths(-1);
+                playerg.settotalDeaths(-1);
 
                 // Add one kill to the kills the killer has made.
+                killerg.setTotalKills(-1);
+                killer.setLevel(killerg.getTotalKills());
                 killerg.setKills(-1);
                 int kills = killerg.getKills();
 

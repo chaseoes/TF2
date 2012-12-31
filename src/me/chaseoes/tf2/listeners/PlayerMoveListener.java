@@ -6,6 +6,7 @@ import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.capturepoints.CapturePoint;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -16,14 +17,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 public class PlayerMoveListener implements Listener {
-    
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onMove(PlayerMoveEvent event) {
         if (!(event.getFrom().getBlockX() != event.getTo().getBlockX() || event.getFrom().getBlockY() != event.getTo().getBlockY() || event.getFrom().getBlockZ() != event.getTo().getBlockZ())) {
             return;
         }
-        if(GameUtilities.getUtilities().getGamePlayer(event.getPlayer()).isInLobby())
+        if (GameUtilities.getUtilities().getGamePlayer(event.getPlayer()).isInLobby()) {
             return;
+        }
         Player player = event.getPlayer();
         Block b = event.getTo().getBlock();
         TF2 plugin = TF2.getInstance();
