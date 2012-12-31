@@ -181,7 +181,12 @@ public class Game {
         c.clearInventory(player.getPlayer());
         player.getPlayer().setHealth(20);
         player.getPlayer().setFoodLevel(20);
-        player.getPlayer().setGameMode(GameMode.SURVIVAL);
+        String gamemode = plugin.getConfig().getString("gamemode");
+        if (gamemode.equalsIgnoreCase("adventure")){
+            player.getPlayer().setGameMode(GameMode.ADVENTURE);
+        } else {
+            player.getPlayer().setGameMode(GameMode.SURVIVAL);
+        }
         player.getPlayer().setLevel(0);
         player.getPlayer().setExp(0);
         switch (team) {
