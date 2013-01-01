@@ -24,6 +24,12 @@ public class PlayerDamageByEntityListener implements Listener {
         if (event.getEntity() instanceof Player) {
             Player damaged = (Player) event.getEntity();
             if (GameUtilities.getUtilities().isIngame(damaged)) {
+                
+                GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(damaged);
+                if (gp.isInLobby() || gp.getGame().getStatus() != GameStatus.INGAME) {
+                    event.setCancelled(true);
+                    return;
+                }
 
                 // Set Armor Durability
                 if (damaged.getInventory().getHelmet() != null) {
@@ -90,6 +96,7 @@ public class PlayerDamageByEntityListener implements Listener {
                         if (damaged.getHealth() - event.getDamage() <= 0) {
                             TF2.getInstance().getServer().getPluginManager().callEvent(new TF2DeathEvent(damaged, damager));
                             event.setCancelled(true);
+                            return;
                         }
                     }
                 }
