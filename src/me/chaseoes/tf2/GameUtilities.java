@@ -70,4 +70,7 @@ public class GameUtilities {
         players.remove(player.getName());
     }
 
+    public Game removeGame(Map m) {
+        return games.remove(m.getName());
+    }
 }

@@ -108,6 +108,10 @@ public class Map {
         }
     }
 
+    public void destroy(){
+        customConfigFile.delete();
+    }
+
     public void saveCapturePoints() {
         customConfig.set("capture-points", null);
         ConfigurationSection section = customConfig.createSection("capture-points");

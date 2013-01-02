@@ -10,7 +10,6 @@ import me.chaseoes.tf2.utilities.IconMenu;
 import me.chaseoes.tf2.utilities.SerializableLocation;
 import me.chaseoes.tf2.utilities.UpdateChecker;
 import me.chaseoes.tf2.utilities.WorldEditUtilities;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -169,5 +168,12 @@ public class TF2 extends JavaPlugin {
 
     public Collection<Map> getMaps() {
         return maps.values();
+    }
+
+    public void removeMap(String map) {
+        Map m = maps.remove(map);
+        Game game = GameUtilities.getUtilities().removeGame(m);
+        game.stopMatch();
+        MapUtilities.getUtilities().destroyMap(m);
     }
 }

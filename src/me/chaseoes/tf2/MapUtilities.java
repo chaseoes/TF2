@@ -2,9 +2,7 @@ package me.chaseoes.tf2;
 
 import com.sk89q.worldedit.EmptyClipboardException;
 import com.sk89q.worldedit.bukkit.selections.Selection;
-
 import me.chaseoes.tf2.utilities.WorldEditUtilities;
-
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -44,6 +42,23 @@ public class MapUtilities {
         } else {
             throw new EmptyClipboardException();
         }
+    }
+
+    public void destroyMap(Map map) {
+        List<String> enabled = DataConfiguration.getData().getDataFile().getStringList("enabled-maps");
+        enabled.remove(map.getName());
+        DataConfiguration.getData().getDataFile().set("enabled-maps", enabled);
+        List<String> disabled = DataConfiguration.getData().getDataFile().getStringList("disabled-maps");
+        disabled.remove(map.getName());
+        DataConfiguration.getData().getDataFile().set("disabled-maps", disabled);
+        DataConfiguration.getData().getDataFile().set("lobbywall." + map.getName() + ".w", null);
+        DataConfiguration.getData().getDataFile().set("lobbywall." + map.getName() + ".x", null);
+        DataConfiguration.getData().getDataFile().set("lobbywall." + map.getName() + ".y", null);
+        DataConfiguration.getData().getDataFile().set("lobbywall." + map.getName() + ".z", null);
+        DataConfiguration.getData().getDataFile().set("lobbywall." + map.getName(), null);
+        DataConfiguration.getData().saveData();
+        DataConfiguration.getData().reloadData();
+        map.destroy();
     }
 
     public void disableMap(String id) {
