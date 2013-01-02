@@ -56,7 +56,11 @@ public class TF2 extends JavaPlugin {
         Schedulers.getSchedulers().startAFKChecker();
 
         for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
-            addMap(map);
+            addMap(map, GameStatus.WAITING);
+        }
+
+        for (String map : MapUtilities.getUtilities().getDisabledMaps()) {
+            addMap(map, GameStatus.DISABLED);
         }
 
         LobbyWall.getWall().startTask();
@@ -158,12 +162,21 @@ public class TF2 extends JavaPlugin {
         return maps.get(map);
     }
 
-    public void addMap(String map) {
+    public void addMap(String map, GameStatus status) {
         Map m = new Map(this, map);
         maps.put(map, m);
         GameUtilities.getUtilities().addGame(m);
         queues.put(map, new Queue(m.getName()));
         GameUtilities.getUtilities().getGame(m).redHasBeenTeleported = false;
+        GameUtilities.getUtilities().getGame(m).setStatus(status);
+        if (status == GameStatus.DISABLED) {
+            String[] creditlines = new String[4];
+            creditlines[0] = " ";
+            creditlines[1] = "--------------------------";
+            creditlines[2] = "--------------------------";
+            creditlines[3] = " ";
+            LobbyWall.getWall().setAllLines(map, null, creditlines, false, false);
+        }
     }
 
     public Collection<Map> getMaps() {
@@ -175,5 +188,9 @@ public class TF2 extends JavaPlugin {
         Game game = GameUtilities.getUtilities().removeGame(m);
         game.stopMatch();
         MapUtilities.getUtilities().destroyMap(m);
+    }
+
+    public boolean mapExists(String map) {
+        return maps.containsKey(map);
     }
 }

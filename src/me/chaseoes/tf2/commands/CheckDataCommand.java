@@ -1,5 +1,6 @@
 package me.chaseoes.tf2.commands;
 
+import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.Team;
 import me.chaseoes.tf2.utilities.DataChecker;
 import org.bukkit.ChatColor;
@@ -22,6 +23,10 @@ public class CheckDataCommand {
         CommandHelper h = new CommandHelper(cs, cmnd);
         if (strings.length == 2) {
             String map = strings[1];
+            if (!TF2.getInstance().mapExists(map)) {
+                cs.sendMessage(ChatColor.YELLOW + "[TF2] " + map + " is not a valid map.");
+                return;
+            }
             DataChecker dc = new DataChecker(map);
             cs.sendMessage(ChatColor.AQUA + "[" + ChatColor.GOLD + "------------------" + ChatColor.AQUA + "] " + ChatColor.DARK_AQUA + "TF2 Data Check " + ChatColor.AQUA + "[" + ChatColor.GOLD + "-----------------" + ChatColor.AQUA + "]");
             if (dc.capturePointOneHasBeenSet()) {

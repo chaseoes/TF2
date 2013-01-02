@@ -4,7 +4,6 @@ import com.sk89q.worldedit.bukkit.selections.Selection;
 import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.utilities.WorldEditUtilities;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -30,11 +29,11 @@ public class RedefineCommand {
     public void execRedefineCommand(CommandSender cs, String[] strings, Command cmnd) {
         CommandHelper h = new CommandHelper(cs, cmnd);
         if(strings.length == 2) {
-            Map map = plugin.getMap(strings[1]);
-            if(map == null){
+            if (!TF2.getInstance().mapExists(strings[1])) {
                 cs.sendMessage(ChatColor.YELLOW + "[TF2] " + strings[1] + " is not a valid map.");
                 return;
             }
+            Map map = plugin.getMap(strings[1]);
             Player player = (Player) cs;
             try {
                 Selection sel = WorldEditUtilities.getWorldEdit().getSelection(player);

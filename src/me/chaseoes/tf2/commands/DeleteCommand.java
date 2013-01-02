@@ -30,13 +30,14 @@ public class DeleteCommand {
         if (strings[1].equalsIgnoreCase("map")) {
             if (strings.length == 3) {
                 Player p = (Player) cs;
-                Map map = TF2.getInstance().getMap(strings[2]);
-                if (map == null) {
-                    cs.sendMessage(ChatColor.YELLOW + "[TF2] " + strings[2] + " is not a valid map name.");
-                } else {
-                    TF2.getInstance().removeMap(strings[2]);
-                    cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully deleted " + strings[2]);
+                if (!TF2.getInstance().mapExists(strings[2])) {
+                    cs.sendMessage(ChatColor.YELLOW + "[TF2] " + strings[2] + " is not a valid map.");
+                    return;
                 }
+                Map map = TF2.getInstance().getMap(strings[2]);
+                TF2.getInstance().removeMap(strings[2]);
+                cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully deleted " + strings[2]);
+
             } else {
                 h.wrongArgs();
             }

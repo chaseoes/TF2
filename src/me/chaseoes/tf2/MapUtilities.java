@@ -29,7 +29,7 @@ public class MapUtilities {
     public void createMap(String id, Player p) throws EmptyClipboardException {
         Selection sel = WorldEditUtilities.getWorldEdit().getSelection(p);
         if (sel != null) {
-            plugin.addMap(id);
+            plugin.addMap(id, GameStatus.WAITING);
             Map map = plugin.getMap(id);
             Location b1 = new Location(p.getWorld(), sel.getNativeMinimumPoint().getBlockX(), sel.getNativeMinimumPoint().getBlockY(), sel.getNativeMinimumPoint().getBlockZ());
             Location b2 = new Location(p.getWorld(), sel.getNativeMaximumPoint().getBlockX(), sel.getNativeMaximumPoint().getBlockY(), sel.getNativeMaximumPoint().getBlockZ());
@@ -94,6 +94,10 @@ public class MapUtilities {
             enabled.remove(dis);
         }
         return enabled;
+    }
+
+    public List<String> getDisabledMaps() {
+        return DataConfiguration.getData().getDataFile().getStringList("disabled-maps");
     }
 
     public void setTeamSpawn(String map, Team team, Location l) {
@@ -163,5 +167,4 @@ public class MapUtilities {
     public boolean mapIsEnabled(String map) {
         return getEnabledMaps().contains(map);
     }
-
 }

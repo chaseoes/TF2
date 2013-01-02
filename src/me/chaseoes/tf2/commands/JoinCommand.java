@@ -1,11 +1,6 @@
 package me.chaseoes.tf2.commands;
 
-import me.chaseoes.tf2.DataConfiguration;
-import me.chaseoes.tf2.Game;
-import me.chaseoes.tf2.GameUtilities;
-import me.chaseoes.tf2.MapUtilities;
-import me.chaseoes.tf2.TF2;
-import me.chaseoes.tf2.Team;
+import me.chaseoes.tf2.*;
 import me.chaseoes.tf2.utilities.DataChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -47,6 +42,10 @@ public class JoinCommand {
         }
         if (strings.length == 2 || strings.length == 3) {
             String map = strings[1];
+            if (!TF2.getInstance().mapExists(map)) {
+                cs.sendMessage(ChatColor.YELLOW + "[TF2] " + map + " is not a valid map.");
+                return;
+            }
             Game game = GameUtilities.getUtilities().getGame(plugin.getMap(map));
             Team team = game.decideTeam();
             

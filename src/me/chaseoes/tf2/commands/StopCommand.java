@@ -4,7 +4,6 @@ import me.chaseoes.tf2.Game;
 import me.chaseoes.tf2.GameStatus;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.TF2;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -30,7 +29,11 @@ public class StopCommand {
         CommandHelper h = new CommandHelper(cs, cmnd);
         if (strings.length == 2) {
             String map = strings[1];
-            if (plugin.getMap(map) != null) {
+            if (!TF2.getInstance().mapExists(strings[2])) {
+                cs.sendMessage(ChatColor.YELLOW + "[TF2] " + strings[2] + " is not a valid map.");
+                return;
+            }
+            if (GameUtilities.getUtilities().getGame(plugin.getMap(map)).getStatus() != GameStatus.DISABLED) {
                 Game game = GameUtilities.getUtilities().getGame(plugin.getMap(map));
                 if (game.getStatus() != GameStatus.WAITING) {
                     game.stopMatch();

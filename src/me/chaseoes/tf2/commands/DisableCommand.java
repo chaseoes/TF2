@@ -1,12 +1,7 @@
 package me.chaseoes.tf2.commands;
 
-import me.chaseoes.tf2.Game;
-import me.chaseoes.tf2.GameStatus;
-import me.chaseoes.tf2.GameUtilities;
-import me.chaseoes.tf2.MapUtilities;
-import me.chaseoes.tf2.TF2;
+import me.chaseoes.tf2.*;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -32,6 +27,10 @@ public class DisableCommand {
         CommandHelper h = new CommandHelper(cs, cmnd);
         if (strings.length == 2) {
             String map = strings[1];
+            if (!TF2.getInstance().mapExists(map)) {
+                cs.sendMessage(ChatColor.YELLOW + "[TF2] " + map + " is not a valid map.");
+                return;
+            }
             Game game = GameUtilities.getUtilities().getGame(plugin.getMap(map));
             game.stopMatch();
             MapUtilities.getUtilities().disableMap(map);
