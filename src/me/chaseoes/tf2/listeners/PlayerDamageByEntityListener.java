@@ -56,7 +56,7 @@ public class PlayerDamageByEntityListener implements Listener {
 
                 if (event.getDamager() instanceof Player) {
                     Player damager = (Player) event.getDamager();
-                    GamePlayer gdamager = game.getPlayer(damager);
+                    GamePlayer gdamager = GameUtilities.getUtilities().getGamePlayer(damager);
                     if (!gdamager.isIngame()) {
                         event.setCancelled(true);
                         return;

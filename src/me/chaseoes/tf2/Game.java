@@ -121,7 +121,9 @@ public class Game {
         Schedulers.getSchedulers().stopRedTeamCountdown(map.getName());
         Schedulers.getSchedulers().stopTimeLimitCounter(map.getName());
         Schedulers.getSchedulers().stopCountdown(map.getName());
-        
+        for (Container container : map.getContainers()) {
+            container.applyItems();
+        }
         HashMap<String, GamePlayer> gamePlayers = new HashMap<String, GamePlayer>(playersInGame);
         for (GamePlayer gp : gamePlayers.values()) {
             Player player = gp.getPlayer();
