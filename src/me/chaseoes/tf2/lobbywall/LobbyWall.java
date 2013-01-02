@@ -1,12 +1,6 @@
 package me.chaseoes.tf2.lobbywall;
 
-import me.chaseoes.tf2.DataConfiguration;
-import me.chaseoes.tf2.Game;
-import me.chaseoes.tf2.GameStatus;
-import me.chaseoes.tf2.GameUtilities;
-import me.chaseoes.tf2.Map;
-import me.chaseoes.tf2.TF2;
-import me.chaseoes.tf2.Team;
+import me.chaseoes.tf2.*;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -118,7 +112,6 @@ public class LobbyWall {
 
             } catch (Exception e) {
                 plugin.getLogger().log(Level.WARNING, "Encountered an error while trying to update the lobby wall.");
-                e.printStackTrace();
             }
         }
     }
@@ -202,7 +195,7 @@ public class LobbyWall {
                 }, duration * 20L);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
     }
 
