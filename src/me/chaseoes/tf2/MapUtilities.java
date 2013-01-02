@@ -2,7 +2,9 @@ package me.chaseoes.tf2;
 
 import com.sk89q.worldedit.EmptyClipboardException;
 import com.sk89q.worldedit.bukkit.selections.Selection;
-import me.chaseoes.tf2.lobbywall.WorldEditUtilities;
+
+import me.chaseoes.tf2.utilities.WorldEditUtilities;
+
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 

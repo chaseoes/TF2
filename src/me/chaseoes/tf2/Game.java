@@ -1,19 +1,23 @@
 package me.chaseoes.tf2;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+
 import me.chaseoes.tf2.capturepoints.CapturePoint;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.utilities.Container;
+import me.chaseoes.tf2.utilities.WorldEditUtilities;
+
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.kitteh.tag.TagAPI;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 
 public class Game {
 
@@ -132,9 +136,19 @@ public class Game {
         }
 
         CapturePointUtilities.getUtilities().uncaptureAll(map);
+
+        for (Entity e : map.getRedSpawn().getWorld().getEntities()) {
+            if (e instanceof Arrow) {
+                if (WorldEditUtilities.getWEUtilities().isInMap(e, map)) {
+                    e.remove();
+                }
+            }
+        }
+
         for (CapturePoint cp : map.getCapturePoints()) {
             cp.stopCapturing();
         }
+
         redHasBeenTeleported = false;
         playersInGame.clear();
     }
@@ -198,7 +212,7 @@ public class Game {
                 player.getPlayer().teleport(map.getRedLobby());
                 break;
         }
-        
+
         TagAPI.refreshPlayer(player.getPlayer());
 
         double currentpercent = (double) playersInGame.size() / map.getPlayerlimit() * 100;
@@ -212,7 +226,7 @@ public class Game {
         player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You joined the map " + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
 
         if (getStatus() == GameStatus.WAITING) {
-            player.getPlayer().sendMessage(ChatColor.YELLOW + "The game will start when " + plugin.getConfig().getInt("autostart-percent")  + "% of players have joined.");
+            player.getPlayer().sendMessage(ChatColor.YELLOW + "The game will start when " + plugin.getConfig().getInt("autostart-percent") + "% of players have joined.");
         } else if (getStatus() == GameStatus.INGAME) {
             player.setUsingChangeClassButton(true);
         }

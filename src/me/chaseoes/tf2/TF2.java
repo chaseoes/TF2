@@ -6,10 +6,11 @@ import me.chaseoes.tf2.commands.*;
 import me.chaseoes.tf2.listeners.*;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.lobbywall.LobbyWallUtilities;
-import me.chaseoes.tf2.lobbywall.WorldEditUtilities;
 import me.chaseoes.tf2.utilities.IconMenu;
 import me.chaseoes.tf2.utilities.SerializableLocation;
 import me.chaseoes.tf2.utilities.UpdateChecker;
+import me.chaseoes.tf2.utilities.WorldEditUtilities;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

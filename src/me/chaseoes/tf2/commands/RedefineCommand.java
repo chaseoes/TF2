@@ -3,7 +3,8 @@ package me.chaseoes.tf2.commands;
 import com.sk89q.worldedit.bukkit.selections.Selection;
 import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.TF2;
-import me.chaseoes.tf2.lobbywall.WorldEditUtilities;
+import me.chaseoes.tf2.utilities.WorldEditUtilities;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;

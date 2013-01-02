@@ -1,4 +1,4 @@
-package me.chaseoes.tf2.lobbywall;
+package me.chaseoes.tf2.utilities;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
