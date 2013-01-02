@@ -144,6 +144,26 @@ public class CommandManager implements CommandExecutor {
             }
             return true;
         }
+        
+
+        if (strings[0].equalsIgnoreCase("start")) {
+            if (cs.hasPermission("tf2.create")) {
+                StartCommand.getCommand().execStartCommand(cs, strings, cmnd);
+            } else {
+                h.noPermission();
+            }
+            return true;
+        }
+        
+
+        if (strings[0].equalsIgnoreCase("stop")) {
+            if (cs.hasPermission("tf2.create")) {
+                StopCommand.getCommand().execStopCommand(cs, strings, cmnd);
+            } else {
+                h.noPermission();
+            }
+            return true;
+        }
 
         if (strings[0].equalsIgnoreCase("list")) {
             if (cs.hasPermission("tf2.play")) {

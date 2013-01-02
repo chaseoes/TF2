@@ -123,6 +123,8 @@ public class TF2 extends JavaPlugin {
         ReloadCommand.getCommand().setup(this);
         SetCommand.getCommand().setup(this);
         DebugCommand.getCommand().setup(this);
+        StartCommand.getCommand().setup(this);
+        StopCommand.getCommand().setup(this);
         SerializableLocation.getUtilities().setup(this);
 
         // Register Events
