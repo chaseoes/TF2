@@ -33,7 +33,10 @@ public class LobbyWallUtilities {
     }
 
     public Location loadSignLocation(String map) {
-        return new Location(plugin.getServer().getWorld(DataConfiguration.getData().getDataFile().getString("lobbywall." + map + ".w")), Integer.valueOf(DataConfiguration.getData().getDataFile().getString("lobbywall." + map + ".x")), DataConfiguration.getData().getDataFile().getInt("lobbywall." + map + ".y"), DataConfiguration.getData().getDataFile().getInt("lobbywall." + map + ".z"));
+        if (DataConfiguration.getData().getDataFile().isString("lobbywall." + map + ".w")) {
+            return new Location(plugin.getServer().getWorld(DataConfiguration.getData().getDataFile().getString("lobbywall." + map + ".w")), Integer.valueOf(DataConfiguration.getData().getDataFile().getString("lobbywall." + map + ".x")), DataConfiguration.getData().getDataFile().getInt("lobbywall." + map + ".y"), DataConfiguration.getData().getDataFile().getInt("lobbywall." + map + ".z"));
+        }
+        return null;
     }
 
     public void setSignLines(Sign s, String l1, String l2, String l3, String l4) {

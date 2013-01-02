@@ -39,6 +39,9 @@ public class LobbyWall {
                     info.recache();
                 }
                 List<Sign> signs = info.getSignLocations();
+                if (signs.size() == 0) {
+                    return;
+                }
                 info.verifySigns();
                 LobbyWallUtilities.getUtilities().setSignLines(signs.get(0), "Team Fortress 2", "Click here", "to join:", ChatColor.BOLD + "" + map);
                 if (info.getGame().getStatus() != GameStatus.DISABLED) {

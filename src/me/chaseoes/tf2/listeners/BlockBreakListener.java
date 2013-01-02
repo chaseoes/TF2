@@ -5,6 +5,7 @@ import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import me.chaseoes.tf2.classes.ClassUtilities;
+import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.lobbywall.LobbyWallUtilities;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -62,6 +63,7 @@ public class BlockBreakListener implements Listener {
                     if (player.hasPermission("tf2.create")) {
                         DataConfiguration.getData().getDataFile().set("lobbywall." + map, null);
                         DataConfiguration.getData().saveData();
+                        LobbyWall.getWall().setDirty(map, true);
                         player.sendMessage(ChatColor.YELLOW + "[TF2] Successfully removed lobby wall.");
                     } else {
                         event.setCancelled(true);

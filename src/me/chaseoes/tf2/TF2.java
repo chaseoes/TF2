@@ -187,6 +187,7 @@ public class TF2 extends JavaPlugin {
         Map m = maps.remove(map);
         Game game = GameUtilities.getUtilities().removeGame(m);
         game.stopMatch();
+        LobbyWall.getWall().unloadCacheInfo(map);
         MapUtilities.getUtilities().destroyMap(m);
     }
 

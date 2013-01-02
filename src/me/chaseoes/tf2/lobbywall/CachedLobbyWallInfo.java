@@ -38,14 +38,16 @@ public class CachedLobbyWallInfo {
         cps = new ArrayList<CapturePoint>(map.getCapturePoints());
         Collections.sort(cps);
         Location loc = LobbyWallUtilities.getUtilities().loadSignLocation(name);
-        signs.add((Sign) loc.getBlock().getState());
-        Block block = loc.getBlock();
-        final org.bukkit.material.Sign matSign = (org.bukkit.material.Sign) loc.getBlock().getState().getData();
-        dataFacing = block.getState().getRawData();
-        BlockFace searchDirection = LobbyWallUtilities.getUtilities().rotate90Deg(matSign.getAttachedFace());
-        for (int i = 1; i < (4 + cps.size()); i++) {
-            block = block.getRelative(searchDirection);
-            signs.add((Sign) block.getLocation().getBlock().getState());
+        if (loc != null) {
+            signs.add((Sign) loc.getBlock().getState());
+            Block block = loc.getBlock();
+            final org.bukkit.material.Sign matSign = (org.bukkit.material.Sign) loc.getBlock().getState().getData();
+            dataFacing = block.getState().getRawData();
+            BlockFace searchDirection = LobbyWallUtilities.getUtilities().rotate90Deg(matSign.getAttachedFace());
+            for (int i = 1; i < (4 + cps.size()); i++) {
+                block = block.getRelative(searchDirection);
+                signs.add((Sign) block.getLocation().getBlock().getState());
+            }
         }
         dirty = false;
     }
