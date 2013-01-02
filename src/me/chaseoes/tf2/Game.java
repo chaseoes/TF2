@@ -4,6 +4,7 @@ import me.chaseoes.tf2.capturepoints.CapturePoint;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
+import me.chaseoes.tf2.utilities.Container;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -70,6 +71,9 @@ public class Game {
     public void startMatch() {
         setStatus(GameStatus.INGAME);
         CapturePointUtilities.getUtilities().uncaptureAll(map);
+        for (Container container : map.getContainers()) {
+            container.applyItems();
+        }
         Schedulers.getSchedulers().startTimeLimitCounter(map);
         Schedulers.getSchedulers().startRedTeamCountdown(map);
 

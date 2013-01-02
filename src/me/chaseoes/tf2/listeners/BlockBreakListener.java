@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.inventory.InventoryHolder;
 
 import java.util.List;
 
@@ -76,6 +77,19 @@ public class BlockBreakListener implements Listener {
                 Map mMap = TF2.getInstance().getMap(map);
                 mMap.setCapturePoint(id, null);
                 player.sendMessage(ChatColor.YELLOW + "[TF2] Successfully removed capturepoint.");
+            } else {
+                event.setCancelled(true);
+            }
+        }
+
+        if (b.getState() instanceof InventoryHolder) {
+            if (player.hasPermission("tf2.create")) {
+                for (Map map : TF2.getInstance().getMaps()) {
+                    if (map.isContainerRegistered(b.getLocation())) {
+                        map.removeContainer(b.getLocation());
+                        player.sendMessage(ChatColor.YELLOW + "[TF2] Successfully removed container.");
+                    }
+                }
             } else {
                 event.setCancelled(true);
             }

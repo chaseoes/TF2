@@ -57,7 +57,16 @@ public class PlayerDamageByEntityListener implements Listener {
                 if (event.getDamager() instanceof Player) {
                     Player damager = (Player) event.getDamager();
                     GamePlayer gdamager = game.getPlayer(damager);
+                    if (!gdamager.isIngame()) {
+                        event.setCancelled(true);
+                        return;
+                    }
                     if (gdamaged.getTeam() == gdamager.getTeam()) {
+                        event.setCancelled(true);
+                        return;
+                    }
+
+                    if (!gdamager.getGame().getMapName().equalsIgnoreCase(gdamaged.getGame().getMapName())) {
                         event.setCancelled(true);
                         return;
                     }

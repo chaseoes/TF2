@@ -22,6 +22,8 @@ public class GamePlayer {
     boolean makingChangeClassButton;
     boolean makingClassButton;
     boolean justSpawned;
+    boolean creatingContainer;
+    String mapCreatingItemFor;
     String classButtonType;
     String classButtonName;
     TF2Class currentClass;
@@ -268,6 +270,22 @@ public class GamePlayer {
         }
     }
 
+    public boolean isCreatingContainer() {
+        return creatingContainer;
+    }
+
+    public void setCreatingContainer(boolean bool) {
+        creatingContainer = bool;
+    }
+
+    public String getMapCreatingItemFor() {
+        return mapCreatingItemFor;
+    }
+
+    public void setMapCreatingItemFor(String map) {
+        mapCreatingItemFor = map;
+    }
+
     public void clear() {
         map = null;
         team = null;
@@ -279,6 +297,7 @@ public class GamePlayer {
         usingChangeClassButton = false;
         makingChangeClassButton = false;
         makingClassButton = false;
+        creatingContainer = false;
         justSpawned = false;
         classButtonType = null;
         classButtonName = null;
@@ -291,6 +310,6 @@ public class GamePlayer {
         savedFoodLevel = 0;
         savedHealth = 0;
         playerLastDamagedBy = this.getName();
+        mapCreatingItemFor = null;
     }
-
 }

@@ -1,10 +1,10 @@
 package me.chaseoes.tf2.commands;
 
+import com.sk89q.worldedit.EmptyClipboardException;
 import me.chaseoes.tf2.GamePlayer;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
-
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -12,8 +12,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-import com.sk89q.worldedit.EmptyClipboardException;
 
 public class CreateCommand {
 
@@ -81,7 +79,23 @@ public class CreateCommand {
             } else {
                 h.wrongArgs();
             }
-        } else {
+        } else if (strings[1].equalsIgnoreCase("refillcontainer")) {
+            if (strings.length == 3) {
+                Player p = (Player) cs;
+                GameUtilities.getUtilities().getGamePlayer(p).setCreatingContainer(true);
+                String map = strings[2];
+                if (TF2.getInstance().getMap(map) == null) {
+                    p.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + map + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");
+                    return;
+                }
+                GameUtilities.getUtilities().getGamePlayer(p).setMapCreatingItemFor(map);
+                cs.sendMessage(ChatColor.YELLOW + "[TF2] Right click a container to make it refill each game.");
+            } else {
+                h.wrongArgs();
+            }
+        }
+
+        else {
             h.unknownCommand();
         }
     }

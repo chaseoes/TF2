@@ -2,12 +2,15 @@ package me.chaseoes.tf2;
 
 import me.chaseoes.tf2.capturepoints.CapturePoint;
 import me.chaseoes.tf2.capturepoints.CaptureStatus;
+import me.chaseoes.tf2.utilities.Container;
+import me.chaseoes.tf2.utilities.SerializableInventory;
 import me.chaseoes.tf2.utilities.SerializableLocation;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.Inventory;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +30,7 @@ public class Map {
     private Integer redTeamTeleportTime;
     private Integer timelimit;
     private Integer playerlimit;
+    private HashSet<Container> containers = new HashSet<Container>();
 
     private File customConfigFile;
     private FileConfiguration customConfig;
@@ -41,6 +45,7 @@ public class Map {
         customConfigFile = new File(plugin.getDataFolder(), name + ".yml");
         customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
         points.clear();
+        containers.clear();
         if (customConfig.isString("region.p1.w")) {
             p1 = new Location(Bukkit.getWorld(customConfig.getString("region.p1.w")), customConfig.getInt("region.p1.x"), customConfig.getInt("region.p1.y"), customConfig.getInt("region.p1.z"));
         } else {
@@ -52,22 +57,22 @@ public class Map {
             p2 = null;
         }
         if (customConfig.isString("blue.lobby.w")) {
-            blueLobby = new Location(Bukkit.getWorld(customConfig.getString("blue.lobby.w")), customConfig.getInt("blue.lobby.x") + 0.5, customConfig.getInt("blue.lobby.y"), customConfig.getInt("blue.lobby.z") + 0.5, (float) customConfig.getDouble("blue.lobby.yaw"), (float) customConfig.getDouble("blue.lobby.pitch"));
+            blueLobby = new Location(Bukkit.getWorld(customConfig.getString("blue.lobby.w")), customConfig.getInt("blue.lobby.x") + 0.5f, customConfig.getInt("blue.lobby.y"), customConfig.getInt("blue.lobby.z") + 0.5f, (float) customConfig.getDouble("blue.lobby.yaw"), (float) customConfig.getDouble("blue.lobby.pitch"));
         } else {
             blueLobby = null;
         }
         if (customConfig.isString("red.lobby.w")) {
-            redLobby = new Location(Bukkit.getWorld(customConfig.getString("red.lobby.w")), customConfig.getInt("red.lobby.x") + 0.5, customConfig.getInt("red.lobby.y"), customConfig.getInt("red.lobby.z") + 0.5, (float) customConfig.getDouble("red.lobby.yaw"), (float) customConfig.getDouble("red.lobby.pitch"));
+            redLobby = new Location(Bukkit.getWorld(customConfig.getString("red.lobby.w")), customConfig.getInt("red.lobby.x") + 0.5f, customConfig.getInt("red.lobby.y"), customConfig.getInt("red.lobby.z") + 0.5f, (float) customConfig.getDouble("red.lobby.yaw"), (float) customConfig.getDouble("red.lobby.pitch"));
         } else {
             redLobby = null;
         }
         if (customConfig.isString("blue.spawn.w")) {
-            blueSpawn = new Location(Bukkit.getWorld(customConfig.getString("blue.spawn.w")), customConfig.getInt("blue.spawn.x") + 0.5, customConfig.getInt("blue.spawn.y"), customConfig.getInt("blue.spawn.z") + 0.5, (float) customConfig.getDouble("blue.spawn.yaw"), (float) customConfig.getDouble("blue.spawn.pitch"));
+            blueSpawn = new Location(Bukkit.getWorld(customConfig.getString("blue.spawn.w")), customConfig.getInt("blue.spawn.x") + 0.5f, customConfig.getInt("blue.spawn.y"), customConfig.getInt("blue.spawn.z") + 0.5f, (float) customConfig.getDouble("blue.spawn.yaw"), (float) customConfig.getDouble("blue.spawn.pitch"));
         } else {
             blueSpawn = null;
         }
         if (customConfig.isString("red.spawn.w")) {
-            redSpawn = new Location(Bukkit.getWorld(customConfig.getString("red.spawn.w")), customConfig.getInt("red.spawn.x") + 0.5, customConfig.getInt("red.spawn.y"), customConfig.getInt("red.spawn.z") + 0.5, (float) customConfig.getDouble("red.spawn.yaw"), (float) customConfig.getDouble("red.spawn.pitch"));
+            redSpawn = new Location(Bukkit.getWorld(customConfig.getString("red.spawn.w")), customConfig.getInt("red.spawn.x") + 0.5f, customConfig.getInt("red.spawn.y"), customConfig.getInt("red.spawn.z") + 0.5f, (float) customConfig.getDouble("red.spawn.yaw"), (float) customConfig.getDouble("red.spawn.pitch"));
         } else {
             redSpawn = null;
         }
@@ -92,6 +97,14 @@ public class Map {
             playerlimit = customConfig.getInt("playerlimit");
         } else {
             playerlimit = null;
+        }
+        if (customConfig.isList("containers")) {
+            for (String str : customConfig.getStringList("containers")) {
+                String[] split = str.split(",");
+                Location loc = SerializableLocation.getUtilities().stringToLocation(split[0]);
+                Inventory inv = SerializableInventory.StringToInventory(split[1]);
+                containers.add(new Container(loc, inv));
+            }
         }
     }
 
@@ -285,5 +298,43 @@ public class Map {
         for (CapturePoint point : points.values()) {
             point.setStatus(CaptureStatus.UNCAPTURED);
         }
+    }
+
+    public Set<Container> getContainers() {
+        return containers;
+    }
+
+    public void addContainer(Location loc, Inventory inv) {
+        containers.add(new Container(loc, inv));
+        saveContainers();
+    }
+
+    public void removeContainer(Location loc) {
+        loop:
+        for (Container container : containers) {
+            if (SerializableLocation.getUtilities().compareLocations(loc, container.getLocation())) {
+                containers.remove(container);
+                break loop;
+            }
+        }
+        saveContainers();
+    }
+
+    public boolean isContainerRegistered(Location loc) {
+        for (Container container : containers) {
+            if (SerializableLocation.getUtilities().compareLocations(loc, container.getLocation()))
+                return true;
+        }
+        return false;
+    }
+
+    private void saveContainers() {
+        List<String> confStringList = new ArrayList<String>();
+        for (Container container : containers) {
+            String confString = SerializableLocation.getUtilities().locationToString(container.getLocation()) + "," + SerializableInventory.InventoryToString(container.getInventory());
+            confStringList.add(confString);
+        }
+        customConfig.set("containers", confStringList);
+        saveConfig();
     }
 }

@@ -14,6 +14,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.InventoryHolder;
 
 public class PlayerInteractListener implements Listener {
 
@@ -22,9 +23,9 @@ public class PlayerInteractListener implements Listener {
     public void onPlayerInteract(PlayerInteractEvent event) {
         try {
             Player player = event.getPlayer();
+            GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(player);
             if (GameUtilities.getUtilities().isIngame(player)) {
-                GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(player);
-                if ((player.getItemInHand().getType() == Material.getMaterial(373) || player.getItemInHand().getType() == Material.BOW) && event.getAction() == Action.RIGHT_CLICK_AIR) {
+                if ((player.getItemInHand().getType() == Material.getMaterial(373) || player.getItemInHand().getType() == Material.BOW) && (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
                     if (gp.justSpawned()) {
                         event.setCancelled(true);
                         player.updateInventory();
@@ -94,7 +95,6 @@ public class PlayerInteractListener implements Listener {
 
             if (event.hasBlock() && (event.getClickedBlock().getType() == Material.STONE_BUTTON || event.getClickedBlock().getType() == Material.WOOD_BUTTON)) {
                 if (GameUtilities.getUtilities().isIngame(player)) {
-                    GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(player);
                     for (String s : DataConfiguration.getData().getDataFile().getStringList("classbuttons")) {
                         if (ClassUtilities.getUtilities().loadClassButtonLocation(s).toString().equalsIgnoreCase(event.getClickedBlock().getLocation().toString())) {
                             if (player.hasPermission("tf2.button." + ClassUtilities.getUtilities().loadClassButtonTypeFromLocation(s))) {
@@ -119,6 +119,22 @@ public class PlayerInteractListener implements Listener {
                             event.getPlayer().teleport(MapUtilities.getUtilities().loadTeamLobby(GameUtilities.getUtilities().getGamePlayer(player).getCurrentMap(), gp.getTeam()));
                         }
                     }
+                }
+            }
+
+            if (event.hasBlock() && event.getClickedBlock().getState() instanceof InventoryHolder && gp.isCreatingContainer()) {
+                if (TF2.getInstance().getMap(gp.getMapCreatingItemFor()).isContainerRegistered(event.getClickedBlock().getLocation())) {
+                    player.sendMessage(ChatColor.YELLOW + "[TF2] This container is already registered.");
+                    gp.setCreatingContainer(false);
+                    gp.setMapCreatingItemFor(null);
+                    event.setCancelled(true);
+                } else {
+                    Map map = TF2.getInstance().getMap(gp.getMapCreatingItemFor());
+                    map.addContainer(event.getClickedBlock().getLocation(), ((InventoryHolder) event.getClickedBlock().getState()).getInventory());
+                    player.sendMessage(ChatColor.YELLOW + "[TF2] Successfully registered container.");
+                    gp.setCreatingContainer(false);
+                    gp.setMapCreatingItemFor(null);
+                    event.setCancelled(true);
                 }
             }
         } catch (Exception e) {

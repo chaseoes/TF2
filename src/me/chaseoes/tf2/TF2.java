@@ -16,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.logging.Level;
 
@@ -162,5 +163,9 @@ public class TF2 extends JavaPlugin {
         GameUtilities.getUtilities().addGame(m);
         queues.put(map, new Queue(m.getName()));
         GameUtilities.getUtilities().getGame(m).redHasBeenTeleported = false;
+    }
+
+    public Collection<Map> getMaps() {
+        return maps.values();
     }
 }
