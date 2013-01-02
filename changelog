@@ -13,7 +13,7 @@ Games now end properly when the last player in a game leaves.
 Other various code refactoring, rewriting, and optimization.
 Fixed changeclass buttons so you get properly teleported to your team's spawn.
 You are no longer given potion effects while in the lobby, these are applied when the game starts.
-Fixed the /tf2 disable/enable commands not working quite right and the lobby wall reflecting the map being disabled.
+Fixed the '/tf2 disable/enable' commands not working quite right and the lobby wall reflecting the map being disabled.
 Players will not be teleported out of the lobby if they fail to choose a class.
 Properly handle class buttons, changeclass buttons, and lobby wall signs being destroyed.
 Allow wooden buttons to be used for class and changeclass buttons.
@@ -25,6 +25,10 @@ Amount of kills is now displayed on-screen instead of spamming the player.
 Fixed possible cases of players joining late not getting teleported when the game starts.
 Fixed the game not stopping completely if a player leaves while the countdown is in progress.
 You are now returned to the GameMode you were previous to joining a game.
+The player's XP bar is now used to track capture point progress.
+The player's level is now used to track their total number of kills.
+Added '/tf2 create refillcontainer' command to create containers (chests, dispensers, etc.) which refill themselves every time a new game starts.
+Added '/tf2 delete map <map name>' command to delete all traces of a map.
 
 v1.4.4
 Fix some death issues where health etc. wasn't getting reset.
