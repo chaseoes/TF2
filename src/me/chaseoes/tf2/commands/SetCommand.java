@@ -52,21 +52,29 @@ public class SetCommand {
                 } else {
                     cs.sendMessage(ChatColor.YELLOW + "[TF2] Yo! Don't use no odd numbers for dat shit, mofo.");
                 }
+            } else {
+                h.wrongArgs();
             }
         } else if (strings[1].equalsIgnoreCase("capturepoint")) {
             if (strings.length == 4) {
                 CapturePointUtilities.getUtilities().defineCapturePoint(strings[2], Integer.parseInt(strings[3]), player.getLocation());
                 cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully defined capturepoint ID #" + strings[3] + " for the map " + strings[2] + ".");
+            } else {
+                h.wrongArgs();
             }
         } else if (strings[1].equalsIgnoreCase("timelimit")) {
             if (strings.length == 4) {
                 MapUtilities.getUtilities().setTimeLimit(strings[2], Integer.parseInt(strings[3]));
                 cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully set the timelimit for " + strings[2] + " to " + strings[3] + ".");
+            } else {
+                h.wrongArgs();
             }
         } else if (strings[1].equalsIgnoreCase("redtp")) {
             if (strings.length == 4) {
                 TF2.getInstance().getMap(strings[2]).setRedTeamTeleportTime(Integer.parseInt(strings[3]));
                 cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully set the red teleport time for " + strings[2] + " to " + strings[3] + ".");
+            } else {
+                h.wrongArgs();
             }
         } else {
             h.unknownCommand();

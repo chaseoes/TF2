@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class PlayerInteractListener implements Listener {
@@ -23,7 +24,7 @@ public class PlayerInteractListener implements Listener {
             Player player = event.getPlayer();
             if (GameUtilities.getUtilities().isIngame(player)) {
                 GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(player);
-                if (player.getItemInHand().getType() == Material.getMaterial(373) || player.getItemInHand().getType() == Material.BOW) {
+                if ((player.getItemInHand().getType() == Material.getMaterial(373) || player.getItemInHand().getType() == Material.BOW) && event.getAction() == Action.RIGHT_CLICK_AIR) {
                     if (gp.justSpawned()) {
                         event.setCancelled(true);
                         player.updateInventory();

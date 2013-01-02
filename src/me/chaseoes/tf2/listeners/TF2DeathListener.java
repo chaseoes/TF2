@@ -1,14 +1,8 @@
 package me.chaseoes.tf2.listeners;
 
-import me.chaseoes.tf2.Game;
-import me.chaseoes.tf2.GamePlayer;
-import me.chaseoes.tf2.GameUtilities;
-import me.chaseoes.tf2.Map;
-import me.chaseoes.tf2.MapUtilities;
-import me.chaseoes.tf2.TF2;
+import me.chaseoes.tf2.*;
 import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.events.TF2DeathEvent;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -58,9 +52,11 @@ public class TF2DeathListener implements Listener {
                 }
 
                 player.setHealth(20);
+                player.setFireTicks(0);
                 TF2Class c = playerg.getCurrentClass();
                 c.apply(player);
                 playerg.setJustSpawned(true);
+                playerg.setPlayerLastDamagedBy(null);
             }
         }, 1L);
     }

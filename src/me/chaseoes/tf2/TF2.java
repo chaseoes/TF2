@@ -143,6 +143,7 @@ public class TF2 extends JavaPlugin {
         pm.registerEvents(new SignChangeListener(), this);
         pm.registerEvents(new TF2DeathListener(), this);
         pm.registerEvents(new BlockBreakListener(), this);
+        pm.registerEvents(new EntityDamageListener(), this);
     }
 
     public Queue getQueue(String map) {

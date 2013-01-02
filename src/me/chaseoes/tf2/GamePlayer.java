@@ -1,7 +1,7 @@
 package me.chaseoes.tf2;
 
 import me.chaseoes.tf2.classes.TF2Class;
-
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -25,6 +25,7 @@ public class GamePlayer {
     String classButtonType;
     String classButtonName;
     TF2Class currentClass;
+    String playerLastDamagedBy;
 
     ItemStack[] savedInventoryItems;
     ItemStack[] savedArmorItems;
@@ -48,6 +49,7 @@ public class GamePlayer {
         savedFoodLevel = 0;
         savedHealth = 0;
         savedGameMode = null;
+        playerLastDamagedBy = this.getName();
     }
 
     public Game getGame() {
@@ -136,7 +138,7 @@ public class GamePlayer {
         TF2Class c = new TF2Class("NONE");
         c.clearInventory(player);
         loadInventory();
-        
+
         player.teleport(MapUtilities.getUtilities().loadLobby());
         TagAPI.refreshPlayer(player);
 
@@ -148,7 +150,7 @@ public class GamePlayer {
         if (game.playersInGame.size() == 0) {
             game.stopMatch();
         }
-        
+
         clear();
     }
 
@@ -254,6 +256,18 @@ public class GamePlayer {
         justSpawned = b;
     }
 
+    public GamePlayer getPlayerLastDamagedBy() {
+        return GameUtilities.getUtilities().getGamePlayer(Bukkit.getPlayerExact(playerLastDamagedBy));
+    }
+
+    public void setPlayerLastDamagedBy(GamePlayer player) {
+        if (player != null) {
+            playerLastDamagedBy = player.getName();
+        } else {
+            playerLastDamagedBy = this.getName();
+        }
+    }
+
     public void clear() {
         map = null;
         team = null;
@@ -276,6 +290,7 @@ public class GamePlayer {
         savedLevelCount = 0;
         savedFoodLevel = 0;
         savedHealth = 0;
+        playerLastDamagedBy = this.getName();
     }
 
 }
