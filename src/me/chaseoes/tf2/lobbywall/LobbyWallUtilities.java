@@ -2,8 +2,8 @@ package me.chaseoes.tf2.lobbywall;
 
 import me.chaseoes.tf2.DataConfiguration;
 import me.chaseoes.tf2.TF2;
-
 import org.bukkit.Location;
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 
 public class LobbyWallUtilities {
@@ -28,6 +28,7 @@ public class LobbyWallUtilities {
         DataConfiguration.getData().getDataFile().set("lobbywall." + map + ".x", l.getBlockX());
         DataConfiguration.getData().getDataFile().set("lobbywall." + map + ".y", l.getBlockY());
         DataConfiguration.getData().getDataFile().set("lobbywall." + map + ".z", l.getBlockZ());
+        LobbyWall.getWall().setDirty(map, true);
         DataConfiguration.getData().saveData();
     }
 
@@ -41,6 +42,21 @@ public class LobbyWallUtilities {
         s.setLine(2, l3);
         s.setLine(3, l4);
         s.update(true);
+    }
+
+    public BlockFace rotate90Deg(BlockFace face) {
+        switch (face) {
+            case NORTH:
+                return BlockFace.EAST;
+            case EAST:
+                return BlockFace.SOUTH;
+            case SOUTH:
+                return BlockFace.WEST;
+            case WEST:
+                return BlockFace.NORTH;
+            default:
+                return null;
+        }
     }
 
 }

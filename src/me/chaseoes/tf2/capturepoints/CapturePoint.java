@@ -1,18 +1,13 @@
 package me.chaseoes.tf2.capturepoints;
 
-import me.chaseoes.tf2.Game;
-import me.chaseoes.tf2.GamePlayer;
-import me.chaseoes.tf2.GameUtilities;
-import me.chaseoes.tf2.TF2;
-import me.chaseoes.tf2.Team;
-
+import me.chaseoes.tf2.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
-public class CapturePoint {
+public class CapturePoint implements Comparable<CapturePoint> {
 
     String map;
     Integer id;
@@ -131,4 +126,8 @@ public class CapturePoint {
         setStatus(CaptureStatus.UNCAPTURED);
     }
 
+    @Override
+    public int compareTo(CapturePoint o) {
+        return this.getId() - o.getId();
+    }
 }

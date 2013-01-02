@@ -2,6 +2,7 @@ package me.chaseoes.tf2;
 
 import me.chaseoes.tf2.capturepoints.CapturePoint;
 import me.chaseoes.tf2.capturepoints.CaptureStatus;
+import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.utilities.Container;
 import me.chaseoes.tf2.utilities.SerializableInventory;
 import me.chaseoes.tf2.utilities.SerializableLocation;
@@ -141,6 +142,7 @@ public class Map {
             points.remove(id);
             customConfig.set("capture-points." + id, null);
         }
+        LobbyWall.getWall().setDirty(name, true);
         saveConfig();
     }
 
