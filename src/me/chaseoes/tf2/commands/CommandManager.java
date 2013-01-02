@@ -2,7 +2,6 @@ package me.chaseoes.tf2.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
@@ -168,6 +167,14 @@ public class CommandManager implements CommandExecutor {
         if (strings[0].equalsIgnoreCase("list")) {
             if (cs.hasPermission("tf2.play")) {
                 ListCommand.getCommand().execListCommand(cs, strings, cmnd);
+            } else {
+                h.noPermission();
+            }
+            return true;
+        }
+        if (strings[0].equalsIgnoreCase("redefine")) {
+            if (cs.hasPermission("tf2.create")) {
+                RedefineCommand.getCommand().execRedefineCommand(cs, strings, cmnd);
             } else {
                 h.noPermission();
             }

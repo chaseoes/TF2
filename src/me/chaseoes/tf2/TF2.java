@@ -106,6 +106,7 @@ public class TF2 extends JavaPlugin {
         MapUtilities.getUtilities().setup(this);
         WorldEditUtilities.getWEUtilities().setup(this);
         CreateCommand.getCommand().setup(this);
+        RedefineCommand.getCommand().setup(this);
         LobbyWall.getWall().setup(this);
         DataConfiguration.getData().setup(this);
         LobbyWallUtilities.getUtilities().setup(this);

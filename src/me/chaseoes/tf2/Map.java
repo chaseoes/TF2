@@ -175,10 +175,10 @@ public class Map {
 
     public void setP2(Location p2) {
         this.p2 = p2;
-        customConfig.set("region.p2.w", p1.getWorld().getName());
-        customConfig.set("region.p2.x", p1.getBlockX());
-        customConfig.set("region.p2.y", p1.getBlockY());
-        customConfig.set("region.p2.z", p1.getBlockZ());
+        customConfig.set("region.p2.w", p2.getWorld().getName());
+        customConfig.set("region.p2.x", p2.getBlockX());
+        customConfig.set("region.p2.y", p2.getBlockY());
+        customConfig.set("region.p2.z", p2.getBlockZ());
         saveConfig();
     }
 
