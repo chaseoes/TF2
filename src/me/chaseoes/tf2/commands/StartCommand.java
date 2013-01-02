@@ -29,8 +29,8 @@ public class StartCommand {
         CommandHelper h = new CommandHelper(cs, cmnd);
         if (strings.length == 2) {
             String map = strings[1];
-            if (!TF2.getInstance().mapExists(strings[2])) {
-                cs.sendMessage(ChatColor.YELLOW + "[TF2] " + strings[2] + " is not a valid map.");
+            if (!TF2.getInstance().mapExists(map)) {
+                cs.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + map + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");
                 return;
             }
             if (GameUtilities.getUtilities().getGame(plugin.getMap(map)).getStatus() != GameStatus.DISABLED) {

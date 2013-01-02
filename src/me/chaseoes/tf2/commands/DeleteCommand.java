@@ -28,7 +28,7 @@ public class DeleteCommand {
         if (strings[1].equalsIgnoreCase("map")) {
             if (strings.length == 3) {
                 if (!TF2.getInstance().mapExists(strings[2])) {
-                    cs.sendMessage(ChatColor.YELLOW + "[TF2] " + strings[2] + " is not a valid map.");
+                    cs.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + strings[2] + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");
                     return;
                 }
                 TF2.getInstance().removeMap(strings[2]);

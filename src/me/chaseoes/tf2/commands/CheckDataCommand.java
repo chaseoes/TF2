@@ -24,7 +24,7 @@ public class CheckDataCommand {
         if (strings.length == 2) {
             String map = strings[1];
             if (!TF2.getInstance().mapExists(map)) {
-                cs.sendMessage(ChatColor.YELLOW + "[TF2] " + map + " is not a valid map.");
+                cs.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + map + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");
                 return;
             }
             DataChecker dc = new DataChecker(map);

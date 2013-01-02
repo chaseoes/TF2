@@ -36,8 +36,13 @@ public class CreateCommand {
         if (strings[1].equalsIgnoreCase("map")) {
             if (strings.length == 3) {
                 Player p = (Player) cs;
+                String map = strings[2];
+                if (TF2.getInstance().mapExists(map)) {
+                    cs.sendMessage(ChatColor.YELLOW + "[TF2] The map " + ChatColor.ITALIC + map + ChatColor.RESET + ChatColor.YELLOW + " already exists.");
+                    return;
+                }
                 try {
-                    MapUtilities.getUtilities().createMap(strings[2], p);
+                    MapUtilities.getUtilities().createMap(map, p);
                     cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully created the map " + ChatColor.ITALIC + strings[2] + "!");
                 } catch (EmptyClipboardException e) {
                     cs.sendMessage(ChatColor.YELLOW + "[TF2] Please make a WorldEdit selection first.");
@@ -84,7 +89,7 @@ public class CreateCommand {
                 Player p = (Player) cs;
                 GameUtilities.getUtilities().getGamePlayer(p).setCreatingContainer(true);
                 String map = strings[2];
-                if (TF2.getInstance().getMap(map) == null) {
+                if (!TF2.getInstance().mapExists(map)) {
                     p.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + map + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");
                     return;
                 }

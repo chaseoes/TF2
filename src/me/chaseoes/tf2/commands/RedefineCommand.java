@@ -30,7 +30,7 @@ public class RedefineCommand {
         CommandHelper h = new CommandHelper(cs, cmnd);
         if(strings.length == 2) {
             if (!TF2.getInstance().mapExists(strings[1])) {
-                cs.sendMessage(ChatColor.YELLOW + "[TF2] " + strings[1] + " is not a valid map.");
+                cs.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + strings[1] + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");
                 return;
             }
             Map map = plugin.getMap(strings[1]);

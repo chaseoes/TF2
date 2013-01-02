@@ -38,7 +38,7 @@ public class SetCommand {
                 } else {
                     final String map = strings[2];
                     if (!TF2.getInstance().mapExists(map)) {
-                        cs.sendMessage(ChatColor.YELLOW + "[TF2] " + map + " is not a valid map.");
+                        cs.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + map + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");
                         return;
                     }
                     TF2.getInstance().usingSetSpawnMenu.put(cs.getName(), map);

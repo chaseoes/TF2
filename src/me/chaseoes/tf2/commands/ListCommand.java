@@ -39,7 +39,7 @@ public class ListCommand {
             StringBuilder red = new StringBuilder();
             StringBuilder blue = new StringBuilder();
             if (!TF2.getInstance().mapExists(strings[1])) {
-                cs.sendMessage(ChatColor.YELLOW + "[TF2] " + strings[1] + " is not a valid map.");
+                cs.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + strings[1] + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");
                 return;
             }
             Game game = GameUtilities.getUtilities().getGame(plugin.getMap(strings[1]));

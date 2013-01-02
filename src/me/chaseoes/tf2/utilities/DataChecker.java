@@ -34,7 +34,7 @@ public class DataChecker {
     }
 
     public Boolean teamSpawnHasBeenSet(Team team) {
-        switch (team){
+        switch (team) {
             case RED:
                 return TF2.getInstance().getMap(map).getRedSpawn() != null;
             case BLUE:
@@ -44,7 +44,10 @@ public class DataChecker {
     }
 
     public Boolean playerLimitHasBeenSet() {
-        return TF2.getInstance().getMap(map).getPlayerlimit() >= 2;
+        if (getPlayerLimit() != null) {
+            return getPlayerLimit() >= 2;
+        }
+        return false;
     }
 
     public Integer getPlayerLimit() {
@@ -52,7 +55,10 @@ public class DataChecker {
     }
 
     public Boolean timeLimitHasBeenSet() {
-        return TF2.getInstance().getMap(map).getTimelimit() >= 1;
+        if (getTimeLimit() != null) {
+            return getTimeLimit() >= 1;
+        }
+        return false;
     }
 
     public Integer getTimeLimit() {
@@ -60,7 +66,10 @@ public class DataChecker {
     }
 
     public Boolean redTPHasBeenSet() {
-        return TF2.getInstance().getMap(map).getRedTeamTeleportTime() >= 1;
+        if (getRedTP() != null) {
+            return getRedTP() >= 1;
+        }
+        return false;
     }
 
     public Integer getRedTP() {
@@ -79,7 +88,7 @@ public class DataChecker {
         }
         return true;
     }
-    
+
     public Boolean lobbyWallHasBeenSet() {
         return DataConfiguration.getData().getDataFile().getString("lobbywall." + map + ".w") != null;
     }
@@ -87,7 +96,7 @@ public class DataChecker {
     public Boolean allGood() {
         return globalLobbySet() && capturePointOneHasBeenSet() && teamLobbyHasBeenSet(Team.RED) && teamLobbyHasBeenSet(Team.BLUE) && teamSpawnHasBeenSet(Team.RED) && teamSpawnHasBeenSet(Team.BLUE) && playerLimitHasBeenSet() && timeLimitHasBeenSet() && redTPHasBeenSet() && lobbyWallHasBeenSet();
     }
-    
+
     public Boolean allGoodExceptLobbyWall() {
         return globalLobbySet() && capturePointOneHasBeenSet() && teamLobbyHasBeenSet(Team.RED) && teamLobbyHasBeenSet(Team.BLUE) && teamSpawnHasBeenSet(Team.RED) && teamSpawnHasBeenSet(Team.BLUE) && playerLimitHasBeenSet() && timeLimitHasBeenSet() && redTPHasBeenSet();
     }
