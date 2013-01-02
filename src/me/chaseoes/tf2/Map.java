@@ -52,22 +52,22 @@ public class Map {
             p2 = null;
         }
         if (customConfig.isString("blue.lobby.w")) {
-            blueLobby = new Location(Bukkit.getWorld(customConfig.getString("blue.lobby.w")), customConfig.getInt("blue.lobby.x"), customConfig.getInt("blue.lobby.y"), customConfig.getInt("blue.lobby.z"), (float) customConfig.getDouble("blue.lobby.yaw"), (float) customConfig.getDouble("blue.lobby.pitch"));
+            blueLobby = new Location(Bukkit.getWorld(customConfig.getString("blue.lobby.w")), customConfig.getInt("blue.lobby.x") + 0.5, customConfig.getInt("blue.lobby.y"), customConfig.getInt("blue.lobby.z") + 0.5, (float) customConfig.getDouble("blue.lobby.yaw"), (float) customConfig.getDouble("blue.lobby.pitch"));
         } else {
             blueLobby = null;
         }
         if (customConfig.isString("red.lobby.w")) {
-            redLobby = new Location(Bukkit.getWorld(customConfig.getString("red.lobby.w")), customConfig.getInt("red.lobby.x"), customConfig.getInt("red.lobby.y"), customConfig.getInt("red.lobby.z"), (float) customConfig.getDouble("red.lobby.yaw"), (float) customConfig.getDouble("red.lobby.pitch"));
+            redLobby = new Location(Bukkit.getWorld(customConfig.getString("red.lobby.w")), customConfig.getInt("red.lobby.x") + 0.5, customConfig.getInt("red.lobby.y"), customConfig.getInt("red.lobby.z") + 0.5, (float) customConfig.getDouble("red.lobby.yaw"), (float) customConfig.getDouble("red.lobby.pitch"));
         } else {
             redLobby = null;
         }
         if (customConfig.isString("blue.spawn.w")) {
-            blueSpawn = new Location(Bukkit.getWorld(customConfig.getString("blue.spawn.w")), customConfig.getInt("blue.spawn.x"), customConfig.getInt("blue.spawn.y"), customConfig.getInt("blue.spawn.z"), (float) customConfig.getDouble("blue.spawn.yaw"), (float) customConfig.getDouble("blue.spawn.pitch"));
+            blueSpawn = new Location(Bukkit.getWorld(customConfig.getString("blue.spawn.w")), customConfig.getInt("blue.spawn.x") + 0.5, customConfig.getInt("blue.spawn.y"), customConfig.getInt("blue.spawn.z") + 0.5, (float) customConfig.getDouble("blue.spawn.yaw"), (float) customConfig.getDouble("blue.spawn.pitch"));
         } else {
             blueSpawn = null;
         }
         if (customConfig.isString("red.spawn.w")) {
-            redSpawn = new Location(Bukkit.getWorld(customConfig.getString("red.spawn.w")), customConfig.getInt("red.spawn.x"), customConfig.getInt("red.spawn.y"), customConfig.getInt("red.spawn.z"), (float) customConfig.getDouble("red.spawn.yaw"), (float) customConfig.getDouble("red.spawn.pitch"));
+            redSpawn = new Location(Bukkit.getWorld(customConfig.getString("red.spawn.w")), customConfig.getInt("red.spawn.x") + 0.5, customConfig.getInt("red.spawn.y"), customConfig.getInt("red.spawn.z") + 0.5, (float) customConfig.getDouble("red.spawn.yaw"), (float) customConfig.getDouble("red.spawn.pitch"));
         } else {
             redSpawn = null;
         }
