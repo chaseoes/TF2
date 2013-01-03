@@ -46,7 +46,10 @@ public class CachedLobbyWallInfo {
             BlockFace searchDirection = LobbyWallUtilities.getUtilities().rotate90Deg(matSign.getAttachedFace());
             for (int i = 1; i < (4 + cps.size()); i++) {
                 block = block.getRelative(searchDirection);
-                signs.add((Sign) block.getLocation().getBlock().getState());
+                if (block.getType() != Material.WALL_SIGN) {
+                    block.setTypeIdAndData(Material.WALL_SIGN.getId(), dataFacing, false);
+                }
+                signs.add((Sign) block.getState());
             }
         }
         dirty = false;
