@@ -156,10 +156,6 @@ public class TF2 extends JavaPlugin {
         pm.registerEvents(new EntityDamageListener(), this);
     }
 
-    public Queue getQueue(String map) {
-        return queues.get(map);
-    }
-
     public Map getMap(String map) {
         return maps.get(map);
     }
@@ -168,7 +164,6 @@ public class TF2 extends JavaPlugin {
         Map m = new Map(this, map);
         maps.put(map, m);
         GameUtilities.getUtilities().addGame(m);
-        queues.put(map, new Queue(m.getName()));
         GameUtilities.getUtilities().getGame(m).redHasBeenTeleported = false;
         GameUtilities.getUtilities().getGame(m).setStatus(status);
         if (status == GameStatus.DISABLED) {

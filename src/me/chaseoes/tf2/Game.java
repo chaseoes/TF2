@@ -15,7 +15,6 @@ import org.kitteh.tag.TagAPI;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 public class Game {
@@ -23,6 +22,7 @@ public class Game {
     TF2 plugin;
     Map map;
     GameStatus status = GameStatus.WAITING;
+    Queue queue;
     public boolean redHasBeenTeleported = false;
     public int time = 0;
 
@@ -31,6 +31,7 @@ public class Game {
     public Game(Map m, TF2 plugin) {
         map = m;
         this.plugin = plugin;
+        queue = new Queue(m);
     }
 
     public GamePlayer getPlayer(Player player) {
@@ -318,35 +319,6 @@ public class Game {
         return Math.abs(hours) + "h " + Math.abs(minutes) + "m " + Math.abs(time) + "s";
     }
 
-    public void checkQueue(boolean b) {
-        try {
-            Queue q = plugin.getQueue(map.getName());
-            if (q != null) {
-                Team team = decideTeam();
-                Iterator<String> it = q.getQueue().iterator();
-                while (it.hasNext()) {
-                    String pl = it.next();
-                    Player p = plugin.getServer().getPlayerExact(pl);
-                    if (p != null) {
-                        Integer position = q.getPosition(p.getName());
-                        if (position != null) {
-                            if (!(playersInGame.size() + 1 <= map.getPlayerlimit())) {
-                                if (b) {
-                                    p.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + position + " in line for the map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + ChatColor.YELLOW + ".");
-                                }
-                            } else {
-                                joinGame(GameUtilities.getUtilities().getGamePlayer(p), team);
-                                q.remove(p.getName());
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public String getPrettyStatus() {
         GameStatus status = getStatus();
         if (status == GameStatus.INGAME) {
@@ -365,6 +337,10 @@ public class Game {
         for (GamePlayer player : playersInGame.values()) {
             player.getPlayer().sendMessage(message);
         }
+    }
+    
+    public Queue getQueue() {
+        return queue;
     }
 
 }

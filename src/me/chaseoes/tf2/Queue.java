@@ -1,68 +1,64 @@
 package me.chaseoes.tf2;
 
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.ArrayList;
+import java.util.concurrent.ConcurrentMap;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class Queue {
 
-    String map;
-    public CopyOnWriteArrayList<String> inqueue;
+    Map map;
+    Game game;
+    private ArrayList<String> playersInQueue = new ArrayList<String>();
 
-    public Queue(String m) {
+    public Queue(Map m) {
         map = m;
-        inqueue = new CopyOnWriteArrayList<String>();
+        game = GameUtilities.getUtilities().getGame(m);
     }
 
-    public CopyOnWriteArrayList<String> getQueue() {
-        return inqueue;
+    public void addPlayer(Player player) {
+        playersInQueue.add(player.getName());
     }
 
-    public void add(Player player) {
-        for (String m : DataConfiguration.getData().getDataFile().getStringList("enabled-maps")) {
-            Queue q = GameUtilities.getUtilities().plugin.getQueue(m);
-            if (q != null) {
-                if (q.contains(player)) {
-                    q.remove(q.getPosition(player.getName()));
-                }
-            }
-        }
-        inqueue.add(player.getName());
+    public void removePlayer(Player player) {
+        removePlayer(player.getName());
     }
 
-    public String remove(int i) {
-        String str = inqueue.remove(i);
-        for (int it = i; it < inqueue.size(); it++) {
-            Player p = Bukkit.getPlayerExact(inqueue.get(it));
-            p.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + it + " in line for the map " + ChatColor.BOLD + map + ChatColor.RESET + ChatColor.YELLOW + ".");
-        }
-        check(false);
-        return str;
+    public void removePlayer(String player) {
+        playersInQueue.remove(player);
     }
 
-    public void remove(String player) {
-        inqueue.remove(player);
-        check(false);
+    public boolean contains(Player player) {
+        return playersInQueue.contains(player.getName());
     }
 
-    public Integer getPosition(String player) {
+    public int getPosition(Player player) {
         int position = 0;
-        for (String pl : inqueue) {
-            if (pl.equalsIgnoreCase(player)) {
+        for (String p : playersInQueue) {
+            position++;
+            if (player.getName().equalsIgnoreCase(p)) {
                 return position;
             }
-            position++;
         }
-        return null;
+        return position;
     }
 
-    public Boolean contains(Player player) {
-        return inqueue.contains(player.getName());
+    public void check(Player playerWantingIn) {
+        if (playerWantingIn != null && !contains(playerWantingIn)) {
+            addPlayer(playerWantingIn);
+        }
+        int amountAllowedIn = map.getPlayerlimit() - game.getPlayersIngame().size();
+        for (String player : playersInQueue) {
+            if (amountAllowedIn != 0) {
+                removePlayer(player);
+                game.joinGame(GameUtilities.getUtilities().getGamePlayer(TF2.getInstance().getServer().getPlayer(player)), game.decideTeam());
+                amountAllowedIn--;
+            }
+        }
+        if (playerWantingIn != null) {
+            playerWantingIn.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + getPosition(playerWantingIn) + " in line for this map.");
+        }
     }
 
-    public void check(boolean b) {
-        GameUtilities.getUtilities().getGame(TF2.getInstance().getMap(map)).checkQueue(b);
-    }
 }

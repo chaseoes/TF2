@@ -70,21 +70,14 @@ public class PlayerInteractListener implements Listener {
                         return;
                     }
 
-                    Queue q = GameUtilities.getUtilities().plugin.getQueue(map);
+                    Queue q = game.getQueue();
                     if (!player.hasPermission("tf2.create")) {
                         if (q.contains(player)) {
-                            player.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + q.getPosition(player.getName()) + " in line for this map.");
+                            player.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + q.getPosition(player) + " in line for this map.");
                             return;
                         }
-                        q.add(player);
-                        Integer position = q.getPosition(player.getName());
-
-                        if (game.getPlayersIngame().size() + 1 <= TF2.getInstance().getMap(map).getPlayerlimit()) {
-                            q.remove(position);
-                            game.joinGame(GameUtilities.getUtilities().getGamePlayer(player), team);
-                        } else {
-                            player.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + position + " in line for this map.");
-                        }
+                        
+                        q.check(player);
                     } else {
                         game.joinGame(GameUtilities.getUtilities().getGamePlayer(player), team);
                     }
