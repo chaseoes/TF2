@@ -269,11 +269,8 @@ public class Game {
 
     public void leaveGame(Player player) {
         GamePlayer gp = getPlayer(player);
-        GameQueue q = map.getQueue();
-        q.remove(player);
         playersInGame.remove(gp.getName());
         gp.leaveCurrentGame();
-        q.check();
     }
 
     public Team decideTeam() {
