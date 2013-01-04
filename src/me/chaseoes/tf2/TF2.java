@@ -1,5 +1,6 @@
 package me.chaseoes.tf2;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -40,6 +41,7 @@ import me.chaseoes.tf2.listeners.TF2DeathListener;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.lobbywall.LobbyWallUtilities;
 import me.chaseoes.tf2.utilities.IconMenu;
+import me.chaseoes.tf2.utilities.MetricsLite;
 import me.chaseoes.tf2.utilities.SerializableLocation;
 import me.chaseoes.tf2.utilities.UpdateChecker;
 import me.chaseoes.tf2.utilities.WorldEditUtilities;
@@ -123,6 +125,13 @@ public class TF2 extends JavaPlugin {
                 event.setWillClose(true);
             }
         }, this).setOption(2, new ItemStack(Material.getMaterial(331), 1), ChatColor.DARK_RED + "" + ChatColor.BOLD + "Red Lobby" + ChatColor.RESET, ChatColor.WHITE + "Set the red team lobby.").setOption(3, new ItemStack(Material.getMaterial(351), 1, (short) 4), ChatColor.AQUA + "" + ChatColor.BOLD + "Blue Lobby" + ChatColor.RESET, ChatColor.WHITE + "Set the blue team lobby.").setOption(4, new ItemStack(Material.WOOL, 1, (short) 14), ChatColor.DARK_RED + "" + ChatColor.BOLD + "Red Spawn" + ChatColor.RESET, ChatColor.WHITE + "Set the red team's spawn.").setOption(5, new ItemStack(Material.WOOL, 1, (short) 11), ChatColor.AQUA + "" + ChatColor.BOLD + "Blue Spawn" + ChatColor.RESET, ChatColor.WHITE + "Set the blue team's spawn.").setOption(6, new ItemStack(Material.BEDROCK, 1), ChatColor.RED + "" + ChatColor.BOLD + "Exit" + ChatColor.RESET, ChatColor.RED + "Exit this menu.");
+
+        try {
+            MetricsLite metrics = new MetricsLite(this);
+            metrics.start();
+        } catch (IOException e) {
+            // Failed to submit! :(
+        }
     }
 
     @Override
