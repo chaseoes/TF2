@@ -82,6 +82,9 @@ public class Schedulers {
 
     public void startRedTeamCountdown(final Map map) {
         final Game game = GameUtilities.getUtilities().getGame(map);
+        if (redcounter.containsKey(map.getName())) {
+            return;
+        }
         redcounter.put(map.getName(), plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             int secondsleft = map.getRedTeamTeleportTime();
 
@@ -97,6 +100,8 @@ public class Schedulers {
                             }
                         }
                     }
+                } else {
+                    stopRedTeamCountdown(map.getName());
                 }
                 secondsleft--;
             }
@@ -106,8 +111,12 @@ public class Schedulers {
     public void startCountdown(final Map map) {
         final Game game = GameUtilities.getUtilities().getGame(map);
         game.setStatus(GameStatus.STARTING);
+        if (countdowns.containsKey(map.getName())) {
+            return;
+        }
         countdowns.put(map.getName(), plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             int secondsLeft = plugin.getConfig().getInt("countdown");
+
             @Override
             public void run() {
                 if (secondsLeft > 0) {
@@ -126,9 +135,13 @@ public class Schedulers {
     public void startTimeLimitCounter(final Map map) {
         final Game game = GameUtilities.getUtilities().getGame(map);
         final int limit = map.getTimelimit();
+        if (timelimitcounter.containsKey(map.getName())) {
+            return;
+        }
         timelimitcounter.put(map.getName(), plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             int current = 0;
             int secondsleft = map.getTimelimit();
+
             @Override
             public void run() {
                 try {
@@ -154,18 +167,21 @@ public class Schedulers {
     public void stopRedTeamCountdown(String map) {
         if (redcounter.get(map) != null) {
             plugin.getServer().getScheduler().cancelTask(redcounter.get(map));
+            redcounter.remove(map);
         }
     }
 
     public void stopTimeLimitCounter(String map) {
         if (timelimitcounter.get(map) != null) {
             plugin.getServer().getScheduler().cancelTask(timelimitcounter.get(map));
+            timelimitcounter.remove(map);
         }
     }
 
     public void stopCountdown(String map) {
         if (countdowns.get(map) != null) {
             plugin.getServer().getScheduler().cancelTask(countdowns.get(map));
+            countdowns.remove(map);
         }
     }
 
