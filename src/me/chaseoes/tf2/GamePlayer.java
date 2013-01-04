@@ -23,6 +23,7 @@ public class GamePlayer {
     boolean makingClassButton;
     boolean justSpawned;
     boolean creatingContainer;
+    boolean isDead;
     String mapCreatingItemFor;
     String classButtonType;
     String classButtonName;
@@ -286,6 +287,14 @@ public class GamePlayer {
         mapCreatingItemFor = map;
     }
 
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void setIsDead(boolean bool) {
+        isDead = bool;
+    }
+
     public void clear() {
         map = null;
         team = null;
@@ -298,6 +307,7 @@ public class GamePlayer {
         makingChangeClassButton = false;
         makingClassButton = false;
         creatingContainer = false;
+        isDead = false;
         justSpawned = false;
         classButtonType = null;
         classButtonName = null;

@@ -22,8 +22,8 @@ public class PlayerDamageByEntityListener implements Listener {
             Player damaged = (Player) event.getEntity();
             if (GameUtilities.getUtilities().isIngame(damaged)) {
                 
-                GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(damaged);
-                if (gp.isInLobby() || gp.getGame().getStatus() != GameStatus.INGAME) {
+                GamePlayer gdamaged = GameUtilities.getUtilities().getGamePlayer(damaged);
+                if (gdamaged.isInLobby() || gdamaged.getGame().getStatus() != GameStatus.INGAME || gdamaged.isDead()) {
                     event.setCancelled(true);
                     return;
                 }
@@ -48,7 +48,6 @@ public class PlayerDamageByEntityListener implements Listener {
 
                 // Check Game Status
                 Game game = GameUtilities.getUtilities().getCurrentGame(damaged);
-                GamePlayer gdamaged = game.getPlayer(damaged);
                 if (game.getStatus() != GameStatus.INGAME) {
                     event.setCancelled(true);
                     return;
@@ -79,6 +78,7 @@ public class PlayerDamageByEntityListener implements Listener {
 
                     if (damaged.getHealth() - event.getDamage() <= 0) {
                         TF2.getInstance().getServer().getPluginManager().callEvent(new TF2DeathEvent(damaged, damager));
+                        gdamaged.setIsDead(true);
                         event.setCancelled(true);
                         return;
                     }
@@ -107,6 +107,7 @@ public class PlayerDamageByEntityListener implements Listener {
 
                         if (damaged.getHealth() - event.getDamage() <= 0) {
                             TF2.getInstance().getServer().getPluginManager().callEvent(new TF2DeathEvent(damaged, damager));
+                            gdamaged.setIsDead(true);
                             event.setCancelled(true);
                             return;
                         }

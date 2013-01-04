@@ -56,6 +56,7 @@ public class TF2DeathListener implements Listener {
                 TF2Class c = playerg.getCurrentClass();
                 c.apply(player);
                 playerg.setJustSpawned(true);
+                playerg.setIsDead(false);
                 playerg.setPlayerLastDamagedBy(null);
             }
         }, 1L);
