@@ -104,6 +104,8 @@ public class PlayerInteractListener implements Listener {
                                         player.teleport(MapUtilities.getUtilities().loadTeamSpawn(gp.getGame().getMapName(), gp.getTeam()));
                                         gp.setInLobby(false);
                                         gp.setUsingChangeClassButton(false);
+                                        TF2Class classChosen = gp.getCurrentClass();
+                                        classChosen.apply(player);
                                     }
                                 }
                                 return;
