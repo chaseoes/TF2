@@ -33,6 +33,12 @@ public class GameQueue {
         if (contains(player)) {
             return false;
         }
+        
+        for (Game g : GameUtilities.getUtilities().games.values()) {
+            Map gm = TF2.getInstance().getMap(g.getMapName());
+            gm.getQueue().remove(player.getPlayer());
+        }
+        
         queue.add(player.getName());
         return true;
     }
