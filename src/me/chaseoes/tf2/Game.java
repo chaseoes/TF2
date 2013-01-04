@@ -227,7 +227,16 @@ public class Game {
         if (getStatus() == GameStatus.WAITING) {
             player.getPlayer().sendMessage(ChatColor.YELLOW + "The game will start when " + plugin.getConfig().getInt("autostart-percent") + "% of players have joined.");
         } else if (getStatus() == GameStatus.INGAME) {
-            player.setUsingChangeClassButton(true);
+            switch (player.getTeam()) {
+                case RED:
+                    if (redHasBeenTeleported) {
+                        player.setUsingChangeClassButton(true);
+                    }
+                    break;
+                case BLUE:
+                    player.setUsingChangeClassButton(true);
+                    break;
+            }
         }
 
         player.getPlayer().updateInventory();
@@ -321,10 +330,7 @@ public class Game {
                     if (p != null) {
                         Integer position = q.getPosition(p.getName());
                         if (position != null) {
-                            if (q.contains(p)) {
-                                q.remove(p.getName());
-                            }
-                            if (!(position <= map.getPlayerlimit())) {
+                            if (!(playersInGame.size() + 1 <= map.getPlayerlimit())) {
                                 p.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + position + " in line for the map " + ChatColor.BOLD + map + ChatColor.RESET + ChatColor.YELLOW + ".");
                             } else {
                                 joinGame(GameUtilities.getUtilities().getGamePlayer(p), team);

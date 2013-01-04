@@ -87,7 +87,7 @@ public class Schedulers {
 
             @Override
             public void run() {
-                if (secondsleft != 0) {
+                if (secondsleft > 0) {
                     if (secondsleft % 10 == 0 || secondsleft < 6) {
                         for (String playe : game.getPlayersIngame()) {
                             Player player = plugin.getServer().getPlayerExact(playe);
@@ -110,7 +110,7 @@ public class Schedulers {
             int secondsLeft = plugin.getConfig().getInt("countdown");
             @Override
             public void run() {
-                if (secondsLeft != 0) {
+                if (secondsLeft > 0) {
                     if (secondsLeft % 10 == 0 || secondsLeft < 6) {
                         game.broadcast(ChatColor.BLUE + "Game starting in " + ChatColor.AQUA + secondsLeft + " " + ChatColor.BLUE + "seconds!");
                     }
@@ -133,7 +133,7 @@ public class Schedulers {
             public void run() {
                 try {
                     game.time = current;
-                    if (secondsleft != 0) {
+                    if (secondsleft > 0) {
                         if (secondsleft % 60 == 0 || secondsleft < 10) {
                             game.broadcast(ChatColor.BLUE + "Game ending in " + ChatColor.AQUA + game.getTimeLeftPretty() + ChatColor.BLUE + "!");
                         }
