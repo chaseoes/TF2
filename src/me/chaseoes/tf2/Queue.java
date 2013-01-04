@@ -1,8 +1,9 @@
 package me.chaseoes.tf2;
 
-import java.util.ArrayList;
-import java.util.concurrent.ConcurrentMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -10,15 +11,26 @@ public class Queue {
 
     Map map;
     Game game;
-    private ArrayList<String> playersInQueue = new ArrayList<String>();
+    private LinkedList<String> players = new LinkedList<String>();
 
-    public Queue(Map m) {
+    public Queue(Map m, Game game) {
         map = m;
-        game = GameUtilities.getUtilities().getGame(m);
+        this.game = game;
     }
 
     public void addPlayer(Player player) {
-        playersInQueue.add(player.getName());
+        for (String m : DataConfiguration.getData().getDataFile().getStringList("enabled-maps")) {
+            if (m.equals(map.getName()))
+                continue;
+            Game game = GameUtilities.getUtilities().getGame(TF2.getInstance().getMap(m));
+            Queue q = game.getQueue();
+            if (q != null) {
+                if (q.contains(player)) {
+                    q.removePlayer(player.getName());
+                }
+            }
+        }
+        players.add(player.getName());
     }
 
     public void removePlayer(Player player) {
@@ -26,39 +38,68 @@ public class Queue {
     }
 
     public void removePlayer(String player) {
-        playersInQueue.remove(player);
+        int index = players.indexOf(player);
+        if (index == -1) {
+            return;
+        }
+        String nextPlayer = null;
+        if (index + 2 >= players.size()) {
+            nextPlayer = players.get(index + 1);
+        }
+        players.remove(player);
+        check(false);
+        if (nextPlayer != null) {
+            int newIndex = players.indexOf(nextPlayer);
+            if (newIndex == -1) {
+                newIndex = 0;
+            }
+            for (int i = players.indexOf(nextPlayer); i < players.size(); i++) {
+                Bukkit.getPlayerExact(players.get(i)).sendMessage(ChatColor.YELLOW + "[TF2] You are #" + getPosition(player, false) + " in line for the map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + ChatColor.YELLOW + ".");
+            }
+        }
     }
 
     public boolean contains(Player player) {
-        return playersInQueue.contains(player.getName());
+        return players.contains(player.getName());
     }
 
-    public int getPosition(Player player) {
-        int position = 0;
-        for (String p : playersInQueue) {
-            position++;
-            if (player.getName().equalsIgnoreCase(p)) {
-                return position;
+    public int getPosition(Player player, boolean zeroBased) {
+        return getPosition(player.getName(), zeroBased);
+    }
+
+    public int getPosition(String player, boolean zeroBased) {
+        return players.indexOf(player) + (zeroBased ? 0 : 1);
+    }
+
+    public void clear(boolean messagePlayers) {
+        if (messagePlayers) {
+            for (String player : players) {
+                Bukkit.getPlayerExact(player).sendMessage(ChatColor.YELLOW + "[TF2] The queue for the map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + ChatColor.YELLOW + " was cleared.");
             }
         }
-        return position;
+        players.clear();
     }
 
-    public void check(Player playerWantingIn) {
-        if (playerWantingIn != null && !contains(playerWantingIn)) {
-            addPlayer(playerWantingIn);
-        }
-        int amountAllowedIn = map.getPlayerlimit() - game.getPlayersIngame().size();
-        for (String player : playersInQueue) {
-            if (amountAllowedIn != 0) {
-                removePlayer(player);
-                game.joinGame(GameUtilities.getUtilities().getGamePlayer(TF2.getInstance().getServer().getPlayer(player)), game.decideTeam());
-                amountAllowedIn--;
+    public void check(boolean messagePlayers) {
+        int amtAllowed = map.getPlayerlimit() - game.getPlayersIngame().size();
+        Iterator<String> it = players.iterator();
+        while (it.hasNext()) {
+            String player = it.next();
+            if (player != null) {
+                if (amtAllowed > 0) {
+                    it.remove();
+                    if (GameUtilities.getUtilities().getGamePlayer(Bukkit.getPlayerExact(player)) == null) {
+                        continue;
+                    }
+
+                    game.joinGame(GameUtilities.getUtilities().getGamePlayer(Bukkit.getPlayerExact(player)), game.decideTeam());
+                    amtAllowed--;
+                } else {
+                    if (messagePlayers) {
+                        Bukkit.getPlayerExact(player).sendMessage(ChatColor.YELLOW + "[TF2] You are #" + getPosition(player, false) + " in line for the map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + ChatColor.YELLOW + ".");
+                    }
+                }
             }
         }
-        if (playerWantingIn != null) {
-            playerWantingIn.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + getPosition(playerWantingIn) + " in line for this map.");
-        }
     }
-
 }

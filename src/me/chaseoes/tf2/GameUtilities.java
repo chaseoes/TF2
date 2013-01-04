@@ -47,6 +47,9 @@ public class GameUtilities {
     }
     
     public GamePlayer getGamePlayer(Player player) {
+        if (player == null) {
+            return null;
+        }
         for (Game g : games.values()) {
             for (GamePlayer gp : g.playersInGame.values()) {
                 if (gp.getName().equalsIgnoreCase(player.getName())) {

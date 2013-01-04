@@ -31,7 +31,7 @@ public class LeaveCommand {
         Player player = (Player) cs;
         GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(player);
         if (gp.isIngame()) {
-            gp.leaveCurrentGame();
+            gp.getGame().leaveGame(gp.getPlayer());
             cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully left the game.");
         } else {
             cs.sendMessage(ChatColor.YELLOW + "[TF2] You are not playing in a game.");

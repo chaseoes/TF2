@@ -36,7 +36,7 @@ public class StopCommand {
             if (GameUtilities.getUtilities().getGame(plugin.getMap(map)).getStatus() != GameStatus.DISABLED) {
                 Game game = GameUtilities.getUtilities().getGame(plugin.getMap(map));
                 if (game.getStatus() != GameStatus.WAITING) {
-                    game.stopMatch();
+                    game.stopMatch(false);
                     cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully stopped the game.");
                 } else {
                     cs.sendMessage(ChatColor.YELLOW + "[TF2] That game is not in progress.");

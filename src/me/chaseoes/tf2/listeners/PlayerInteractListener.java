@@ -73,11 +73,11 @@ public class PlayerInteractListener implements Listener {
                     Queue q = game.getQueue();
                     if (!player.hasPermission("tf2.create")) {
                         if (q.contains(player)) {
-                            player.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + q.getPosition(player) + " in line for this map.");
+                            player.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + q.getPosition(player, false) + " in line for this map.");
                             return;
                         }
-                        
-                        q.check(player);
+                        q.addPlayer(player);
+                        player.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + q.getPosition(player, false) + " in line for this map.");
                     } else {
                         game.joinGame(GameUtilities.getUtilities().getGamePlayer(player), team);
                     }

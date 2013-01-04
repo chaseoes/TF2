@@ -32,7 +32,8 @@ public class DisableCommand {
                 return;
             }
             Game game = GameUtilities.getUtilities().getGame(plugin.getMap(map));
-            game.stopMatch();
+            game.getQueue().clear(true);
+            game.stopMatch(false);
             MapUtilities.getUtilities().disableMap(map);
             game.setStatus(GameStatus.DISABLED);
             String[] creditlines = new String[4];

@@ -1,8 +1,6 @@
 package me.chaseoes.tf2.listeners;
 
-import me.chaseoes.tf2.Game;
-import me.chaseoes.tf2.GameUtilities;
-import me.chaseoes.tf2.Queue;
+import me.chaseoes.tf2.*;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,8 +17,10 @@ public class PlayerQuitListener implements Listener {
             String name = player.getName();
             Game game = GameUtilities.getUtilities().getCurrentGame(player);
             game.leaveGame(player);
-            Queue q = game.getQueue();
-            q.removePlayer(name);
+            for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
+                Game game2 = GameUtilities.getUtilities().getGame(TF2.getInstance().getMap(map));
+                game2.getQueue().removePlayer(player);
+            }
         }
         GameUtilities.getUtilities().playerLeaveServer(event.getPlayer());
     }

@@ -146,13 +146,11 @@ public class GamePlayer {
         TagAPI.refreshPlayer(player);
 
         if (game.getStatus() == GameStatus.STARTING && game.playersInGame.size() == 1) {
-            game.stopMatch();
+            game.stopMatch(true);
         }
 
-        game.getQueue().check(null);
-        
         if (game.playersInGame.size() == 0) {
-            game.stopMatch();
+            game.stopMatch(true);
         }
 
         clear();

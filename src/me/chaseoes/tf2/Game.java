@@ -31,7 +31,7 @@ public class Game {
     public Game(Map m, TF2 plugin) {
         map = m;
         this.plugin = plugin;
-        queue = new Queue(m);
+        queue = new Queue(m, this);
     }
 
     public GamePlayer getPlayer(Player player) {
@@ -120,7 +120,7 @@ public class Game {
         }, map.getRedTeamTeleportTime() * 20L);
     }
 
-    public void stopMatch() {
+    public void stopMatch(boolean queueCheck) {
         setStatus(GameStatus.WAITING);
         Schedulers.getSchedulers().stopRedTeamCountdown(map.getName());
         Schedulers.getSchedulers().stopTimeLimitCounter(map.getName());
@@ -128,10 +128,9 @@ public class Game {
         for (Container container : map.getContainers()) {
             container.applyItems();
         }
-        HashMap<String, GamePlayer> gamePlayers = new HashMap<String, GamePlayer>(playersInGame);
-        for (GamePlayer gp : gamePlayers.values()) {
-            Player player = gp.getPlayer();
-            leaveGame(player);
+        HashMap<String, GamePlayer> hmap = new HashMap<String, GamePlayer>(playersInGame);
+        for (GamePlayer gp : hmap.values()) {
+            gp.leaveCurrentGame();
             gp.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] The game has ended.");
         }
 
@@ -151,6 +150,14 @@ public class Game {
 
         redHasBeenTeleported = false;
         playersInGame.clear();
+        if (queueCheck) {
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                @Override
+                public void run() {
+                    queue.check(true);
+                }
+            });
+        }
     }
 
     public void winMatch(Team team) {
@@ -186,7 +193,7 @@ public class Game {
 
         CapturePointUtilities.getUtilities().uncaptureAll(map);
         plugin.getServer().broadcastMessage(ChatColor.YELLOW + "The" + te + "team has won on the map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
-        stopMatch();
+        stopMatch(true);
     }
 
     @SuppressWarnings("deprecation")
@@ -246,6 +253,7 @@ public class Game {
     public void leaveGame(Player player) {
         GamePlayer gp = getPlayer(player);
         gp.leaveCurrentGame();
+        queue.check(true);
     }
 
     public Team decideTeam() {
@@ -343,4 +351,7 @@ public class Game {
         return queue;
     }
 
+    public boolean isFull() {
+        return playersInGame.size() >= map.getPlayerlimit();
+    }
 }

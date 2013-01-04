@@ -101,7 +101,7 @@ public class TF2 extends JavaPlugin {
         saveConfig();
         for (Map map : MapUtilities.getUtilities().getMaps()) {
             if (GameUtilities.getUtilities().getGame(map).getStatus() != GameStatus.WAITING && GameUtilities.getUtilities().getGame(map).getStatus() != GameStatus.DISABLED) {
-                GameUtilities.getUtilities().getGame(map).stopMatch();
+                GameUtilities.getUtilities().getGame(map).stopMatch(false);
             }
         }
         getServer().getScheduler().cancelTasks(this);
@@ -183,7 +183,7 @@ public class TF2 extends JavaPlugin {
     public void removeMap(String map) {
         Map m = maps.remove(map);
         Game game = GameUtilities.getUtilities().removeGame(m);
-        game.stopMatch();
+        game.stopMatch(false);
         LobbyWall.getWall().unloadCacheInfo(map);
         MapUtilities.getUtilities().destroyMap(m);
     }
