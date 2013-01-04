@@ -29,6 +29,9 @@ The player's XP bar is now used to track capture point progress.
 The player's level is now used to track their total number of kills.
 Added '/tf2 create refillcontainer' command to create containers (chests, dispensers, etc.) which refill themselves every time a new game starts.
 Added '/tf2 delete map <map name>' command to delete all traces of a map.
+Lobby wall updating is now more efficient as certain values are cached.
+Players physically inside a map are teleported out when they join the server.
+Arrow entities are now removed on game end.
 
 v1.4.4
 Fix some death issues where health etc. wasn't getting reset.

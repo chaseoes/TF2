@@ -1,16 +1,23 @@
 package me.chaseoes.tf2.lobbywall;
 
-import me.chaseoes.tf2.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.logging.Level;
+
+import me.chaseoes.tf2.DataConfiguration;
+import me.chaseoes.tf2.Game;
+import me.chaseoes.tf2.GameStatus;
+import me.chaseoes.tf2.GameUtilities;
+import me.chaseoes.tf2.Map;
+import me.chaseoes.tf2.TF2;
+import me.chaseoes.tf2.Team;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.logging.Level;
 
 public class LobbyWall {
 
@@ -150,7 +157,7 @@ public class LobbyWall {
                 }, duration * 20L);
             }
         } catch (Exception e) {
-
+            plugin.getLogger().log(Level.WARNING, "Encountered an error while trying to update the lobby wall.");
         }
     }
 
@@ -193,11 +200,10 @@ public class LobbyWall {
     public CachedLobbyWallInfo getCacheInfo(String map) {
         if (cache.containsKey(map)) {
             return cache.get(map);
-        } else {
-            CachedLobbyWallInfo info = new CachedLobbyWallInfo(map);
-            cache.put(map, info);
-            return info;
         }
+        CachedLobbyWallInfo info = new CachedLobbyWallInfo(map);
+        cache.put(map, info);
+        return info;
     }
 
     public void unloadCacheInfo(String map) {
