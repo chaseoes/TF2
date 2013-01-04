@@ -318,7 +318,7 @@ public class Game {
         return Math.abs(hours) + "h " + Math.abs(minutes) + "m " + Math.abs(time) + "s";
     }
 
-    public void checkQueue() {
+    public void checkQueue(boolean b) {
         try {
             Queue q = plugin.getQueue(map.getName());
             if (q != null) {
@@ -331,7 +331,9 @@ public class Game {
                         Integer position = q.getPosition(p.getName());
                         if (position != null) {
                             if (!(playersInGame.size() + 1 <= map.getPlayerlimit())) {
-                                p.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + position + " in line for the map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + ChatColor.YELLOW + ".");
+                                if (b) {
+                                    p.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + position + " in line for the map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + ChatColor.YELLOW + ".");
+                                }
                             } else {
                                 joinGame(GameUtilities.getUtilities().getGamePlayer(p), team);
                                 q.remove(p.getName());

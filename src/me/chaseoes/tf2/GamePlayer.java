@@ -149,7 +149,7 @@ public class GamePlayer {
             game.stopMatch();
         }
 
-        game.checkQueue();
+        game.checkQueue(true);
         if (game.playersInGame.size() == 0) {
             game.stopMatch();
         }
