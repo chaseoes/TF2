@@ -1,14 +1,16 @@
 package me.chaseoes.tf2.commands;
 
-import com.sk89q.worldedit.bukkit.selections.Selection;
 import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.utilities.WorldEditUtilities;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import com.sk89q.worldedit.bukkit.selections.Selection;
 
 public class RedefineCommand {
 
@@ -28,7 +30,7 @@ public class RedefineCommand {
 
     public void execRedefineCommand(CommandSender cs, String[] strings, Command cmnd) {
         CommandHelper h = new CommandHelper(cs, cmnd);
-        if(strings.length == 2) {
+        if (strings.length == 2) {
             if (!TF2.getInstance().mapExists(strings[1])) {
                 cs.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + strings[1] + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");
                 return;

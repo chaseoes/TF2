@@ -1,7 +1,7 @@
 package me.chaseoes.tf2.utilities;
 
 public class GeneralUtilities {
-    
+
     public static String colorize(String s) {
         if (s == null) {
             return null;

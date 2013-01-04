@@ -1,21 +1,22 @@
 package me.chaseoes.tf2;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import me.chaseoes.tf2.capturepoints.CapturePoint;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.utilities.Container;
 import me.chaseoes.tf2.utilities.WorldEditUtilities;
+
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.kitteh.tag.TagAPI;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class Game {
 
@@ -346,7 +347,7 @@ public class Game {
             player.getPlayer().sendMessage(message);
         }
     }
-    
+
     public Queue getQueue() {
         return queue;
     }

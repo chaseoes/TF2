@@ -1,8 +1,8 @@
 package me.chaseoes.tf2;
 
-import org.bukkit.entity.Player;
-
 import java.util.HashMap;
+
+import org.bukkit.entity.Player;
 
 public class GameUtilities {
 
@@ -26,7 +26,7 @@ public class GameUtilities {
     public void addGame(Map map) {
         games.put(map.getName(), new Game(map, plugin));
     }
-    
+
     public Game getGame(Map map) {
         return games.get(map.getName());
     }
@@ -45,7 +45,7 @@ public class GameUtilities {
         }
         return null;
     }
-    
+
     public GamePlayer getGamePlayer(Player player) {
         if (player == null) {
             return null;
@@ -57,11 +57,11 @@ public class GameUtilities {
                 }
             }
         }
-        
+
         if (!players.containsKey(player.getName())) {
             players.put(player.getName(), new GamePlayer(player));
         }
-        
+
         return players.get(player.getName());
     }
 

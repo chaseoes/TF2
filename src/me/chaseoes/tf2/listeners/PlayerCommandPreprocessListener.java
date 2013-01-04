@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 public class PlayerCommandPreprocessListener implements Listener {
-    
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onCommand(PlayerCommandPreprocessEvent event) {
         if (GameUtilities.getUtilities().isIngame(event.getPlayer()) && !event.getMessage().startsWith("/tf2") && !event.getPlayer().hasPermission("tf2.create")) {

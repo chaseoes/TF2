@@ -4,6 +4,7 @@ import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.utilities.SerializableLocation;
+
 import org.bukkit.Location;
 
 public class CapturePointUtilities {

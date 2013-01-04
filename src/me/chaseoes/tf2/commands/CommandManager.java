@@ -41,7 +41,7 @@ public class CommandManager implements CommandExecutor {
                 return true;
             }
         }
-        
+
         if (strings[0].equalsIgnoreCase("checkdata")) {
             if (cs.hasPermission("tf2.create")) {
                 CheckDataCommand.getCommand().execCheckDataCommand(cs, strings, cmnd);
@@ -50,7 +50,7 @@ public class CommandManager implements CommandExecutor {
             }
             return true;
         }
-        
+
         if (strings[0].equalsIgnoreCase("debug")) {
             if (cs.hasPermission("tf2.create")) {
                 DebugCommand.getCommand().execDebugCommand(cs, strings, cmnd);
@@ -143,7 +143,6 @@ public class CommandManager implements CommandExecutor {
             }
             return true;
         }
-        
 
         if (strings[0].equalsIgnoreCase("start")) {
             if (cs.hasPermission("tf2.start") || cs.hasPermission("tf2.create")) {
@@ -153,7 +152,6 @@ public class CommandManager implements CommandExecutor {
             }
             return true;
         }
-        
 
         if (strings[0].equalsIgnoreCase("stop")) {
             if (cs.hasPermission("tf2.stop") || cs.hasPermission("tf2.create")) {

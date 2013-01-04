@@ -1,7 +1,13 @@
 package me.chaseoes.tf2.commands;
 
-import me.chaseoes.tf2.*;
+import me.chaseoes.tf2.DataConfiguration;
+import me.chaseoes.tf2.Game;
+import me.chaseoes.tf2.GameUtilities;
+import me.chaseoes.tf2.MapUtilities;
+import me.chaseoes.tf2.TF2;
+import me.chaseoes.tf2.Team;
 import me.chaseoes.tf2.utilities.DataChecker;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -48,7 +54,7 @@ public class JoinCommand {
             }
             Game game = GameUtilities.getUtilities().getGame(plugin.getMap(map));
             Team team = game.decideTeam();
-            
+
             if (strings.length == 3) {
                 if (!player.hasPermission("tf2.join.specific")) {
                     h.noPermission();
@@ -56,7 +62,7 @@ public class JoinCommand {
                 }
                 team = Team.match(strings[2]);
             }
-            
+
             DataChecker dc = new DataChecker(map);
             if (!dc.allGood()) {
                 player.sendMessage(ChatColor.YELLOW + "[TF2] This map has not yet been setup.");
@@ -85,7 +91,7 @@ public class JoinCommand {
                 player.sendMessage(ChatColor.YELLOW + "[TF2] That team is currently full.");
                 return;
             }
-            
+
             game.joinGame(GameUtilities.getUtilities().getGamePlayer(player), team);
 
             if (game.getPlayersIngame().size() >= TF2.getInstance().getMap(map).getPlayerlimit()) {
@@ -96,7 +102,7 @@ public class JoinCommand {
             h.wrongArgs();
         }
     }
-    
+
     public Boolean globalLobbySet() {
         try {
             MapUtilities.getUtilities().loadLobby();

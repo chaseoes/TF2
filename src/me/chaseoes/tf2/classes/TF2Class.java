@@ -38,7 +38,7 @@ public class TF2Class {
             clearInventory(player);
             return false;
         }
-        
+
         if (GameUtilities.getUtilities().isIngame(player)) {
             try {
 

@@ -1,11 +1,12 @@
 package me.chaseoes.tf2.utilities;
 
 import me.chaseoes.tf2.TF2;
+
 import org.bukkit.Location;
 import org.bukkit.World;
 
 public class SerializableLocation {
-    
+
     private TF2 plugin;
     static SerializableLocation instance = new SerializableLocation();
 
@@ -20,7 +21,7 @@ public class SerializableLocation {
     public void setup(TF2 p) {
         plugin = p;
     }
-    
+
     public String locationToString(Location l) {
         String w = l.getWorld().getName();
         int x = l.getBlockX();
@@ -28,7 +29,7 @@ public class SerializableLocation {
         int z = l.getBlockZ();
         return w + "." + x + "." + y + "." + z;
     }
-    
+
     public Location stringToLocation(String s) {
         String[] str = s.split("\\.");
         World w = plugin.getServer().getWorld(str[0]);
@@ -37,7 +38,7 @@ public class SerializableLocation {
         int z = Integer.parseInt(str[3]);
         return new Location(w, x, y, z);
     }
-    
+
     public boolean compareLocations(Location one, Location two) {
         String w = one.getWorld().getName();
         int x = one.getBlockX();

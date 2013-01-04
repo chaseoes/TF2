@@ -1,13 +1,15 @@
 package me.chaseoes.tf2;
 
-import com.sk89q.worldedit.EmptyClipboardException;
-import com.sk89q.worldedit.bukkit.selections.Selection;
+import java.util.ArrayList;
+import java.util.List;
+
 import me.chaseoes.tf2.utilities.WorldEditUtilities;
+
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.sk89q.worldedit.EmptyClipboardException;
+import com.sk89q.worldedit.bukkit.selections.Selection;
 
 public class MapUtilities {
 
@@ -78,7 +80,7 @@ public class MapUtilities {
             DataConfiguration.getData().saveData();
         }
     }
-    
+
     public List<Map> getMaps() {
         List<Map> maps = new ArrayList<Map>();
         for (String m : getEnabledMaps()) {
@@ -123,7 +125,7 @@ public class MapUtilities {
     }
 
     public Location loadTeamLobby(String map, Team team) {
-        switch (team){
+        switch (team) {
             case RED:
                 return plugin.getMap(map).getRedLobby();
             case BLUE:

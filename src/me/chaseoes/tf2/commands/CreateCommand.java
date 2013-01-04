@@ -1,10 +1,10 @@
 package me.chaseoes.tf2.commands;
 
-import com.sk89q.worldedit.EmptyClipboardException;
 import me.chaseoes.tf2.GamePlayer;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
+
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -12,6 +12,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import com.sk89q.worldedit.EmptyClipboardException;
 
 public class CreateCommand {
 

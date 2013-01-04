@@ -1,21 +1,26 @@
 package me.chaseoes.tf2;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import me.chaseoes.tf2.capturepoints.CapturePoint;
 import me.chaseoes.tf2.capturepoints.CaptureStatus;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.utilities.Container;
 import me.chaseoes.tf2.utilities.SerializableInventory;
 import me.chaseoes.tf2.utilities.SerializableLocation;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.Inventory;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
 
 public class Map {
 
@@ -109,7 +114,7 @@ public class Map {
         }
     }
 
-    public void destroy(){
+    public void destroy() {
         customConfigFile.delete();
     }
 
@@ -283,8 +288,9 @@ public class Map {
         Integer captured = 0;
         for (CapturePoint point : points.values()) {
             possiblepoints++;
-            if (point.getStatus() == CaptureStatus.CAPTURED)
+            if (point.getStatus() == CaptureStatus.CAPTURED) {
                 captured++;
+            }
         }
 
         return possiblepoints.equals(captured);
@@ -316,8 +322,7 @@ public class Map {
     }
 
     public void removeContainer(Location loc) {
-        loop:
-        for (Container container : containers) {
+        loop: for (Container container : containers) {
             if (SerializableLocation.getUtilities().compareLocations(loc, container.getLocation())) {
                 containers.remove(container);
                 break loop;
@@ -328,8 +333,9 @@ public class Map {
 
     public boolean isContainerRegistered(Location loc) {
         for (Container container : containers) {
-            if (SerializableLocation.getUtilities().compareLocations(loc, container.getLocation()))
+            if (SerializableLocation.getUtilities().compareLocations(loc, container.getLocation())) {
                 return true;
+            }
         }
         return false;
     }
@@ -343,5 +349,5 @@ public class Map {
         customConfig.set("containers", confStringList);
         saveConfig();
     }
-    
+
 }

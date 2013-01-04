@@ -1,5 +1,7 @@
 package me.chaseoes.tf2.listeners;
 
+import java.util.List;
+
 import me.chaseoes.tf2.DataConfiguration;
 import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.TF2;
@@ -7,6 +9,7 @@ import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import me.chaseoes.tf2.classes.ClassUtilities;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.lobbywall.LobbyWallUtilities;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -16,8 +19,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.InventoryHolder;
-
-import java.util.List;
 
 public class BlockBreakListener implements Listener {
 

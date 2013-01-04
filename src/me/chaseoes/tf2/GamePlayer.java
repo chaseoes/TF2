@@ -1,6 +1,7 @@
 package me.chaseoes.tf2;
 
 import me.chaseoes.tf2.classes.TF2Class;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;

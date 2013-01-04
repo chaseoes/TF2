@@ -2,6 +2,7 @@ package me.chaseoes.tf2.lobbywall;
 
 import me.chaseoes.tf2.DataConfiguration;
 import me.chaseoes.tf2.TF2;
+
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;

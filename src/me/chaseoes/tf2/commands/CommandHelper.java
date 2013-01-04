@@ -26,7 +26,7 @@ public class CommandHelper {
         sender.sendMessage(ChatColor.YELLOW + "[TF2] Incorrect command usage!");
         sender.sendMessage(ChatColor.YELLOW + "Usage: " + ChatColor.ITALIC + cmd.getUsage());
     }
-    
+
     public void unknownCommand() {
         sender.sendMessage(ChatColor.YELLOW + "[TF2] Unknown command!");
         sender.sendMessage(ChatColor.YELLOW + "[TF2] Type " + ChatColor.GOLD + "/tf2 help " + ChatColor.YELLOW + "for help.");

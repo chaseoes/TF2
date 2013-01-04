@@ -1,8 +1,13 @@
 package me.chaseoes.tf2.listeners;
 
-import me.chaseoes.tf2.*;
+import me.chaseoes.tf2.Game;
+import me.chaseoes.tf2.GamePlayer;
+import me.chaseoes.tf2.GameStatus;
+import me.chaseoes.tf2.GameUtilities;
+import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.events.TF2DeathEvent;
 import me.chaseoes.tf2.utilities.LocationStore;
+
 import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
@@ -16,12 +21,13 @@ public class PlayerDamageByEntityListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerDamage(EntityDamageByEntityEvent event) {
-        if (event.isCancelled())
+        if (event.isCancelled()) {
             return;
+        }
         if (event.getEntity() instanceof Player) {
             Player damaged = (Player) event.getEntity();
             if (GameUtilities.getUtilities().isIngame(damaged)) {
-                
+
                 GamePlayer gdamaged = GameUtilities.getUtilities().getGamePlayer(damaged);
                 if (gdamaged.isInLobby() || gdamaged.getGame().getStatus() != GameStatus.INGAME || gdamaged.isDead()) {
                     event.setCancelled(true);

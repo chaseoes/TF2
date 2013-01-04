@@ -1,6 +1,7 @@
 package me.chaseoes.tf2.listeners;
 
 import me.chaseoes.tf2.GameUtilities;
+
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -9,7 +10,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class PlayerDropItemListener implements Listener {
-    
+
     @SuppressWarnings("deprecation")
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onItemDrop(PlayerDropItemEvent event) {

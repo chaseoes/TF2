@@ -1,16 +1,17 @@
 package me.chaseoes.tf2.commands;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.utilities.PastebinPoster;
 import me.chaseoes.tf2.utilities.PastebinPoster.PasteCallback;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 public class DebugCommand {
 

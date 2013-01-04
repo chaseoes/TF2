@@ -1,19 +1,20 @@
 package me.chaseoes.tf2.lobbywall;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import me.chaseoes.tf2.Game;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.capturepoints.CapturePoint;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class CachedLobbyWallInfo {
 
@@ -44,7 +45,7 @@ public class CachedLobbyWallInfo {
             final org.bukkit.material.Sign matSign = (org.bukkit.material.Sign) loc.getBlock().getState().getData();
             dataFacing = block.getState().getRawData();
             BlockFace searchDirection = LobbyWallUtilities.getUtilities().rotate90Deg(matSign.getAttachedFace());
-            for (int i = 1; i < (4 + cps.size()); i++) {
+            for (int i = 1; i < 4 + cps.size(); i++) {
                 block = block.getRelative(searchDirection);
                 if (block.getType() != Material.WALL_SIGN) {
                     block.setTypeIdAndData(Material.WALL_SIGN.getId(), dataFacing, false);

@@ -20,8 +20,9 @@ public class Queue {
 
     public void addPlayer(Player player) {
         for (String m : DataConfiguration.getData().getDataFile().getStringList("enabled-maps")) {
-            if (m.equals(map.getName()))
+            if (m.equals(map.getName())) {
                 continue;
+            }
             Game game = GameUtilities.getUtilities().getGame(TF2.getInstance().getMap(m));
             Queue q = game.getQueue();
             if (q != null) {

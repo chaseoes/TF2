@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 
 public class FoodLevelChangeListener implements Listener {
-    
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLoseHunger(FoodLevelChangeEvent event) {
         if (event.getEntity() instanceof Player && GameUtilities.getUtilities().isIngame((Player) event.getEntity())) {

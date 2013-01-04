@@ -1,13 +1,18 @@
 package me.chaseoes.tf2.commands;
 
-import me.chaseoes.tf2.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import me.chaseoes.tf2.Game;
+import me.chaseoes.tf2.GamePlayer;
+import me.chaseoes.tf2.GameUtilities;
+import me.chaseoes.tf2.TF2;
+import me.chaseoes.tf2.Team;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ListCommand {
 
@@ -34,7 +39,7 @@ public class ListCommand {
         highlightNames.add("AntVenom");
         highlightNames.add("Fawdz");
         highlightNames.add("Double0Negative");
-        
+
         if (strings.length == 2) {
             StringBuilder red = new StringBuilder();
             StringBuilder blue = new StringBuilder();
@@ -104,7 +109,7 @@ public class ListCommand {
                     }
                 }
             }
-            
+
             cs.sendMessage(ChatColor.YELLOW + "[TF2] Displaying players in the map " + ChatColor.BOLD + game.getMapName() + ChatColor.RESET + ChatColor.YELLOW + ":");
             cs.sendMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Red team (" + redc + "): " + ChatColor.RESET + "\n" + red.toString());
             cs.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "Blue team (" + bluec + "): " + ChatColor.RESET + "\n" + blue.toString());

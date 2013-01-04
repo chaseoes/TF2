@@ -1,10 +1,19 @@
 package me.chaseoes.tf2.listeners;
 
-import me.chaseoes.tf2.*;
+import me.chaseoes.tf2.DataConfiguration;
+import me.chaseoes.tf2.Game;
+import me.chaseoes.tf2.GamePlayer;
+import me.chaseoes.tf2.GameUtilities;
+import me.chaseoes.tf2.Map;
+import me.chaseoes.tf2.MapUtilities;
+import me.chaseoes.tf2.Queue;
+import me.chaseoes.tf2.TF2;
+import me.chaseoes.tf2.Team;
 import me.chaseoes.tf2.classes.ClassUtilities;
 import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.utilities.DataChecker;
 import me.chaseoes.tf2.utilities.GeneralUtilities;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;

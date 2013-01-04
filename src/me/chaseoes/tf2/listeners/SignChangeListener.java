@@ -5,6 +5,7 @@ import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.lobbywall.LobbyWallUtilities;
 import me.chaseoes.tf2.utilities.DataChecker;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -14,7 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 
 public class SignChangeListener implements Listener {
-    
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onSignChange(SignChangeEvent event) {
         if (event.getLine(0).equalsIgnoreCase("[TF2]") && event.getPlayer().hasPermission("tf2.create")) {

@@ -11,7 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 
 public class ProjectileLaunchListener implements Listener {
-    
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onShoot(ProjectileLaunchEvent event) {
         if (event.getEntityType() == EntityType.SPLASH_POTION && event.getEntity().getShooter() instanceof Player) {
