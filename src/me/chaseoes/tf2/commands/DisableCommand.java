@@ -25,7 +25,24 @@ public class DisableCommand {
 
     public void execDisableCommand(CommandSender cs, String[] strings, Command cmnd) {
         CommandHelper h = new CommandHelper(cs, cmnd);
-        if (strings.length == 2) {
+        if (strings.length == 1) {
+            for (Map map : TF2.getInstance().getMaps()) {
+                if (GameUtilities.getUtilities().getGame(map).getStatus() != GameStatus.DISABLED) {
+                    Game game = GameUtilities.getUtilities().getGame(map);
+                    game.getQueue().clear(true);
+                    game.stopMatch(false);
+                    MapUtilities.getUtilities().disableMap(map.getName());
+                    game.setStatus(GameStatus.DISABLED);
+                    String[] creditlines = new String[4];
+                    creditlines[0] = " ";
+                    creditlines[1] = "--------------------------";
+                    creditlines[2] = "--------------------------";
+                    creditlines[3] = " ";
+                    LobbyWall.getWall().setAllLines(map.getName(), null, creditlines, false, false);
+                }
+            }
+            cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully disabled all enabled maps.");
+        } else if (strings.length == 2) {
             String map = strings[1];
             if (!TF2.getInstance().mapExists(map)) {
                 cs.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + map + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");

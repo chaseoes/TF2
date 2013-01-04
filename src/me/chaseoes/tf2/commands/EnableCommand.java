@@ -25,7 +25,17 @@ public class EnableCommand {
 
     public void execEnableCommand(CommandSender cs, String[] strings, Command cmnd) {
         CommandHelper h = new CommandHelper(cs, cmnd);
-        if (strings.length == 2) {
+        if (strings.length == 1) {
+            for (Map map : TF2.getInstance().getMaps()) {
+                if (GameUtilities.getUtilities().getGame(map).getStatus() == GameStatus.DISABLED) {
+                    MapUtilities.getUtilities().enableMap(map.getName());
+                    Game game = GameUtilities.getUtilities().getGame(map);
+                    game.setStatus(GameStatus.WAITING);
+                    LobbyWall.getWall().cantUpdate.remove(map.getName());
+                }
+            }
+            cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully enabled all disabled maps.");
+        } else if (strings.length == 2) {
             String map = strings[1];
             if (!TF2.getInstance().mapExists(map)) {
                 cs.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + map + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");

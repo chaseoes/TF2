@@ -83,71 +83,35 @@ public class LobbyWall {
             if (!cantUpdate.contains(map)) {
                 cantUpdate.add(map);
             }
-            Map m = plugin.getMap(map);
-            Game game = GameUtilities.getUtilities().getGame(m);
-            final Block startblock = LobbyWallUtilities.getUtilities().loadSignLocation(map).getBlock();
-            final Sign startsign = (Sign) startblock.getState();
-            final org.bukkit.material.Sign matSign = (org.bukkit.material.Sign) startblock.getState().getData();
-            BlockFace direction = LobbyWallUtilities.getUtilities().rotate90Deg(matSign.getAttachedFace());
-            Sign status = null;
-            Sign teamcount = null;
-            Sign timeleft = null;
-
-            if (!startsign.getBlock().getRelative(direction).getType().equals(Material.WALL_SIGN)) {
-                Block block = startsign.getBlock().getRelative(direction);
-                block.setTypeIdAndData(Material.WALL_SIGN.getId(), startblock.getData(), false);
-                block.getState().setRawData(startblock.getState().getRawData());
-                block.getState().update();
+            CachedLobbyWallInfo info = getCacheInfo(map);
+            if (info.isDirty()) {
+                info.recache();
             }
-            status = (org.bukkit.block.Sign) startsign.getBlock().getRelative(direction).getState();
-            if (!status.getBlock().getRelative(direction).getType().equals(Material.WALL_SIGN)) {
-                Block block = status.getBlock().getRelative(direction);
-                block.setTypeIdAndData(Material.WALL_SIGN.getId(), startblock.getData(), false);
-                block.getState().setRawData(startblock.getState().getRawData());
-                block.getState().update();
+            Game game = info.getGame();
+            List<Sign> signs = info.getSignLocations();
+            if (signs.size() == 0) {
+                return;
             }
-            teamcount = (org.bukkit.block.Sign) status.getBlock().getRelative(direction).getState();
-            if (!teamcount.getBlock().getRelative(direction).getType().equals(Material.WALL_SIGN)) {
-                Block block = teamcount.getBlock().getRelative(direction);
-                block.setTypeIdAndData(Material.WALL_SIGN.getId(), startblock.getData(), false);
-                block.getState().setRawData(startblock.getState().getRawData());
-                block.getState().update();
-            }
-            timeleft = (Sign) teamcount.getBlock().getRelative(direction).getState();
-
+            info.verifySigns();
             if (s1) {
-                LobbyWallUtilities.getUtilities().setSignLines(startsign, lines[0], lines[1], lines[2], lines[3]);
+                LobbyWallUtilities.getUtilities().setSignLines(signs.get(0), lines[0], lines[1], lines[2], lines[3]);
             } else {
-                LobbyWallUtilities.getUtilities().setSignLines(startsign, "Team Fortress 2", "Click here", "to join:", ChatColor.BOLD + "" + map);
+                LobbyWallUtilities.getUtilities().setSignLines(signs.get(0), "Team Fortress 2", "Click here", "to join:", ChatColor.BOLD + "" + map);
             }
-
             if (s2) {
-                LobbyWallUtilities.getUtilities().setSignLines(status, lines[0], lines[1], lines[2], lines[3]);
+                LobbyWallUtilities.getUtilities().setSignLines(signs.get(1), lines[0], lines[1], lines[2], lines[3]);
             } else {
                 if (game.getStatus() != GameStatus.DISABLED) {
-                    LobbyWallUtilities.getUtilities().setSignLines(status, " ", "" + ChatColor.DARK_RED + ChatColor.BOLD + "Status:", game.getPrettyStatus(), " ");
+                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(1), " ", "" + ChatColor.DARK_RED + ChatColor.BOLD + "Status:", game.getPrettyStatus(), " ");
                 } else {
-                    LobbyWallUtilities.getUtilities().setSignLines(status, " ", ChatColor.BOLD + "Status:", "" + ChatColor.DARK_RED + ChatColor.BOLD + "Disabled", " ");
+                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(1), " ", ChatColor.BOLD + "Status:", "" + ChatColor.DARK_RED + ChatColor.BOLD + "Disabled", " ");
                 }
             }
-
-            LobbyWallUtilities.getUtilities().setSignLines(teamcount, lines[0], lines[1], lines[2], lines[3]);
-            LobbyWallUtilities.getUtilities().setSignLines(timeleft, lines[0], lines[1], lines[2], lines[3]);
-
-            Sign po = timeleft;
-            int i = 0;
-            while (i < plugin.getMap(map).getCapturePoints().size()) {
-                if (!po.getBlock().getRelative(direction).getType().equals(Material.WALL_SIGN)) {
-                    Block block = po.getBlock().getRelative(direction);
-                    block.setTypeIdAndData(Material.WALL_SIGN.getId(), startblock.getData(), false);
-                    block.getState().setRawData(startblock.getState().getRawData());
-                    block.getState().update();
-                }
-                po = (Sign) po.getBlock().getRelative(direction).getState();
-                LobbyWallUtilities.getUtilities().setSignLines(po, lines[0], lines[1], lines[2], lines[3]);
-                i++;
+            LobbyWallUtilities.getUtilities().setSignLines(signs.get(2), lines[0], lines[1], lines[2], lines[3]);
+            LobbyWallUtilities.getUtilities().setSignLines(signs.get(3), lines[0], lines[1], lines[2], lines[3]);
+            for (int i = 4; i < 4 + info.getCapturePoints().size(); i++) {
+                LobbyWallUtilities.getUtilities().setSignLines(signs.get(i), lines[0], lines[1], lines[2], lines[3]);
             }
-
             if (duration != null) {
                 plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
                     @Override
