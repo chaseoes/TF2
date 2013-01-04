@@ -71,7 +71,7 @@ public class PlayerInteractListener implements Listener {
                     }
 
                     Queue q = game.getQueue();
-                    if (!player.hasPermission("tf2.create")) {
+                    if (!player.hasPermission("tf2.create") && game.isFull()) {
                         if (q.contains(player)) {
                             player.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + q.getPosition(player, false) + " in line for this map.");
                             return;
