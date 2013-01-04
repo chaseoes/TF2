@@ -1,13 +1,5 @@
 package me.chaseoes.tf2;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-
-import com.sun.xml.internal.ws.server.StatefulInstanceResolver;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-
 public class Queue {
 
     /*Map map;
