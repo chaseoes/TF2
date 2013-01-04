@@ -78,12 +78,12 @@ public class JoinCommand {
                 return;
             }
 
-            if (game.getPlayersIngame().size() >= TF2.getInstance().getMap(map).getPlayerlimit() && !(strings.length == 3)) {
+            if ((game.getPlayersIngame().size() >= TF2.getInstance().getMap(map).getPlayerlimit() && !(strings.length == 3)) && !player.hasPermission("tf2.create")) {
                 player.sendMessage(ChatColor.YELLOW + "[TF2] That map is currently full.");
                 return;
             }
 
-            if (game.getSizeOfTeam(team) >= TF2.getInstance().getMap(map).getPlayerlimit() / 2) {
+            if (game.getSizeOfTeam(team) >= TF2.getInstance().getMap(map).getPlayerlimit() / 2 && player.hasPermission("tf2.create")) {
                 player.sendMessage(ChatColor.YELLOW + "[TF2] That team is currently full.");
                 return;
             }

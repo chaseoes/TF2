@@ -47,11 +47,15 @@ public class EnableCommand {
                 cs.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + map + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");
                 return;
             }
-            MapUtilities.getUtilities().enableMap(map);
-            Game game = GameUtilities.getUtilities().getGame(plugin.getMap(map));
-            game.setStatus(GameStatus.WAITING);
-            LobbyWall.getWall().cantUpdate.remove(map);
-            cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully enabled " + ChatColor.BOLD + map + ChatColor.RESET + ChatColor.YELLOW + ".");
+            if (GameUtilities.getUtilities().getGame(TF2.getInstance().getMap(map)).getStatus() == GameStatus.DISABLED) {
+                MapUtilities.getUtilities().enableMap(map);
+                Game game = GameUtilities.getUtilities().getGame(plugin.getMap(map));
+                game.setStatus(GameStatus.WAITING);
+                LobbyWall.getWall().cantUpdate.remove(map);
+                cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully enabled " + ChatColor.BOLD + map + ChatColor.RESET + ChatColor.YELLOW + ".");
+            } else {
+                cs.sendMessage(ChatColor.YELLOW + "[TF2] The map " + ChatColor.BOLD + map + ChatColor.RESET + ChatColor.YELLOW + " is already enabled.");
+            }
         } else {
             h.wrongArgs();
         }
