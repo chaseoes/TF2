@@ -23,7 +23,6 @@ public class Game {
     TF2 plugin;
     Map map;
     GameStatus status = GameStatus.WAITING;
-    //Queue queue;
     public boolean redHasBeenTeleported = false;
     public int time = 0;
 
@@ -32,7 +31,6 @@ public class Game {
     public Game(Map m, TF2 plugin) {
         map = m;
         this.plugin = plugin;
-        //queue = new Queue(m, this);
     }
 
     public GamePlayer getPlayer(Player player) {
@@ -153,12 +151,11 @@ public class Game {
         redHasBeenTeleported = false;
         playersInGame.clear();
         if (queueCheck) {
-            /*plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-                @Override
-                public void run() {
-                    queue.check(true);
-                }
-            });*/
+            /*
+             * plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin,
+             * new Runnable() {
+             * @Override public void run() { queue.check(true); } });
+             */
         }
     }
 
@@ -200,12 +197,32 @@ public class Game {
 
     @SuppressWarnings("deprecation")
     public void joinGame(GamePlayer player, Team team) {
+        GameQueue q = map.getQueue();
+        boolean full = q.gameHasRoom();
+        if (!q.gameHasRoom()) {
+            if (!player.getPlayer().hasPermission("tf2.create")) {
+                q.add(player.getPlayer());
+                player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You are #" + (q.getPosition(player.getPlayer()) + 1) + " in line for this map.");
+                return;
+            }
+        }
+
+        if (full && player.getPlayer().hasPermission("tf2.create")) {
+            player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You have joined the full map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + "" + ChatColor.YELLOW + "!");
+        } else {
+            player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You joined the map " + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
+        }
+        
+        for (Game g : GameUtilities.getUtilities().games.values()) {
+            Map gm = TF2.getInstance().getMap(g.getMapName());
+            gm.getQueue().remove(player.getPlayer());
+        }
+
+        TF2Class c = new TF2Class("NONE");
         playersInGame.put(player.getName(), player);
         player.setMap(getMapName());
         player.setInLobby(true);
         player.setTeam(team);
-        TF2Class c = new TF2Class("NONE");
-
         player.saveInventory();
         c.clearInventory(player.getPlayer());
         player.getPlayer().setHealth(20);
@@ -232,8 +249,6 @@ public class Game {
             }
         }
 
-        player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You joined the map " + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
-
         if (getStatus() == GameStatus.WAITING) {
             player.getPlayer().sendMessage(ChatColor.YELLOW + "The game will start when " + plugin.getConfig().getInt("autostart-percent") + "% of players have joined.");
         } else if (getStatus() == GameStatus.INGAME) {
@@ -254,9 +269,11 @@ public class Game {
 
     public void leaveGame(Player player) {
         GamePlayer gp = getPlayer(player);
+        GameQueue q = map.getQueue();
+        q.remove(player);
         playersInGame.remove(gp.getName());
         gp.leaveCurrentGame();
-        //queue.check(true);
+        q.check();
     }
 
     public Team decideTeam() {
@@ -358,9 +375,9 @@ public class Game {
         }
     }
 
-    /*public Queue getQueue() {
-        return queue;
-    }*/
+    /*
+     * public Queue getQueue() { return queue; }
+     */
 
     public boolean isFull() {
         return playersInGame.size() >= map.getPlayerlimit();

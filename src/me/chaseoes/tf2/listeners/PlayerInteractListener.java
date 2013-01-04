@@ -55,6 +55,7 @@ public class PlayerInteractListener implements Listener {
                     String map = ChatColor.stripColor(s.getLine(3));
                     Game game = GameUtilities.getUtilities().getGame(TF2.getInstance().getMap(map));
                     Team team = game.decideTeam();
+                    
                     DataChecker dc = new DataChecker(map);
                     if (!dc.allGood()) {
                         player.sendMessage(ChatColor.YELLOW + "[TF2] This map has not yet been setup.");
@@ -63,6 +64,7 @@ public class PlayerInteractListener implements Listener {
                         }
                         return;
                     }
+                    
                     if (!player.hasPermission("tf2.play")) {
                         event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You do not have permission.");
                         return;
@@ -78,19 +80,7 @@ public class PlayerInteractListener implements Listener {
                         return;
                     }
 
-                    //Queue q = game.getQueue();
-                    if (!player.hasPermission("tf2.create") && game.isFull()) {
-                        /*if (q.contains(player)) {
-                            player.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + q.getPosition(player, false) + " in line for this map.");
-                            return;
-                        }
-                        q.addPlayer(player);
-                        player.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + q.getPosition(player, false) + " in line for this map.");*/
-                        player.sendMessage(ChatColor.YELLOW + "[TF2] This map is currently full.");
-                    } else {
-                        game.joinGame(GameUtilities.getUtilities().getGamePlayer(player), team);
-                    }
-
+                    game.joinGame(GameUtilities.getUtilities().getGamePlayer(player), team);
                     event.setCancelled(true);
                 }
             }

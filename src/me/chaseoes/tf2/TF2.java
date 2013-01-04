@@ -201,8 +201,10 @@ public class TF2 extends JavaPlugin {
 
     public void addMap(String map, GameStatus status) {
         Map m = new Map(this, map);
+        Game g = new Game(m, this);
         maps.put(map, m);
-        GameUtilities.getUtilities().addGame(m);
+        GameUtilities.getUtilities().addGame(m, g);
+        m.load();
         GameUtilities.getUtilities().getGame(m).redHasBeenTeleported = false;
         GameUtilities.getUtilities().getGame(m).setStatus(status);
         if (status == GameStatus.DISABLED) {

@@ -37,6 +37,7 @@ public class LobbyWall {
     private void updateWall(String map) {
         if (!cantUpdate.contains(map)) {
             try {
+                System.out.println("UPDATING LOBBY WALL FOR MAP: " + map);
                 CachedLobbyWallInfo info = getCacheInfo(map);
                 if (info.isDirty()) {
                     info.recache();

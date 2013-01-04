@@ -23,8 +23,8 @@ public class GameUtilities {
         plugin = p;
     }
 
-    public void addGame(Map map) {
-        games.put(map.getName(), new Game(map, plugin));
+    public void addGame(Map map, Game g) {
+        games.put(map.getName(), g);
     }
 
     public Game getGame(Map map) {
@@ -35,6 +35,7 @@ public class GameUtilities {
         if (player == null) {
             return null;
         }
+        
         for (Game g : games.values()) {
             for (GamePlayer gp : g.playersInGame.values()) {
                 if (gp.getName().equalsIgnoreCase(player.getName())) {

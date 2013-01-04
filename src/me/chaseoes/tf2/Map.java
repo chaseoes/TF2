@@ -37,17 +37,17 @@ public class Map {
     private Integer timelimit;
     private Integer playerlimit;
     private HashSet<Container> containers = new HashSet<Container>();
-
+    private GameQueue queue;
     private File customConfigFile;
     private FileConfiguration customConfig;
 
     public Map(TF2 plugin, String map) {
         this.plugin = plugin;
         name = map;
-        load();
     }
 
     public void load() {
+        queue = new GameQueue(GameUtilities.getUtilities().getGame(this));
         customConfigFile = new File(plugin.getDataFolder(), name + ".yml");
         customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
         points.clear();
@@ -348,6 +348,10 @@ public class Map {
         }
         customConfig.set("containers", confStringList);
         saveConfig();
+    }
+    
+    public GameQueue getQueue() {
+        return queue;
     }
 
 }
