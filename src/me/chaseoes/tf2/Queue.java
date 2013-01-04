@@ -1,10 +1,10 @@
 package me.chaseoes.tf2;
 
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Queue {
 
@@ -41,7 +41,7 @@ public class Queue {
         check(false);
         return str;
     }
-    
+
     public void remove(String player) {
         inqueue.remove(player);
         check(false);
