@@ -331,7 +331,7 @@ public class Game {
                         Integer position = q.getPosition(p.getName());
                         if (position != null) {
                             if (!(playersInGame.size() + 1 <= map.getPlayerlimit())) {
-                                p.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + position + " in line for the map " + ChatColor.BOLD + map + ChatColor.RESET + ChatColor.YELLOW + ".");
+                                p.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + position + " in line for the map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + ChatColor.YELLOW + ".");
                             } else {
                                 joinGame(GameUtilities.getUtilities().getGamePlayer(p), team);
                                 q.remove(p.getName());
