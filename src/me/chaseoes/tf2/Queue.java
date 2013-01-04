@@ -3,13 +3,14 @@ package me.chaseoes.tf2;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import com.sun.xml.internal.ws.server.StatefulInstanceResolver;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class Queue {
 
-    Map map;
+    /*Map map;
     Game game;
     private LinkedList<String> players = new LinkedList<String>();
 
@@ -45,14 +46,14 @@ public class Queue {
                 return;
             }
             String nextPlayer = null;
-            if (index + 2 <= players.size()) {
+            if (index + 1 < players.size()) {
                 nextPlayer = players.get(index + 1);
             }
             players.remove(player);
             check(false);
             if (nextPlayer != null) {
                 int newIndex = -1;
-                if (contains(Bukkit.getPlayerExact(nextPlayer))) {
+                if (contains(nextPlayer)) {
                     newIndex = players.indexOf(nextPlayer);
                 }
                 if (newIndex == -1) {
@@ -66,7 +67,14 @@ public class Queue {
     }
 
     public boolean contains(Player player) {
-        return players.contains(player.getName());
+        if (player != null) {
+            return contains(player.getName());
+        }
+        return false;
+    }
+
+    public boolean contains(String player) {
+        return players.contains(player);
     }
 
     public int getPosition(Player player, boolean zeroBased) {
@@ -109,5 +117,5 @@ public class Queue {
                 }
             }
         }
-    }
+    }*/
 }

@@ -35,7 +35,7 @@ public class DisableCommand {
             for (Map map : TF2.getInstance().getMaps()) {
                 if (GameUtilities.getUtilities().getGame(map).getStatus() != GameStatus.DISABLED) {
                     Game game = GameUtilities.getUtilities().getGame(map);
-                    game.getQueue().clear(true);
+                    //game.getQueue().clear(true);
                     game.stopMatch(false);
                     MapUtilities.getUtilities().disableMap(map.getName());
                     game.setStatus(GameStatus.DISABLED);
@@ -55,7 +55,7 @@ public class DisableCommand {
                 return;
             }
             Game game = GameUtilities.getUtilities().getGame(plugin.getMap(map));
-            game.getQueue().clear(true);
+            //game.getQueue().clear(true);
             game.stopMatch(false);
             MapUtilities.getUtilities().disableMap(map);
             game.setStatus(GameStatus.DISABLED);

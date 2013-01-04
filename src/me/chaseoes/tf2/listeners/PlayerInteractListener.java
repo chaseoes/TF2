@@ -6,7 +6,6 @@ import me.chaseoes.tf2.GamePlayer;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.MapUtilities;
-import me.chaseoes.tf2.Queue;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.Team;
 import me.chaseoes.tf2.classes.ClassUtilities;
@@ -79,14 +78,15 @@ public class PlayerInteractListener implements Listener {
                         return;
                     }
 
-                    Queue q = game.getQueue();
+                    //Queue q = game.getQueue();
                     if (!player.hasPermission("tf2.create") && game.isFull()) {
-                        if (q.contains(player)) {
+                        /*if (q.contains(player)) {
                             player.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + q.getPosition(player, false) + " in line for this map.");
                             return;
                         }
                         q.addPlayer(player);
-                        player.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + q.getPosition(player, false) + " in line for this map.");
+                        player.sendMessage(ChatColor.YELLOW + "[TF2] You are #" + q.getPosition(player, false) + " in line for this map.");*/
+                        player.sendMessage(ChatColor.YELLOW + "[TF2] This map is currently full.");
                     } else {
                         game.joinGame(GameUtilities.getUtilities().getGamePlayer(player), team);
                     }

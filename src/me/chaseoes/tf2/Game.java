@@ -23,7 +23,7 @@ public class Game {
     TF2 plugin;
     Map map;
     GameStatus status = GameStatus.WAITING;
-    Queue queue;
+    //Queue queue;
     public boolean redHasBeenTeleported = false;
     public int time = 0;
 
@@ -32,7 +32,7 @@ public class Game {
     public Game(Map m, TF2 plugin) {
         map = m;
         this.plugin = plugin;
-        queue = new Queue(m, this);
+        //queue = new Queue(m, this);
     }
 
     public GamePlayer getPlayer(Player player) {
@@ -132,6 +132,7 @@ public class Game {
         HashMap<String, GamePlayer> hmap = new HashMap<String, GamePlayer>(playersInGame);
         for (GamePlayer gp : hmap.values()) {
             gp.leaveCurrentGame();
+            playersInGame.remove(gp.getName());
             gp.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] The game has ended.");
         }
 
@@ -152,12 +153,12 @@ public class Game {
         redHasBeenTeleported = false;
         playersInGame.clear();
         if (queueCheck) {
-            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+            /*plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
                 @Override
                 public void run() {
                     queue.check(true);
                 }
-            });
+            });*/
         }
     }
 
@@ -253,8 +254,9 @@ public class Game {
 
     public void leaveGame(Player player) {
         GamePlayer gp = getPlayer(player);
+        playersInGame.remove(gp.getName());
         gp.leaveCurrentGame();
-        queue.check(true);
+        //queue.check(true);
     }
 
     public Team decideTeam() {
@@ -356,9 +358,9 @@ public class Game {
         }
     }
 
-    public Queue getQueue() {
+    /*public Queue getQueue() {
         return queue;
-    }
+    }*/
 
     public boolean isFull() {
         return playersInGame.size() >= map.getPlayerlimit();

@@ -138,15 +138,11 @@ public class GamePlayer {
 
     public void leaveCurrentGame() {
         Game game = getGame();
+        try {
         if (game != null) {
-            game.playersInGame.remove(player.getName());
             TF2Class c = new TF2Class("NONE");
             c.clearInventory(player);
             loadInventory();
-
-            player.teleport(MapUtilities.getUtilities().loadLobby());
-            TagAPI.refreshPlayer(player);
-
             if (game.getStatus() == GameStatus.STARTING && game.playersInGame.size() == 1) {
                 game.stopMatch(true);
             }
@@ -155,6 +151,11 @@ public class GamePlayer {
                 game.stopMatch(true);
             }
         }
+        } catch (Throwable t) {
+
+        }
+        player.teleport(MapUtilities.getUtilities().loadLobby());
+        TagAPI.refreshPlayer(player);
         clear();
     }
 

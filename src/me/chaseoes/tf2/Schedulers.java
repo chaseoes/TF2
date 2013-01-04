@@ -38,6 +38,9 @@ public class Schedulers {
                     for (Map map : MapUtilities.getUtilities().getMaps()) {
                         for (String p : GameUtilities.getUtilities().getGame(map).getPlayersIngame()) {
                             Player player = plugin.getServer().getPlayerExact(p);
+                            if (player == null) {
+                                continue;
+                            }
                             Integer afktime = LocationStore.getAFKTime(player);
                             Location lastloc = LocationStore.getLastLocation(player);
                             Location currentloc = new Location(player.getWorld(), player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ());
@@ -51,7 +54,7 @@ public class Schedulers {
                                     }
 
                                     if (afklimit.equals(afktime)) {
-                                        GameUtilities.getUtilities().getGamePlayer(player).leaveCurrentGame();
+                                        GameUtilities.getUtilities().getGamePlayer(player).getGame().leaveGame(player);
                                         player.sendMessage(ChatColor.YELLOW + "[TF2] You have been kicked from the map for being AFK.");
                                         LocationStore.setAFKTime(player, null);
                                         LocationStore.unsetLastLocation(player);

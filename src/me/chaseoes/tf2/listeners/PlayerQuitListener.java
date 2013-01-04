@@ -18,10 +18,10 @@ public class PlayerQuitListener implements Listener {
             if (game != null) {
                 game.leaveGame(gPlayer.getPlayer());
             }
-            for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
+            /*for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
                 Game game2 = GameUtilities.getUtilities().getGame(TF2.getInstance().getMap(map));
                 game2.getQueue().removePlayer(gPlayer.getName());
-            }
+            }*/
         }
         GameUtilities.getUtilities().playerLeaveServer(event.getPlayer());
     }
