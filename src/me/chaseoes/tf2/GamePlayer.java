@@ -139,7 +139,6 @@ public class GamePlayer {
     public void leaveCurrentGame() {
         Game game = getGame();
         game.map.getQueue().remove(player);
-        try {
         if (game != null) {
             TF2Class c = new TF2Class("NONE");
             c.clearInventory(player);
@@ -151,9 +150,6 @@ public class GamePlayer {
             if (game.playersInGame.size() == 0) {
                 game.stopMatch(true);
             }
-        }
-        } catch (Throwable t) {
-
         }
         player.teleport(MapUtilities.getUtilities().loadLobby());
         TagAPI.refreshPlayer(player);

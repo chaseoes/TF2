@@ -54,7 +54,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class TF2 extends JavaPlugin {
 
-    //public HashMap<String, Queue> queues = new HashMap<String, Queue>();
     public HashMap<String, Map> maps = new HashMap<String, Map>();
     public HashMap<String, String> usingSetSpawnMenu = new HashMap<String, String>();
     public UpdateChecker uc;

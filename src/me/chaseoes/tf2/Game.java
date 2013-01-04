@@ -127,12 +127,6 @@ public class Game {
         for (Container container : map.getContainers()) {
             container.applyItems();
         }
-        HashMap<String, GamePlayer> hmap = new HashMap<String, GamePlayer>(playersInGame);
-        for (GamePlayer gp : hmap.values()) {
-            gp.leaveCurrentGame();
-            playersInGame.remove(gp.getName());
-            gp.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] The game has ended.");
-        }
 
         CapturePointUtilities.getUtilities().uncaptureAll(map);
 
@@ -149,13 +143,11 @@ public class Game {
         }
 
         redHasBeenTeleported = false;
+        HashMap<String, GamePlayer> hmap = new HashMap<String, GamePlayer>(playersInGame);
         playersInGame.clear();
-        if (queueCheck) {
-            /*
-             * plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin,
-             * new Runnable() {
-             * @Override public void run() { queue.check(true); } });
-             */
+        for (GamePlayer gp : hmap.values()) {
+            gp.leaveCurrentGame();
+            gp.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] The game has ended.");
         }
     }
 
