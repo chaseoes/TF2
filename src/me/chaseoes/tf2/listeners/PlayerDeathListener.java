@@ -1,5 +1,6 @@
 package me.chaseoes.tf2.listeners;
 
+import me.chaseoes.tf2.GamePlayer;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.classes.TF2Class;
@@ -17,7 +18,8 @@ public class PlayerDeathListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onDeath(PlayerDeathEvent e) {
         final Player damaged = e.getEntity();
-        if (GameUtilities.getUtilities().isIngame(damaged)) {
+        final GamePlayer gDamaged = GameUtilities.getUtilities().getGamePlayer(damaged);
+        if (gDamaged.isIngame()) {
             damaged.setHealth(20);
             e.getDrops().clear();
             e.setDeathMessage(null);
@@ -26,7 +28,8 @@ public class PlayerDeathListener implements Listener {
                 @Override
                 public void run() {
                     TF2Class c = GameUtilities.getUtilities().getGamePlayer(damaged).getCurrentClass();
-                    c.apply(damaged);
+                    c.apply(gDamaged);
+                    gDamaged.setIsDead(false);
                 }
             }, 1L);
         }

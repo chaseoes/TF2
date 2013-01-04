@@ -11,28 +11,44 @@ public class LocationStore {
     public static HashMap<String, Integer> times = new HashMap<String, Integer>();
 
     public static Location getLastLocation(Player player) {
-        return locations.get(player.getName());
+        if (player != null) {
+            return locations.get(player.getName());
+        }
+        return null;
     }
 
     public static void setLastLocation(Player player) {
-        locations.put(player.getName(), new Location(player.getWorld(), player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ()));
+        if (player != null) {
+            locations.put(player.getName(), new Location(player.getWorld(), player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ()));
+        }
+        return;
     }
 
     public static void unsetLastLocation(Player player) {
-        locations.put(player.getName(), null);
+        if (player != null) {
+            locations.remove(player.getName());
+        }
     }
 
     public static Integer getAFKTime(Player player) {
-        try {
-            return times.get(player.getName());
-        } catch (NullPointerException e) {
+        if (player != null) {
+            try {
+                return times.get(player.getName());
+            } catch (NullPointerException e) {
 
+            }
         }
         return null;
     }
 
     public static void setAFKTime(Player player, Integer time) {
-        times.put(player.getName(), time);
+        if (player != null) {
+            if (time != null) {
+                times.put(player.getName(), time);
+            } else {
+                times.remove(player.getName());
+            }
+        }
     }
 
 }

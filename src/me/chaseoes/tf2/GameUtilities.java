@@ -31,21 +31,6 @@ public class GameUtilities {
         return games.get(map.getName());
     }
 
-    public boolean isIngame(Player player) {
-        return getCurrentGame(player) != null;
-    }
-
-    public Game getCurrentGame(Player player) {
-        for (Game g : games.values()) {
-            for (String name : g.playersInGame.keySet()) {
-                if (player.getName().equalsIgnoreCase(name)) {
-                    return g;
-                }
-            }
-        }
-        return null;
-    }
-
     public GamePlayer getGamePlayer(Player player) {
         if (player == null) {
             return null;

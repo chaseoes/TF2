@@ -33,7 +33,7 @@ public class PlayerInteractListener implements Listener {
         try {
             Player player = event.getPlayer();
             GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(player);
-            if (GameUtilities.getUtilities().isIngame(player)) {
+            if (gp.isIngame()) {
                 if ((player.getItemInHand().getType() == Material.getMaterial(373) || player.getItemInHand().getType() == Material.BOW) && (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
                     if (gp.justSpawned()) {
                         event.setCancelled(true);
@@ -69,7 +69,7 @@ public class PlayerInteractListener implements Listener {
                         return;
                     }
 
-                    if (GameUtilities.getUtilities().isIngame(player)) {
+                    if (gp.isIngame()) {
                         event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You are already playing on a map!");
                         return;
                     }
@@ -96,18 +96,18 @@ public class PlayerInteractListener implements Listener {
             }
 
             if (event.hasBlock() && (event.getClickedBlock().getType() == Material.STONE_BUTTON || event.getClickedBlock().getType() == Material.WOOD_BUTTON)) {
-                if (GameUtilities.getUtilities().isIngame(player)) {
+                if (gp.isIngame()) {
                     for (String s : DataConfiguration.getData().getDataFile().getStringList("classbuttons")) {
                         if (ClassUtilities.getUtilities().loadClassButtonLocation(s).toString().equalsIgnoreCase(event.getClickedBlock().getLocation().toString())) {
                             if (player.hasPermission("tf2.button." + ClassUtilities.getUtilities().loadClassButtonTypeFromLocation(s))) {
                                 TF2Class c = new TF2Class(ClassUtilities.getUtilities().loadClassFromLocation(s));
-                                if (c.apply(player)) {
+                                if (c.apply(gp)) {
                                     if (gp.isUsingChangeClassButton()) {
                                         player.teleport(MapUtilities.getUtilities().loadTeamSpawn(gp.getGame().getMapName(), gp.getTeam()));
                                         gp.setInLobby(false);
                                         gp.setUsingChangeClassButton(false);
                                         TF2Class classChosen = gp.getCurrentClass();
-                                        classChosen.apply(player);
+                                        classChosen.apply(gp);
                                     }
                                 }
                                 return;

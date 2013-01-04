@@ -1,5 +1,6 @@
 package me.chaseoes.tf2.listeners;
 
+import me.chaseoes.tf2.GamePlayer;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.utilities.LocationStore;
 
@@ -16,7 +17,8 @@ public class ProjectileLaunchListener implements Listener {
     public void onShoot(ProjectileLaunchEvent event) {
         if (event.getEntityType() == EntityType.SPLASH_POTION && event.getEntity().getShooter() instanceof Player) {
             Player shooter = (Player) event.getEntity().getShooter();
-            if (GameUtilities.getUtilities().isIngame(shooter)) {
+            GamePlayer gShooter = GameUtilities.getUtilities().getGamePlayer(shooter);
+            if (gShooter.isIngame()) {
                 LocationStore.setAFKTime(shooter, null);
                 LocationStore.unsetLastLocation(shooter);
             }

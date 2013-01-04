@@ -69,7 +69,6 @@ public class LobbyWall {
                 }
             } catch (Exception e) {
                 plugin.getLogger().log(Level.WARNING, "Encountered an error while trying to update the lobby wall.");
-                e.printStackTrace();
             }
         }
     }

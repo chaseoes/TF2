@@ -26,7 +26,8 @@ public class PlayerDamageByEntityListener implements Listener {
         }
         if (event.getEntity() instanceof Player) {
             Player damaged = (Player) event.getEntity();
-            if (GameUtilities.getUtilities().isIngame(damaged)) {
+            GamePlayer gDamaged = GameUtilities.getUtilities().getGamePlayer(damaged);
+            if (gDamaged.isIngame()) {
 
                 GamePlayer gdamaged = GameUtilities.getUtilities().getGamePlayer(damaged);
                 if (gdamaged.isInLobby() || gdamaged.getGame().getStatus() != GameStatus.INGAME || gdamaged.isDead()) {
@@ -53,7 +54,7 @@ public class PlayerDamageByEntityListener implements Listener {
                 LocationStore.unsetLastLocation(damaged);
 
                 // Check Game Status
-                Game game = GameUtilities.getUtilities().getCurrentGame(damaged);
+                Game game = gDamaged.getGame();
                 if (game.getStatus() != GameStatus.INGAME) {
                     event.setCancelled(true);
                     return;
@@ -95,7 +96,7 @@ public class PlayerDamageByEntityListener implements Listener {
                     Projectile pro = (Projectile) event.getDamager();
                     if (pro.getShooter() instanceof Player) {
                         Player damager = (Player) pro.getShooter();
-                        GamePlayer gdamager = game.getPlayer(damager);
+                        GamePlayer gdamager = GameUtilities.getUtilities().getGamePlayer(damager);
                         if (gdamaged.getTeam() == gdamager.getTeam()) {
                             event.setCancelled(true);
                             return;

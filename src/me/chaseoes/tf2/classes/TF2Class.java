@@ -31,24 +31,23 @@ public class TF2Class {
 
     // Apply the class to a player (returns true if it was successful).
     @SuppressWarnings("deprecation")
-    public boolean apply(Player player) {
+    public boolean apply(GamePlayer player) {
         // Check that the class exists.
         if (config == null) {
-            player.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.DARK_RED + "That class does not exist (" + name + ").");
-            clearInventory(player);
+            player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.DARK_RED + "That class does not exist (" + name + ").");
+            clearInventory(player.getPlayer());
             return false;
         }
 
-        if (GameUtilities.getUtilities().isIngame(player)) {
+        if (player.isIngame()) {
             try {
 
                 // Clear their inventory.
-                GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(player);
-                clearInventory(player);
+                clearInventory(player.getPlayer());
 
                 // Loop through potion effects.
                 boolean apply = true;
-                if (gp.isInLobby() && TF2.getInstance().getConfig().getBoolean("potion-effects-after-start")) {
+                if (player.isInLobby() && TF2.getInstance().getConfig().getBoolean("potion-effects-after-start")) {
                     apply = false;
                 }
                 if (apply) {
@@ -63,7 +62,7 @@ public class TF2Class {
                             duration = Integer.parseInt(effects[2]);
                         }
                         PotionEffect e = new PotionEffect(et, duration, amplifier);
-                        player.addPotionEffect(e);
+                        player.getPlayer().addPotionEffect(e);
                     }
                 }
 
@@ -73,7 +72,7 @@ public class TF2Class {
                 for (String armortype : TF2.getInstance().getConfig().getConfigurationSection("classes." + name + ".armor").getKeys(false)) {
                     String[] items = config.getString("armor." + armortype).split("\\.");
                     Color c = Color.RED;
-                    if (gp.getTeam() == Team.BLUE) {
+                    if (player.getTeam() == Team.BLUE) {
                         c = Color.BLUE;
                     }
                     ItemStack i = ArmorUtilities.setColor(new ItemStack(Material.getMaterial(Integer.parseInt(items[0]))), c);
@@ -102,10 +101,10 @@ public class TF2Class {
                 }
 
                 // Add armor items.
-                player.getInventory().setHelmet(armor[0]);
-                player.getInventory().setChestplate(armor[1]);
-                player.getInventory().setLeggings(armor[2]);
-                player.getInventory().setBoots(armor[3]);
+                player.getPlayer().getInventory().setHelmet(armor[0]);
+                player.getPlayer().getInventory().setChestplate(armor[1]);
+                player.getPlayer().getInventory().setLeggings(armor[2]);
+                player.getPlayer().getInventory().setBoots(armor[3]);
 
                 // Loop through inventory items.
                 for (String fullitem : TF2.getInstance().getConfig().getStringList("classes." + name + ".inventory")) {
@@ -135,18 +134,18 @@ public class TF2Class {
                         enchantindex++;
                     }
 
-                    player.getInventory().addItem(i);
+                    player.getPlayer().getInventory().addItem(i);
                 }
 
-                gp.setCurrentClass(this);
+                player.setCurrentClass(this);
 
-                player.updateInventory();
+                player.getPlayer().updateInventory();
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
                 GameUtilities.getUtilities().plugin.getLogger().log(Level.SEVERE, "The error encountered while changing a player's class is above! Note that TF2 v2.0 has a new format for defining items - click here to view the new default configuration: http://goo.gl/LdKKR");
-                player.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.DARK_RED + "An error occoured while changing your class. Notify the administrator to check their server log for the error.");
-                clearInventory(player);
+                player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.DARK_RED + "An error occoured while changing your class. Notify the administrator to check their server log for the error.");
+                clearInventory(player.getPlayer());
                 return false;
             }
         }

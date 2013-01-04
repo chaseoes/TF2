@@ -14,7 +14,7 @@ public class PlayerDropItemListener implements Listener {
     @SuppressWarnings("deprecation")
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onItemDrop(PlayerDropItemEvent event) {
-        if (GameUtilities.getUtilities().isIngame(event.getPlayer())) {
+        if (GameUtilities.getUtilities().getGamePlayer(event.getPlayer()).isIngame()) {
             ItemStack[] armor = event.getPlayer().getInventory().getArmorContents();
             event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You cannot drop items while in a game!");
             event.setCancelled(true);

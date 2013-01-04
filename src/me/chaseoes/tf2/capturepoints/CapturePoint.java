@@ -20,7 +20,7 @@ public class CapturePoint implements Comparable<CapturePoint> {
     Integer task = 0;
     Integer ptask = 0;
     CaptureStatus status;
-    public Player capturing;
+    public GamePlayer capturing;
 
     public CapturePoint(String map, Integer i, Location loc) {
         capturing = null;
@@ -46,16 +46,16 @@ public class CapturePoint implements Comparable<CapturePoint> {
         status = s;
     }
 
-    public void startCapturing(final Player player) {
+    public void startCapturing(final GamePlayer player) {
         capturing = player;
         setStatus(CaptureStatus.CAPTURING);
-        Game game = GameUtilities.getUtilities().getCurrentGame(player);
+        Game game = capturing.getGame();
         game.broadcast(ChatColor.YELLOW + "[TF2] Capture point " + ChatColor.DARK_RED + "#" + id + " " + ChatColor.YELLOW + "is being captured!");
 
         task = CapturePointUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncRepeatingTask(CapturePointUtilities.getUtilities().plugin, new Runnable() {
             Integer timeRemaining = CapturePointUtilities.getUtilities().plugin.getConfig().getInt("capture-timer");
             Integer timeTotal = CapturePointUtilities.getUtilities().plugin.getConfig().getInt("capture-timer");
-            Game game = GameUtilities.getUtilities().getCurrentGame(capturing);
+            Game game = capturing.getGame();
             double diff = 1.0d / (timeTotal * 20);
             int currentTick = 0;
 
@@ -67,7 +67,7 @@ public class CapturePoint implements Comparable<CapturePoint> {
                     // ChatColor.BOLD + ChatColor.DARK_RED + timeRemaining + " "
                     // + ChatColor.RESET + ChatColor.RED +
                     // "seconds remaining!");
-                    player.getWorld().strikeLightningEffect(player.getLocation());
+                    player.getPlayer().getWorld().strikeLightningEffect(player.getPlayer().getLocation());
                 }
 
                 if (timeRemaining == 0 && currentTick % 20 == 0) {
@@ -100,13 +100,13 @@ public class CapturePoint implements Comparable<CapturePoint> {
         ptask = CapturePointUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncRepeatingTask(CapturePointUtilities.getUtilities().plugin, new Runnable() {
             @Override
             public void run() {
-                Player p = capturing;
+                GamePlayer p = capturing;
                 if (p == null) {
                     stopCapturing();
                     return;
                 }
 
-                if (!CapturePointUtilities.getUtilities().locationIsCapturePoint(player.getLocation())) {
+                if (!CapturePointUtilities.getUtilities().locationIsCapturePoint(player.getPlayer().getLocation())) {
                     stopCapturing();
                     return;
                 }
@@ -124,8 +124,8 @@ public class CapturePoint implements Comparable<CapturePoint> {
             task = 0;
         }
 
-        if (capturing != null && GameUtilities.getUtilities().getCurrentGame(capturing) != null) {
-            GameUtilities.getUtilities().getCurrentGame(capturing).setExpOfPlayers(0d);
+        if (capturing != null && capturing.getGame() != null) {
+            capturing.getGame().setExpOfPlayers(0d);
             capturing = null;
         }
         setStatus(CaptureStatus.UNCAPTURED);

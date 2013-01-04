@@ -14,8 +14,8 @@ public class PlayerReceiveNameTagListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onNameTag(PlayerReceiveNameTagEvent event) {
-        if (GameUtilities.getUtilities().isIngame(event.getNamedPlayer())) {
-            GamePlayer namedPlayer = GameUtilities.getUtilities().getCurrentGame(event.getNamedPlayer()).getPlayer(event.getNamedPlayer());
+        if (GameUtilities.getUtilities().getGamePlayer(event.getNamedPlayer()).isIngame()) {
+            GamePlayer namedPlayer = GameUtilities.getUtilities().getGamePlayer(event.getNamedPlayer());
             if (namedPlayer.getTeam() == Team.RED) {
                 event.setTag(ChatColor.RED + event.getNamedPlayer().getName());
             } else if (namedPlayer.getTeam() == Team.BLUE) {

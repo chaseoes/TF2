@@ -12,7 +12,7 @@ public class FoodLevelChangeListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLoseHunger(FoodLevelChangeEvent event) {
-        if (event.getEntity() instanceof Player && GameUtilities.getUtilities().isIngame((Player) event.getEntity())) {
+        if (event.getEntity() instanceof Player && GameUtilities.getUtilities().getGamePlayer((Player) event.getEntity()).isIngame()) {
             event.setCancelled(true);
         }
     }

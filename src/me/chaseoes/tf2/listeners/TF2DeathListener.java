@@ -27,7 +27,7 @@ public class TF2DeathListener implements Listener {
                 final Player killer = event.getKiller();
                 GamePlayer killerg = GameUtilities.getUtilities().getGamePlayer(killer);
 
-                Game game = GameUtilities.getUtilities().getCurrentGame(player);
+                Game game = playerg.getGame();
                 Map map = TF2.getInstance().getMap(game.getMapName());
 
                 player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), playerg.getTeam()));
@@ -60,7 +60,7 @@ public class TF2DeathListener implements Listener {
                 player.setHealth(20);
                 player.setFireTicks(0);
                 TF2Class c = playerg.getCurrentClass();
-                c.apply(player);
+                c.apply(playerg);
                 playerg.setJustSpawned(true);
                 playerg.setIsDead(false);
                 playerg.setPlayerLastDamagedBy(null);

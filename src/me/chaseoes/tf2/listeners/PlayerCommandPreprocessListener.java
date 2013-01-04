@@ -12,7 +12,7 @@ public class PlayerCommandPreprocessListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onCommand(PlayerCommandPreprocessEvent event) {
-        if (GameUtilities.getUtilities().isIngame(event.getPlayer()) && !event.getMessage().startsWith("/tf2") && !event.getPlayer().hasPermission("tf2.create")) {
+        if (GameUtilities.getUtilities().getGamePlayer(event.getPlayer()).isIngame() && !event.getMessage().startsWith("/tf2") && !event.getPlayer().hasPermission("tf2.create")) {
             event.setCancelled(true);
             event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You cannot use commands while in a game!");
         }

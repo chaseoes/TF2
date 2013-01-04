@@ -50,7 +50,7 @@ public class Schedulers {
                                         LocationStore.setAFKTime(player, afktime + 1);
                                     }
 
-                                    if (afklimit == afktime) {
+                                    if (afklimit.equals(afktime)) {
                                         GameUtilities.getUtilities().getGamePlayer(player).leaveCurrentGame();
                                         player.sendMessage(ChatColor.YELLOW + "[TF2] You have been kicked from the map for being AFK.");
                                         LocationStore.setAFKTime(player, null);
@@ -93,13 +93,7 @@ public class Schedulers {
             public void run() {
                 if (secondsleft > 0) {
                     if (secondsleft % 10 == 0 || secondsleft < 6) {
-                        for (String playe : game.getPlayersIngame()) {
-                            Player player = plugin.getServer().getPlayerExact(playe);
-                            GamePlayer gp = game.getPlayer(player);
-                            if (gp.getTeam() == Team.RED) {
-                                player.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.DARK_RED + ChatColor.BOLD + "Red " + ChatColor.RESET + ChatColor.YELLOW + "team, you will be teleported in " + secondsleft + " seconds.");
-                            }
-                        }
+                        game.broadcast(ChatColor.YELLOW + "[TF2] " + ChatColor.DARK_RED + ChatColor.BOLD + "Red " + ChatColor.RESET + ChatColor.YELLOW + "team, you will be teleported in " + secondsleft + " seconds.", Team.RED);
                     }
                 } else {
                     stopRedTeamCountdown(map.getName());

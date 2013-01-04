@@ -75,8 +75,8 @@ public class ListCommand {
             cs.sendMessage(ChatColor.YELLOW + "[TF2] Displaying players in the map " + ChatColor.BOLD + strings[1] + ChatColor.RESET + ChatColor.YELLOW + ":");
             cs.sendMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Red team: " + ChatColor.RESET + "\n" + red.toString().trim());
             cs.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "Blue team: " + ChatColor.RESET + "\n" + blue.toString().trim());
-        } else if (GameUtilities.getUtilities().isIngame((Player) cs)) {
-            Game game = GameUtilities.getUtilities().getCurrentGame((Player) cs);
+        } else if (GameUtilities.getUtilities().getGamePlayer((Player) cs).isIngame()) {
+            Game game = GameUtilities.getUtilities().getGamePlayer((Player) cs).getGame();
             StringBuilder red = new StringBuilder();
             StringBuilder blue = new StringBuilder();
             Integer redc = 0;

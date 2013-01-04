@@ -17,9 +17,11 @@ public class PotionSplashListener implements Listener {
         for (LivingEntity e : event.getAffectedEntities()) {
             if (e instanceof Player) {
                 Player damaged = (Player) e;
+                GamePlayer gDamaged = GameUtilities.getUtilities().getGamePlayer(damaged);
                 if (event.getPotion().getShooter() != null && event.getPotion().getShooter() instanceof Player) {
                     Player throwee = (Player) event.getPotion().getShooter();
-                    if (GameUtilities.getUtilities().isIngame(throwee) && GameUtilities.getUtilities().isIngame(damaged)) {
+                    GamePlayer gThrowee = GameUtilities.getUtilities().getGamePlayer(throwee);
+                    if (gThrowee.isIngame() && gDamaged.isIngame()) {
                         GamePlayer gthrowee = GameUtilities.getUtilities().getGamePlayer(throwee);
                         GamePlayer gdamaged = GameUtilities.getUtilities().getGamePlayer(damaged);
                         if (gthrowee.getTeam() == gdamaged.getTeam()) {

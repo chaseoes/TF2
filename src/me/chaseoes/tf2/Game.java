@@ -88,7 +88,7 @@ public class Game {
                 if (gp.getCurrentClass() != null) {
                     gp.setInLobby(false);
                     player.teleport(map.getBlueSpawn());
-                    gp.getCurrentClass().apply(player);
+                    gp.getCurrentClass().apply(gp);
                     gp.setUsingChangeClassButton(false);
                 } else {
                     gp.setUsingChangeClassButton(true);
@@ -106,7 +106,7 @@ public class Game {
                         if (gp.getCurrentClass() != null) {
                             gp.setInLobby(false);
                             player.teleport(map.getRedSpawn());
-                            gp.getCurrentClass().apply(player);
+                            gp.getCurrentClass().apply(gp);
                             gp.setUsingChangeClassButton(false);
                         } else {
                             gp.setUsingChangeClassButton(true);
@@ -345,6 +345,14 @@ public class Game {
     public void broadcast(String message) {
         for (GamePlayer player : playersInGame.values()) {
             player.getPlayer().sendMessage(message);
+        }
+    }
+
+    public void broadcast(String message, Team team) {
+        for (GamePlayer player : playersInGame.values()) {
+            if (player.getTeam() == team) {
+                player.getPlayer().sendMessage(message);
+            }
         }
     }
 

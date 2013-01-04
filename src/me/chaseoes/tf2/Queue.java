@@ -45,17 +45,20 @@ public class Queue {
                 return;
             }
             String nextPlayer = null;
-            if (index + 2 >= players.size()) {
+            if (index + 2 <= players.size()) {
                 nextPlayer = players.get(index + 1);
             }
             players.remove(player);
             check(false);
             if (nextPlayer != null) {
-                int newIndex = players.indexOf(nextPlayer);
+                int newIndex = -1;
+                if (contains(Bukkit.getPlayerExact(nextPlayer))) {
+                    newIndex = players.indexOf(nextPlayer);
+                }
                 if (newIndex == -1) {
                     newIndex = 0;
                 }
-                for (int i = players.indexOf(nextPlayer); i < players.size(); i++) {
+                for (int i = newIndex; i < players.size(); i++) {
                     Bukkit.getPlayerExact(players.get(i)).sendMessage(ChatColor.YELLOW + "[TF2] You are #" + getPosition(player, false) + " in line for the map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + ChatColor.YELLOW + ".");
                 }
             }
@@ -99,7 +102,9 @@ public class Queue {
                     amtAllowed--;
                 } else {
                     if (messagePlayers) {
-                        Bukkit.getPlayerExact(player).sendMessage(ChatColor.YELLOW + "[TF2] You are #" + getPosition(player, false) + " in line for the map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + ChatColor.YELLOW + ".");
+                        if (Bukkit.getPlayerExact(player) != null) {
+                            Bukkit.getPlayerExact(player).sendMessage(ChatColor.YELLOW + "[TF2] You are #" + getPosition(player, false) + " in line for the map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + ChatColor.YELLOW + ".");
+                        }
                     }
                 }
             }

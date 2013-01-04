@@ -1,11 +1,6 @@
 package me.chaseoes.tf2.commands;
 
-import me.chaseoes.tf2.DataConfiguration;
-import me.chaseoes.tf2.Game;
-import me.chaseoes.tf2.GameUtilities;
-import me.chaseoes.tf2.MapUtilities;
-import me.chaseoes.tf2.TF2;
-import me.chaseoes.tf2.Team;
+import me.chaseoes.tf2.*;
 import me.chaseoes.tf2.utilities.DataChecker;
 
 import org.bukkit.ChatColor;
@@ -33,8 +28,9 @@ public class JoinCommand {
     public void execJoinCommand(CommandSender cs, String[] strings, Command cmnd) {
         CommandHelper h = new CommandHelper(cs, cmnd);
         Player player = (Player) cs;
+        GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(player);
         if (strings.length == 1) {
-            if (GameUtilities.getUtilities().isIngame(player)) {
+            if (gp.isIngame()) {
                 player.sendMessage(ChatColor.YELLOW + "[TF2] You are already playing on a map!");
                 return;
             }
@@ -72,7 +68,7 @@ public class JoinCommand {
                 return;
             }
 
-            if (GameUtilities.getUtilities().isIngame(player)) {
+            if (gp.isIngame()) {
                 player.sendMessage(ChatColor.YELLOW + "[TF2] You are already playing on a map!");
                 return;
             }

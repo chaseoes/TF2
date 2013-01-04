@@ -60,7 +60,7 @@ public class GamePlayer {
         if (getCurrentMap() == null) {
             return null;
         }
-        return GameUtilities.getUtilities().games.get(getCurrentMap());
+        return GameUtilities.getUtilities().getGame(TF2.getInstance().getMap(getCurrentMap()));
     }
 
     public Player getPlayer() {
@@ -138,22 +138,23 @@ public class GamePlayer {
 
     public void leaveCurrentGame() {
         Game game = getGame();
-        game.playersInGame.remove(player.getName());
-        TF2Class c = new TF2Class("NONE");
-        c.clearInventory(player);
-        loadInventory();
+        if (game != null) {
+            game.playersInGame.remove(player.getName());
+            TF2Class c = new TF2Class("NONE");
+            c.clearInventory(player);
+            loadInventory();
 
-        player.teleport(MapUtilities.getUtilities().loadLobby());
-        TagAPI.refreshPlayer(player);
+            player.teleport(MapUtilities.getUtilities().loadLobby());
+            TagAPI.refreshPlayer(player);
 
-        if (game.getStatus() == GameStatus.STARTING && game.playersInGame.size() == 1) {
-            game.stopMatch(true);
+            if (game.getStatus() == GameStatus.STARTING && game.playersInGame.size() == 1) {
+                game.stopMatch(true);
+            }
+
+            if (game.playersInGame.size() == 0) {
+                game.stopMatch(true);
+            }
         }
-
-        if (game.playersInGame.size() == 0) {
-            game.stopMatch(true);
-        }
-
         clear();
     }
 
