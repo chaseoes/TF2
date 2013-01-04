@@ -38,23 +38,25 @@ public class Queue {
     }
 
     public void removePlayer(String player) {
-        int index = players.indexOf(player);
-        if (index == -1) {
-            return;
-        }
-        String nextPlayer = null;
-        if (index + 2 >= players.size()) {
-            nextPlayer = players.get(index + 1);
-        }
-        players.remove(player);
-        check(false);
-        if (nextPlayer != null) {
-            int newIndex = players.indexOf(nextPlayer);
-            if (newIndex == -1) {
-                newIndex = 0;
+        if (contains(Bukkit.getPlayerExact(player))) {
+            int index = players.indexOf(player);
+            if (index == -1) {
+                return;
             }
-            for (int i = players.indexOf(nextPlayer); i < players.size(); i++) {
-                Bukkit.getPlayerExact(players.get(i)).sendMessage(ChatColor.YELLOW + "[TF2] You are #" + getPosition(player, false) + " in line for the map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + ChatColor.YELLOW + ".");
+            String nextPlayer = null;
+            if (index + 2 >= players.size()) {
+                nextPlayer = players.get(index + 1);
+            }
+            players.remove(player);
+            check(false);
+            if (nextPlayer != null) {
+                int newIndex = players.indexOf(nextPlayer);
+                if (newIndex == -1) {
+                    newIndex = 0;
+                }
+                for (int i = players.indexOf(nextPlayer); i < players.size(); i++) {
+                    Bukkit.getPlayerExact(players.get(i)).sendMessage(ChatColor.YELLOW + "[TF2] You are #" + getPosition(player, false) + " in line for the map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + ChatColor.YELLOW + ".");
+                }
             }
         }
     }
