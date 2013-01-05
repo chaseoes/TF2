@@ -40,6 +40,7 @@ public class SpectateCommand {
             Game game = GameUtilities.getUtilities().getGamePlayer((Player) cs).getGame();
             if (game != null) {
                 cs.sendMessage(ChatColor.YELLOW + "[TF2] You already in a game.");
+                return;
             }
 
             if (DataConfiguration.getData().getDataFile().getStringList("disabled-maps").contains(map)) {
