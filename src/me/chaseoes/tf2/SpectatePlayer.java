@@ -78,9 +78,9 @@ public class SpectatePlayer {
             for (GamePlayer gp : game.playersInGame.values()) {
                 gp.getPlayer().showPlayer(player);
             }
-            loadInventory();
             player.setFlying(false);
             player.setAllowFlight(false);
+            loadInventory();
             player.teleport(MapUtilities.getUtilities().loadLobby());
             player.sendMessage(ChatColor.YELLOW + "[TF2] You are no longer spectating.");
             clear();

@@ -14,7 +14,7 @@ public class SQLUtilities {
     static SQLUtilities instance = new SQLUtilities();
     private TF2 plugin;
     Connection conn;
-    boolean connected;
+    boolean connected = false;
 
     private SQLUtilities() {
 
@@ -39,6 +39,7 @@ public class SQLUtilities {
                     Statement st = conn.createStatement();
                     String table = "CREATE TABLE IF NOT EXISTS players(id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(id), username TEXT, kills TEXT, highest_killstreak TEXT, points_captured TEXT, games_played TEXT, red_team_count TEXT, blue_team_count TEXT, time_ingame TEXT, games_won TEXT, arrows_fired TEXT, deaths TEXT)";
                     st.executeUpdate(table);
+                    connected = true;
                 } catch (Exception e) {
                     connected = false;
                     plugin.getLogger().log(Level.SEVERE, "Could not connect to database! Verify your database details in the configuration are correct.");
@@ -49,6 +50,9 @@ public class SQLUtilities {
     }
 
     public ResultSet getResultSet(String statement) {
+        if (!connected) {
+            return null;
+        }
         ResultSet result = null;
         try {
             Statement st;
@@ -64,12 +68,15 @@ public class SQLUtilities {
     }
     
     public void execUpdate(String statement) {
+        if (!connected) {
+            return;
+        }
         Statement st;
         try {
             st = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             st.executeUpdate(statement);
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
     }
 

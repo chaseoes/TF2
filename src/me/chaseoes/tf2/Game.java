@@ -225,6 +225,9 @@ public class Game {
             gm.getQueue().remove(player.getPlayer());
         }
 
+        if (SpectateCommand.getCommand().isSpectating(player.getPlayer())) {
+            SpectateCommand.getCommand().stopSpectating(player.getPlayer());
+        }
         TF2Class c = new TF2Class("NONE");
         playersInGame.put(player.getName(), player);
         player.setTimeEnteredGame();
@@ -369,6 +372,9 @@ public class Game {
     public void broadcast(String message) {
         for (GamePlayer player : playersInGame.values()) {
             player.getPlayer().sendMessage(message);
+        }
+        for (SpectatePlayer sp : SpectateCommand.getCommand().getSpectators(this)) {
+            sp.player.sendMessage(message);
         }
     }
 

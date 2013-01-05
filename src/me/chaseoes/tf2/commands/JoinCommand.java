@@ -73,6 +73,11 @@ public class JoinCommand {
                 return;
             }
 
+            if (SpectateCommand.getCommand().isSpectating(player)) {
+                player.sendMessage(ChatColor.YELLOW + "[TF2] You are already spectating a game.");
+                return;
+            }
+
             if (DataConfiguration.getData().getDataFile().getStringList("disabled-maps").contains(map)) {
                 player.sendMessage(ChatColor.YELLOW + "[TF2] That map is disabled.");
                 return;

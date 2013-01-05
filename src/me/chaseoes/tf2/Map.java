@@ -109,7 +109,7 @@ public class Map {
                 String[] split = str.split(",");
                 Location loc = SerializableLocation.getUtilities().stringToLocation(split[0]);
                 Inventory inv = SerializableInventory.StringToInventory(split[1]);
-                containers.add(new Container(loc, inv));
+                containers.add(new Container(loc, inv, this));
             }
         }
     }
@@ -317,7 +317,7 @@ public class Map {
     }
 
     public void addContainer(Location loc, Inventory inv) {
-        containers.add(new Container(SerializableLocation.getUtilities().stringToLocation(SerializableLocation.getUtilities().locationToString(loc)), SerializableInventory.StringToInventory(SerializableInventory.InventoryToString(inv))));
+        containers.add(new Container(SerializableLocation.getUtilities().stringToLocation(SerializableLocation.getUtilities().locationToString(loc)), SerializableInventory.StringToInventory(SerializableInventory.InventoryToString(inv)), this));
         saveContainers();
     }
 

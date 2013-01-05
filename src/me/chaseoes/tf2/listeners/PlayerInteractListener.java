@@ -10,6 +10,7 @@ import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.Team;
 import me.chaseoes.tf2.classes.ClassUtilities;
 import me.chaseoes.tf2.classes.TF2Class;
+import me.chaseoes.tf2.commands.SpectateCommand;
 import me.chaseoes.tf2.utilities.DataChecker;
 import me.chaseoes.tf2.utilities.GeneralUtilities;
 
@@ -72,6 +73,11 @@ public class PlayerInteractListener implements Listener {
 
                     if (gp.isIngame()) {
                         event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You are already playing on a map!");
+                        return;
+                    }
+
+                    if (SpectateCommand.getCommand().isSpectating(gp.getPlayer())) {
+                        event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You are already spectating a game.");
                         return;
                     }
 

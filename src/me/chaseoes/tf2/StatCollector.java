@@ -33,7 +33,9 @@ public class StatCollector {
             public void run() {
                 ResultSet rs = SQLUtilities.getUtilities().getResultSet("SELECT * FROM players WHERE username='" + player + "'");
                 boolean loaded = false;
-
+                if (rs == null) {
+                    return;
+                }
                 try {
                     while (rs.next()) {
                         loaded = true;
@@ -89,6 +91,9 @@ public class StatCollector {
             @Override
             public void run() {
                 ResultSet rs = SQLUtilities.getUtilities().getResultSet("SELECT * FROM players WHERE username='" + player + "'");
+                if (rs == null) {
+                    return;
+                }
                 try {
                     while (rs.next()) {
                         rs.updateString("kills", kills + "");

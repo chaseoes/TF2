@@ -164,7 +164,7 @@ public class CommandManager implements CommandExecutor {
         }
         
         if (strings[0].equalsIgnoreCase("spectate")) {
-            if (cs.hasPermission("tf2.create")) {
+            if (cs.hasPermission("tf2.spectate")) {
                 SpectateCommand.getCommand().execSpectateCommand(cs, strings, cmnd);
             } else {
                 h.noPermission();
