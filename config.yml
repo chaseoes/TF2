@@ -8,10 +8,18 @@ update-checking: true
 update-channel: stable
 potion-effects-after-start: true
 gamemode: adventure
+debug: false
 killsound:
   sound: CAT_HIT
   volume: 20
   pitch: -20
+stats-database:
+  enabled: false
+  hostname: localhost
+  database_name: my_database
+  username: username
+  password: password
+  port: 3306
 classes:
   heavy:
     armor:

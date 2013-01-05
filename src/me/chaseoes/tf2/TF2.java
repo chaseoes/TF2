@@ -42,6 +42,7 @@ import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.lobbywall.LobbyWallUtilities;
 import me.chaseoes.tf2.utilities.IconMenu;
 import me.chaseoes.tf2.utilities.MetricsLite;
+import me.chaseoes.tf2.utilities.SQLUtilities;
 import me.chaseoes.tf2.utilities.SerializableLocation;
 import me.chaseoes.tf2.utilities.UpdateChecker;
 import me.chaseoes.tf2.utilities.WorldEditUtilities;
@@ -56,6 +57,7 @@ public class TF2 extends JavaPlugin {
 
     public HashMap<String, Map> maps = new HashMap<String, Map>();
     public HashMap<String, String> usingSetSpawnMenu = new HashMap<String, String>();
+    public HashMap<String, StatCollector> stats = new HashMap<String, StatCollector>();
     public UpdateChecker uc;
     public IconMenu setSpawnMenu;
     private static TF2 instance;
@@ -130,6 +132,11 @@ public class TF2 extends JavaPlugin {
             metrics.start();
         } catch (IOException e) {
             // Failed to submit! :(
+        }
+
+        // Connect to database after everything else has loaded.
+        if (getConfig().getBoolean("stats-database.enabled")) {
+            SQLUtilities.getUtilities().setup(this);
         }
     }
 
@@ -231,4 +238,5 @@ public class TF2 extends JavaPlugin {
     public boolean mapExists(String map) {
         return maps.containsKey(map);
     }
+
 }

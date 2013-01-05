@@ -18,6 +18,10 @@ public class GamePlayer {
     int deaths;
     int totalKills;
     int totalDeaths;
+    int currentKillstreak;
+    int arrowsFired;
+    int pointsCaptured;
+    int timeIngame;
     boolean inLobby;
     boolean usingChangeClassButton;
     boolean makingChangeClassButton;
@@ -30,6 +34,7 @@ public class GamePlayer {
     String classButtonName;
     TF2Class currentClass;
     String playerLastDamagedBy;
+    StatCollector stats;
 
     ItemStack[] savedInventoryItems;
     ItemStack[] savedArmorItems;
@@ -52,8 +57,13 @@ public class GamePlayer {
         savedLevelCount = 0;
         savedFoodLevel = 0;
         savedHealth = 0;
+        currentKillstreak = 0;
+        arrowsFired = 0;
+        pointsCaptured = 0;
+        timeIngame = 0;
         savedGameMode = null;
         playerLastDamagedBy = this.getName();
+        stats = new StatCollector(p);
     }
 
     public Game getGame() {
@@ -151,6 +161,7 @@ public class GamePlayer {
                 game.stopMatch(true);
             }
         }
+        
         player.teleport(MapUtilities.getUtilities().loadLobby());
         TagAPI.refreshPlayer(player);
         game.map.getQueue().check();
@@ -295,6 +306,50 @@ public class GamePlayer {
         isDead = bool;
     }
 
+    public StatCollector getStatCollector() {
+        return stats;
+    }
+    
+    public void setCurrentKillstreak(int i) {
+        currentKillstreak = i;
+    }
+    
+    public int getCurrentKillstreak() {
+        return currentKillstreak;
+    }
+    
+    public void setArrowsFired(int i) {
+        if (i != -1) {
+            arrowsFired = i;
+            return;
+        }
+        arrowsFired++;
+    }
+    
+    public int getArrowsFired() {
+        return arrowsFired;
+    }
+    
+    public void setPointsCaptured(int i) {
+        if (i != -1) {
+            pointsCaptured = i;
+            return;
+        }
+        pointsCaptured++;
+    }
+    
+    public int getPointsCaptured() {
+        return pointsCaptured;
+    }
+    
+    public void setTimeIngame(int i) {
+        timeIngame = i;
+    }
+    
+    public int getTimeIngame() {
+        return timeIngame;
+    }
+    
     public void clear() {
         map = null;
         team = null;
@@ -319,7 +374,13 @@ public class GamePlayer {
         savedLevelCount = 0;
         savedFoodLevel = 0;
         savedHealth = 0;
+        currentKillstreak = 0;
+        arrowsFired = 0;
+        pointsCaptured = 0;
+        timeIngame = 0;
         playerLastDamagedBy = this.getName();
         mapCreatingItemFor = null;
+        stats = new StatCollector(player);
     }
+    
 }

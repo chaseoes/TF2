@@ -119,17 +119,14 @@ public class PlayerInteractListener implements Listener {
             if (event.hasBlock() && event.getClickedBlock().getState() instanceof InventoryHolder && gp.isCreatingContainer()) {
                 if (TF2.getInstance().getMap(gp.getMapCreatingItemFor()).isContainerRegistered(event.getClickedBlock().getLocation())) {
                     player.sendMessage(ChatColor.YELLOW + "[TF2] This container is already registered.");
-                    gp.setCreatingContainer(false);
-                    gp.setMapCreatingItemFor(null);
-                    event.setCancelled(true);
                 } else {
                     Map map = TF2.getInstance().getMap(gp.getMapCreatingItemFor());
                     map.addContainer(event.getClickedBlock().getLocation(), ((InventoryHolder) event.getClickedBlock().getState()).getInventory());
                     player.sendMessage(ChatColor.YELLOW + "[TF2] Successfully registered container.");
-                    gp.setCreatingContainer(false);
-                    gp.setMapCreatingItemFor(null);
-                    event.setCancelled(true);
                 }
+                gp.setCreatingContainer(false);
+                gp.setMapCreatingItemFor(null);
+                event.setCancelled(true);
             }
         } catch (Exception e) {
             e.printStackTrace();

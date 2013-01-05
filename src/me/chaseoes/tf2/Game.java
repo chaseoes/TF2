@@ -152,6 +152,18 @@ public class Game {
     }
 
     public void winMatch(Team team) {
+        if (TF2.getInstance().getConfig().getBoolean("stats-database.enabled")) {
+            for (GamePlayer gp : playersInGame.values()) {
+                StatCollector sc = gp.getStatCollector();
+                int highest_killstreak = 0;
+                int points_captured = gp.getPointsCaptured();
+                int time_ingame = 0;
+                int arrows_fired = gp.getArrowsFired();
+                sc.addStatsFromGame(gp.getKills(), highest_killstreak, points_captured, gp.getTeam(), time_ingame, team, arrows_fired, gp.getDeaths());
+                sc.submit();
+            }
+        }
+
         String[] winlines = new String[4];
         winlines[0] = " ";
         winlines[1] = "" + ChatColor.DARK_RED + ChatColor.BOLD + "Red Team";
@@ -204,7 +216,7 @@ public class Game {
         } else {
             player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You joined the map " + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
         }
-        
+
         for (Game g : GameUtilities.getUtilities().games.values()) {
             Map gm = TF2.getInstance().getMap(g.getMapName());
             gm.getQueue().remove(player.getPlayer());
@@ -371,4 +383,5 @@ public class Game {
     public boolean isFull() {
         return playersInGame.size() >= map.getPlayerlimit();
     }
+
 }

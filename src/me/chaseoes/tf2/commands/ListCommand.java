@@ -39,6 +39,8 @@ public class ListCommand {
         highlightNames.add("AntVenom");
         highlightNames.add("Fawdz");
         highlightNames.add("Double0Negative");
+        highlightNames.add("Oceangrass");
+        highlightNames.add("psycowithespn");
 
         if (strings.length == 2) {
             StringBuilder red = new StringBuilder();

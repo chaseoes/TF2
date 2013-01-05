@@ -79,6 +79,7 @@ public class CapturePoint implements Comparable<CapturePoint> {
                     }
                     stopCapturing();
                     setStatus(CaptureStatus.CAPTURED);
+                    player.setPointsCaptured(-1);
                     game.broadcast(ChatColor.YELLOW + "[TF2] Capture point " + ChatColor.DARK_RED + "#" + id + " " + ChatColor.YELLOW + "has been captured by " + ChatColor.DARK_RED + ChatColor.BOLD + player.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
                     game.setExpOfPlayers(0);
 
