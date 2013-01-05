@@ -55,17 +55,21 @@ public class DisableCommand {
                 return;
             }
             Game game = GameUtilities.getUtilities().getGame(plugin.getMap(map));
-            //game.getQueue().clear(true);
-            game.stopMatch(false);
-            MapUtilities.getUtilities().disableMap(map);
-            game.setStatus(GameStatus.DISABLED);
-            String[] creditlines = new String[4];
-            creditlines[0] = " ";
-            creditlines[1] = "--------------------------";
-            creditlines[2] = "--------------------------";
-            creditlines[3] = " ";
-            LobbyWall.getWall().setAllLines(map, null, creditlines, false, false);
-            cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully disabled " + ChatColor.BOLD + map + ChatColor.RESET + ChatColor.YELLOW + ".");
+            if (game.getStatus() != GameStatus.DISABLED) {
+                //game.getQueue().clear(true);
+                game.stopMatch(false);
+                MapUtilities.getUtilities().disableMap(map);
+                game.setStatus(GameStatus.DISABLED);
+                String[] creditlines = new String[4];
+                creditlines[0] = " ";
+                creditlines[1] = "--------------------------";
+                creditlines[2] = "--------------------------";
+                creditlines[3] = " ";
+                LobbyWall.getWall().setAllLines(map, null, creditlines, false, false);
+                cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully disabled " + ChatColor.BOLD + map + ChatColor.RESET + ChatColor.YELLOW + ".");
+            } else {
+                cs.sendMessage(ChatColor.YELLOW + "[TF2] The map " + ChatColor.BOLD + map + ChatColor.RESET + ChatColor.YELLOW + " is already disabled.");
+            }
         } else {
             h.wrongArgs();
         }
