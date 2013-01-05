@@ -9,6 +9,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.kitteh.tag.TagAPI;
 
+import java.util.Collections;
+import java.util.HashSet;
+
 public class GamePlayer {
 
     Player player;
@@ -35,6 +38,7 @@ public class GamePlayer {
     TF2Class currentClass;
     String playerLastDamagedBy;
     StatCollector stats;
+    HashSet<Integer> killstreaks;
 
     ItemStack[] savedInventoryItems;
     ItemStack[] savedArmorItems;
@@ -63,6 +67,7 @@ public class GamePlayer {
         timeIngame = 0;
         savedGameMode = null;
         playerLastDamagedBy = this.getName();
+        killstreaks = new HashSet<Integer>();
         stats = new StatCollector(p);
     }
 
@@ -349,6 +354,14 @@ public class GamePlayer {
     public int getTimeIngame() {
         return timeIngame;
     }
+
+    public int getHighestKillstreak() {
+        return Collections.max(killstreaks);
+    }
+
+    public void addKillstreak(Integer i) {
+        killstreaks.add(i);
+    }
     
     public void clear() {
         map = null;
@@ -380,6 +393,7 @@ public class GamePlayer {
         timeIngame = 0;
         playerLastDamagedBy = this.getName();
         mapCreatingItemFor = null;
+        killstreaks.clear();
         stats = new StatCollector(player);
     }
     

@@ -43,6 +43,7 @@ public class TF2DeathListener implements Listener {
                 }, 40L);
 
                 // Reset the kills of the player who died.
+                playerg.addKillstreak(playerg.getKills());
                 playerg.setKills(0);
                 playerg.setDeaths(-1);
                 playerg.settotalDeaths(-1);

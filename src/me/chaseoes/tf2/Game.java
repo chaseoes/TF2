@@ -155,7 +155,7 @@ public class Game {
         if (TF2.getInstance().getConfig().getBoolean("stats-database.enabled")) {
             for (GamePlayer gp : playersInGame.values()) {
                 StatCollector sc = gp.getStatCollector();
-                int highest_killstreak = 0;
+                int highest_killstreak = gp.getHighestKillstreak();
                 int points_captured = gp.getPointsCaptured();
                 int time_ingame = 0;
                 int arrows_fired = gp.getArrowsFired();

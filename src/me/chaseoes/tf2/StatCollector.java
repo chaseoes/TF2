@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 public class StatCollector {
 
-    Player player;
+    String player;
 
     int kills = 0;
     int highest_killstreak = 0;
@@ -22,12 +22,12 @@ public class StatCollector {
     int deaths = 0;
 
     public StatCollector(Player p) {
-        player = p;
+        player = p.getName();
         load();
     }
 
     public void load() {
-        ResultSet rs = SQLUtilities.getUtilities().getResultSet("SELECT * FROM players WHERE username='" + player.getName() + "'");
+        ResultSet rs = SQLUtilities.getUtilities().getResultSet("SELECT * FROM players WHERE username='" + player + "'");
         boolean loaded = false;
 
         try {
@@ -49,7 +49,7 @@ public class StatCollector {
         }
 
         if (!loaded) {
-            SQLUtilities.getUtilities().execUpdate("INSERT INTO players(username, kills, highest_killstreak, points_captured, games_played, red_team_count, blue_team_count, time_ingame, games_won, arrows_fired, deaths) VALUES ('" + player.getName() + "', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0')");
+            SQLUtilities.getUtilities().execUpdate("INSERT INTO players(username, kills, highest_killstreak, points_captured, games_played, red_team_count, blue_team_count, time_ingame, games_won, arrows_fired, deaths) VALUES ('" + player + "', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0')");
         }
     }
 
@@ -78,7 +78,7 @@ public class StatCollector {
     }
 
     public void submit() {
-        ResultSet rs = SQLUtilities.getUtilities().getResultSet("SELECT * FROM players WHERE username='" + player.getName() + "'");
+        ResultSet rs = SQLUtilities.getUtilities().getResultSet("SELECT * FROM players WHERE username='" + player + "'");
         try {
             while (rs.next()) {
                 rs.updateString("kills", kills + "");
