@@ -48,7 +48,11 @@ public class UpdateChecker {
                 Scanner scan = new Scanner(i);
                 String ver = scan.nextLine();
                 i.close();
-                latestVersion = ver;
+                if (ver.equalsIgnoreCase("0.0")) {
+                    latestVersion = plugin.getDescription().getVersion();
+                } else {
+                    latestVersion = ver;
+                }
                 return;
             } catch (Exception e) {
                 plugin.getLogger().log(Level.WARNING, "An error was encountered while attempting to check for updates.");
