@@ -81,7 +81,7 @@ public class SpectateCommand {
 
     public void stopSpectating(Game game) {
         for (SpectatePlayer sps : spectating.values()) {
-            if (sps.gameSpectating.equalsIgnoreCase(game.getMapName())) {
+            if (sps.isSpectating && sps.gameSpectating.equalsIgnoreCase(game.getMapName())) {
                 sps.toggleSpectating(game);
             }
         }
