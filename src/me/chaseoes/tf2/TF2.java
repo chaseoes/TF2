@@ -24,6 +24,7 @@ import me.chaseoes.tf2.commands.StopCommand;
 import me.chaseoes.tf2.listeners.BlockBreakListener;
 import me.chaseoes.tf2.listeners.BlockPlaceListener;
 import me.chaseoes.tf2.listeners.EntityDamageListener;
+import me.chaseoes.tf2.listeners.EntityShootBowListener;
 import me.chaseoes.tf2.listeners.FoodLevelChangeListener;
 import me.chaseoes.tf2.listeners.PlayerCommandPreprocessListener;
 import me.chaseoes.tf2.listeners.PlayerDamageByEntityListener;
@@ -199,6 +200,7 @@ public class TF2 extends JavaPlugin {
         pm.registerEvents(new TF2DeathListener(), this);
         pm.registerEvents(new BlockBreakListener(), this);
         pm.registerEvents(new EntityDamageListener(), this);
+        pm.registerEvents(new EntityShootBowListener(), this);
     }
 
     public Map getMap(String map) {

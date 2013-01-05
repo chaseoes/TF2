@@ -33,7 +33,7 @@ public class PlayerInteractListener implements Listener {
             Player player = event.getPlayer();
             GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(player);
             if (gp.isIngame()) {
-                if ((player.getItemInHand().getType() == Material.getMaterial(373) || player.getItemInHand().getType() == Material.BOW) && (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
+                if ((player.getItemInHand().getType() == Material.getMaterial(373)) && (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
                     if (gp.justSpawned()) {
                         event.setCancelled(true);
                         player.updateInventory();

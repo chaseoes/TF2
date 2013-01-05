@@ -1,5 +1,8 @@
 package me.chaseoes.tf2;
 
+import java.util.Collections;
+import java.util.HashSet;
+
 import me.chaseoes.tf2.classes.TF2Class;
 
 import org.bukkit.Bukkit;
@@ -8,9 +11,6 @@ import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.kitteh.tag.TagAPI;
-
-import java.util.Collections;
-import java.util.HashSet;
 
 public class GamePlayer {
 
@@ -24,7 +24,7 @@ public class GamePlayer {
     int currentKillstreak;
     int arrowsFired;
     int pointsCaptured;
-    int timeIngame;
+    long timeEnteredGame;
     boolean inLobby;
     boolean usingChangeClassButton;
     boolean makingChangeClassButton;
@@ -64,7 +64,7 @@ public class GamePlayer {
         currentKillstreak = 0;
         arrowsFired = 0;
         pointsCaptured = 0;
-        timeIngame = 0;
+        timeEnteredGame = System.currentTimeMillis();
         savedGameMode = null;
         playerLastDamagedBy = this.getName();
         killstreaks = new HashSet<Integer>();
@@ -166,7 +166,7 @@ public class GamePlayer {
                 game.stopMatch(true);
             }
         }
-        
+
         player.teleport(MapUtilities.getUtilities().loadLobby());
         TagAPI.refreshPlayer(player);
         game.map.getQueue().check();
@@ -314,15 +314,15 @@ public class GamePlayer {
     public StatCollector getStatCollector() {
         return stats;
     }
-    
+
     public void setCurrentKillstreak(int i) {
         currentKillstreak = i;
     }
-    
+
     public int getCurrentKillstreak() {
         return currentKillstreak;
     }
-    
+
     public void setArrowsFired(int i) {
         if (i != -1) {
             arrowsFired = i;
@@ -330,11 +330,11 @@ public class GamePlayer {
         }
         arrowsFired++;
     }
-    
+
     public int getArrowsFired() {
         return arrowsFired;
     }
-    
+
     public void setPointsCaptured(int i) {
         if (i != -1) {
             pointsCaptured = i;
@@ -342,27 +342,30 @@ public class GamePlayer {
         }
         pointsCaptured++;
     }
-    
+
     public int getPointsCaptured() {
         return pointsCaptured;
     }
-    
-    public void setTimeIngame(int i) {
-        timeIngame = i;
+
+    public void setTimeEnteredGame() {
+        timeEnteredGame = System.currentTimeMillis();
     }
-    
-    public int getTimeIngame() {
-        return timeIngame;
+
+    public int getTotalTimeIngame() {
+        return (int) ((System.currentTimeMillis() - timeEnteredGame) / 1000);
     }
 
     public int getHighestKillstreak() {
-        return Collections.max(killstreaks);
+        if (!killstreaks.isEmpty()) {
+            return Collections.max(killstreaks);
+        }
+        return 0;
     }
 
     public void addKillstreak(Integer i) {
         killstreaks.add(i);
     }
-    
+
     public void clear() {
         map = null;
         team = null;
@@ -390,11 +393,11 @@ public class GamePlayer {
         currentKillstreak = 0;
         arrowsFired = 0;
         pointsCaptured = 0;
-        timeIngame = 0;
+        timeEnteredGame = System.currentTimeMillis();
         playerLastDamagedBy = this.getName();
         mapCreatingItemFor = null;
         killstreaks.clear();
         stats = new StatCollector(player);
     }
-    
+
 }

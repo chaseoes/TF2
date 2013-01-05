@@ -157,7 +157,7 @@ public class Game {
                 StatCollector sc = gp.getStatCollector();
                 int highest_killstreak = gp.getHighestKillstreak();
                 int points_captured = gp.getPointsCaptured();
-                int time_ingame = 0;
+                int time_ingame = gp.getTotalTimeIngame();
                 int arrows_fired = gp.getArrowsFired();
                 sc.addStatsFromGame(gp.getKills(), highest_killstreak, points_captured, gp.getTeam(), time_ingame, team, arrows_fired, gp.getDeaths());
                 sc.submit();
@@ -195,7 +195,9 @@ public class Game {
         }, 120L);
 
         CapturePointUtilities.getUtilities().uncaptureAll(map);
-        plugin.getServer().broadcastMessage(ChatColor.YELLOW + "The" + te + "team has won on the map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
+        if (TF2.getInstance().getConfig().getBoolean("broadcast-winning-team")) {
+            plugin.getServer().broadcastMessage(ChatColor.YELLOW + "The" + te + "team has won on the map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
+        }
         stopMatch(true);
     }
 
@@ -224,6 +226,7 @@ public class Game {
 
         TF2Class c = new TF2Class("NONE");
         playersInGame.put(player.getName(), player);
+        player.setTimeEnteredGame();
         player.setMap(getMapName());
         player.setInLobby(true);
         player.setTeam(team);

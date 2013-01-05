@@ -9,6 +9,7 @@ update-channel: stable
 potion-effects-after-start: true
 gamemode: adventure
 debug: false
+broadcast-winning-team: true
 killsound:
   sound: CAT_HIT
   volume: 20

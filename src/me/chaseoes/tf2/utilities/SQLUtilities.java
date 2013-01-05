@@ -24,23 +24,28 @@ public class SQLUtilities {
         return instance;
     }
 
+    @SuppressWarnings("deprecation")
     public void setup(TF2 p) {
         plugin = p;
-
-        String username = p.getConfig().getString("stats-database.username");
-        String password = p.getConfig().getString("stats-database.password");
-        String url = "jdbc:mysql://" + p.getConfig().getString("stats-database.hostname") + ":" + p.getConfig().getInt("stats-database.port") + "/" + p.getConfig().getString("stats-database.database_name");
-
-        try {
-            conn = DriverManager.getConnection(url, username, password);
-            Statement st = conn.createStatement();
-            String table = "CREATE TABLE IF NOT EXISTS players(id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(id), username TEXT, kills TEXT, highest_killstreak TEXT, points_captured TEXT, games_played TEXT, red_team_count TEXT, blue_team_count TEXT, time_ingame TEXT, games_won TEXT, arrows_fired TEXT, deaths TEXT)";
-            st.executeUpdate(table);
-        } catch (Exception e) {
-            connected = false;
-            plugin.getLogger().log(Level.SEVERE, "Could not connect to database! Verify your database details in the configuration are correct.");
-            plugin.getServer().getPluginManager().disablePlugin(plugin);
-        }
+        plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
+            public void run() {
+                final TF2 p = plugin;
+                String username = p.getConfig().getString("stats-database.username");
+                String password = p.getConfig().getString("stats-database.password");
+                String url = "jdbc:mysql://" + p.getConfig().getString("stats-database.hostname") + ":" + p.getConfig().getInt("stats-database.port") + "/" + p.getConfig().getString("stats-database.database_name");
+                
+                try {
+                    conn = DriverManager.getConnection(url, username, password);
+                    Statement st = conn.createStatement();
+                    String table = "CREATE TABLE IF NOT EXISTS players(id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(id), username TEXT, kills TEXT, highest_killstreak TEXT, points_captured TEXT, games_played TEXT, red_team_count TEXT, blue_team_count TEXT, time_ingame TEXT, games_won TEXT, arrows_fired TEXT, deaths TEXT)";
+                    st.executeUpdate(table);
+                } catch (Exception e) {
+                    connected = false;
+                    plugin.getLogger().log(Level.SEVERE, "Could not connect to database! Verify your database details in the configuration are correct.");
+                    plugin.getServer().getPluginManager().disablePlugin(plugin);
+                }
+            }
+        }, 0L);
     }
 
     public ResultSet getResultSet(String statement) {
