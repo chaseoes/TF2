@@ -2,6 +2,7 @@ package me.chaseoes.tf2.listeners;
 
 import me.chaseoes.tf2.*;
 
+import me.chaseoes.tf2.commands.SpectateCommand;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -18,6 +19,8 @@ public class PlayerQuitListener implements Listener {
                 game.leaveGame(gPlayer.getPlayer());
             }
         }
+        SpectateCommand.getCommand().stopSpectating(event.getPlayer());
+        SpectateCommand.getCommand().playerLogout(event.getPlayer());
         GameUtilities.getUtilities().playerLeaveServer(event.getPlayer());
     }
 

@@ -7,6 +7,7 @@ import java.util.List;
 import me.chaseoes.tf2.capturepoints.CapturePoint;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import me.chaseoes.tf2.classes.TF2Class;
+import me.chaseoes.tf2.commands.SpectateCommand;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.utilities.Container;
 import me.chaseoes.tf2.utilities.WorldEditUtilities;
@@ -141,7 +142,7 @@ public class Game {
         for (CapturePoint cp : map.getCapturePoints()) {
             cp.stopCapturing();
         }
-
+        SpectateCommand.getCommand().stopSpectating(this);
         redHasBeenTeleported = false;
         HashMap<String, GamePlayer> hmap = new HashMap<String, GamePlayer>(playersInGame);
         playersInGame.clear();

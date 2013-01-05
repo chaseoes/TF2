@@ -11,6 +11,7 @@ public class SpectatePlayer {
 
     Player player;
     public boolean isSpectating;
+    public String gameSpectating;
 
     ItemStack[] savedInventoryItems;
     ItemStack[] savedArmorItems;
@@ -55,6 +56,7 @@ public class SpectatePlayer {
 
     public void toggleSpectating(Game game) {
         if (!isSpectating) {
+            gameSpectating = game.getMapName();
             for (GamePlayer gp : game.playersInGame.values()) {
                 gp.getPlayer().hidePlayer(player);
             }
@@ -72,6 +74,7 @@ public class SpectatePlayer {
             player.sendMessage(ChatColor.YELLOW + "[TF2] You are now spectating! Players in-game can not see you and you can fly.");
             isSpectating = true;
         } else {
+            gameSpectating = null;
             for (GamePlayer gp : game.playersInGame.values()) {
                 gp.getPlayer().showPlayer(player);
             }

@@ -1,12 +1,10 @@
 package me.chaseoes.tf2.commands;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
-import me.chaseoes.tf2.DataConfiguration;
-import me.chaseoes.tf2.Game;
-import me.chaseoes.tf2.GameUtilities;
-import me.chaseoes.tf2.SpectatePlayer;
-import me.chaseoes.tf2.TF2;
+import me.chaseoes.tf2.*;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -26,7 +24,13 @@ public class SpectateCommand {
         CommandHelper h = new CommandHelper(cs, cmnd);
         Player player = (Player) cs;
         if (cs.hasPermission("tf2.button.donator")) {
-            if (strings.length == 2) {
+            if (strings.length == 1) {
+                if (isSpectating(player)) {
+                    stopSpectating(player);
+                } else {
+                    player.sendMessage(ChatColor.YELLOW + "[TF2] You are not spectating a map currently.");
+                }
+            } else if (strings.length == 2) {
                 String map = strings[1];
                 if (!TF2.getInstance().mapExists(map)) {
                     cs.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + map + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");
@@ -47,8 +51,12 @@ public class SpectateCommand {
                     spectating.put(cs.getName(), new SpectatePlayer(player));
                 }
                 SpectatePlayer sc = spectating.get(cs.getName());
-                
-                sc.toggleSpectating(GameUtilities.getUtilities().getGame(TF2.getInstance().getMap(map)));
+                Game ngame = GameUtilities.getUtilities().getGame(TF2.getInstance().getMap(map));
+                if (ngame.getStatus() == GameStatus.INGAME || ngame.getStatus() == GameStatus.STARTING) {
+                    sc.toggleSpectating(GameUtilities.getUtilities().getGame(TF2.getInstance().getMap(map)));
+                } else {
+                    player.sendMessage(ChatColor.YELLOW + "[TF2] This map is not ingame.");
+                }
             } else {
                 h.wrongArgs();
             }
@@ -64,4 +72,22 @@ public class SpectateCommand {
         return false;
     }
 
+    public void stopSpectating(Player player) {
+        if (isSpectating(player)) {
+            SpectatePlayer sp = spectating.get(player.getName());
+            sp.toggleSpectating(GameUtilities.getUtilities().getGame(TF2.getInstance().getMap(sp.gameSpectating)));
+        }
+    }
+
+    public void stopSpectating(Game game) {
+        for (SpectatePlayer sps : spectating.values()) {
+            if (sps.gameSpectating.equalsIgnoreCase(game.getMapName())) {
+                sps.toggleSpectating(game);
+            }
+        }
+    }
+
+    public void playerLogout(Player player) {
+        spectating.remove(player.getName());
+    }
 }
