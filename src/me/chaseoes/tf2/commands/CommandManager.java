@@ -20,7 +20,7 @@ public class CommandManager implements CommandExecutor {
             cs.sendMessage(ChatColor.AQUA + "http://dev.bukkit.org/server-mods/team-fortress-2/");
             return true;
         }
-
+        
         if (strings[0].equalsIgnoreCase("help")) {
             HelpCommand.getCommand().execHelpCommand(cs, strings, cmnd);
             return true;

@@ -5,6 +5,7 @@ import java.util.List;
 import me.chaseoes.tf2.DataConfiguration;
 import me.chaseoes.tf2.GamePlayer;
 import me.chaseoes.tf2.GameUtilities;
+import me.chaseoes.tf2.TF2;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -19,6 +20,14 @@ public class BlockPlaceListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
+        
+        if (GameUtilities.getUtilities().getGamePlayer(event.getPlayer()).isIngame()) {
+            if (TF2.getInstance().getConfig().getBoolean("prevent-block-breaking") && !player.hasPermission("tf2.create")) {
+                event.setCancelled(true);
+                return;
+            }
+        }
+        
         GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(player);
         if (gp.isMakingClassButton() && (event.getBlockPlaced().getType() == Material.STONE_BUTTON || event.getBlockPlaced().getType() == Material.WOOD_BUTTON)) {
             List<String> classbs = DataConfiguration.getData().getDataFile().getStringList("classbuttons");
