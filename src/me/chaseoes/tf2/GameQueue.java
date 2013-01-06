@@ -49,17 +49,21 @@ public class GameQueue {
     }
 
     public void check() {
-        ArrayList<String> playersInQueue = new ArrayList<String>(queue);
-        for (String p : playersInQueue) {
-            Player player = TF2.getInstance().getServer().getPlayer(p);
-            if (player != null) {
-                if (gameHasRoom()) {
-                    game.joinGame(GameUtilities.getUtilities().getGamePlayer(player), game.decideTeam());
+        TF2.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(TF2.getInstance(), new Runnable() {
+            public void run() {
+                ArrayList<String> playersInQueue = new ArrayList<String>(queue);
+                for (String p : playersInQueue) {
+                    Player player = TF2.getInstance().getServer().getPlayer(p);
+                    if (player != null) {
+                        if (gameHasRoom()) {
+                            game.joinGame(GameUtilities.getUtilities().getGamePlayer(player), game.decideTeam());
+                        }
+                    } else {
+                        queue.remove(p);
+                    }
                 }
-            } else {
-                queue.remove(p);
             }
-        }
+        }, 5L);
     }
 
 }
