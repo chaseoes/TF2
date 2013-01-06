@@ -16,7 +16,7 @@ public class EntityShootBowListener implements Listener {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
             GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(player);
-            if (gp.getGame().getStatus() != GameStatus.INGAME || gp.isInLobby()) {
+            if (gp.isIngame() && (gp.getGame().getStatus() != GameStatus.INGAME || gp.isInLobby())) {
                 event.setCancelled(true);
                 return;
             }
