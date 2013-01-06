@@ -2,7 +2,6 @@ package me.chaseoes.tf2.commands;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import me.chaseoes.tf2.*;
