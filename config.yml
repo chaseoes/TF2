@@ -10,6 +10,7 @@ potion-effects-after-start: true
 gamemode: adventure
 debug: false
 broadcast-winning-team: true
+prevent-block-breaking: true
 killsound:
   sound: CAT_HIT
   volume: 20

@@ -3,6 +3,7 @@ package me.chaseoes.tf2.listeners;
 import java.util.List;
 
 import me.chaseoes.tf2.DataConfiguration;
+import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
@@ -26,6 +27,14 @@ public class BlockBreakListener implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         Block b = event.getBlock();
         Player player = event.getPlayer();
+        
+        if (GameUtilities.getUtilities().getGamePlayer(event.getPlayer()).isIngame()) {
+            if (TF2.getInstance().getConfig().getBoolean("prevent-block-breaking") && !player.hasPermission("tf2.create")) {
+                event.setCancelled(true);
+                return;
+            }
+        }
+        
         if ((b.getType() == Material.STONE_BUTTON || b.getType() == Material.WOOD_BUTTON) && player.hasPermission("tf2.create")) {
             for (String s : DataConfiguration.getData().getDataFile().getStringList("classbuttons")) {
                 if (ClassUtilities.getUtilities().loadClassButtonLocation(s).toString().equalsIgnoreCase(b.getLocation().toString())) {
