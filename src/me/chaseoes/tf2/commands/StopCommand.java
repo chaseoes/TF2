@@ -1,9 +1,6 @@
 package me.chaseoes.tf2.commands;
 
-import me.chaseoes.tf2.Game;
-import me.chaseoes.tf2.GameStatus;
-import me.chaseoes.tf2.GameUtilities;
-import me.chaseoes.tf2.TF2;
+import me.chaseoes.tf2.*;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -32,7 +29,15 @@ public class StopCommand {
         if (strings.length == 1) {
             Game game = GameUtilities.getUtilities().getGamePlayer((Player) cs).getGame();
             if (game == null) {
-                cs.sendMessage(ChatColor.YELLOW + "[TF2] You are not in a game.");
+                for (Map map : TF2.getInstance().getMaps()) {
+                    Game gm = GameUtilities.getUtilities().getGame(map);
+                    if (gm.getStatus() == GameStatus.DISABLED) {
+                        continue;
+                    } else if (gm.getStatus() != GameStatus.WAITING) {
+                        game.stopMatch(false);
+                    }
+                }
+                cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully stopped all running games.");
             } else if (game.getStatus() == GameStatus.INGAME|| game.getStatus() == GameStatus.STARTING) {
                 game.stopMatch(false);
                 cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully stopped the game.");
