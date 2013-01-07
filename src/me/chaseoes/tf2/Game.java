@@ -160,7 +160,7 @@ public class Game {
                 int points_captured = gp.getPointsCaptured();
                 int time_ingame = gp.getTotalTimeIngame();
                 int arrows_fired = gp.getArrowsFired();
-                sc.addStatsFromGame(gp.getKills(), highest_killstreak, points_captured, gp.getTeam(), time_ingame, team, arrows_fired, gp.getDeaths());
+                sc.addStatsFromGame(gp.getTotalKills(), highest_killstreak, points_captured, gp.getTeam(), time_ingame, team, arrows_fired, gp.getDeaths());
                 sc.submit();
             }
         }
