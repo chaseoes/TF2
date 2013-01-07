@@ -214,7 +214,7 @@ public class Game {
             }
         }
 
-        if (full && player.getPlayer().hasPermission("tf2.create")) {
+        if (!full && player.getPlayer().hasPermission("tf2.create")) {
             player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You have joined the full map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + "" + ChatColor.YELLOW + "!");
         } else {
             player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You joined the map " + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
