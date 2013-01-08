@@ -40,7 +40,6 @@ public class StatCollector {
                     while (rs.next()) {
                         loaded = true;
                         kills = Integer.parseInt(rs.getString("kills"));
-                        System.out.println("Loaded kills: " + rs.getString("kills"));
                         highest_killstreak = Integer.parseInt(rs.getString("highest_killstreak"));
                         points_captured = Integer.parseInt(rs.getString("points_captured"));
                         games_played = Integer.parseInt(rs.getString("games_played"));
@@ -50,7 +49,6 @@ public class StatCollector {
                         games_won = Integer.parseInt(rs.getString("games_won"));
                         arrows_fired = Integer.parseInt(rs.getString("arrows_fired"));
                         deaths = Integer.parseInt(rs.getString("deaths"));
-                        System.out.println(rs.next());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -65,7 +63,6 @@ public class StatCollector {
 
     public void addStatsFromGame(int k, int h_k, int pc, Team team, int time, Team winningTeam, int af, int death) {
         kills = kills + k;
-        System.out.println("Set kills: " + kills);
 
         if (h_k > highest_killstreak) {
             highest_killstreak = h_k;
