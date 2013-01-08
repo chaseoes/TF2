@@ -33,7 +33,7 @@ public class SQLUtilities {
                 String username = p.getConfig().getString("stats-database.username");
                 String password = p.getConfig().getString("stats-database.password");
                 String url = "jdbc:mysql://" + p.getConfig().getString("stats-database.hostname") + ":" + p.getConfig().getInt("stats-database.port") + "/" + p.getConfig().getString("stats-database.database_name");
-                
+
                 try {
                     conn = DriverManager.getConnection(url, username, password);
                     Statement st = conn.createStatement();

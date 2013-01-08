@@ -34,7 +34,7 @@ public class StopCommand {
                     if (gm.getStatus() == GameStatus.DISABLED) {
                         continue;
                     } else if (gm.getStatus() != GameStatus.WAITING) {
-                        game.stopMatch(false);
+                        gm.stopMatch(false);
                     }
                 }
                 cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully stopped all running games.");

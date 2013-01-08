@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 public class StatCollector {
 
     String player;
+    boolean loaded;
 
     int kills = 0;
     int highest_killstreak = 0;
@@ -32,7 +33,7 @@ public class StatCollector {
             @Override
             public void run() {
                 ResultSet rs = SQLUtilities.getUtilities().getResultSet("SELECT * FROM players WHERE username='" + player + "'");
-                boolean loaded = false;
+                loaded = false;
                 if (rs == null) {
                     return;
                 }
@@ -91,7 +92,7 @@ public class StatCollector {
             @Override
             public void run() {
                 ResultSet rs = SQLUtilities.getUtilities().getResultSet("SELECT * FROM players WHERE username='" + player + "'");
-                if (rs == null) {
+                if (rs == null || !loaded) {
                     return;
                 }
                 try {
