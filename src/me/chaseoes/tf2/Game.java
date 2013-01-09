@@ -120,7 +120,7 @@ public class Game {
         }, map.getRedTeamTeleportTime() * 20L);
     }
 
-    public void stopMatch(boolean queueCheck) {
+    public void stopMatch(boolean queueCheck) { //TODO: This may make players in queue join on a disabled match
         setStatus(GameStatus.WAITING);
         Schedulers.getSchedulers().stopRedTeamCountdown(map.getName());
         Schedulers.getSchedulers().stopTimeLimitCounter(map.getName());

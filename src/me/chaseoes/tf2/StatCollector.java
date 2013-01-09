@@ -27,9 +27,8 @@ public class StatCollector {
         load();
     }
 
-    @SuppressWarnings("deprecation")
     public void load() {
-        TF2.getInstance().getServer().getScheduler().scheduleAsyncDelayedTask(TF2.getInstance(), new Runnable() {
+        TF2.getInstance().getServer().getScheduler().runTaskLaterAsynchronously(TF2.getInstance(), new Runnable() {
             @Override
             public void run() {
                 ResultSet rs = SQLUtilities.getUtilities().getResultSet("SELECT * FROM players WHERE username='" + player + "'");
@@ -86,9 +85,8 @@ public class StatCollector {
         deaths = deaths + death;
     }
 
-    @SuppressWarnings("deprecation")
     public void submit() {
-        TF2.getInstance().getServer().getScheduler().scheduleAsyncDelayedTask(TF2.getInstance(), new Runnable() {
+        TF2.getInstance().getServer().getScheduler().runTaskAsynchronously(TF2.getInstance(), new Runnable() {
             @Override
             public void run() {
                 ResultSet rs = SQLUtilities.getUtilities().getResultSet("SELECT * FROM players WHERE username='" + player + "'");
@@ -113,7 +111,7 @@ public class StatCollector {
                     e.printStackTrace();
                 }
             }
-        }, 0L);
+        });
     }
 
 }

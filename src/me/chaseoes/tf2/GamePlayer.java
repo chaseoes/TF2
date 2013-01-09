@@ -154,7 +154,6 @@ public class GamePlayer {
     public void leaveCurrentGame() {
         Game game = getGame();
         game.map.getQueue().remove(player);
-        if (game != null) {
             TF2Class c = new TF2Class("NONE");
             c.clearInventory(player);
             loadInventory();
@@ -165,8 +164,6 @@ public class GamePlayer {
             if (game.playersInGame.size() == 0) {
                 game.stopMatch(true);
             }
-        }
-
         player.teleport(MapUtilities.getUtilities().loadLobby());
         TagAPI.refreshPlayer(player);
         game.map.getQueue().check();

@@ -29,9 +29,8 @@ public class UpdateChecker {
         player.sendMessage(ChatColor.RED + "http://dev.bukkit.org/server-mods/team-fortress-2/");
     }
 
-    @SuppressWarnings("deprecation")
     public void startTask() {
-        plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
+        plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, new Runnable() {
             @Override
             public void run() {
                 checkForUpdate();

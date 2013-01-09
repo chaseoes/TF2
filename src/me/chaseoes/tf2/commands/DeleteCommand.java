@@ -8,7 +8,6 @@ import org.bukkit.command.CommandSender;
 
 public class DeleteCommand {
 
-    @SuppressWarnings("unused")
     private TF2 plugin;
     static DeleteCommand instance = new DeleteCommand();
 
@@ -28,11 +27,11 @@ public class DeleteCommand {
         CommandHelper h = new CommandHelper(cs, cmnd);
         if (strings[1].equalsIgnoreCase("map")) {
             if (strings.length == 3) {
-                if (!TF2.getInstance().mapExists(strings[2])) {
+                if (!plugin.mapExists(strings[2])) {
                     cs.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + strings[2] + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");
                     return;
                 }
-                TF2.getInstance().removeMap(strings[2]);
+                plugin.removeMap(strings[2]);
                 cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully deleted the map " + strings[2] + ".");
 
             } else {

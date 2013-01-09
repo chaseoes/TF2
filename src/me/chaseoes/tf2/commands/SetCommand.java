@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 
 public class SetCommand {
 
-    @SuppressWarnings("unused")
     private TF2 plugin;
     static SetCommand instance = new SetCommand();
 
@@ -38,12 +37,12 @@ public class SetCommand {
                     cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully set the global lobby.");
                 } else {
                     final String map = strings[2];
-                    if (!TF2.getInstance().mapExists(map)) {
+                    if (!plugin.mapExists(map)) {
                         cs.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + map + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");
                         return;
                     }
-                    TF2.getInstance().usingSetSpawnMenu.put(cs.getName(), map);
-                    IconMenu menu = TF2.getInstance().setSpawnMenu;
+                    plugin.usingSetSpawnMenu.put(cs.getName(), map);
+                    IconMenu menu = plugin.setSpawnMenu;
                     menu.open((Player) cs);
                 }
             } else {
@@ -52,7 +51,7 @@ public class SetCommand {
         } else if (strings[1].equalsIgnoreCase("playerlimit")) {
             if (strings.length == 4) {
                 if (Integer.parseInt(strings[3]) % 2 == 0) {
-                    if (!TF2.getInstance().mapExists(strings[2])) {
+                    if (!plugin.mapExists(strings[2])) {
                         cs.sendMessage(ChatColor.YELLOW + "[TF2] " + strings[2] + " is not a valid map.");
                         return;
                     }
@@ -66,7 +65,7 @@ public class SetCommand {
             }
         } else if (strings[1].equalsIgnoreCase("capturepoint")) {
             if (strings.length == 4) {
-                if (!TF2.getInstance().mapExists(strings[2])) {
+                if (!plugin.mapExists(strings[2])) {
                     cs.sendMessage(ChatColor.YELLOW + "[TF2] " + strings[2] + " is not a valid map.");
                     return;
                 }
@@ -77,7 +76,7 @@ public class SetCommand {
             }
         } else if (strings[1].equalsIgnoreCase("timelimit")) {
             if (strings.length == 4) {
-                if (!TF2.getInstance().mapExists(strings[2])) {
+                if (!plugin.mapExists(strings[2])) {
                     cs.sendMessage(ChatColor.YELLOW + "[TF2] " + strings[2] + " is not a valid map.");
                     return;
                 }

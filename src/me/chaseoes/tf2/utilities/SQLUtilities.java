@@ -24,10 +24,9 @@ public class SQLUtilities {
         return instance;
     }
 
-    @SuppressWarnings("deprecation")
     public void setup(TF2 p) {
         plugin = p;
-        plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
+        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, new Runnable() {
             public void run() {
                 final TF2 p = plugin;
                 String username = p.getConfig().getString("stats-database.username");
@@ -46,7 +45,7 @@ public class SQLUtilities {
                     plugin.getServer().getPluginManager().disablePlugin(plugin);
                 }
             }
-        }, 0L);
+        });
     }
 
     public ResultSet getResultSet(String statement) {

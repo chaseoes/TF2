@@ -15,7 +15,7 @@ public class SerializableInventory {
         for (int i = 0; i < invInventory.getSize(); i++) {
             ItemStack is = invInventory.getItem(i);
             if (is != null) {
-                String serializedItemStack = new String();
+                String serializedItemStack = "";
 
                 String isType = String.valueOf(is.getType().getId());
                 serializedItemStack += "t@" + isType;

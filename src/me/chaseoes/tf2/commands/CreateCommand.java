@@ -17,7 +17,6 @@ import com.sk89q.worldedit.EmptyClipboardException;
 
 public class CreateCommand {
 
-    @SuppressWarnings("unused")
     private TF2 plugin;
     static CreateCommand instance = new CreateCommand();
 
@@ -39,7 +38,7 @@ public class CreateCommand {
             if (strings.length == 3) {
                 Player p = (Player) cs;
                 String map = strings[2];
-                if (TF2.getInstance().mapExists(map)) {
+                if (plugin.mapExists(map)) {
                     cs.sendMessage(ChatColor.YELLOW + "[TF2] The map " + ChatColor.ITALIC + map + ChatColor.RESET + ChatColor.YELLOW + " already exists.");
                     return;
                 }
@@ -91,7 +90,7 @@ public class CreateCommand {
                 Player p = (Player) cs;
                 GameUtilities.getUtilities().getGamePlayer(p).setCreatingContainer(true);
                 String map = strings[2];
-                if (!TF2.getInstance().mapExists(map)) {
+                if (!plugin.mapExists(map)) {
                     p.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + map + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");
                     return;
                 }
