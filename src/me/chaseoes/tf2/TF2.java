@@ -87,6 +87,7 @@ public class TF2 extends JavaPlugin {
         getCommand("tf2").setExecutor(new CommandManager());
         getConfig().options().copyDefaults(true);
         saveConfig();
+        DataConfiguration.getData().reloadData();
         Schedulers.getSchedulers().startAFKChecker();
 
         for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
