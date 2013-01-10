@@ -23,7 +23,11 @@ public class EntityDamageListener implements Listener {
             if (gp.isIngame() && !gp.isDead() && event.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
                 if (gp.getGame().getStatus() == GameStatus.INGAME && !gp.isInLobby()) {
                     if (gp.getPlayer().getHealth() - event.getDamage() <= 0) {
-                        TF2.getInstance().getServer().getPluginManager().callEvent(new TF2DeathEvent(gp.getPlayer(), gp.getPlayerLastDamagedBy().getPlayer()));
+                        if (gp.getPlayerLastDamagedBy() == null) {
+                            TF2.getInstance().getServer().getPluginManager().callEvent(new TF2DeathEvent(gp.getPlayer(), gp.getPlayer()));
+                        } else {
+                            TF2.getInstance().getServer().getPluginManager().callEvent(new TF2DeathEvent(gp.getPlayer(), gp.getPlayerLastDamagedBy().getPlayer()));
+                        }
                         gp.setIsDead(true);
                         event.setCancelled(true);
                         return;
