@@ -27,14 +27,14 @@ public class BlockBreakListener implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         Block b = event.getBlock();
         Player player = event.getPlayer();
-        
+
         if (GameUtilities.getUtilities().getGamePlayer(event.getPlayer()).isIngame()) {
             if (TF2.getInstance().getConfig().getBoolean("prevent-block-breaking") && !player.hasPermission("tf2.create")) {
                 event.setCancelled(true);
                 return;
             }
         }
-        
+
         if ((b.getType() == Material.STONE_BUTTON || b.getType() == Material.WOOD_BUTTON) && player.hasPermission("tf2.create")) {
             for (String s : DataConfiguration.getData().getDataFile().getStringList("classbuttons")) {
                 if (ClassUtilities.getUtilities().loadClassButtonLocation(s).toString().equalsIgnoreCase(b.getLocation().toString())) {
@@ -95,15 +95,15 @@ public class BlockBreakListener implements Listener {
         }
 
         if (b.getState() instanceof InventoryHolder) {
-            if (player.hasPermission("tf2.create")) {
-                for (Map map : TF2.getInstance().getMaps()) {
-                    if (map.isContainerRegistered(b.getLocation())) {
+            for (Map map : TF2.getInstance().getMaps()) {
+                if (map.isContainerRegistered(b.getLocation())) {
+                    if (player.hasPermission("tf2.create")) {
                         map.removeContainer(b.getLocation());
                         player.sendMessage(ChatColor.YELLOW + "[TF2] Successfully removed container.");
+                    } else {
+                        event.setCancelled(true);
                     }
                 }
-            } else {
-                event.setCancelled(true);
             }
         }
     }

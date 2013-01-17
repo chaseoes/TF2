@@ -112,6 +112,7 @@ public class Map {
                 containers.add(new Container(loc, inv, this));
             }
         }
+        saveConfig();
     }
 
     public void destroy() {

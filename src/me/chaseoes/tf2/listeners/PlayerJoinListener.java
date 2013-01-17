@@ -18,7 +18,7 @@ public class PlayerJoinListener implements Listener {
         final Player player = event.getPlayer();
 
         for (Map m : TF2.getInstance().getMaps()) {
-            if (WorldEditUtilities.getWEUtilities().isInMap(player.getLocation(), m)) {
+            if (m.getP1() != null && m.getP2() != null && WorldEditUtilities.getWEUtilities().isInMap(player.getLocation(), m)) {
                 if (!player.hasPermission("tf2.create")) {
                     player.teleport(MapUtilities.getUtilities().loadLobby());
                 }

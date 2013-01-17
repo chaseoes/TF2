@@ -64,15 +64,19 @@ public class DebugCommand {
         File data = new File(plugin.getDataFolder() + "/data.yml").getAbsoluteFile();
         try {
             String confi = new Scanner(config).useDelimiter("\\A").next();
+            confi = confi.replaceFirst("(password:)(\\s*)(\\S+)", "PASSWORD CENSORED");
+            confi = confi.replaceFirst("(username:)(\\s*)(\\S+)", "USERNAME CENSORED");
             String df = new Scanner(data).useDelimiter("\\A").next();
             info.append(confi);
             info.append("\n====== DATA CONFIGURATION ======\n");
             info.append(df);
             for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
-                File mf = new File(plugin.getDataFolder() + "/" + map + ".yml").getAbsoluteFile();
-                String mapfile = new Scanner(mf).useDelimiter("\\A").next();
-                info.append("\n====== ").append(map).append(" MAP CONFIGURATION ======\n");
-                info.append(mapfile);
+                try {
+                    File mf = new File(plugin.getDataFolder() + "/" + map + ".yml").getAbsoluteFile();
+                    String mapfile = new Scanner(mf).useDelimiter("\\A").next();
+                    info.append("\n====== ").append(map).append(" MAP CONFIGURATION ======\n");
+                    info.append(mapfile);
+                } catch (Exception e) { }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
