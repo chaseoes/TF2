@@ -1,3 +1,8 @@
+v2.0.1
+Fix npe on player login with maps without a region defined
+Censor mysql details in /tf2 debug
+Fix players not being able to break non tf2 container containers
+
 v2.0
 Class system overhauled - changing classes is now more efficient, less buggy, and contains better error handling.
 Game handling improved, refactored most game specific methods. Games now run smoother.
