@@ -1,0 +1,12 @@
+TELEPORT-AFTER-CHOOSE-CLASS: You will be teleported after you choose a class.
+GAME-END: The game has ended.
+RED-TEAM: Red Team
+BLUE-TEAM: Blue Team
+WINS: Wins!
+RED: red
+BLUE: blue
+GAME-WIN: The %team team has won on the map %map!
+IN-LINE: You are #%position in line for this map.
+JOIN-FULL-MAP: You have joined the full map %map!
+JOIN-MAP: You have joined the map %map!
+PERCENT-JOIN: The game will start when %percent% of players have joined.

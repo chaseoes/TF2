@@ -42,6 +42,7 @@ import me.chaseoes.tf2.listeners.TF2DeathListener;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.lobbywall.LobbyWallUtilities;
 import me.chaseoes.tf2.utilities.IconMenu;
+import me.chaseoes.tf2.utilities.Localizer;
 import me.chaseoes.tf2.utilities.MetricsLite;
 import me.chaseoes.tf2.utilities.SQLUtilities;
 import me.chaseoes.tf2.utilities.SerializableLocation;
@@ -88,6 +89,8 @@ public class TF2 extends JavaPlugin {
         getConfig().options().copyDefaults(true);
         saveConfig();
         DataConfiguration.getData().reloadData();
+        MessagesFile.getMessages().getMessagesFile().options().copyDefaults(true);
+        MessagesFile.getMessages().saveMessages();
         Schedulers.getSchedulers().startAFKChecker();
 
         for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
@@ -140,12 +143,15 @@ public class TF2 extends JavaPlugin {
         if (getConfig().getBoolean("stats-database.enabled")) {
             SQLUtilities.getUtilities().setup(this);
         }
+        
     }
 
     @Override
     public void onDisable() {
         reloadConfig();
         saveConfig();
+        MessagesFile.getMessages().reloadMessages();
+        MessagesFile.getMessages().saveMessages();
         for (Map map : MapUtilities.getUtilities().getMaps()) {
             if (GameUtilities.getUtilities().getGame(map).getStatus() != GameStatus.WAITING && GameUtilities.getUtilities().getGame(map).getStatus() != GameStatus.DISABLED) {
                 GameUtilities.getUtilities().getGame(map).stopMatch(false);
@@ -181,6 +187,8 @@ public class TF2 extends JavaPlugin {
         StartCommand.getCommand().setup(this);
         StopCommand.getCommand().setup(this);
         SerializableLocation.getUtilities().setup(this);
+        MessagesFile.getMessages().setup(this);
+        Localizer.getLocalizer().setup(this);
 
         // Register Events
         PluginManager pm = getServer().getPluginManager();

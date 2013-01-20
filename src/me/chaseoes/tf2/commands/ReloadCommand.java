@@ -3,6 +3,7 @@ package me.chaseoes.tf2.commands;
 import me.chaseoes.tf2.DataConfiguration;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.MapUtilities;
+import me.chaseoes.tf2.MessagesFile;
 import me.chaseoes.tf2.TF2;
 
 import org.bukkit.ChatColor;
@@ -32,6 +33,8 @@ public class ReloadCommand {
         GameUtilities.getUtilities().plugin.saveConfig();
         DataConfiguration.getData().reloadData();
         DataConfiguration.getData().reloadData();
+        MessagesFile.getMessages().reloadMessages();
+        MessagesFile.getMessages().saveMessages();
         for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
             TF2.getInstance().getMap(map).load();
         }

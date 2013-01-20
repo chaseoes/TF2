@@ -10,6 +10,7 @@ import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.commands.SpectateCommand;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.utilities.Container;
+import me.chaseoes.tf2.utilities.Localizer;
 import me.chaseoes.tf2.utilities.WorldEditUtilities;
 
 import org.bukkit.ChatColor;
@@ -91,7 +92,7 @@ public class Game {
                     gp.setUsingChangeClassButton(false);
                 } else {
                     gp.setUsingChangeClassButton(true);
-                    player.sendMessage(ChatColor.YELLOW + "[TF2] You will be teleported when you choose a class.");
+                    player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("TELEPORT-AFTER-CHOOSE-CLASS"));
                 }
             }
         }
@@ -109,7 +110,7 @@ public class Game {
                             gp.setUsingChangeClassButton(false);
                         } else {
                             gp.setUsingChangeClassButton(true);
-                            player.sendMessage(ChatColor.YELLOW + "[TF2] You will be teleported when you choose a class.");
+                            player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("TELEPORT-AFTER-CHOOSE-CLASS"));
                         }
                     }
                 }
@@ -148,7 +149,7 @@ public class Game {
         playersInGame.clear();
         for (GamePlayer gp : hmap.values()) {
             gp.leaveCurrentGame();
-            gp.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] The game has ended.");
+            gp.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("GAME-END"));
         }
     }
 
@@ -167,18 +168,18 @@ public class Game {
 
         String[] winlines = new String[4];
         winlines[0] = " ";
-        winlines[1] = "" + ChatColor.DARK_RED + ChatColor.BOLD + "Red Team";
+        winlines[1] = "" + ChatColor.DARK_RED + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("RED-TEAM");
 
         if (team == Team.BLUE) {
-            winlines[1] = ChatColor.BLUE + "" + ChatColor.BOLD + "Blue Team";
+            winlines[1] = ChatColor.BLUE + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("BLUE-TEAM");
         }
 
-        winlines[2] = ChatColor.GREEN + "" + ChatColor.BOLD + "Wins!";
+        winlines[2] = ChatColor.GREEN + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("WINS");
         winlines[3] = " ";
-        String te = " " + ChatColor.DARK_RED + "" + ChatColor.BOLD + "red " + ChatColor.RESET + ChatColor.YELLOW;
+        String te = " " + ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("RED") + "" + ChatColor.RESET + ChatColor.YELLOW;
 
         if (team == Team.BLUE) {
-            te = " " + ChatColor.BLUE + "" + ChatColor.BOLD + "blue " + ChatColor.RESET + ChatColor.YELLOW;
+            te = " " + ChatColor.BLUE + "" + ChatColor.BOLD + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("BLUE") + "" + ChatColor.RESET + ChatColor.YELLOW;
         }
 
         LobbyWall.getWall().setAllLines(map.getName(), null, winlines, false, true);
@@ -197,7 +198,7 @@ public class Game {
 
         CapturePointUtilities.getUtilities().uncaptureAll(map);
         if (TF2.getInstance().getConfig().getBoolean("broadcast-winning-team")) {
-            plugin.getServer().broadcastMessage(ChatColor.YELLOW + "The" + te + "team has won on the map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
+            plugin.getServer().broadcastMessage(ChatColor.YELLOW + "" + (ChatColor.BOLD + Localizer.getLocalizer().loadMessage("GAME-WIN").replace("%team", te).replace("%map", ChatColor.BOLD + map.getName() + ChatColor.RESET + "" + ChatColor.YELLOW)));
         }
         stopMatch(true);
     }
@@ -209,15 +210,16 @@ public class Game {
         if (!q.gameHasRoom()) {
             if (!player.getPlayer().hasPermission("tf2.create")) {
                 q.add(player.getPlayer());
-                player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You are #" + (q.getPosition(player.getPlayer()) + 1) + " in line for this map.");
+                player.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("IN-LINE").replace("%position", (q.getPosition(player.getPlayer()) + 1)  + ""));
                 return;
             }
         }
 
         if (!full && player.getPlayer().hasPermission("tf2.create")) {
             player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You have joined the full map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + "" + ChatColor.YELLOW + "!");
+            player.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("JOIN-FULL-MAP").replace("%map", ChatColor.BOLD + map.getName() + ChatColor.RESET + "" + ChatColor.YELLOW));
         } else {
-            player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You joined the map " + map.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
+            player.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("JOIN-MAP").replace("%map", ChatColor.BOLD + map.getName() + ChatColor.RESET + "" + ChatColor.YELLOW));
         }
 
         for (Game g : GameUtilities.getUtilities().games.values()) {
@@ -261,7 +263,7 @@ public class Game {
         }
 
         if (getStatus() == GameStatus.WAITING) {
-            player.getPlayer().sendMessage(ChatColor.YELLOW + "The game will start when " + plugin.getConfig().getInt("autostart-percent") + "% of players have joined.");
+            player.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PERCENT-JOIN").replace("%percent", plugin.getConfig().getInt("autostart-percent") + ""));
         } else if (getStatus() == GameStatus.INGAME) {
             switch (player.getTeam()) {
                 case RED:
