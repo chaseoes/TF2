@@ -108,7 +108,7 @@ public class PlayerInteractListener implements Listener {
                                 }
                                 return;
                             }
-                            event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] " + GeneralUtilities.colorize(GameUtilities.getUtilities().plugin.getConfig().getString("donor-button-noperm")));
+                            event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] " + GeneralUtilities.colorize(TF2.getInstance().getConfig().getString("donor-button-noperm")));
                         }
                     }
 

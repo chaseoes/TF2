@@ -30,7 +30,7 @@ public class ReloadCommand {
     public void execReloadCommand(CommandSender cs, String[] strings, Command cmnd) {
         plugin.reloadConfig();
         plugin.saveConfig();
-        GameUtilities.getUtilities().plugin.saveConfig();
+        TF2.getInstance().saveConfig();
         DataConfiguration.getData().reloadData();
         DataConfiguration.getData().reloadData();
         MessagesFile.getMessages().reloadMessages();

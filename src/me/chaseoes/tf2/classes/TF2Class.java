@@ -143,7 +143,7 @@ public class TF2Class {
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
-                GameUtilities.getUtilities().plugin.getLogger().log(Level.SEVERE, "The error encountered while changing a player's class is above! Note that TF2 v2.0 has a new format for defining items - click here to view the new default configuration: http://goo.gl/LdKKR");
+                TF2.getInstance().getLogger().log(Level.SEVERE, "The error encountered while changing a player's class is above! Note that TF2 v2.0 has a new format for defining items - click here to view the new default configuration: http://goo.gl/LdKKR");
                 player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.DARK_RED + "An error occoured while changing your class. Notify the administrator to check their server log for the error.");
                 clearInventory(player.getPlayer());
                 return false;

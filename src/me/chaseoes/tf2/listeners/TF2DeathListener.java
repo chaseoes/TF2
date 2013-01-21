@@ -19,7 +19,7 @@ public class TF2DeathListener implements Listener {
 
     @EventHandler
     public void onDeath(final TF2DeathEvent event) {
-        GameUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncDelayedTask(GameUtilities.getUtilities().plugin, new Runnable() {
+        TF2.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(TF2.getInstance(), new Runnable() {
             @Override
             public void run() {
                 final Player player = event.getPlayer();
@@ -33,9 +33,9 @@ public class TF2DeathListener implements Listener {
                 player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), playerg.getTeam()));
                 player.sendMessage(ChatColor.YELLOW + "[TF2] You were killed by " + killerg.getTeamColor() + killer.getName() + " " + ChatColor.RESET + ChatColor.YELLOW + "(" + killerg.getCurrentClass().getName() + ")!");
                 killer.sendMessage(ChatColor.YELLOW + "[TF2] You killed " + playerg.getTeamColor() + player.getName() + " " + ChatColor.RESET + ChatColor.YELLOW + "(" + playerg.getCurrentClass().getName() + ")!");
-                killer.playSound(killer.getLocation(), Sound.valueOf(GameUtilities.getUtilities().plugin.getConfig().getString("killsound.sound")), GameUtilities.getUtilities().plugin.getConfig().getInt("killsound.volume"), GameUtilities.getUtilities().plugin.getConfig().getInt("killsound.pitch"));
+                killer.playSound(killer.getLocation(), Sound.valueOf(TF2.getInstance().getConfig().getString("killsound.sound")), TF2.getInstance().getConfig().getInt("killsound.volume"), TF2.getInstance().getConfig().getInt("killsound.pitch"));
 
-                GameUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncDelayedTask(GameUtilities.getUtilities().plugin, new Runnable() {
+                TF2.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(TF2.getInstance(), new Runnable() {
                     @Override
                     public void run() {
                         playerg.setJustSpawned(false);
@@ -54,7 +54,7 @@ public class TF2DeathListener implements Listener {
                 killerg.setKills(-1);
                 
                 int kills = killerg.getKills();
-                if (kills % GameUtilities.getUtilities().plugin.getConfig().getInt("killstreaks") == 0) {
+                if (kills % TF2.getInstance().getConfig().getInt("killstreaks") == 0) {
                     game.broadcast(ChatColor.YELLOW + "[TF2] " + playerg.getTeamColor() + killer.getName() + " " + ChatColor.RESET + ChatColor.YELLOW + "is on a " + ChatColor.DARK_RED + ChatColor.BOLD + "" + kills + " " + ChatColor.RESET + ChatColor.YELLOW + "kill streak!");
                 }
 
