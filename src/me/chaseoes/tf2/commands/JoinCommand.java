@@ -3,10 +3,12 @@ package me.chaseoes.tf2.commands;
 import me.chaseoes.tf2.*;
 import me.chaseoes.tf2.utilities.DataChecker;
 
+import me.chaseoes.tf2.utilities.Localizer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.omg.PortableInterceptor.LOCATION_FORWARD;
 
 public class JoinCommand {
 
@@ -31,21 +33,21 @@ public class JoinCommand {
         GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(player);
         if (strings.length == 1) {
             if (gp.isIngame()) {
-                player.sendMessage(ChatColor.YELLOW + "[TF2] You are already playing on a map!");
+                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-ALREADY-PLAYING"));
                 return;
             }
             if (globalLobbySet()) {
                 player.teleport(MapUtilities.getUtilities().loadLobby());
-                player.sendMessage(ChatColor.YELLOW + "[TF2] Teleported to the TF2 lobby.");
+                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-TELEPORT-GLOBAL-LOBBY"));
             } else {
-                player.sendMessage(ChatColor.YELLOW + "[TF2] The global lobby hasn't been set.");
+                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("GLOBAL-LOBBY-NOT-SET"));
             }
             return;
         }
         if (strings.length == 2 || strings.length == 3) {
             String map = strings[1];
             if (!TF2.getInstance().mapExists(map)) {
-                cs.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + map + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");
+                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", map));
                 return;
             }
             Game game = GameUtilities.getUtilities().getGame(plugin.getMap(map));
@@ -61,42 +63,42 @@ public class JoinCommand {
 
             DataChecker dc = new DataChecker(map);
             if (!dc.allGood()) {
-                player.sendMessage(ChatColor.YELLOW + "[TF2] This map has not yet been setup.");
+                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-NOT-SETUP"));
                 if (player.hasPermission("tf2.create")) {
-                    player.sendMessage(ChatColor.YELLOW + "[TF2] Type " + ChatColor.GOLD + "/tf2 checkdata " + map + " " + ChatColor.YELLOW + "to see what else needs to be done.");
+                    player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-NOT-SETUP-COMMAND-HELP").replace("%map", map));
                 }
                 return;
             }
 
             if (gp.isIngame()) {
-                player.sendMessage(ChatColor.YELLOW + "[TF2] You are already playing on a map!");
+                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-ALREADY-PLAYING"));
                 return;
             }
 
             if (SpectateCommand.getCommand().isSpectating(player)) {
-                player.sendMessage(ChatColor.YELLOW + "[TF2] You are already spectating a game.");
+                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-ALREADY-SPECTATING"));
                 return;
             }
 
             if (DataConfiguration.getData().getDataFile().getStringList("disabled-maps").contains(map)) {
-                player.sendMessage(ChatColor.YELLOW + "[TF2] That map is disabled.");
+                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-INFO-DISABLED"));
                 return;
             }
 
             if ((game.getPlayersIngame().size() >= TF2.getInstance().getMap(map).getPlayerlimit() && !(strings.length == 3)) && !player.hasPermission("tf2.create")) {
-                player.sendMessage(ChatColor.YELLOW + "[TF2] That map is currently full.");
+                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-INFO-FULL"));
                 return;
             }
 
             if (game.getSizeOfTeam(team) >= TF2.getInstance().getMap(map).getPlayerlimit() / 2 && player.hasPermission("tf2.create")) {
-                player.sendMessage(ChatColor.YELLOW + "[TF2] That team is currently full.");
+                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-INFO-TEAM-FULL"));
                 return;
             }
 
             game.joinGame(GameUtilities.getUtilities().getGamePlayer(player), team);
 
             if (game.getPlayersIngame().size() >= TF2.getInstance().getMap(map).getPlayerlimit()) {
-                player.sendMessage(ChatColor.YELLOW + "[TF2] You have joined a full map.");
+                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-JOIN-FULL-MAP"));
             }
 
         } else {

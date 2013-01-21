@@ -6,6 +6,7 @@ import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.MessagesFile;
 import me.chaseoes.tf2.TF2;
 
+import me.chaseoes.tf2.utilities.Localizer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -38,7 +39,7 @@ public class ReloadCommand {
         for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
             TF2.getInstance().getMap(map).load();
         }
-        cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully reloaded the configuration.");
+        cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CONFIG-RELOADED"));
     }
 
 }

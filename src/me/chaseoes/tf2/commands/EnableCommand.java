@@ -8,6 +8,7 @@ import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 
+import me.chaseoes.tf2.utilities.Localizer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -40,11 +41,11 @@ public class EnableCommand {
                     LobbyWall.getWall().cantUpdate.remove(map.getName());
                 }
             }
-            cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully enabled all disabled maps.");
+            cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-SUCCESSFULLY-ENABLED-ALL"));
         } else if (strings.length == 2) {
             String map = strings[1];
             if (!TF2.getInstance().mapExists(map)) {
-                cs.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + map + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");
+                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", map));
                 return;
             }
             if (GameUtilities.getUtilities().getGame(TF2.getInstance().getMap(map)).getStatus() == GameStatus.DISABLED) {
@@ -52,9 +53,9 @@ public class EnableCommand {
                 Game game = GameUtilities.getUtilities().getGame(plugin.getMap(map));
                 game.setStatus(GameStatus.WAITING);
                 LobbyWall.getWall().cantUpdate.remove(map);
-                cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully enabled " + ChatColor.BOLD + map + ChatColor.RESET + ChatColor.YELLOW + ".");
+                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-SUCCESSFULLY-ENABLED-SINGLE").replace("%map", map));
             } else {
-                cs.sendMessage(ChatColor.YELLOW + "[TF2] The map " + ChatColor.BOLD + map + ChatColor.RESET + ChatColor.YELLOW + " is already enabled.");
+                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-ALREADY-ENABLED").replace("%map", map));
             }
         } else {
             h.wrongArgs();

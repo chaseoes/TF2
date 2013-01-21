@@ -216,10 +216,9 @@ public class Game {
         }
 
         if (!full && player.getPlayer().hasPermission("tf2.create")) {
-            player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You have joined the full map " + ChatColor.BOLD + map.getName() + ChatColor.RESET + "" + ChatColor.YELLOW + "!");
-            player.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("JOIN-FULL-MAP").replace("%map", ChatColor.BOLD + map.getName() + ChatColor.RESET + "" + ChatColor.YELLOW));
+            player.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-JOIN-FULL-MAP").replace("%map", ChatColor.BOLD + map.getName() + ChatColor.RESET + "" + ChatColor.YELLOW));
         } else {
-            player.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("JOIN-MAP").replace("%map", ChatColor.BOLD + map.getName() + ChatColor.RESET + "" + ChatColor.YELLOW));
+            player.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-JOIN-MAP").replace("%map", ChatColor.BOLD + map.getName() + ChatColor.RESET + "" + ChatColor.YELLOW));
         }
 
         for (Game g : GameUtilities.getUtilities().games.values()) {
@@ -360,13 +359,13 @@ public class Game {
     public String getPrettyStatus() {
         GameStatus status = getStatus();
         if (status == GameStatus.INGAME) {
-            return "In-Game";
+            return Localizer.getLocalizer().loadMessage("GAMESTATUS-INGAME");
         } else if (status == GameStatus.STARTING) {
-            return "Starting";
+            return Localizer.getLocalizer().loadMessage("GAMESTATUS-STARTING");
         } else if (status == GameStatus.WAITING) {
-            return "Waiting";
+            return Localizer.getLocalizer().loadMessage("GAMESTATUS-WAITING");
         } else if (status == GameStatus.DISABLED) {
-            return "Disabled";
+            return Localizer.getLocalizer().loadMessage("GAMESTATUS-DISABLED");
         }
         return "ERROR";
     }

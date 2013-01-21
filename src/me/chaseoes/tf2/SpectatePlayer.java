@@ -2,6 +2,7 @@ package me.chaseoes.tf2;
 
 import me.chaseoes.tf2.classes.TF2Class;
 
+import me.chaseoes.tf2.utilities.Localizer;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -71,7 +72,7 @@ public class SpectatePlayer {
             player.setAllowFlight(true);
             player.setFlying(true);
             player.teleport(game.map.getRedSpawn());
-            player.sendMessage(ChatColor.YELLOW + "[TF2] You are now spectating! Players in-game can not see you and you can fly.");
+            player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-NOW-SPECTATING"));
             isSpectating = true;
         } else {
             gameSpectating = null;
@@ -82,7 +83,7 @@ public class SpectatePlayer {
             player.setAllowFlight(false);
             loadInventory();
             player.teleport(MapUtilities.getUtilities().loadLobby());
-            player.sendMessage(ChatColor.YELLOW + "[TF2] You are no longer spectating.");
+            player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-NO-LONGER-SPECTATING"));
             clear();
         }
     }

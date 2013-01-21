@@ -6,6 +6,7 @@ import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.lobbywall.LobbyWallUtilities;
 import me.chaseoes.tf2.utilities.DataChecker;
 
+import me.chaseoes.tf2.utilities.Localizer;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -25,8 +26,8 @@ public class SignChangeListener implements Listener {
                 final Player player = event.getPlayer();
                 DataChecker dc = new DataChecker(map);
                 if (!dc.allGoodExceptLobbyWall()) {
-                    player.sendMessage(ChatColor.YELLOW + "[TF2] This map has not yet been setup.");
-                    player.sendMessage(ChatColor.YELLOW + "[TF2] Type " + ChatColor.GOLD + "/tf2 checkdata " + map + " " + ChatColor.YELLOW + "to see what else needs to be done.");
+                    player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-NOT-SETUP"));
+                    player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-NOT-SETUP-COMMAND-HELP").replace("%map", map));
                     event.setLine(0, "");
                     event.setLine(1, "/tf2 checkdata");
                     event.setLine(2, "default");
@@ -38,7 +39,7 @@ public class SignChangeListener implements Listener {
                 DataConfiguration.getData().reloadData();
                 DataConfiguration.getData().saveData();
                 LobbyWall.getWall().setDirty(event.getLine(2), true);
-                event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] Successfully created a join sign!");
+                event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("LOBBYWALL-CREATED"));
             }
         }
     }

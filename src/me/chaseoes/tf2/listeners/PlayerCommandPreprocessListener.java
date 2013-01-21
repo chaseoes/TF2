@@ -2,6 +2,7 @@ package me.chaseoes.tf2.listeners;
 
 import me.chaseoes.tf2.GameUtilities;
 
+import me.chaseoes.tf2.utilities.Localizer;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -14,7 +15,7 @@ public class PlayerCommandPreprocessListener implements Listener {
     public void onCommand(PlayerCommandPreprocessEvent event) {
         if (GameUtilities.getUtilities().getGamePlayer(event.getPlayer()).isIngame() && !event.getMessage().startsWith("/tf2") && !event.getPlayer().hasPermission("tf2.create")) {
             event.setCancelled(true);
-            event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You cannot use commands while in a game!");
+            event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CANT-USE-COMMANDS-INGAME"));
         }
     }
 

@@ -2,6 +2,7 @@ package me.chaseoes.tf2.commands;
 
 import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.TF2;
+import me.chaseoes.tf2.utilities.Localizer;
 import me.chaseoes.tf2.utilities.WorldEditUtilities;
 
 import org.bukkit.ChatColor;
@@ -32,7 +33,7 @@ public class RedefineCommand {
         CommandHelper h = new CommandHelper(cs, cmnd);
         if (strings.length == 2) {
             if (!TF2.getInstance().mapExists(strings[1])) {
-                cs.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + strings[1] + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");
+                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", strings[1]));
                 return;
             }
             Map map = plugin.getMap(strings[1]);
@@ -43,9 +44,9 @@ public class RedefineCommand {
                 Location b2 = new Location(player.getWorld(), sel.getNativeMaximumPoint().getBlockX(), sel.getNativeMaximumPoint().getBlockY(), sel.getNativeMaximumPoint().getBlockZ());
                 map.setP1(b1);
                 map.setP2(b2);
-                player.sendMessage(ChatColor.YELLOW + "[TF2] Successfully redefined " + map.getName() + "'s region.");
+                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-SUCCESSFULLY-REDEFINED").replace("%map", strings[1]));
             } catch (Exception ex) {
-                player.sendMessage(ChatColor.YELLOW + "[TF2] You need to select a region.");
+                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("WORLDEDIT-NO-REGION"));
             }
 
         } else {

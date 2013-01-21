@@ -2,6 +2,7 @@ package me.chaseoes.tf2;
 
 import java.util.HashMap;
 
+import me.chaseoes.tf2.utilities.Localizer;
 import me.chaseoes.tf2.utilities.LocationStore;
 
 import org.bukkit.ChatColor;
@@ -55,7 +56,7 @@ public class Schedulers {
 
                                     if (afklimit.equals(afktime)) {
                                         GameUtilities.getUtilities().getGamePlayer(player).getGame().leaveGame(player);
-                                        player.sendMessage(ChatColor.YELLOW + "[TF2] You have been kicked from the map for being AFK.");
+                                        player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-KICKED-FOR-AFK"));
                                         LocationStore.setAFKTime(player, null);
                                         LocationStore.unsetLastLocation(player);
                                     }
@@ -96,7 +97,7 @@ public class Schedulers {
             public void run() {
                 if (secondsleft > 0) {
                     if (secondsleft % 10 == 0 || secondsleft < 6) {
-                        game.broadcast(ChatColor.YELLOW + "[TF2] " + ChatColor.DARK_RED + ChatColor.BOLD + "Red " + ChatColor.RESET + ChatColor.YELLOW + "team, you will be teleported in " + secondsleft + " seconds.", Team.RED);
+                        game.broadcast(Localizer.getLocalizer().loadPrefixedMessage("RED-TEAM-TELEPORTED-IN").replace("%time", secondsleft + ""), Team.RED);
                     }
                 } else {
                     stopRedTeamCountdown(map.getName());
@@ -119,7 +120,7 @@ public class Schedulers {
             public void run() {
                 if (secondsLeft > 0) {
                     if (secondsLeft % 10 == 0 || secondsLeft < 6) {
-                        game.broadcast(ChatColor.BLUE + "Game starting in " + ChatColor.AQUA + secondsLeft + " " + ChatColor.BLUE + "seconds!");
+                        game.broadcast(Localizer.getLocalizer().loadPrefixedMessage("GAME-STARTING-IN").replace("%time", secondsLeft + ""));
                     }
                     secondsLeft--;
                 } else {
@@ -146,7 +147,7 @@ public class Schedulers {
                     game.time = current;
                     if (secondsleft > 0) {
                         if (secondsleft % 60 == 0 || secondsleft < 10) {
-                            game.broadcast(ChatColor.BLUE + "Game ending in " + ChatColor.AQUA + game.getTimeLeftPretty() + ChatColor.BLUE + "!");
+                            game.broadcast(Localizer.getLocalizer().loadPrefixedMessage("GAME-ENDING-IN").replace("%time", game.getTimeLeftPretty()));
                         }
                     }
                     secondsleft--;

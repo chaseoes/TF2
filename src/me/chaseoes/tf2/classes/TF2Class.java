@@ -8,6 +8,7 @@ import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.Team;
 import me.chaseoes.tf2.utilities.ArmorUtilities;
 
+import me.chaseoes.tf2.utilities.Localizer;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -34,7 +35,7 @@ public class TF2Class {
     public boolean apply(GamePlayer player) {
         // Check that the class exists.
         if (config == null) {
-            player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.DARK_RED + "That class does not exist (" + name + ").");
+            player.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-CLASS").replace("%class", name));
             clearInventory(player.getPlayer());
             return false;
         }
@@ -144,7 +145,7 @@ public class TF2Class {
             } catch (Exception e) {
                 e.printStackTrace();
                 TF2.getInstance().getLogger().log(Level.SEVERE, "The error encountered while changing a player's class is above! Note that TF2 v2.0 has a new format for defining items - click here to view the new default configuration: http://goo.gl/LdKKR");
-                player.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.DARK_RED + "An error occoured while changing your class. Notify the administrator to check their server log for the error.");
+                player.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("ERROR-CHANGE-CLASS"));
                 clearInventory(player.getPlayer());
                 return false;
             }

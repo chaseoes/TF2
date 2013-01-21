@@ -2,6 +2,7 @@ package me.chaseoes.tf2.commands;
 
 import me.chaseoes.tf2.TF2;
 
+import me.chaseoes.tf2.utilities.Localizer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -28,11 +29,11 @@ public class DeleteCommand {
         if (strings[1].equalsIgnoreCase("map")) {
             if (strings.length == 3) {
                 if (!plugin.mapExists(strings[2])) {
-                    cs.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + strings[2] + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");
+                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", strings[2]));
                     return;
                 }
                 plugin.removeMap(strings[2]);
-                cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully deleted the map " + strings[2] + ".");
+                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-SUCCESSFULLY-DELETED").replace("%map", strings[2]));
 
             } else {
                 h.wrongArgs();

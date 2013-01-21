@@ -1,5 +1,6 @@
 package me.chaseoes.tf2.commands;
 
+import me.chaseoes.tf2.utilities.Localizer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -15,21 +16,21 @@ public class CommandHelper {
     }
 
     public void noPermission() {
-        sender.sendMessage(ChatColor.YELLOW + "[TF2] You don't have permission for that.");
+        sender.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("NO-PERMISSION"));
     }
 
     public void noConsole() {
-        sender.sendMessage("You must be a player to do that!");
+        sender.sendMessage(Localizer.getLocalizer().loadMessage("NO-CONSOLE"));
     }
 
     public void wrongArgs() {
-        sender.sendMessage(ChatColor.YELLOW + "[TF2] Incorrect command usage!");
+        sender.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("WRONG-ARGS"));
         sender.sendMessage(ChatColor.YELLOW + "Usage: " + ChatColor.ITALIC + cmd.getUsage());
     }
 
     public void unknownCommand() {
-        sender.sendMessage(ChatColor.YELLOW + "[TF2] Unknown command!");
-        sender.sendMessage(ChatColor.YELLOW + "[TF2] Type " + ChatColor.GOLD + "/tf2 help " + ChatColor.YELLOW + "for help.");
+        sender.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("UNKNOWN-COMMAND"));
+        sender.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("UNKNOWN-COMMAND-HELP"));
     }
 
 }

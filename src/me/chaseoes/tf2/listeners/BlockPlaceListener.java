@@ -7,6 +7,7 @@ import me.chaseoes.tf2.GamePlayer;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.TF2;
 
+import me.chaseoes.tf2.utilities.Localizer;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -35,7 +36,7 @@ public class BlockPlaceListener implements Listener {
             DataConfiguration.getData().saveData();
             DataConfiguration.getData().getDataFile().set("classbuttons", classbs);
             DataConfiguration.getData().saveData();
-            player.sendMessage(ChatColor.YELLOW + "[TF2] Successfully made a " + gp.getClassButtonType() + " class button for the class " + ChatColor.ITALIC + gp.getClassButtonName() + ChatColor.RESET + "" + ChatColor.YELLOW + ".");
+            player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("BUTTON-CLASS-CREATED").replace("%type", gp.getClassButtonType()).replace("%class", gp.getClassButtonName()));
             gp.setMakingClassButton(false);
             gp.setClassButtonName(null);
             gp.setClassButtonType(null);
@@ -47,7 +48,7 @@ public class BlockPlaceListener implements Listener {
             DataConfiguration.getData().getDataFile().set("changeclassbuttons", classbs);
             gp.setMakingChangeClassButton(false);
             DataConfiguration.getData().saveData();
-            player.sendMessage(ChatColor.YELLOW + "[TF2] Successfully made a change class button.");
+            player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("BUTTON-CHANGE-CLASS-CREATED"));
         }
     }
 

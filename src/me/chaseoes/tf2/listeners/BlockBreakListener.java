@@ -11,6 +11,7 @@ import me.chaseoes.tf2.classes.ClassUtilities;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.lobbywall.LobbyWallUtilities;
 
+import me.chaseoes.tf2.utilities.Localizer;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -43,7 +44,7 @@ public class BlockBreakListener implements Listener {
                         buttons.remove(s);
                         DataConfiguration.getData().getDataFile().set("classbuttons", buttons);
                         DataConfiguration.getData().saveData();
-                        player.sendMessage(ChatColor.YELLOW + "[TF2] Successfully removed class button.");
+                        player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("BUTTON-CLASS-REMOVE"));
                     } else {
                         event.setCancelled(true);
                     }
@@ -57,7 +58,7 @@ public class BlockBreakListener implements Listener {
                         buttons.remove(s);
                         DataConfiguration.getData().getDataFile().set("changeclassbuttons", buttons);
                         DataConfiguration.getData().saveData();
-                        player.sendMessage(ChatColor.YELLOW + "[TF2] Successfully removed changeclass button.");
+                        player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("BUTTON-CHANGE-CLASS-REMOVE"));
                     } else {
                         event.setCancelled(true);
                     }
@@ -74,7 +75,7 @@ public class BlockBreakListener implements Listener {
                         DataConfiguration.getData().getDataFile().set("lobbywall." + map, null);
                         DataConfiguration.getData().saveData();
                         LobbyWall.getWall().setDirty(map, true);
-                        player.sendMessage(ChatColor.YELLOW + "[TF2] Successfully removed lobby wall.");
+                        player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("LOBBYWALL-REMOVE"));
                     } else {
                         event.setCancelled(true);
                     }
@@ -88,7 +89,7 @@ public class BlockBreakListener implements Listener {
                 Integer id = CapturePointUtilities.getUtilities().getIDFromLocation(b.getLocation());
                 Map mMap = TF2.getInstance().getMap(map);
                 mMap.setCapturePoint(id, null);
-                player.sendMessage(ChatColor.YELLOW + "[TF2] Successfully removed capturepoint.");
+                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CP-REMOVE"));
             } else {
                 event.setCancelled(true);
             }
@@ -99,7 +100,7 @@ public class BlockBreakListener implements Listener {
                 if (map.isContainerRegistered(b.getLocation())) {
                     if (player.hasPermission("tf2.create")) {
                         map.removeContainer(b.getLocation());
-                        player.sendMessage(ChatColor.YELLOW + "[TF2] Successfully removed container.");
+                        player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CONTAINER-REMOVE"));
                     } else {
                         event.setCancelled(true);
                     }

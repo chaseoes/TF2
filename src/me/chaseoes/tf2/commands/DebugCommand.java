@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
+import me.chaseoes.tf2.utilities.Localizer;
 import me.chaseoes.tf2.utilities.PastebinPoster;
 import me.chaseoes.tf2.utilities.PastebinPoster.PasteCallback;
 
@@ -31,17 +32,18 @@ public class DebugCommand {
     }
 
     public void execDebugCommand(final CommandSender cs, String[] strings, Command cmnd) {
-        cs.sendMessage(ChatColor.YELLOW + "[TF2] Uploading debug information to Pastebin...");
+        cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DEBUG-UPLOADING"));
         PastebinPoster.paste(getDebugInformation(), new PasteCallback() {
 
             @Override
             public void handleSuccess(String url) {
-                cs.sendMessage(ChatColor.YELLOW + "[TF2] Debug information available for 1 day at:\n" + url);
+                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DEBUG-SUCCESS"));
+                cs.sendMessage(ChatColor.YELLOW + url);
             }
 
             @Override
             public void handleError(String err) {
-                cs.sendMessage(ChatColor.YELLOW + "[TF2] Error encountered while uploading to Pastebin.");
+                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DEBUG-ERROR"));
             }
         });
     }

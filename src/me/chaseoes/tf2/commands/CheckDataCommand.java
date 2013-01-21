@@ -4,6 +4,7 @@ import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.Team;
 import me.chaseoes.tf2.utilities.DataChecker;
 
+import me.chaseoes.tf2.utilities.Localizer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -25,7 +26,7 @@ public class CheckDataCommand {
         if (strings.length == 2) {
             String map = strings[1];
             if (!TF2.getInstance().mapExists(map)) {
-                cs.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + map + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");
+                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP"));
                 return;
             }
             DataChecker dc = new DataChecker(map);

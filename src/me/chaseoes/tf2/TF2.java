@@ -106,31 +106,31 @@ public class TF2 extends JavaPlugin {
         uc = new UpdateChecker(this);
         uc.startTask();
 
-        setSpawnMenu = new IconMenu("Set Spawns", 9, new IconMenu.OptionClickEventHandler() {
+        setSpawnMenu = new IconMenu(Localizer.getLocalizer().loadMessage("SETSPAWN-TITLE"), 9, new IconMenu.OptionClickEventHandler() {
             @Override
             public void onOptionClick(IconMenu.OptionClickEvent event) {
                 String map = usingSetSpawnMenu.get(event.getPlayer().getName());
                 String name = ChatColor.stripColor(event.getName());
-                if (name.equalsIgnoreCase("Blue Lobby")) {
+                if (name.equalsIgnoreCase(Localizer.getLocalizer().loadMessage("SETSPAWN-BLUE-LOBBY"))) {
                     MapUtilities.getUtilities().setTeamLobby(map, Team.BLUE, event.getPlayer().getLocation());
-                    event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] Successfully set the blue team's lobby.");
+                    event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("SETSPAWN-BLUE-LOBBY-DESC"));
                     usingSetSpawnMenu.remove(event.getPlayer().getName());
-                } else if (name.equalsIgnoreCase("Red Lobby")) {
+                } else if (name.equalsIgnoreCase(Localizer.getLocalizer().loadMessage("SETSPAWN-RED-LOBBY"))) {
                     MapUtilities.getUtilities().setTeamLobby(map, Team.RED, event.getPlayer().getLocation());
-                    event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] Successfully set the red team's lobby.");
+                    event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("SETSPAWN-RED-LOBBY-DESC"));
                     usingSetSpawnMenu.remove(event.getPlayer().getName());
-                } else if (name.equalsIgnoreCase("Blue Spawn")) {
+                } else if (name.equalsIgnoreCase(Localizer.getLocalizer().loadMessage("SETSPAWN-BLUE-SPAWN"))) {
                     MapUtilities.getUtilities().setTeamSpawn(map, Team.BLUE, event.getPlayer().getLocation());
-                    event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] Successfully set the blue team's spawn.");
+                    event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("SETSPAWN-BLUE-SPAWN-DESC"));
                     usingSetSpawnMenu.remove(event.getPlayer().getName());
-                } else if (name.equalsIgnoreCase("Red Spawn")) {
+                } else if (name.equalsIgnoreCase(Localizer.getLocalizer().loadMessage("SETSPAWN-RED-SPAWN"))) {
                     MapUtilities.getUtilities().setTeamSpawn(map, Team.RED, event.getPlayer().getLocation());
-                    event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] Successfully set the red team's spawn.");
+                    event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("SETSPAWN-RED-SPAWN-DESC"));
                     usingSetSpawnMenu.remove(event.getPlayer().getName());
                 }
                 event.setWillClose(true);
             }
-        }, this).setOption(2, new ItemStack(Material.getMaterial(331), 1), ChatColor.DARK_RED + "" + ChatColor.BOLD + "Red Lobby" + ChatColor.RESET, ChatColor.WHITE + "Set the red team lobby.").setOption(3, new ItemStack(Material.getMaterial(351), 1, (short) 4), ChatColor.AQUA + "" + ChatColor.BOLD + "Blue Lobby" + ChatColor.RESET, ChatColor.WHITE + "Set the blue team lobby.").setOption(4, new ItemStack(Material.WOOL, 1, (short) 14), ChatColor.DARK_RED + "" + ChatColor.BOLD + "Red Spawn" + ChatColor.RESET, ChatColor.WHITE + "Set the red team's spawn.").setOption(5, new ItemStack(Material.WOOL, 1, (short) 11), ChatColor.AQUA + "" + ChatColor.BOLD + "Blue Spawn" + ChatColor.RESET, ChatColor.WHITE + "Set the blue team's spawn.").setOption(6, new ItemStack(Material.BEDROCK, 1), ChatColor.RED + "" + ChatColor.BOLD + "Exit" + ChatColor.RESET, ChatColor.RED + "Exit this menu.");
+        }, this).setOption(2, new ItemStack(Material.getMaterial(331), 1), ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("SETSPAWN-RED-LOBBY") + ChatColor.RESET, ChatColor.WHITE + Localizer.getLocalizer().loadMessage("SETSPAWN-RED-LOBBY-DESC")).setOption(3, new ItemStack(Material.getMaterial(351), 1, (short) 4), ChatColor.AQUA + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("SETSPAWN-BLUE-LOBBY") + ChatColor.RESET, ChatColor.WHITE + Localizer.getLocalizer().loadMessage("SETSPAWN-BLUE-LOBBY-DESC")).setOption(4, new ItemStack(Material.WOOL, 1, (short) 14), ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("SETSPAWN-RED-SPAWN") + ChatColor.RESET, ChatColor.WHITE + Localizer.getLocalizer().loadMessage("SETSPAWN-RED-SPAWN-DESC")).setOption(5, new ItemStack(Material.WOOL, 1, (short) 11), ChatColor.AQUA + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("SETSPAWN-BLUE-SPAWN") + ChatColor.RESET, ChatColor.WHITE + Localizer.getLocalizer().loadMessage("SETSPAWN-BLUE-SPAWN-DESC")).setOption(6, new ItemStack(Material.BEDROCK, 1), ChatColor.RED + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("SETSPAWN-EXIT") + ChatColor.RESET, ChatColor.RED + Localizer.getLocalizer().loadMessage("SETSPAWN-EXIT-DESC"));
 
         try {
             MetricsLite metrics = new MetricsLite(this);

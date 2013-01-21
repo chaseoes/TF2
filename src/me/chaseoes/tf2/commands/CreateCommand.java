@@ -5,6 +5,7 @@ import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
 
+import me.chaseoes.tf2.utilities.Localizer;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -14,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.sk89q.worldedit.EmptyClipboardException;
+import org.omg.PortableInterceptor.LOCATION_FORWARD;
 
 public class CreateCommand {
 
@@ -39,14 +41,14 @@ public class CreateCommand {
                 Player p = (Player) cs;
                 String map = strings[2];
                 if (plugin.mapExists(map)) {
-                    cs.sendMessage(ChatColor.YELLOW + "[TF2] The map " + ChatColor.ITALIC + map + ChatColor.RESET + ChatColor.YELLOW + " already exists.");
+                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("ALREADY-EXISTS-MAP").replace("%map", strings[2]));
                     return;
                 }
                 try {
                     MapUtilities.getUtilities().createMap(map, p);
-                    cs.sendMessage(ChatColor.YELLOW + "[TF2] Successfully created the map " + ChatColor.ITALIC + strings[2] + "!");
+                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-SUCCESSFULLY-CREATED").replace("%map", strings[2]));
                 } catch (EmptyClipboardException e) {
-                    cs.sendMessage(ChatColor.YELLOW + "[TF2] Please make a WorldEdit selection first.");
+                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("WORLDEDIT-NO-REGION"));
                 }
             } else {
                 h.wrongArgs();
@@ -66,7 +68,7 @@ public class CreateCommand {
                 } else {
                     p.getInventory().addItem(new ItemStack(Material.STONE_BUTTON));
                 }
-                cs.sendMessage(ChatColor.YELLOW + "[TF2] Place the button to create a " + strings[2] + " class button for the class " + classname + ".");
+                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("BUTTON-CLASS-CREATE").replace("%type", strings[2]).replace("%class", classname));
             } else {
                 h.wrongArgs();
             }
@@ -81,7 +83,7 @@ public class CreateCommand {
                 } else {
                     p.getInventory().addItem(new ItemStack(Material.STONE_BUTTON));
                 }
-                cs.sendMessage(ChatColor.YELLOW + "[TF2] Place the button to create a changeclass button.");
+                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("BUTTON-CHANGE-CLASS-CREATE"));
             } else {
                 h.wrongArgs();
             }
@@ -91,11 +93,11 @@ public class CreateCommand {
                 GameUtilities.getUtilities().getGamePlayer(p).setCreatingContainer(true);
                 String map = strings[2];
                 if (!plugin.mapExists(map)) {
-                    p.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + map + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");
+                    p.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", map));
                     return;
                 }
                 GameUtilities.getUtilities().getGamePlayer(p).setMapCreatingItemFor(map);
-                cs.sendMessage(ChatColor.YELLOW + "[TF2] Right click a container to make it refill each game.");
+                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CONTAINER-CREATE"));
             } else {
                 h.wrongArgs();
             }

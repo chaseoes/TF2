@@ -6,6 +6,7 @@ import java.util.Set;
 
 import me.chaseoes.tf2.*;
 
+import me.chaseoes.tf2.utilities.Localizer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -27,23 +28,23 @@ public class SpectateCommand {
             if (isSpectating(player)) {
                 stopSpectating(player);
             } else {
-                player.sendMessage(ChatColor.YELLOW + "[TF2] You are not spectating a map currently.");
+                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-NOT-SPECTATING"));
             }
         } else if (strings.length == 2) {
             String map = strings[1];
             if (!TF2.getInstance().mapExists(map)) {
-                cs.sendMessage(ChatColor.YELLOW + "[TF2] " + ChatColor.ITALIC + map + ChatColor.RESET + ChatColor.YELLOW + " is not a valid map name.");
+                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", map));
                 return;
             }
 
             Game game = GameUtilities.getUtilities().getGamePlayer((Player) cs).getGame();
             if (game != null) {
-                cs.sendMessage(ChatColor.YELLOW + "[TF2] You already in a game.");
+                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-ALREADY-PLAYING"));
                 return;
             }
 
             if (DataConfiguration.getData().getDataFile().getStringList("disabled-maps").contains(map)) {
-                player.sendMessage(ChatColor.YELLOW + "[TF2] That map is disabled.");
+                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-INFO-DISABLED"));
                 return;
             }
 
@@ -55,7 +56,7 @@ public class SpectateCommand {
             if (ngame.getStatus() == GameStatus.INGAME || ngame.getStatus() == GameStatus.STARTING) {
                 sc.toggleSpectating(GameUtilities.getUtilities().getGame(TF2.getInstance().getMap(map)));
             } else {
-                player.sendMessage(ChatColor.YELLOW + "[TF2] This map is not ingame.");
+                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-INFO-NOT-INGAME"));
             }
         } else {
             h.wrongArgs();

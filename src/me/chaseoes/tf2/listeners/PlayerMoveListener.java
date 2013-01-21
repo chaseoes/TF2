@@ -4,6 +4,7 @@ import me.chaseoes.tf2.*;
 import me.chaseoes.tf2.capturepoints.CapturePoint;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 
+import me.chaseoes.tf2.utilities.Localizer;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -46,19 +47,19 @@ public class PlayerMoveListener implements Listener {
                             cp.startCapturing(gp);
                         }
                     } else {
-                        event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You must capture point #" + (id - 1) + " first!");
+                        event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CP-MUST-CAPTURE-PREVIOUS").replace("%id", (id - 1) + ""));
                     }
 
                 } else if (map.getCapturePoint(id).getStatus().string().equalsIgnoreCase("captured")) {
-                    event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] This point has already been captured! Head to #" + (id + 1) + "!");
+                    event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CP-ALREADY-CAPTURED-RED").replace("%id", (id + 1) + ""));
                 } else if (map.getCapturePoint(id).getStatus().string().equalsIgnoreCase("capturing")) {
-                    event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] This point is being captured by " + cp.capturing.getName() + "!");
+                    event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CP-ALREADY-CAPTURING").replace("%player", cp.capturing.getName()));
                 }
             } else {
                 if (!map.getCapturePoint(id).getStatus().string().equalsIgnoreCase("captured")) {
-                    event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You must be on the " + ChatColor.DARK_RED + ChatColor.BOLD + "red " + ChatColor.RESET + ChatColor.YELLOW + "team to capture points! " + ChatColor.BLUE + ChatColor.BOLD + "Blue " + ChatColor.RESET + ChatColor.YELLOW + "is for defending.");
+                    event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CP-WRONG-TEAM"));
                 } else {
-                    event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] The " + ChatColor.DARK_RED + ChatColor.BOLD + "red " + ChatColor.RESET + ChatColor.YELLOW + "team has already captured this point!");
+                    event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CP-ALREADY-CAPTURED-BLUE"));
                 }
             }
         }

@@ -5,6 +5,7 @@ import me.chaseoes.tf2.GamePlayer;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.Team;
 
+import me.chaseoes.tf2.utilities.Localizer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -48,7 +49,7 @@ public class CapturePoint implements Comparable<CapturePoint> {
         capturing = player;
         setStatus(CaptureStatus.CAPTURING);
         Game game = capturing.getGame();
-        game.broadcast(ChatColor.YELLOW + "[TF2] Capture point " + ChatColor.DARK_RED + "#" + id + " " + ChatColor.YELLOW + "is being captured!");
+        game.broadcast(Localizer.getLocalizer().loadPrefixedMessage("CP-BEING-CAPTURED").replace("%id", id.toString()));
 
         task = CapturePointUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncRepeatingTask(CapturePointUtilities.getUtilities().plugin, new Runnable() {
             Integer timeRemaining = CapturePointUtilities.getUtilities().plugin.getConfig().getInt("capture-timer");
@@ -80,7 +81,7 @@ public class CapturePoint implements Comparable<CapturePoint> {
                     stopCapturing();
                     setStatus(CaptureStatus.CAPTURED);
                     player.setPointsCaptured(-1);
-                    game.broadcast(ChatColor.YELLOW + "[TF2] Capture point " + ChatColor.DARK_RED + "#" + id + " " + ChatColor.YELLOW + "has been captured by " + ChatColor.DARK_RED + ChatColor.BOLD + player.getName() + ChatColor.RESET + ChatColor.YELLOW + "!");
+                    game.broadcast(Localizer.getLocalizer().loadPrefixedMessage("CP-CAPTURED").replace("%id", id.toString()).replace("%player", player.getName()));
                     game.setExpOfPlayers(0);
 
                     if (TF2.getInstance().getMap(map).allCaptured()) {

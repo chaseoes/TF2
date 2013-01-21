@@ -9,6 +9,7 @@ import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.events.TF2DeathEvent;
 
+import me.chaseoes.tf2.utilities.Localizer;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -31,8 +32,8 @@ public class TF2DeathListener implements Listener {
                 Map map = TF2.getInstance().getMap(game.getMapName());
 
                 player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), playerg.getTeam()));
-                player.sendMessage(ChatColor.YELLOW + "[TF2] You were killed by " + killerg.getTeamColor() + killer.getName() + " " + ChatColor.RESET + ChatColor.YELLOW + "(" + killerg.getCurrentClass().getName() + ")!");
-                killer.sendMessage(ChatColor.YELLOW + "[TF2] You killed " + playerg.getTeamColor() + player.getName() + " " + ChatColor.RESET + ChatColor.YELLOW + "(" + playerg.getCurrentClass().getName() + ")!");
+                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-KILLED-BY").replace("%teamcolor", killerg.getTeamColor()).replace("%player", killer.getName()).replace("%class", killerg.getCurrentClass().getName()));
+                killer.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-KILLED").replace("%teamcolor", playerg.getTeamColor()).replace("%player", player.getName()).replace("%class", playerg.getCurrentClass().getName()));
                 killer.playSound(killer.getLocation(), Sound.valueOf(TF2.getInstance().getConfig().getString("killsound.sound")), TF2.getInstance().getConfig().getInt("killsound.volume"), TF2.getInstance().getConfig().getInt("killsound.pitch"));
 
                 TF2.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(TF2.getInstance(), new Runnable() {

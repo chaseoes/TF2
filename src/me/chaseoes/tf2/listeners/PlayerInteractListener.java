@@ -14,6 +14,7 @@ import me.chaseoes.tf2.commands.SpectateCommand;
 import me.chaseoes.tf2.utilities.DataChecker;
 import me.chaseoes.tf2.utilities.GeneralUtilities;
 
+import me.chaseoes.tf2.utilities.Localizer;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
@@ -59,30 +60,30 @@ public class PlayerInteractListener implements Listener {
                     
                     DataChecker dc = new DataChecker(map);
                     if (!dc.allGood()) {
-                        player.sendMessage(ChatColor.YELLOW + "[TF2] This map has not yet been setup.");
+                        player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-NOT-SETUP"));
                         if (player.hasPermission("tf2.create")) {
-                            player.sendMessage(ChatColor.YELLOW + "[TF2] Type " + ChatColor.GOLD + "/tf2 checkdata " + map + " " + ChatColor.YELLOW + "to see what else needs to be done.");
+                            player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-NOT-SETUP-COMMAND-HELP").replace("%map", map));
                         }
                         return;
                     }
                     
                     if (!player.hasPermission("tf2.play")) {
-                        event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You do not have permission.");
+                        event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("NO-PERMISSION"));
                         return;
                     }
 
                     if (gp.isIngame()) {
-                        event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You are already playing on a map!");
+                        event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-ALREADY-INGAME"));
                         return;
                     }
 
                     if (SpectateCommand.getCommand().isSpectating(gp.getPlayer())) {
-                        event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] You are already spectating a game.");
+                        event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-ALREADY-SPECTATING"));
                         return;
                     }
 
                     if (DataConfiguration.getData().getDataFile().getStringList("disabled-maps").contains(map)) {
-                        player.sendMessage(ChatColor.YELLOW + "[TF2] That map is disabled.");
+                        player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-INFO-DISABLED"));
                         return;
                     }
 
@@ -124,11 +125,11 @@ public class PlayerInteractListener implements Listener {
 
             if (event.hasBlock() && event.getClickedBlock().getState() instanceof InventoryHolder && gp.isCreatingContainer()) {
                 if (TF2.getInstance().getMap(gp.getMapCreatingItemFor()).isContainerRegistered(event.getClickedBlock().getLocation())) {
-                    player.sendMessage(ChatColor.YELLOW + "[TF2] This container is already registered.");
+                    player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CONTAINER-ALREAADY-REGISTERED"));
                 } else {
                     Map map = TF2.getInstance().getMap(gp.getMapCreatingItemFor());
                     map.addContainer(event.getClickedBlock().getLocation(), ((InventoryHolder) event.getClickedBlock().getState()).getInventory());
-                    player.sendMessage(ChatColor.YELLOW + "[TF2] Successfully registered container.");
+                    player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CONTAINER-CREATED"));
                 }
                 gp.setCreatingContainer(false);
                 gp.setMapCreatingItemFor(null);
