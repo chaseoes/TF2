@@ -26,7 +26,7 @@ public class PlayerJoinListener implements Listener {
         }
 
         GameUtilities.getUtilities().playerJoinServer(player);
-        if (player.hasPermission("tf2.create") && GameUtilities.getUtilities().plugin.uc.needsUpdate()) {
+        if (player.hasPermission("tf2.create") && TF2.getInstance().uc.needsUpdate()) {
             TF2.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(TF2.getInstance(), new Runnable() {
                 @Override
                 public void run() {
