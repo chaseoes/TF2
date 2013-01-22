@@ -8,34 +8,6 @@ BLUE: blue
 GAME-WIN: The %team team has won on the map %map!
 IN-LINE: You are #%position in line for this map.
 
-ABOUT-HEADER: '&b[&6-----------------&b] &eTeam Fortress 2 &b[&6-----------------&b]'
-ABOUT-AUTHOR: '&3Team Fortress 2 plugin by chaseoes. &o(Version: &4&o%version&3&o)'
-
-
-DC-HEADER: '&b[&6------------------&b] &3TF2 Data Check &b[&6------------------&b]'
-DC-ONE-CP-SET: '&bAt least one capture point set? &2Yes. &7(Total: &2%total&7)'
-DC-ONE-CP-NOT-SET: '&bAt least one capture point set? &4&lNo.'
-DC-RED-TEAM-LOBBY-SET: '&bRed team lobby set? &2Yes.'
-DC-RED-TEAM-LOBBY-NOT-SET: '&bRed team lobby set? &4&lNo.'
-DC-BLUE-TEAM-LOBBY-SET: '&bBlue team lobby set? &2Yes.'
-DC-BLUE-TEAM-LOBBY-NOT-SET: '&bBlue team lobby set? &4&lNo.'
-DC-RED-TEAM-SPAWN-SET: '&bRed team spawn set? &2Yes.'
-DC-RED-TEAM-SPAWN-NOT-SET: '&bRed team spawn set? &4&lNo.'
-DC-BLUE-TEAM-SPAWN-SET: '&bBlue team spawn set? &2Yes.'
-DC-BLUE-TEAM-SPAWN-NOT-SET: '&bBlue team spawn set? &4&lNo.'
-DC-PLAYER-LIMIT-DEFINED: '&bPlayer limit defined? &2Yes. &7(&2%count&7)'
-DC-PLAYER-LIMIT-NOT-DEFINED: '&bPlayer limit defined? &4&lNo.'
-DC-TIME-LIMIT-DEFINED: '&bTime limit defined? &2Yes. &7(&2%time&7)'
-DC-TIME-LIMIT-NOT-DEFINED: '&bTime limit defined? &4&lNo.'
-DC-RED-TP-DEFINED: '&bRed team teleport timer defined? &2Yes. &7(&2%time&7)'
-DC-RED-TP-NOT-DEFINED: '&bRed team teleport timer defined? &4&lNo.'
-DC-LOBBY-WALL-CREATED: '&bLobby wall has been created? &2Yes.'
-DC-LOBBY-WALL-NOT-CREATED: '&bLobby wall has been created? &4&lNo.'
-DC-GLOBAL-LOBBY-SET: '&bGlobal lobby set? &2Yes.'
-DC-GLOBAL-LOBBY-NOT-SET: '&bGlobal lobby set? &4&lNo.'
-DC-GOOD-TO-GO: '&2Good to go! Your map is ready to be played.'
-DC-NOT-GOOD-TO-GO: '&cNot good to go! You have yet to finish setting it up.'
-
 HELP-HEADER: '&b[&6---------------&b] &3Team Fortress 2 Help &b[&6---------------&b]'
 HELP-JOIN: '&b/tf2 join <map> [team]&7: Join a map. If a team is not provided, you will be placed randomly.'
 HELP-LEAVE: '&b/tf2 leave&7: Leave the current game.'
@@ -43,7 +15,6 @@ HELP-LIST: '&b/tf2 list [map]: List players currently in the game.'
 HELP-START: '&c/tf2 start [map]&7: Forces a map to start instead of starting automatically.'
 HELP-STOP: '&c/tf2 stop [map]&7: Forces a map to stop.'
 HELP-CREATE: '&4Please go here for a full list of map setup commands:'
-
 
 PERCENT-JOIN: The game will start when %percent% of players have joined.
 
@@ -182,4 +153,3 @@ WORLDEDIT-NO-REGION: Please make a WorldEdit selection first.
 ERROR-CHANGE-CLASS: '&4An error occurred while changing your class. Notify the administrator to check their server log for the error.'
 ERROR-PLAYERLIMIT-ODD: Yo! Don't use no odd numbers for dat shit, mofo.
 ERROR-NOT-INTEGER: '%int is not an integer.'
-
