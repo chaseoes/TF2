@@ -2,6 +2,7 @@ package me.chaseoes.tf2.commands;
 
 import me.chaseoes.tf2.TF2;
 
+import me.chaseoes.tf2.utilities.Localizer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,8 +16,8 @@ public class CommandManager implements CommandExecutor {
         CommandHelper h = new CommandHelper(cs, cmnd);
 
         if (strings.length == 0) {
-            cs.sendMessage(ChatColor.AQUA + "[" + ChatColor.GOLD + "-----------------" + ChatColor.AQUA + "] " + ChatColor.YELLOW + "Team Fortress 2 " + ChatColor.RESET + "" + ChatColor.AQUA + "[" + ChatColor.GOLD + "-----------------" + ChatColor.AQUA + "]");
-            cs.sendMessage(ChatColor.DARK_AQUA + "Team Fortress 2 " + ChatColor.RESET + "" + ChatColor.DARK_AQUA + "plugin by chaseoes. " + ChatColor.ITALIC + "(Version: " + ChatColor.DARK_RED + "" + ChatColor.ITALIC + TF2.getInstance().getDescription().getVersion() + ChatColor.DARK_AQUA + "" + ChatColor.ITALIC + ")");
+            cs.sendMessage(Localizer.getLocalizer().loadMessage("ABOUT-HEADER"));
+            cs.sendMessage(Localizer.getLocalizer().loadMessage("ABOUT-AUTHOR").replace("%version", TF2.getInstance().getDescription().getVersion()));
             cs.sendMessage(ChatColor.AQUA + "http://dev.bukkit.org/server-mods/team-fortress-2/");
             return true;
         }

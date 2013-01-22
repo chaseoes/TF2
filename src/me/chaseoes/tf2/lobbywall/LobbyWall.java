@@ -12,6 +12,7 @@ import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.Team;
 
+import me.chaseoes.tf2.utilities.Localizer;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Sign;
 
@@ -46,13 +47,13 @@ public class LobbyWall {
                     return;
                 }
                 info.verifySigns();
-                LobbyWallUtilities.getUtilities().setSignLines(signs.get(0), "Team Fortress 2", "Click here", "to join:", ChatColor.BOLD + "" + map);
+                LobbyWallUtilities.getUtilities().setSignLines(signs.get(0), Localizer.getLocalizer().loadMessage("LOBBYWALL-JOIN-1"), Localizer.getLocalizer().loadMessage("LOBBYWALL-JOIN-2"), Localizer.getLocalizer().loadMessage("LOBBYWALL-JOIN-3"), ChatColor.BOLD + "" + map);
                 if (info.getGame().getStatus() != GameStatus.DISABLED) {
-                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(1), " ", "" + ChatColor.DARK_RED + ChatColor.BOLD + "Status:", info.getGame().getPrettyStatus(), " ");
-                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(2), "" + ChatColor.DARK_RED + ChatColor.BOLD + "Red Team:", info.getGame().getSizeOfTeam(Team.RED) + "/" + plugin.getMap(map).getPlayerlimit() / 2 + " Players", ChatColor.BLUE + "" + ChatColor.BOLD + "Blue Team:", info.getGame().getSizeOfTeam(Team.BLUE) + "/" + plugin.getMap(map).getPlayerlimit() / 2 + " Players");
-                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(3), " ", ChatColor.BLUE + "" + ChatColor.BOLD + "Time Left:", info.getGame().getTimeLeft(), " ");
+                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(1), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-1"), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-2"), info.getGame().getPrettyStatus(), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-4"));
+                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(2), Localizer.getLocalizer().loadMessage("LOBBYWALL-TEAMS-1"), Localizer.getLocalizer().loadMessage("LOBBYWALL-TEAMS-2").replace("%players", info.getGame().getSizeOfTeam(Team.RED) + "/" + plugin.getMap(map).getPlayerlimit() / 2), Localizer.getLocalizer().loadMessage("LOBBYWALL-TEAMS-3"), Localizer.getLocalizer().loadMessage("LOBBYWALL-TEAMS-4").replace("%players", info.getGame().getSizeOfTeam(Team.BLUE) + "/" + plugin.getMap(map).getPlayerlimit() / 2));
+                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(3), Localizer.getLocalizer().loadMessage("LOBBYWALL-TIME-1"), Localizer.getLocalizer().loadMessage("LOBBYWALL-TIME-2"), info.getGame().getTimeLeft(), Localizer.getLocalizer().loadMessage("LOBBYWALL-TIME-4"));
                 } else {
-                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(1), " ", ChatColor.BOLD + "Status:", ChatColor.DARK_RED + "" + ChatColor.BOLD + "Disabled", " ");
+                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(1), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-1"), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-2"), ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("GAMESTATUS-DISABLED"), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-4"));
                     LobbyWallUtilities.getUtilities().setSignLines(signs.get(2), " ", "---------------------------------------------", "-------------------------------------", " ");
                     LobbyWallUtilities.getUtilities().setSignLines(signs.get(3), " ", "---------------------------------------------", "-------------------------------------", " ");
                 }

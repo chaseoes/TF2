@@ -25,7 +25,7 @@ public class CommandHelper {
 
     public void wrongArgs() {
         sender.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("WRONG-ARGS"));
-        sender.sendMessage(ChatColor.YELLOW + "Usage: " + ChatColor.ITALIC + cmd.getUsage());
+        sender.sendMessage(Localizer.getLocalizer().loadMessage("WRONG-ARGS-USAGE").replace("%usage", cmd.getUsage()));
     }
 
     public void unknownCommand() {

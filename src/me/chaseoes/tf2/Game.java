@@ -198,7 +198,7 @@ public class Game {
 
         CapturePointUtilities.getUtilities().uncaptureAll(map);
         if (TF2.getInstance().getConfig().getBoolean("broadcast-winning-team")) {
-            plugin.getServer().broadcastMessage(ChatColor.YELLOW + "" + (ChatColor.BOLD + Localizer.getLocalizer().loadMessage("GAME-WIN").replace("%team", te).replace("%map", ChatColor.BOLD + map.getName() + ChatColor.RESET + "" + ChatColor.YELLOW)));
+            plugin.getServer().broadcastMessage(Localizer.getLocalizer().loadMessage("GAME-WIN").replace("%team", te).replace("%map", ChatColor.BOLD + map.getName() + ChatColor.RESET + "" + ChatColor.YELLOW));
         }
         stopMatch(true);
     }

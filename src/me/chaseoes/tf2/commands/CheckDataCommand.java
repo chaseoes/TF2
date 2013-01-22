@@ -30,61 +30,61 @@ public class CheckDataCommand {
                 return;
             }
             DataChecker dc = new DataChecker(map);
-            cs.sendMessage(ChatColor.AQUA + "[" + ChatColor.GOLD + "------------------" + ChatColor.AQUA + "] " + ChatColor.DARK_AQUA + "TF2 Data Check " + ChatColor.AQUA + "[" + ChatColor.GOLD + "-----------------" + ChatColor.AQUA + "]");
+            cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-HEADER"));
             if (dc.capturePointOneHasBeenSet()) {
-                cs.sendMessage(ChatColor.AQUA + "At least one capture point set? " + ChatColor.DARK_GREEN + "Yes. " + ChatColor.GRAY + "(Total: " + ChatColor.DARK_GREEN + dc.totalNumberOfCapturePoints() + ChatColor.GRAY + ")");
+                cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-ONE-CP-SET").replace("%total", dc.totalNumberOfCapturePoints().toString()));
             } else {
-                cs.sendMessage(ChatColor.AQUA + "At least one capture point set? " + ChatColor.DARK_RED + ChatColor.BOLD + "No.");
+                cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-ONE-CP-NOT-SET"));
             }
             if (dc.teamLobbyHasBeenSet(Team.RED)) {
-                cs.sendMessage(ChatColor.AQUA + "Red team lobby has set? " + ChatColor.DARK_GREEN + "Yes.");
+                cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-RED-TEAM-LOBBY-SET"));
             } else {
-                cs.sendMessage(ChatColor.AQUA + "Red team lobby has set? " + ChatColor.DARK_RED + ChatColor.BOLD + "No.");
+                cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-RED-TEAM-LOBBY-NOT-SET"));
             }
             if (dc.teamLobbyHasBeenSet(Team.BLUE)) {
-                cs.sendMessage(ChatColor.AQUA + "Blue team lobby has set? " + ChatColor.DARK_GREEN + "Yes.");
+                cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-BLUE-TEAM-LOBBY-SET"));
             } else {
-                cs.sendMessage(ChatColor.AQUA + "Blue team lobby has set? " + ChatColor.DARK_RED + ChatColor.BOLD + "No.");
+                cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-BLUE-TEAM-LOBBY-NOT-SET"));
             }
             if (dc.teamSpawnHasBeenSet(Team.RED)) {
-                cs.sendMessage(ChatColor.AQUA + "Red team spawn has set? " + ChatColor.DARK_GREEN + "Yes.");
+                cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-RED-TEAM-SPAWN-SET"));
             } else {
-                cs.sendMessage(ChatColor.AQUA + "Red team spawn has set? " + ChatColor.DARK_RED + ChatColor.BOLD + "No.");
+                cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-RED-TEAM-SPAWN-NOT-SET"));
             }
             if (dc.teamSpawnHasBeenSet(Team.BLUE)) {
-                cs.sendMessage(ChatColor.AQUA + "Blue team spawn has set? " + ChatColor.DARK_GREEN + "Yes.");
+                cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-BLUE-TEAM-SPAWN-SET"));
             } else {
-                cs.sendMessage(ChatColor.AQUA + "Blue team spawn has set? " + ChatColor.DARK_RED + ChatColor.BOLD + "No.");
+                cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-BLUE-TEAM-SPAWN-NOT-SET"));
             }
             if (dc.playerLimitHasBeenSet()) {
-                cs.sendMessage(ChatColor.AQUA + "Player limit defined? " + ChatColor.DARK_GREEN + "Yes. " + ChatColor.GRAY + "(" + ChatColor.DARK_GREEN + dc.getPlayerLimit() + ChatColor.GRAY + ")");
+                cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-PLAYER-LIMIT-SET").replace("%count", dc.getPlayerLimit().toString()));
             } else {
-                cs.sendMessage(ChatColor.AQUA + "Player limit defined? " + ChatColor.DARK_RED + ChatColor.BOLD + "No.");
+                cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-PLAYER-LIMIT-NOT-SET"));
             }
             if (dc.timeLimitHasBeenSet()) {
-                cs.sendMessage(ChatColor.AQUA + "Time limit defined? " + ChatColor.DARK_GREEN + "Yes. " + ChatColor.GRAY + "(" + ChatColor.DARK_GREEN + dc.getTimeLimit() + ChatColor.GRAY + ")");
+                cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-TIME-LIMIT-SET").replace("%time", dc.getTimeLimit().toString()));
             } else {
-                cs.sendMessage(ChatColor.AQUA + "Time limit defined? " + ChatColor.DARK_RED + ChatColor.BOLD + "No.");
+                cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-TIME-LIMIT-NOT-SET"));
             }
             if (dc.redTPHasBeenSet()) {
-                cs.sendMessage(ChatColor.AQUA + "Red team teleport timer defined? " + ChatColor.DARK_GREEN + "Yes. " + ChatColor.GRAY + "(" + ChatColor.DARK_GREEN + dc.getRedTP() + ChatColor.GRAY + ")");
+                cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-RED-TP-DEFINED").replace("%time", dc.getRedTP().toString()));
             } else {
-                cs.sendMessage(ChatColor.AQUA + "Red team teleport timer defined? " + ChatColor.DARK_RED + ChatColor.BOLD + "No.");
+                cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-RED-TP-NOT-DEFINED"));
             }
             if (dc.lobbyWallHasBeenSet()) {
-                cs.sendMessage(ChatColor.AQUA + "Lobby wall has been created? " + ChatColor.DARK_GREEN + "Yes.");
+                cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-LOBBY-WALL-CREATED"));
             } else {
-                cs.sendMessage(ChatColor.AQUA + "Lobby wall has been created? " + ChatColor.DARK_RED + ChatColor.BOLD + "No.");
+                cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-LOBBY-WALL-NOT-CREATED"));
             }
             if (dc.globalLobbySet()) {
-                cs.sendMessage(ChatColor.GREEN + "Global lobby set? " + ChatColor.DARK_GREEN + "Yes.");
+                cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-GLOBAL-LOBBY-SET"));
             } else {
-                cs.sendMessage(ChatColor.GREEN + "Global lobby set? " + ChatColor.DARK_RED + ChatColor.BOLD + "No.");
+                cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-GLOBAL-LOBBY-NOT-SET"));
             }
             if (dc.allGood()) {
-                cs.sendMessage(ChatColor.DARK_GREEN + "Good to go! Your map is ready to be played.");
+                cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-GOOD-TO-GO"));
             } else {
-                cs.sendMessage(ChatColor.RED + "Not good to go! You have yet to finish setting it up.");
+                cs.sendMessage(Localizer.getLocalizer().loadMessage("DC-NOT-GOOD-TO-GO"));
             }
         } else {
             h.wrongArgs();

@@ -8,6 +8,43 @@ BLUE: blue
 GAME-WIN: The %team team has won on the map %map!
 IN-LINE: You are #%position in line for this map.
 
+ABOUT-HEADER: '&b[&6-----------------&b] &eTeam Fortress 2 &b[&6-----------------&b]'
+ABOUT-AUTHOR: '&3Team Fortress 2 plugin by chaseoes. &o(Version: &4&o%version&3&o)'
+
+
+DC-HEADER: '&b[&6------------------&b] &3TF2 Data Check &b[&6------------------&b]'
+DC-ONE-CP-SET: '&bAt least one capture point set? &2Yes. &7(Total: &2%total&7)'
+DC-ONE-CP-NOT-SET: '&bAt least one capture point set? &4&lNo.'
+DC-RED-TEAM-LOBBY-SET: '&bRed team lobby set? &2Yes.'
+DC-RED-TEAM-LOBBY-NOT-SET: '&bRed team lobby set? &4&lNo.'
+DC-BLUE-TEAM-LOBBY-SET: '&bBlue team lobby set? &2Yes.'
+DC-BLUE-TEAM-LOBBY-NOT-SET: '&bBlue team lobby set? &4&lNo.'
+DC-RED-TEAM-SPAWN-SET: '&bRed team spawn set? &2Yes.'
+DC-RED-TEAM-SPAWN-NOT-SET: '&bRed team spawn set? &4&lNo.'
+DC-BLUE-TEAM-SPAWN-SET: '&bBlue team spawn set? &2Yes.'
+DC-BLUE-TEAM-SPAWN-NOT-SET: '&bBlue team spawn set? &4&lNo.'
+DC-PLAYER-LIMIT-DEFINED: '&bPlayer limit defined? &2Yes. &7(&2%count&7)'
+DC-PLAYER-LIMIT-NOT-DEFINED: '&bPlayer limit defined? &4&lNo.'
+DC-TIME-LIMIT-DEFINED: '&bTime limit defined? &2Yes. &7(&2%time&7)'
+DC-TIME-LIMIT-NOT-DEFINED: '&bTime limit defined? &4&lNo.'
+DC-RED-TP-DEFINED: '&bRed team teleport timer defined? &2Yes. &7(&2%time&7)'
+DC-RED-TP-NOT-DEFINED: '&bRed team teleport timer defined? &4&lNo.'
+DC-LOBBY-WALL-CREATED: '&bLobby wall has been created? &2Yes.'
+DC-LOBBY-WALL-NOT-CREATED: '&bLobby wall has been created? &4&lNo.'
+DC-GLOBAL-LOBBY-SET: '&bGlobal lobby set? &2Yes.'
+DC-GLOBAL-LOBBY-NOT-SET: '&bGlobal lobby set? &4&lNo.'
+DC-GOOD-TO-GO: '&2Good to go! Your map is ready to be played.'
+DC-NOT-GOOD-TO-GO: '&cNot good to go! You have yet to finish setting it up.'
+
+HELP-HEADER: '&b[&6---------------&b] &3Team Fortress 2 Help &b[&6---------------&b]'
+HELP-JOIN: '&b/tf2 join <map> [team]&7: Join a map. If a team is not provided, you will be placed randomly.'
+HELP-LEAVE: '&b/tf2 leave&7: Leave the current game.'
+HELP-LIST: '&b/tf2 list [map]: List players currently in the game.'
+HELP-START: '&c/tf2 start [map]&7: Forces a map to start instead of starting automatically.'
+HELP-STOP: '&c/tf2 stop [map]&7: Forces a map to stop.'
+HELP-CREATE: '&4Please go here for a full list of map setup commands:'
+
+
 PERCENT-JOIN: The game will start when %percent% of players have joined.
 
 BUTTON-CHANGE-CLASS-CREATE: Place the button to create a changeclass button.
@@ -28,10 +65,10 @@ CP-CAPTURE-STATUS-CAPTURED: captured
 CP-CAPTURE-STATUS-UNCAPTURED: uncaptured
 CP-CAPTURE-STATUS-CAPTURING: capturing
 CP-BEING-CAPTURED: Capture point &4#%id &eis being captured!
-CP-CAPTURED: Capture point &4#%id &e has been captured by &4&l%player &r&e!
+CP-CAPTURED: 'Capture point &4#%id &ehas been captured by &4&l%player &r&e!'
 CP-REMOVE: Successfully removed capturepoint.
 CP-MUST-CAPTURE-PREVIOUS: You must capture point #%id first!
-CP-ALREADY-CAPTURED-RED: This point is already captured! Head to #%id!
+CP-ALREADY-CAPTURED-RED: 'This point is already captured! Head to #%id!'
 CP-ALREADY-CAPTURED-BLUE: The &4&lred &r&eteam has already captured this point!
 CP-ALREADY-CAPTURING: This point is being captured by %player!
 CP-WRONG-TEAM: You must be on the &4&lred &r&eteam to capture points! &1&lBlue &r&eis for defending!
@@ -41,7 +78,7 @@ DEBUG-SUCCESS: 'Debug information available for 1 day at:'
 DEBUG-ERROR: Error encountered while uploading to Pastebin.
 
 GAME-STARTING-IN: '&9Game starting in &b%time &9seconds!'
-GAME-ENDING-IN: '&9Game ending in &b%time &9!'
+GAME-ENDING-IN: '&9Game ending in &b%time&9!'
 
 GAMESTATUS-INGAME: In-Game
 GAMESTATUS-STARTING: Starting
@@ -52,6 +89,19 @@ LIST-DISPLAYING-MAP: 'Displaying players in the map &l%map &r&e:'
 
 LOBBYWALL-CREATED: Successfully created a join sign!
 LOBBYWALL-REMOVE: Successfully removed lobby wall.
+LOBBYWALL-JOIN-1: Team Fortress 2
+LOBBYWALL-JOIN-2: Click here
+LOBBYWALL-JOIN-3: 'to join:'
+LOBBYWALL-STATUS-1: ' '
+LOBBYWALL-STATUS-2: '&4&lStatus:'
+LOBBYWALL-STATUS-4: ' '
+LOBBYWALL-TEAMS-1: '&4&lRed Team:'
+LOBBYWALL-TEAMS-2: '%players Players'
+LOBBYWALL-TEAMS-3: '&9&lBlue Team:'
+LOBBYWALL-TEAMS-4: '%players Players'
+LOBBYWALL-TIME-1: ' '
+LOBBYWALL-TIME-2: '&9&lTime Left:'
+LOBBYWALL-TIME-4: ' '
 
 MAP-ALREADY-DISABLED: The map &l%map &r&eis already disabled.
 MAP-ALREADY-ENABLED: The map &l%map &r&eis already enabled.
@@ -75,7 +125,7 @@ MAP-SUCCESSFULLY-ENABLED-SINGLE: Successfully enabled &l%map &r&e.
 MAP-SUCCESSFULLY-REDEFINED: Successfully redefined &l%map\'s &r&e region.
 MAP-SUCCESSFULLY-SET-PLAYERLIMIT: Successfully set the playerlimit for &l%map &r&eto %time.
 MAP-SUCCESSFULLY-SET-TIMELIMIT: Successfully set the timelimit for &l%map &r&eto %time.
-MAP-SUCCESSFULLY-SET-CAPTUREPOINT: Successfully defined capturepoint ID #%id for the map &l%map&r&e.
+MAP-SUCCESSFULLY-SET-CAPTUREPOINT: 'Successfully defined capturepoint ID #%id for the map &l%map&r&e.'
 MAP-SUCCESSFULLY-SET-REDTP: Successfully set the red teleport time for &l%map &r&eto &time.
 MAP-SUCCESSFULLY-STARTED: Successfully started the game.
 MAP-SUCCESSFULLY-STOPPED-ALL: Successfully stopped all running games.
@@ -121,6 +171,7 @@ ALREADY-EXISTS-MAP: The map &o%map &r&ealready exists.
 NO-PERMISSION: You don't have permission for that.
 NO-CONSOLE: You must be a player to do that!
 WRONG-ARGS: Incorrect command usage!
+WRONG-ARGS-USAGE: '&eUsage: &o%usage'
 UNKNOWN-COMMAND: Unknown command!
 UNKNOWN-COMMAND-HELP: Type &6/tf2 help &efor help.
 CANT-USE-COMMANDS-INGAME: You cannot use commands while in a game!
