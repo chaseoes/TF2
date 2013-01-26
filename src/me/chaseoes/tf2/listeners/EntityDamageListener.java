@@ -20,7 +20,7 @@ public class EntityDamageListener implements Listener {
         }
         if (event.getEntity() instanceof Player) {
             GamePlayer gp = GameUtilities.getUtilities().getGamePlayer((Player) event.getEntity());
-            if (gp.isIngame() && !gp.isDead() && event.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
+            if (gp.isIngame() && !gp.isDead() && event.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK && event.getCause() != EntityDamageEvent.DamageCause.PROJECTILE && event.getCause() != EntityDamageEvent.DamageCause.MAGIC) {
                 if (gp.getGame().getStatus() == GameStatus.INGAME && !gp.isInLobby()) {
                     if (gp.getPlayer().getHealth() - event.getDamage() <= 0) {
                         if (gp.getPlayerLastDamagedBy() == null) {

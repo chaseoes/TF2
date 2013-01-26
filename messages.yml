@@ -5,7 +5,7 @@ BLUE-TEAM: Blue Team
 WINS: Wins!
 RED: red
 BLUE: blue
-GAME-WIN: The %team team has won on the map %map!
+GAME-WIN: '&eThe %team team has won on the map %map!'
 IN-LINE: You are #%position in line for this map.
 
 HELP-HEADER: '&b[&6---------------&b] &3Team Fortress 2 Help &b[&6---------------&b]'
@@ -36,7 +36,7 @@ CP-CAPTURE-STATUS-CAPTURED: captured
 CP-CAPTURE-STATUS-UNCAPTURED: uncaptured
 CP-CAPTURE-STATUS-CAPTURING: capturing
 CP-BEING-CAPTURED: Capture point &4#%id &eis being captured!
-CP-CAPTURED: 'Capture point &4#%id &ehas been captured by &4&l%player &r&e!'
+CP-CAPTURED: 'Capture point &4#%id &ehas been captured by &4&l%player&r&e!'
 CP-REMOVE: Successfully removed capturepoint.
 CP-MUST-CAPTURE-PREVIOUS: You must capture point #%id first!
 CP-ALREADY-CAPTURED-RED: 'This point is already captured! Head to #%id!'

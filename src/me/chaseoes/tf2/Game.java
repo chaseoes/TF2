@@ -176,10 +176,10 @@ public class Game {
 
         winlines[2] = ChatColor.GREEN + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("WINS");
         winlines[3] = " ";
-        String te = " " + ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("RED") + "" + ChatColor.RESET + ChatColor.YELLOW;
+        String te = ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("RED") + "" + ChatColor.RESET + ChatColor.YELLOW;
 
         if (team == Team.BLUE) {
-            te = " " + ChatColor.BLUE + "" + ChatColor.BOLD + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("BLUE") + "" + ChatColor.RESET + ChatColor.YELLOW;
+            te = ChatColor.BLUE + "" + ChatColor.BOLD + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("BLUE") + "" + ChatColor.RESET + ChatColor.YELLOW;
         }
 
         LobbyWall.getWall().setAllLines(map.getName(), null, winlines, false, true);
