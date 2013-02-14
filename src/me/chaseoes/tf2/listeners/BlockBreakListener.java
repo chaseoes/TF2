@@ -68,7 +68,7 @@ public class BlockBreakListener implements Listener {
 
         if (b.getType() == Material.WALL_SIGN) {
             Sign s = (Sign) b.getState();
-            if (s.getLine(0).equalsIgnoreCase("Team Fortress 2") && s.getLine(1).equalsIgnoreCase("Click here")) {
+            if (s.getLine(0).equalsIgnoreCase(Localizer.getLocalizer().loadMessage("LOBBYWALL-JOIN-1")) && s.getLine(1).equalsIgnoreCase(Localizer.getLocalizer().loadMessage("LOBBYWALL-JOIN-2"))) {
                 String map = ChatColor.stripColor(s.getLine(3));
                 if (b.getLocation().toString().equalsIgnoreCase(LobbyWallUtilities.getUtilities().loadSignLocation(map).toString())) {
                     if (player.hasPermission("tf2.create")) {

@@ -318,7 +318,7 @@ public class Game {
 
     public String getTimeLeft() {
         if (getStatus().equals(GameStatus.WAITING) || getStatus().equals(GameStatus.STARTING)) {
-            return "Not Started";
+            return Localizer.getLocalizer().loadMessage("GAMESTATUS-NOT-STARTED");
         }
 
         int time = getTimeLeftSeconds();
@@ -336,7 +336,7 @@ public class Game {
 
     public String getTimeLeftPretty() {
         if (getStatus().equals(GameStatus.WAITING) || getStatus().equals(GameStatus.STARTING)) {
-            return "Not Started";
+            return Localizer.getLocalizer().loadMessage("GAMESTATUS-NOT-STARTED");
         }
         Integer time = getTimeLeftSeconds();
         int hours = time / (60 * 60);

@@ -53,7 +53,7 @@ public class PlayerInteractListener implements Listener {
 
             if (event.hasBlock() && (event.getClickedBlock().getType() == Material.WALL_SIGN || event.getClickedBlock().getType() == Material.SIGN_POST)) {
                 Sign s = (Sign) event.getClickedBlock().getState();
-                if (s.getLine(0).equalsIgnoreCase("Team Fortress 2") && s.getLine(2).equalsIgnoreCase("to join:")) {
+                if (s.getLine(0).equalsIgnoreCase(Localizer.getLocalizer().loadMessage("LOBBYWALL-JOIN-1")) && s.getLine(2).equalsIgnoreCase(Localizer.getLocalizer().loadMessage("LOBBYWALL-JOIN-3"))) {
                     String map = ChatColor.stripColor(s.getLine(3));
                     Game game = GameUtilities.getUtilities().getGame(TF2.getInstance().getMap(map));
                     Team team = game.decideTeam();

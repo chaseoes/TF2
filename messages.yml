@@ -11,7 +11,7 @@ IN-LINE: You are #%position in line for this map.
 HELP-HEADER: '&b[&6---------------&b] &3Team Fortress 2 Help &b[&6---------------&b]'
 HELP-JOIN: '&b/tf2 join <map> [team]&7: Join a map. If a team is not provided, you will be placed randomly.'
 HELP-LEAVE: '&b/tf2 leave&7: Leave the current game.'
-HELP-LIST: '&b/tf2 list [map]: List players currently in the game.'
+HELP-LIST: '&b/tf2 list [map]&7: List players currently in the game.'
 HELP-START: '&c/tf2 start [map]&7: Forces a map to start instead of starting automatically.'
 HELP-STOP: '&c/tf2 stop [map]&7: Forces a map to stop.'
 HELP-CREATE: '&4Please go here for a full list of map setup commands:'
@@ -35,6 +35,9 @@ CONTAINER-REMOVE: Successfully removed container.
 CP-CAPTURE-STATUS-CAPTURED: captured
 CP-CAPTURE-STATUS-UNCAPTURED: uncaptured
 CP-CAPTURE-STATUS-CAPTURING: capturing
+CP-CAPTURE-STATUS-CAP-CAPTURED: Captured
+CP-CAPTURE-STATUS-CAP-UNCAPTURED: Uncaptured
+CP-CAPTURE-STATUS-CAP-CAPTURING: Capturing
 CP-BEING-CAPTURED: Capture point &4#%id &eis being captured!
 CP-CAPTURED: 'Capture point &4#%id &ehas been captured by &4&l%player&r&e!'
 CP-REMOVE: Successfully removed capturepoint.
@@ -55,8 +58,9 @@ GAMESTATUS-INGAME: In-Game
 GAMESTATUS-STARTING: Starting
 GAMESTATUS-WAITING: Waiting
 GAMESTATUS-DISABLED: Disabled
+GAMESTATUS-NOT-STARTED: Not Started
 
-LIST-DISPLAYING-MAP: 'Displaying players in the map &l%map &r&e:'
+LIST-DISPLAYING-MAP: 'Displaying players in the map &l%map&r&e:'
 
 LOBBYWALL-CREATED: Successfully created a join sign!
 LOBBYWALL-REMOVE: Successfully removed lobby wall.
@@ -73,6 +77,10 @@ LOBBYWALL-TEAMS-4: '%players Players'
 LOBBYWALL-TIME-1: ' '
 LOBBYWALL-TIME-2: '&9&lTime Left:'
 LOBBYWALL-TIME-4: ' '
+LOBBYWALL-CP-1: Capture Point
+LOBBYWALL-CP-3: 'Status:'
+
+LOBBYWALL-MAP-DISABLED: '&2&lDisabled'
 
 MAP-ALREADY-DISABLED: The map &l%map &r&eis already disabled.
 MAP-ALREADY-ENABLED: The map &l%map &r&eis already enabled.

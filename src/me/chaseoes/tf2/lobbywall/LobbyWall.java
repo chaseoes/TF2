@@ -59,11 +59,11 @@ public class LobbyWall {
                 }
                 for (int i = 4; i < 4 + info.getCapturePoints().size(); i++) {
                     String color = ChatColor.BLUE + "" + ChatColor.BOLD;
-                    if (getFriendlyCaptureStatus(map, i - 3).equalsIgnoreCase("captured")) {
+                    if (getFriendlyCaptureStatus(map, i - 3).equalsIgnoreCase(Localizer.getLocalizer().loadMessage("CP-CAPTURE-STATUS-CAPTURED"))) {
                         color = ChatColor.DARK_RED + "" + ChatColor.BOLD;
                     }
                     if (info.getGame().getStatus() != GameStatus.DISABLED) {
-                        LobbyWallUtilities.getUtilities().setSignLines(signs.get(i), "Capture Point", "#" + (i - 3), "Status:", color + getFriendlyCaptureStatus(map, i - 3));
+                        LobbyWallUtilities.getUtilities().setSignLines(signs.get(i), Localizer.getLocalizer().loadMessage("LOBBYWALL-CP-1"), "#" + (i - 3), Localizer.getLocalizer().loadMessage("LOBBYWALL-CP-3"), color + getFriendlyCaptureStatus(map, i - 3));
                     } else {
                         LobbyWallUtilities.getUtilities().setSignLines(signs.get(i), " ", "---------------------------------------------", "-------------------------------------", " ");
                     }
@@ -92,15 +92,15 @@ public class LobbyWall {
             if (s1) {
                 LobbyWallUtilities.getUtilities().setSignLines(signs.get(0), lines[0], lines[1], lines[2], lines[3]);
             } else {
-                LobbyWallUtilities.getUtilities().setSignLines(signs.get(0), "Team Fortress 2", "Click here", "to join:", ChatColor.BOLD + "" + map);
+                LobbyWallUtilities.getUtilities().setSignLines(signs.get(0), Localizer.getLocalizer().loadMessage("LOBBYWALL-JOIN-1"), Localizer.getLocalizer().loadMessage("LOBBYWALL-JOIN-2"), Localizer.getLocalizer().loadMessage("LOBBYWALL-JOIN-3"), ChatColor.BOLD + "" + map);
             }
             if (s2) {
                 LobbyWallUtilities.getUtilities().setSignLines(signs.get(1), lines[0], lines[1], lines[2], lines[3]);
             } else {
                 if (game.getStatus() != GameStatus.DISABLED) {
-                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(1), " ", "" + ChatColor.DARK_RED + ChatColor.BOLD + "Status:", game.getPrettyStatus(), " ");
+                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(1), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-1"), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-2"), game.getPrettyStatus(), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-4"));
                 } else {
-                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(1), " ", ChatColor.BOLD + "Status:", "" + ChatColor.DARK_RED + ChatColor.BOLD + "Disabled", " ");
+                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(1), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-1"), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-2"), Localizer.getLocalizer().loadMessage("LOBBYWALL-MAP-DISABLED"), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-4"));
                 }
             }
             LobbyWallUtilities.getUtilities().setSignLines(signs.get(2), lines[0], lines[1], lines[2], lines[3]);
@@ -125,13 +125,13 @@ public class LobbyWall {
         Map m = plugin.getMap(map);
         String ss = m.getCapturePoint(id).getStatus().string();
         if (ss.equalsIgnoreCase("uncaptured")) {
-            return "Uncaptured";
+            return Localizer.getLocalizer().loadMessage("CP-CAPTURE-STATUS-CAP-UNCAPTURED");
         }
         if (ss.equalsIgnoreCase("capturing")) {
-            return "Capturing";
+            return Localizer.getLocalizer().loadMessage("CP-CAPTURE-STATUS-CAP-CAPTURING");
         }
         if (ss.equalsIgnoreCase("captured")) {
-            return "Captured";
+            return Localizer.getLocalizer().loadMessage("CP-CAPTURE-STATUS-CAP-CAPTURED");
         }
         return null;
     }
