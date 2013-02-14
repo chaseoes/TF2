@@ -60,7 +60,7 @@ public class TF2Class {
                         if (effects[2].equalsIgnoreCase("forever")) {
                             duration = Integer.MAX_VALUE;
                         } else {
-                            duration = Integer.parseInt(effects[2]);
+                            duration = Integer.parseInt(effects[2]) * 20;
                         }
                         PotionEffect e = new PotionEffect(et, duration, amplifier);
                         player.getPlayer().addPotionEffect(e);
