@@ -42,7 +42,7 @@ public class MessagesFile {
                 customConfig.setDefaults(defConfig);
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -64,7 +64,7 @@ public class MessagesFile {
             out.flush();
             out.close();
         } catch (IOException ex) {
-
+            ex.printStackTrace();
         }
     }
 
