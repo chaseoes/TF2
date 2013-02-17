@@ -124,7 +124,7 @@ public class ListCommand {
                 cs.sendMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizer.getLocalizer().loadPrefixedMessage("RED-TEAM")  + " (0): " + ChatColor.RESET + "\n");
             }
             if (blue.length() != 0) {
-            cs.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + Localizer.getLocalizer().loadPrefixedMessage("BLUE-TEAM") +" (" + bluec + "): " + ChatColor.RESET + "\n" + blue.toString().trim().substring(0, red.toString().length() - 2));
+            cs.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + Localizer.getLocalizer().loadPrefixedMessage("BLUE-TEAM") +" (" + bluec + "): " + ChatColor.RESET + "\n" + blue.toString().trim().substring(0, blue.toString().length() - 2));
             } else {
                 cs.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + Localizer.getLocalizer().loadPrefixedMessage("BLUE-TEAM") + " (0): " + ChatColor.RESET + "\n");
             }

@@ -30,6 +30,7 @@ public class MessagesFile {
         try {
             if (customConfigFile == null) {
                 customConfigFile = new File(plugin.getDataFolder(), "messages.yml");
+                customConfigFile.createNewFile();
             }
 
             customConfig = new YamlConfiguration();
