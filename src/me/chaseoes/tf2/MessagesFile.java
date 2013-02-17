@@ -26,7 +26,7 @@ public class MessagesFile {
         plugin = p;
     }
 
-    public void reloadMessages() {
+    public boolean reloadMessages() {
         try {
             if (customConfigFile == null) {
                 customConfigFile = new File(plugin.getDataFolder(), "messages.yml");
@@ -41,8 +41,10 @@ public class MessagesFile {
                 YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
                 customConfig.setDefaults(defConfig);
             }
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 

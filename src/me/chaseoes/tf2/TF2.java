@@ -89,9 +89,6 @@ public class TF2 extends JavaPlugin {
         getConfig().options().copyDefaults(true);
         saveConfig();
         DataConfiguration.getData().reloadData();
-        MessagesFile.getMessages().getMessagesFile().options().copyDefaults(true);
-        MessagesFile.getMessages().saveMessages();
-        Schedulers.getSchedulers().startAFKChecker();
 
         for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
             addMap(map, GameStatus.WAITING);
@@ -100,6 +97,17 @@ public class TF2 extends JavaPlugin {
         for (String map : MapUtilities.getUtilities().getDisabledMaps()) {
             addMap(map, GameStatus.DISABLED);
         }
+
+        if (MessagesFile.getMessages().reloadMessages()) {
+            MessagesFile.getMessages().getMessagesFile().options().copyDefaults(true);
+            MessagesFile.getMessages().saveMessages();
+        } else {
+            getLogger().severe("Error parsing messages.yml, disabling plugin...");
+            setEnabled(false);
+            return;
+        }
+
+        Schedulers.getSchedulers().startAFKChecker();
 
         LobbyWall.getWall().startTask();
 
@@ -143,15 +151,13 @@ public class TF2 extends JavaPlugin {
         if (getConfig().getBoolean("stats-database.enabled")) {
             SQLUtilities.getUtilities().setup(this);
         }
-        
+
     }
 
     @Override
     public void onDisable() {
         reloadConfig();
         saveConfig();
-        MessagesFile.getMessages().reloadMessages();
-        MessagesFile.getMessages().saveMessages();
         for (Map map : MapUtilities.getUtilities().getMaps()) {
             if (GameUtilities.getUtilities().getGame(map).getStatus() != GameStatus.WAITING && GameUtilities.getUtilities().getGame(map).getStatus() != GameStatus.DISABLED) {
                 GameUtilities.getUtilities().getGame(map).stopMatch(false);
