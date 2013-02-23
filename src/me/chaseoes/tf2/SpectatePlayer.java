@@ -1,9 +1,8 @@
 package me.chaseoes.tf2;
 
 import me.chaseoes.tf2.classes.TF2Class;
-
 import me.chaseoes.tf2.utilities.Localizer;
-import org.bukkit.ChatColor;
+
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

@@ -1,8 +1,10 @@
 package me.chaseoes.tf2.listeners;
 
-import me.chaseoes.tf2.*;
-
+import me.chaseoes.tf2.Game;
+import me.chaseoes.tf2.GamePlayer;
+import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.commands.SpectateCommand;
+
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;

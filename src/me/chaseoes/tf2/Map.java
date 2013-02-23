@@ -350,7 +350,7 @@ public class Map {
         customConfig.set("containers", confStringList);
         saveConfig();
     }
-    
+
     public GameQueue getQueue() {
         return queue;
     }

@@ -7,9 +7,8 @@ import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
-
 import me.chaseoes.tf2.utilities.Localizer;
-import org.bukkit.ChatColor;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -36,7 +35,7 @@ public class DisableCommand {
             for (Map map : TF2.getInstance().getMaps()) {
                 if (GameUtilities.getUtilities().getGame(map).getStatus() != GameStatus.DISABLED) {
                     Game game = GameUtilities.getUtilities().getGame(map);
-                    //game.getQueue().clear(true);
+                    // game.getQueue().clear(true);
                     game.stopMatch(false);
                     MapUtilities.getUtilities().disableMap(map.getName());
                     game.setStatus(GameStatus.DISABLED);
@@ -57,7 +56,7 @@ public class DisableCommand {
             }
             Game game = GameUtilities.getUtilities().getGame(plugin.getMap(map));
             if (game.getStatus() != GameStatus.DISABLED) {
-                //game.getQueue().clear(true);
+                // game.getQueue().clear(true);
                 game.stopMatch(false);
                 MapUtilities.getUtilities().disableMap(map);
                 game.setStatus(GameStatus.DISABLED);

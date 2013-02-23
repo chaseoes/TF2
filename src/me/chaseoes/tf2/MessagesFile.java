@@ -1,11 +1,16 @@
 package me.chaseoes.tf2;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 
-import com.google.common.io.Files;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+
+import com.google.common.io.Files;
 
 public class MessagesFile {
 
@@ -26,6 +31,7 @@ public class MessagesFile {
         plugin = p;
     }
 
+    @SuppressWarnings("resource")
     public boolean reloadMessages() {
         try {
             if (customConfigFile == null) {
@@ -36,7 +42,6 @@ public class MessagesFile {
             customConfig = new YamlConfiguration();
             customConfig.loadFromString(Files.toString(customConfigFile, Charset.forName("UTF-8")));
 
-            @SuppressWarnings("resource")
             InputStream defConfigStream = plugin.getResource("messages.yml");
             if (defConfigStream != null) {
                 YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);

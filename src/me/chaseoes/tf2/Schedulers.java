@@ -5,7 +5,6 @@ import java.util.HashMap;
 import me.chaseoes.tf2.utilities.Localizer;
 import me.chaseoes.tf2.utilities.LocationStore;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 

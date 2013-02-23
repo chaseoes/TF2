@@ -1,6 +1,7 @@
 package me.chaseoes.tf2.utilities;
 
 import me.chaseoes.tf2.Map;
+
 import org.bukkit.Location;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;

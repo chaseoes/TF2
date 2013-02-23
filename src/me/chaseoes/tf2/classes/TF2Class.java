@@ -3,13 +3,11 @@ package me.chaseoes.tf2.classes;
 import java.util.logging.Level;
 
 import me.chaseoes.tf2.GamePlayer;
-import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.Team;
 import me.chaseoes.tf2.utilities.ArmorUtilities;
-
 import me.chaseoes.tf2.utilities.Localizer;
-import org.bukkit.ChatColor;
+
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;

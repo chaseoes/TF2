@@ -13,8 +13,8 @@ import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.commands.SpectateCommand;
 import me.chaseoes.tf2.utilities.DataChecker;
 import me.chaseoes.tf2.utilities.GeneralUtilities;
-
 import me.chaseoes.tf2.utilities.Localizer;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
@@ -35,7 +35,7 @@ public class PlayerInteractListener implements Listener {
             Player player = event.getPlayer();
             GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(player);
             if (gp.isIngame()) {
-                if ((player.getItemInHand().getType() == Material.getMaterial(373)) && (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
+                if (player.getItemInHand().getType() == Material.getMaterial(373) && (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
                     if (gp.justSpawned()) {
                         event.setCancelled(true);
                         player.updateInventory();
@@ -57,7 +57,7 @@ public class PlayerInteractListener implements Listener {
                     String map = ChatColor.stripColor(s.getLine(3));
                     Game game = GameUtilities.getUtilities().getGame(TF2.getInstance().getMap(map));
                     Team team = game.decideTeam();
-                    
+
                     DataChecker dc = new DataChecker(map);
                     if (!dc.allGood()) {
                         player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-NOT-SETUP"));
@@ -66,7 +66,7 @@ public class PlayerInteractListener implements Listener {
                         }
                         return;
                     }
-                    
+
                     if (!player.hasPermission("tf2.play")) {
                         event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("NO-PERMISSION"));
                         return;

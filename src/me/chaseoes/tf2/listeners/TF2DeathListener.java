@@ -8,8 +8,8 @@ import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.events.TF2DeathEvent;
-
 import me.chaseoes.tf2.utilities.Localizer;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -53,7 +53,7 @@ public class TF2DeathListener implements Listener {
                 killerg.setTotalKills(-1);
                 killer.setLevel(killerg.getTotalKills());
                 killerg.setKills(-1);
-                
+
                 int kills = killerg.getKills();
                 if (kills % TF2.getInstance().getConfig().getInt("killstreaks") == 0) {
                     game.broadcast(ChatColor.YELLOW + "[TF2] " + playerg.getTeamColor() + killer.getName() + " " + ChatColor.RESET + ChatColor.YELLOW + "is on a " + ChatColor.DARK_RED + ChatColor.BOLD + "" + kills + " " + ChatColor.RESET + ChatColor.YELLOW + "kill streak!");

@@ -27,6 +27,7 @@ public class SQLUtilities {
     public void setup(TF2 p) {
         plugin = p;
         plugin.getServer().getScheduler().runTaskAsynchronously(plugin, new Runnable() {
+            @Override
             public void run() {
                 final TF2 p = plugin;
                 String username = p.getConfig().getString("stats-database.username");
@@ -65,7 +66,7 @@ public class SQLUtilities {
         }
         return result;
     }
-    
+
     public void execUpdate(String statement) {
         if (!connected) {
             return;

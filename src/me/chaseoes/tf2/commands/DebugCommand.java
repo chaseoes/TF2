@@ -78,7 +78,8 @@ public class DebugCommand {
                     String mapfile = new Scanner(mf).useDelimiter("\\A").next();
                     info.append("\n====== ").append(map).append(" MAP CONFIGURATION ======\n");
                     info.append(mapfile);
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

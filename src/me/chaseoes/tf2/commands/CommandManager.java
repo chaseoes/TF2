@@ -2,7 +2,6 @@ package me.chaseoes.tf2.commands;
 
 import me.chaseoes.tf2.TF2;
 
-import me.chaseoes.tf2.utilities.Localizer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,7 +20,7 @@ public class CommandManager implements CommandExecutor {
             cs.sendMessage(ChatColor.AQUA + "http://dev.bukkit.org/server-mods/team-fortress-2/");
             return true;
         }
-        
+
         if (strings[0].equalsIgnoreCase("help")) {
             HelpCommand.getCommand().execHelpCommand(cs, strings, cmnd);
             return true;
@@ -163,7 +162,7 @@ public class CommandManager implements CommandExecutor {
             }
             return true;
         }
-        
+
         if (strings[0].equalsIgnoreCase("spectate")) {
             if (cs.hasPermission("tf2.spectate")) {
                 SpectateCommand.getCommand().execSpectateCommand(cs, strings, cmnd);

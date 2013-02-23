@@ -5,9 +5,8 @@ import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.lobbywall.LobbyWallUtilities;
 import me.chaseoes.tf2.utilities.DataChecker;
-
 import me.chaseoes.tf2.utilities.Localizer;
-import org.bukkit.ChatColor;
+
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

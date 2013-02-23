@@ -194,7 +194,6 @@ public class TF2 extends JavaPlugin {
         StopCommand.getCommand().setup(this);
         SerializableLocation.getUtilities().setup(this);
         MessagesFile.getMessages().setup(this);
-        Localizer.getLocalizer().setup(this);
 
         // Register Events
         PluginManager pm = getServer().getPluginManager();

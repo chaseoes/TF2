@@ -5,9 +5,8 @@ import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import me.chaseoes.tf2.utilities.GeneralUtilities;
 import me.chaseoes.tf2.utilities.IconMenu;
-
 import me.chaseoes.tf2.utilities.Localizer;
-import org.bukkit.ChatColor;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -99,7 +98,7 @@ public class SetCommand {
             } else {
                 h.wrongArgs();
             }
-        } else if (strings[1].equalsIgnoreCase("redtp")){
+        } else if (strings[1].equalsIgnoreCase("redtp")) {
             if (strings.length == 4) {
                 if (!TF2.getInstance().mapExists(strings[2])) {
                     cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", strings[2]));

@@ -154,16 +154,16 @@ public class GamePlayer {
     public void leaveCurrentGame() {
         Game game = getGame();
         game.map.getQueue().remove(player);
-            TF2Class c = new TF2Class("NONE");
-            c.clearInventory(player);
-            loadInventory();
-            if (game.getStatus() == GameStatus.STARTING && game.playersInGame.size() == 1) {
-                game.stopMatch(true);
-            }
+        TF2Class c = new TF2Class("NONE");
+        c.clearInventory(player);
+        loadInventory();
+        if (game.getStatus() == GameStatus.STARTING && game.playersInGame.size() == 1) {
+            game.stopMatch(true);
+        }
 
-            if (game.playersInGame.size() == 0) {
-                game.stopMatch(true);
-            }
+        if (game.playersInGame.size() == 0) {
+            game.stopMatch(true);
+        }
         player.teleport(MapUtilities.getUtilities().loadLobby());
         TagAPI.refreshPlayer(player);
         game.map.getQueue().check();

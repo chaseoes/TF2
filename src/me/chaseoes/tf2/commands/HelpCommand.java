@@ -1,6 +1,7 @@
 package me.chaseoes.tf2.commands;
 
 import me.chaseoes.tf2.utilities.Localizer;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

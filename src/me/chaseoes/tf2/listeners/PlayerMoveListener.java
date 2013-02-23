@@ -1,11 +1,15 @@
 package me.chaseoes.tf2.listeners;
 
-import me.chaseoes.tf2.*;
+import me.chaseoes.tf2.GamePlayer;
+import me.chaseoes.tf2.GameStatus;
+import me.chaseoes.tf2.GameUtilities;
+import me.chaseoes.tf2.Map;
+import me.chaseoes.tf2.TF2;
+import me.chaseoes.tf2.Team;
 import me.chaseoes.tf2.capturepoints.CapturePoint;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
-
 import me.chaseoes.tf2.utilities.Localizer;
-import org.bukkit.ChatColor;
+
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -47,11 +51,11 @@ public class PlayerMoveListener implements Listener {
                             cp.startCapturing(gp);
                         }
                     } else {
-                        event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CP-MUST-CAPTURE-PREVIOUS").replace("%id", (id - 1) + ""));
+                        event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CP-MUST-CAPTURE-PREVIOUS").replace("%id", id - 1 + ""));
                     }
 
                 } else if (map.getCapturePoint(id).getStatus().string().equalsIgnoreCase("captured")) {
-                    event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CP-ALREADY-CAPTURED-RED").replace("%id", (id + 1) + ""));
+                    event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CP-ALREADY-CAPTURED-RED").replace("%id", id + 1 + ""));
                 } else if (map.getCapturePoint(id).getStatus().string().equalsIgnoreCase("capturing")) {
                     event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CP-ALREADY-CAPTURING").replace("%player", cp.capturing.getName()));
                 }

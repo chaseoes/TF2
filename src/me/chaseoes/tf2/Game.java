@@ -121,7 +121,9 @@ public class Game {
         }, map.getRedTeamTeleportTime() * 20L);
     }
 
-    public void stopMatch(boolean queueCheck) { //TODO: This may make players in queue join on a disabled match
+    public void stopMatch(boolean queueCheck) { // TODO: This may make players
+                                                // in queue join on a disabled
+                                                // match
         setStatus(GameStatus.WAITING);
         Schedulers.getSchedulers().stopRedTeamCountdown(map.getName());
         Schedulers.getSchedulers().stopTimeLimitCounter(map.getName());
@@ -210,7 +212,7 @@ public class Game {
         if (!q.gameHasRoom()) {
             if (!player.getPlayer().hasPermission("tf2.create")) {
                 q.add(player.getPlayer());
-                player.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("IN-LINE").replace("%position", (q.getPosition(player.getPlayer()) + 1)  + ""));
+                player.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("IN-LINE").replace("%position", q.getPosition(player.getPlayer()) + 1 + ""));
                 return;
             }
         }

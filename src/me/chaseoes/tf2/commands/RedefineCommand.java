@@ -5,7 +5,6 @@ import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.utilities.Localizer;
 import me.chaseoes.tf2.utilities.WorldEditUtilities;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
