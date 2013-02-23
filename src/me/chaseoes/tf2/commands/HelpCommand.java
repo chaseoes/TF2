@@ -15,7 +15,7 @@ public class HelpCommand {
     }
 
     public void execHelpCommand(CommandSender cs, String[] strings, Command cmnd) {
-        cs.sendMessage(Localizer.getLocalizer().loadMessage("HELP-HEADER"));
+        cs.sendMessage(ChatColor.AQUA + "[" + ChatColor.GOLD + "---------------" + ChatColor.AQUA + "]" + ChatColor.DARK_AQUA + " Team Fortress 2 Help " + ChatColor.AQUA + "[" + ChatColor.GOLD + "---------------" + ChatColor.AQUA + "]");
         if (cs.hasPermission("tf2.play")) {
             cs.sendMessage(Localizer.getLocalizer().loadMessage("HELP-JOIN"));
             cs.sendMessage(Localizer.getLocalizer().loadMessage("HELP-LEAVE"));
