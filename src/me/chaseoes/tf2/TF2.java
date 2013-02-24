@@ -63,6 +63,7 @@ public class TF2 extends JavaPlugin {
     public UpdateChecker uc;
     public IconMenu setSpawnMenu;
     private static TF2 instance;
+    public boolean enabled;
 
     public static TF2 getInstance() {
         return instance;
@@ -74,13 +75,13 @@ public class TF2 extends JavaPlugin {
         getServer().getScheduler().cancelTasks(this);
         setupClasses();
         if (getServer().getPluginManager().getPlugin("TagAPI") == null) {
-            getLogger().log(Level.SEVERE, "The TagAPI plugin is required to run TF2. Disabling...");
+            getLogger().log(Level.SEVERE, pluginRequiredMessage("TagAPI"));
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
 
         if (getServer().getPluginManager().getPlugin("WorldEdit") == null) {
-            getLogger().log(Level.SEVERE, "The WorldEdit plugin is required to run TF2. Disabling...");
+            getLogger().log(Level.SEVERE, pluginRequiredMessage("WorldEdit"));
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
@@ -152,19 +153,23 @@ public class TF2 extends JavaPlugin {
             SQLUtilities.getUtilities().setup(this);
         }
 
+        enabled = true;
+
     }
 
     @Override
     public void onDisable() {
-        reloadConfig();
-        saveConfig();
-        for (Map map : MapUtilities.getUtilities().getMaps()) {
-            if (GameUtilities.getUtilities().getGame(map).getStatus() != GameStatus.WAITING && GameUtilities.getUtilities().getGame(map).getStatus() != GameStatus.DISABLED) {
-                GameUtilities.getUtilities().getGame(map).stopMatch(false);
+        if (enabled) {
+            reloadConfig();
+            saveConfig();
+            for (Map map : MapUtilities.getUtilities().getMaps()) {
+                if (GameUtilities.getUtilities().getGame(map).getStatus() != GameStatus.WAITING && GameUtilities.getUtilities().getGame(map).getStatus() != GameStatus.DISABLED) {
+                    GameUtilities.getUtilities().getGame(map).stopMatch(false);
+                }
             }
+            getServer().getScheduler().cancelTasks(this);
+            instance = null;
         }
-        getServer().getScheduler().cancelTasks(this);
-        instance = null;
     }
 
     public void setupClasses() {
@@ -253,6 +258,20 @@ public class TF2 extends JavaPlugin {
 
     public boolean mapExists(String map) {
         return maps.containsKey(map);
+    }
+
+    public String pluginRequiredMessage(String plugin) {
+        return "\n------------------------------ [ ERROR ] ------------------------------\n-----------------------------------------------------------------------\n\n" + plugin + " is REQUIRED to run TF2!\nPlease download " + plugin + ", or TF2 will NOT work!\nDownload at: " + getPluginURL(plugin) + "\nTF2 is now being disabled...\n\n-----------------------------------------------------------------------\n-----------------------------------------------------------------------";
+    }
+    
+    public String getPluginURL(String plugin) {
+        if (plugin.equalsIgnoreCase("TagAPI")) {
+            return "http://dev.bukkit.org/server-mods/tag/";
+        }
+        if (plugin.equalsIgnoreCase("WorldEdit")) {
+            return "http://dev.bukkit.org/server-mods/worldedit/";
+        }
+        return "";
     }
 
 }
