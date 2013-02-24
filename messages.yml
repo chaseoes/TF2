@@ -8,7 +8,6 @@ BLUE: blue
 GAME-WIN: '&eThe %team team has won on the map %map!'
 IN-LINE: You are #%position in line for this map.
 
-HELP-HEADER: '&b[&6---------------&b] &3Team Fortress 2 Help &b[&6---------------&b]'
 HELP-JOIN: '&b/tf2 join <map> [team]&7: Join a map. If a team is not provided, you will be placed randomly.'
 HELP-LEAVE: '&b/tf2 leave&7: Leave the current game.'
 HELP-LIST: '&b/tf2 list [map]&7: List players currently in the game.'
@@ -142,7 +141,7 @@ SETSPAWN-EXIT-DESC: Exit this menu.
 GLOBAL-LOBBY-NOT-SET: The global lobby hasn\'t been set.
 GLOBAL-LOBBY-SET: Successfully set the global lobby.
 
-DOES-NOT-EXIST-MAP: '&o%map &r&4 is not a valid map name.'
+DOES-NOT-EXIST-MAP: '&o%map &r&4is not a valid map name.'
 DOES-NOT-EXIST-CLASS: '&4That class does not exist (%class).'
 
 ALREADY-EXISTS-MAP: The map &o%map &r&ealready exists.
