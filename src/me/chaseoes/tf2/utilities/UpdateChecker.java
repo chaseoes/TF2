@@ -41,8 +41,7 @@ public class UpdateChecker {
     public void checkForUpdate() {
         if (plugin.getConfig().getBoolean("update-checking")) {
             try {
-                String channel = "http://plugins.skitscape.com/latestVersion.php?pid=1&label=" + plugin.getConfig().getString("update-channel");
-                final URL url = new URL(channel);
+                final URL url = new URL("http://chaseoes.com/plugins/TF2.version");
                 InputStream i = url.openStream();
                 Scanner scan = new Scanner(i);
                 String ver = scan.nextLine();

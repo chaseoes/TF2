@@ -1,3 +1,11 @@
+v2.1
+Adds localization ability! Translate it to your own language by editing messages.yml.
+Fixed potion effects being applied in ticks instead of seconds.
+Fixed players being able to team-kill in various ways.
+Fixed compatibility with Factions commands.
+Fixes an error when using /tf2 list.
+Many other small bugfixes.
+
 v2.0.1
 Fix npe on player login with maps without a region defined
 Censor mysql details in /tf2 debug
