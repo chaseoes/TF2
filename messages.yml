@@ -37,10 +37,10 @@ CP-CAPTURE-STATUS-CAPTURING: capturing
 CP-CAPTURE-STATUS-CAP-CAPTURED: Captured
 CP-CAPTURE-STATUS-CAP-UNCAPTURED: Uncaptured
 CP-CAPTURE-STATUS-CAP-CAPTURING: Capturing
-CP-BEING-CAPTURED: Capture point &4#%id &eis being captured!
+CP-BEING-CAPTURED: 'Capture point &4#%id &eis being captured!'
 CP-CAPTURED: 'Capture point &4#%id &ehas been captured by &4&l%player&r&e!'
 CP-REMOVE: Successfully removed capturepoint.
-CP-MUST-CAPTURE-PREVIOUS: You must capture point #%id first!
+CP-MUST-CAPTURE-PREVIOUS: 'You must capture point #%id first!'
 CP-ALREADY-CAPTURED-RED: 'This point is already captured! Head to #%id!'
 CP-ALREADY-CAPTURED-BLUE: The &4&lred &r&eteam has already captured this point!
 CP-ALREADY-CAPTURING: This point is being captured by %player!

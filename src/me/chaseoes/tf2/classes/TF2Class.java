@@ -1,5 +1,6 @@
 package me.chaseoes.tf2.classes;
 
+import java.util.Arrays;
 import java.util.logging.Level;
 
 import me.chaseoes.tf2.GamePlayer;
@@ -15,6 +16,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
+import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -110,13 +112,18 @@ public class TF2Class {
                     String[] items = fullitem.split("\\.");
                     String[] item = items[0].split("\\,");
                     byte data = 0;
+                    short damage = 0;
                     if (item.length > 1) {
                         data = (byte) Integer.parseInt(item[1]);
+                    }
+                    if (item.length > 2) {
+                        damage = Short.parseShort(item[2]);
                     }
 
                     MaterialData md = new MaterialData(Integer.parseInt(item[0]), data);
                     ItemStack i = md.toItemStack();
                     i.setAmount(Integer.parseInt(items[1]));
+                    i.setDurability(damage);
 
                     int enchantindex = 0;
                     for (String enchant : items) {
