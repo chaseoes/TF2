@@ -162,6 +162,7 @@ public class TF2Class {
         player.getInventory().setChestplate(new ItemStack(Material.AIR));
         player.getInventory().setLeggings(new ItemStack(Material.AIR));
         player.getInventory().setBoots(new ItemStack(Material.AIR));
+        player.setItemOnCursor(new ItemStack(Material.AIR));
 
         for (PotionEffect effect : player.getActivePotionEffects()) {
             player.removePotionEffect(effect.getType());
