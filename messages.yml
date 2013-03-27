@@ -120,6 +120,7 @@ PLAYER-NOT-SPECTATING: You are not spectating a map currently.
 PLAYER-KICKED-FOR-AFK: You have been kicked from the map for being AFK.
 PLAYER-NOW-SPECTATING: You are now spectating! Players in-game can not see you and you can fly.
 PLAYER-NO-LONGER-SPECTATING: You are no longer spectating.
+PLAYER-INVENTORY-MOVING-BLOCKED: You are not allowed to move your inventory around!
 
 PLAYER-KILLED-BY: You were killed by %teamcolor%player &r&e(%class)!
 PLAYER-KILLED: You killed %teamcolor%player &r&e(%class)!

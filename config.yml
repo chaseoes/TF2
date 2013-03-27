@@ -8,6 +8,7 @@ update-checking: true
 update-channel: stable
 potion-effects-after-start: true
 gamemode: adventure
+prevent-inventory-moving: true
 debug: false
 broadcast-winning-team: true
 prevent-block-breaking: true
