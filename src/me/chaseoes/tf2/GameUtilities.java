@@ -62,7 +62,7 @@ public class GameUtilities {
     public Game removeGame(Map m) {
         return games.remove(m.getName());
     }
-    
+
     public Game getNextGame(Game g) {
         for (Game game : games.values()) {
             if (!game.getMapName().equalsIgnoreCase(g.getMapName())) {
