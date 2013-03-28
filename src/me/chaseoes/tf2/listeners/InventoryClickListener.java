@@ -4,6 +4,7 @@ import me.chaseoes.tf2.GamePlayer;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.utilities.Localizer;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,7 +22,7 @@ public class InventoryClickListener implements Listener {
     public void onInventoryClick(InventoryClickEvent event) {
         if (event.getWhoClicked() != null && event.getWhoClicked() instanceof Player) {
             GamePlayer gp = GameUtilities.getUtilities().getGamePlayer((Player) event.getWhoClicked());
-            if (gp.isIngame() && pl.getInstance().getConfig().getBoolean("prevent-inventory-moving")) {
+            if (gp.isIngame() && pl.getConfig().getBoolean("prevent-inventory-moving")) {
                 event.setCancelled(true);
                 gp.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-INVENTORY-MOVING-BLOCKED"));
             }

@@ -152,6 +152,12 @@ public class Game {
         for (GamePlayer gp : hmap.values()) {
             gp.leaveCurrentGame();
             gp.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("GAME-END"));
+            if (plugin.getConfig().getBoolean("map-rotation")) {
+                Game nextGame = GameUtilities.getUtilities().getNextGame(this);
+                if (nextGame != null && !nextGame.isFull() && nextGame.getStatus() == GameStatus.WAITING) {
+                    gp.getPlayer().performCommand("tf2 join " + nextGame.getMapName());
+                }
+            }
         }
     }
 

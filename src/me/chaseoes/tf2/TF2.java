@@ -265,7 +265,7 @@ public class TF2 extends JavaPlugin {
     public String pluginRequiredMessage(String plugin) {
         return "\n------------------------------ [ ERROR ] ------------------------------\n-----------------------------------------------------------------------\n\n" + plugin + " is REQUIRED to run TF2!\nPlease download " + plugin + ", or TF2 will NOT work!\nDownload at: " + getPluginURL(plugin) + "\nTF2 is now being disabled...\n\n-----------------------------------------------------------------------\n-----------------------------------------------------------------------";
     }
-    
+
     public String getPluginURL(String plugin) {
         if (plugin.equalsIgnoreCase("TagAPI")) {
             return "http://dev.bukkit.org/server-mods/tag/";
