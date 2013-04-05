@@ -111,7 +111,7 @@ public class PlayerDamageByEntityListener implements Listener {
                             return;
                         }
 
-                        if (damager.getItemInHand() != null) {
+                        if (damager.getItemInHand() != null && damager.getItemInHand().getType().getId() != 373) {
                             damager.getItemInHand().setDurability((short) -100);
                         }
 

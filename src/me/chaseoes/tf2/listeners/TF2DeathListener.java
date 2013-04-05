@@ -29,7 +29,7 @@ public class TF2DeathListener implements Listener {
                 GamePlayer killerg = GameUtilities.getUtilities().getGamePlayer(killer);
 
                 Game game = playerg.getGame();
-                Map map = TF2.getInstance().getMap(game.getMapName());
+                Map map = game.getMap();
 
                 player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), playerg.getTeam()));
                 player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-KILLED-BY").replace("%teamcolor", killerg.getTeamColor()).replace("%player", killer.getName()).replace("%class", killerg.getCurrentClass().getName()));

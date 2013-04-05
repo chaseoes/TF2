@@ -285,6 +285,13 @@ public class Game {
         GamePlayer gp = getPlayer(player);
         playersInGame.remove(gp.getName());
         gp.leaveCurrentGame();
+        boolean redEmpty = getSizeOfTeam(Team.RED) == 0;
+        boolean blueEmpty = getSizeOfTeam(Team.BLUE) == 0;
+        if (redEmpty && !blueEmpty) {
+            winMatch(Team.BLUE);
+        } else if (blueEmpty && !redEmpty) {
+            winMatch(Team.RED);
+        }
     }
 
     public Team decideTeam() {
@@ -397,4 +404,7 @@ public class Game {
         return playersInGame.size() >= map.getPlayerlimit();
     }
 
+    public Map getMap() {
+        return map;
+    }
 }
