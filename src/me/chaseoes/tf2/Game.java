@@ -122,8 +122,8 @@ public class Game {
     }
 
     public void stopMatch(boolean queueCheck) { // TODO: This may make players
-                                                // in queue join on a disabled
-                                                // match
+        // in queue join on a disabled
+        // match
         setStatus(GameStatus.WAITING);
         Schedulers.getSchedulers().stopRedTeamCountdown(map.getName());
         Schedulers.getSchedulers().stopTimeLimitCounter(map.getName());
@@ -291,12 +291,14 @@ public class Game {
         GamePlayer gp = getPlayer(player);
         playersInGame.remove(gp.getName());
         gp.leaveCurrentGame();
-        boolean redEmpty = getSizeOfTeam(Team.RED) == 0;
-        boolean blueEmpty = getSizeOfTeam(Team.BLUE) == 0;
-        if (redEmpty && !blueEmpty) {
-            winMatch(Team.BLUE);
-        } else if (blueEmpty && !redEmpty) {
-            winMatch(Team.RED);
+        if (status == GameStatus.INGAME) {
+            boolean redEmpty = getSizeOfTeam(Team.RED) == 0;
+            boolean blueEmpty = getSizeOfTeam(Team.BLUE) == 0;
+            if (redEmpty && !blueEmpty) {
+                winMatch(Team.BLUE);
+            } else if (blueEmpty && !redEmpty) {
+                winMatch(Team.RED);
+            }
         }
     }
 
