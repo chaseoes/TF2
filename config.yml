@@ -12,6 +12,7 @@ prevent-inventory-moving: true
 debug: false
 broadcast-winning-team: true
 prevent-block-breaking: true
+map-rotation: false
 killsound:
   sound: CAT_HIT
   volume: 20

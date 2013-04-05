@@ -10,7 +10,6 @@ import me.chaseoes.tf2.capturepoints.CapturePoint;
 import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import me.chaseoes.tf2.utilities.Localizer;
 
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -41,7 +40,7 @@ public class PlayerMoveListener implements Listener {
         }
 
         // Capture Points
-        if ((b.getType() == Material.STONE_PLATE || b.getType() == Material.WOOD_PLATE) && gp.isIngame() && CapturePointUtilities.getUtilities().locationIsCapturePoint(b.getLocation()) && GameUtilities.getUtilities().games.get(map.getName()).getStatus() == GameStatus.INGAME) {
+        if (gp.isIngame() && GameUtilities.getUtilities().games.get(map.getName()).getStatus() == GameStatus.INGAME && CapturePointUtilities.getUtilities().locationIsCapturePoint(b.getLocation())) {
             Integer id = CapturePointUtilities.getUtilities().getIDFromLocation(b.getLocation());
             CapturePoint cp = map.getCapturePoint(id);
             if (gp.getTeam() == Team.RED) {
