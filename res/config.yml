@@ -13,6 +13,7 @@ debug: false
 broadcast-winning-team: true
 prevent-block-breaking: true
 map-rotation: false
+capture-point-sign: true
 killsound:
   sound: CAT_HIT
   volume: 20

@@ -15,19 +15,22 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class CachedLobbyWallInfo {
 
     private Map map;
     private Game game;
     private String name;
+    private JavaPlugin plugin;
     private List<Sign> signs = new ArrayList<Sign>();
     private List<CapturePoint> cps = new ArrayList<CapturePoint>();
     private byte dataFacing;
     private boolean dirty = true;
 
-    public CachedLobbyWallInfo(String name) {
+    public CachedLobbyWallInfo(String name, JavaPlugin plugin) {
         this.name = name;
+        this.plugin = plugin;
         recache();
     }
 
@@ -45,7 +48,16 @@ public class CachedLobbyWallInfo {
             final org.bukkit.material.Sign matSign = (org.bukkit.material.Sign) loc.getBlock().getState().getData();
             dataFacing = block.getState().getRawData();
             BlockFace searchDirection = LobbyWallUtilities.getUtilities().rotate90Deg(matSign.getAttachedFace());
-            for (int i = 1; i < 4 + cps.size(); i++) {
+            int amountToAdd;
+            if(plugin.getConfig().getBoolean("capture-point-sign"))
+            {
+                amountToAdd = cps.size();
+            }
+            else
+            {
+                amountToAdd = 0;
+            }
+            for (int i = 1; i < 4 + amountToAdd; i++) {
                 block = block.getRelative(searchDirection);
                 if (block.getType() != Material.WALL_SIGN) {
                     block.setTypeIdAndData(Material.WALL_SIGN.getId(), dataFacing, false);
