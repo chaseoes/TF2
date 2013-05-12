@@ -1,0 +1,136 @@
+countdown: 10
+capture-timer: 5
+autostart-percent: 50
+donor-button-noperm: '&eYou do not have permission to use that button!'
+afk-timer: 60
+killstreaks: 5
+update-checking: true
+update-channel: stable
+potion-effects-after-start: true
+gamemode: adventure
+prevent-inventory-moving: true
+debug: false
+broadcast-winning-team: true
+prevent-block-breaking: true
+map-rotation: false
+capture-point-sign: true
+killsound:
+  sound: CAT_HIT
+  volume: 20
+  pitch: -20
+stats-database:
+  enabled: false
+  hostname: localhost
+  database_name: my_database
+  username: username
+  password: password
+  port: 3306
+classes:
+  heavy:
+    armor:
+      helmet: 306.PROTECTION_PROJECTILE-2
+      chest: 307.PROTECTION_PROJECTILE-2
+      legs: 308.PROTECTION_PROJECTILE-2
+      boots: 309.PROTECTION_PROJECTILE-2
+    inventory:
+    - 267.1.DAMAGE_ALL-1
+    - 261.1.ARROW_INFINITE-1
+    - 373,32757.5
+    - 262.1
+    potion-effects:
+    - SLOW.1.forever
+  scout:
+    armor:
+      helmet: 298
+      chest: 299.PROTECTION_PROJECTILE-1
+      legs: 300.PROTECTION_PROJECTILE-1
+      boots: 301
+    inventory:
+    - 268.1
+    - 261.1.ARROW_INFINITE-1
+    - 373,32757.5
+    - 373,8233.1
+    - 262.1
+    potion-effects:
+    - SPEED.1.forever
+  soldier:
+    armor:
+      helmet: 302.PROTECTION_PROJECTILE-1
+      chest: 303.PROTECTION_PROJECTILE-1
+      legs: 304.PROTECTION_PROJECTILE-1
+      boots: 305.PROTECTION_PROJECTILE-1
+    inventory:
+    - 267.1.DAMAGE_ALL-1
+    - 261.1.ARROW_DAMAGE-2
+    - 373,32757.5
+    - 262.32
+    potion-effects:
+    - WEAKNESS.1.20
+  pyro:
+    armor:
+      helmet: 314.PROTECTION_FIRE-2
+      chest: 315.PROTECTION_FIRE-2
+      legs: 316.PROTECTION_FIRE-2
+      boots: 317.PROTECTION_FIRE-2
+    inventory:
+    - 267.1.FIRE_ASPECT-2
+    - 261.1.ARROW_FIRE-1
+    - 373,32757.5
+    - 262.64
+    potion-effects:
+    - FIRE_RESISTANCE.2.forever
+  demo:
+    armor:
+      helmet: 298.OXYGEN-1
+      chest: 303.PROTECTION_PROJECTILE-1
+      legs: 304.PROTECTION_PROJECTILE-1
+      boots: 301.PROTECTION_FALL-2
+    inventory:
+    - 267.1.KNOCKBACK-1
+    - 261.1.ARROW_KNOCKBACK-1
+    - 373,32732.64
+    - 373,32757.5
+    - 262.64
+    potion-effects:
+    - DAMAGE_RESISTANCE.1.50
+  medic:
+    armor:
+      helmet: 314.PROTECTION_PROJECTILE-1
+      chest: 299.PROTECTION_PROJECTILE-1
+      legs: 300.PROTECTION_PROJECTILE-1
+      boots: 317.PROTECTION_PROJECTILE-1
+    inventory:
+    - 267.1.DAMAGE_ALL-1
+    - 261.1.ARROW_INFINITE-1
+    - 373,32757.64
+    - 373,16393.2
+    - 262.1
+    potion-effects:
+    - REGENERATION.1.forever
+  sniper:
+    armor:
+      helmet: 306.PROTECTION_PROJECTILE-2
+      chest: 299.PROTECTION_PROJECTILE-2
+      legs: 300.PROTECTION_PROJECTILE-2
+      boots: 309.PROTECTION_FALL-2
+    inventory:
+    - 268.1.DAMAGE_ALL-1
+    - 261.1.ARROW_DAMAGE-3
+    - 373,32757.5
+    - 262.64
+    potion-effects:
+    - DAMAGE_RESISTANCE.1.50
+  spy:
+    armor:
+      helmet: 0
+      chest: 0
+      legs: 0
+      boots: 0
+    inventory:
+    - 276.1.DAMAGE_ALL-1
+    - 261.1.ARROW_INFINITE-1
+    - 373,16421.5
+    - 262.1
+    potion-effects:
+    - INVISIBILITY.1.forever
+    - SPEED.1.forever
