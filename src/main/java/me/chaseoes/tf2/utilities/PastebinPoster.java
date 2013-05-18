@@ -52,7 +52,6 @@ public class PastebinPoster {
         }
 
         @Override
-        @SuppressWarnings("resource")
         public void run() {
             HttpURLConnection conn = null;
             OutputStream out = null;
