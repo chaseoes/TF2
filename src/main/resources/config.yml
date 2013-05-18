@@ -13,7 +13,7 @@ debug: false
 broadcast-winning-team: true
 prevent-block-breaking: true
 map-rotation: false
-capture-reminder: 10
+capture-reminder: 15
 run-commands-on-win:
   enabled: false
   commands:
