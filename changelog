@@ -1,0 +1,107 @@
+v2.1
+Adds localization ability! Translate it to your own language by editing messages.yml.
+Fixed potion effects being applied in ticks instead of seconds.
+Fixed players being able to team-kill in various ways.
+Fixed compatibility with Factions commands.
+Fixes an error when using /tf2 list.
+Many other small bugfixes.
+
+v2.0.1
+Fix npe on player login with maps without a region defined
+Censor mysql details in /tf2 debug
+Fix players not being able to break non tf2 container containers
+
+v2.0
+Class system overhauled - changing classes is now more efficient, less buggy, and contains better error handling.
+Game handling improved, refactored most game specific methods. Games now run smoother.
+Re-wrote and fixed issues with the queue not working correctly.
+Updated all color codes to use Bukkit's ChatColor class.
+Updated configuration, enchanted items are now applied a level with a dash instead of a period (BREAKING! Update your current configuration to match the new default one!).
+Overhauled the lobby wall, now works much smoother. Fixed various lobby wall bugs and improved error handling. A row of signs is no longer needed - place one and the rest will be created for you.
+Fixed possible issues with the game not ending properly.
+Implemented efficient update checking.
+Players can no longer use bows/potions while in the lobby.
+Various debugging messages removed - never be spammed again!
+Games now end properly when the last player in a game leaves.
+Other various code refactoring, rewriting, and optimization.
+Fixed changeclass buttons so you get properly teleported to your team's spawn.
+You are no longer given potion effects while in the lobby, these are applied when the game starts.
+Fixed the '/tf2 disable/enable' commands not working quite right and the lobby wall reflecting the map being disabled.
+Players will not be teleported out of the lobby if they fail to choose a class.
+Properly handle class buttons, changeclass buttons, and lobby wall signs being destroyed.
+Allow wooden buttons to be used for class and changeclass buttons.
+Fix NPE thrown when restarting between map creation and capture point creation.
+Fixed armor not getting colored correctly.
+Fix exception thrown when a game is won.
+Fixed certain errors thrown upon respawn.
+Amount of kills is now displayed on-screen instead of spamming the player.
+Fixed possible cases of players joining late not getting teleported when the game starts.
+Fixed the game not stopping completely if a player leaves while the countdown is in progress.
+You are now returned to the GameMode you were previous to joining a game.
+The player's XP bar is now used to track capture point progress.
+A sound now plays when a capture point is finished being captured.
+The player's level is now used to track their total number of kills.
+Added '/tf2 create refillcontainer' command to create containers (chests, dispensers, etc.) which refill themselves every time a new game starts.
+Added '/tf2 delete map <map name>' command to delete all traces of a map.
+Lobby wall updating is now more efficient as certain values are cached.
+Players physically inside a map are teleported out when they join the server.
+Arrow entities are now removed on game end.
+Implemented MySQL-based stats tracking. I don't know PHP so you're on your own to create a web interface to display them (PM me if you would like to make one I can put up for download).
+Added boolean in the configuration to announce the winning team.
+Added configuration option to choose the gamemode players are put into.
+Added configuration option to disable block breaking while in-game.
+
+v1.4.4
+Fix some death issues where health etc. wasn't getting reset.
+
+v1.4.3
+Fix error thrown when clicking class buttons and leather armor not getting colored.
+
+v1.4.2
+Update to CraftBukkit 1.4.5-R1.0 (the latest reccomended build). Older builds will not work.
+Fix error while trying to set spawns (sorry :().
+
+v1.4.1
+Compatible with Craftbukkit 1.4.5-R0.3 ONLY.
+BREAKING: Fix various capture-point related errors. You will need to remove the "capture-points" section from all your maps respective .yml files and re-define all your capture points.
+Fix NPE when throwing potions outside of a game.
+
+v1.4
+Adds /tf2 debug command - allows you to provide me with useful bug reports.
+Change /tf2 set spawn syntax to /tf2 set spawn <map> or /tf2 set spawn lobby.
+Adds a user friendly GUI for setting spawns.
+Prevent lobby wall creation when the map hasn't been setup.
+Fixes various NPE's and errors.
+Set players to survival when they join a map.
+Prevent the use of /tf2 join when already playing on a map.
+
+v1.3.1
+Fixed players not getting their items back when dying from something other than another player.
+
+v1.3
+Fixed the ability to give a class no armor not working.
+Fixed some NPE's when changing classes.
+Fixed some inventory/armor problems when changing classes.
+Fixed PvP not working for some people and factions incompatibility.
+Added /tf2 checkdata command to troubleshoot problems as to why your map isn't working.
+Added no permission message when trying to join a map.
+Prevent players from joining maps if it's not completely setup.
+Typing /tf2 join without providing a map name will teleport you to the global lobby.
+Fixed more errors and NPE's.
+
+v1.2
+Player inventories/armor are now stored and returned instead of being eaten.
+Your armor is now colored depending on your team.
+Fixed /tf2 help command (again).
+Added ability to give a class no armor (set it to 0).
+Fixed various errors.
+
+v1.1
+Fix some lobby wall errors.
+Display message if a command is used wrong / unknown.
+Prevent plugin from running if TagAPI and/or WorldEdit aren't found.
+Adds a /tf2 help command.
+Fixes the /tf2 join command.
+
+v1.0
+Initial release.
