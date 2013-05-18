@@ -87,7 +87,7 @@ public class Schedulers {
 					try {
 						for (Map map : MapUtilities.getUtilities().getMaps()) {
 							for (GamePlayer gp : GameUtilities.getUtilities().getGame(map).playersInGame.values()) {
-								gp.getPlayer().getLocation().getWorld().strikeLightning(CapturePointUtilities.getUtilities().getFirstUncaptured(map).getLocation());
+								gp.getPlayer().getLocation().getWorld().strikeLightningEffect(CapturePointUtilities.getUtilities().getFirstUncaptured(map).getLocation());
 							}
 							return;
 						}
