@@ -129,13 +129,13 @@ RED-TEAM-TELEPORTED-IN: '&4&lRed &r&eteam, you will be teleported in %time secon
 
 SETSPAWN-TITLE: Set Spawns
 SETSPAWN-BLUE-LOBBY: Blue Lobby
-SETSPAWN-BLUE-LOBBY-DESC: Set the blue team lobby
+SETSPAWN-BLUE-LOBBY-DESC: Set the blue team lobby.
 SETSPAWN-RED-LOBBY: Red Lobby
-SETSPAWN-RED-LOBBY-DESC: Set the red team lobby
+SETSPAWN-RED-LOBBY-DESC: Set the red team lobby.
 SETSPAWN-BLUE-SPAWN: Blue Spawn
-SETSPAWN-BLUE-SPAWN-DESC: Set the blue team spawn
+SETSPAWN-BLUE-SPAWN-DESC: Set the blue team spawn.
 SETSPAWN-RED-SPAWN: Red Spawn
-SETSPAWN-RED-SPAWN-DESC: Set the red team spawn
+SETSPAWN-RED-SPAWN-DESC: Set the red team spawn.
 SETSPAWN-EXIT: Exit
 SETSPAWN-EXIT-DESC: Exit this menu.
 
