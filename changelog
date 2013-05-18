@@ -1,3 +1,16 @@
+v2.3
+Added the ability to have rewards through the ability to run console commands when a team wins. See the configuration.
+Added the ability to have lightning strike on the next uncaptured point every x seconds as defined in the configuration (reminder-timer, set to 0 to disable).
+Converted to a Maven plugin, development builds are now available at http://ci.chaseoes.com.
+Fixed some typo's in the default language file.
+Various plugin & code cleanup.
+
+v2.2
+Added map rotation! Set map-rotation to true in the configuration to use it. If enabled, when a game ends, players will automatically join the next available map.
+Added configuration option to prevent players from removing armor while in-game.
+Removed requirement for capture points to be on pressure plates.
+Fixed splash potions sometimes being given as water bottles.
+
 v2.1
 Adds localization ability! Translate it to your own language by editing messages.yml.
 Fixed potion effects being applied in ticks instead of seconds.
