@@ -13,6 +13,10 @@ debug: false
 broadcast-winning-team: true
 prevent-block-breaking: true
 map-rotation: false
+run-commands-on-win:
+  enabled: false
+  commands:
+  - give %player diamond 1
 killsound:
   sound: CAT_HIT
   volume: 20

@@ -1,6 +1,7 @@
 package me.chaseoes.tf2;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -162,6 +163,10 @@ public class Game {
     }
 
     public void winMatch(Team team) {
+    	List<String> inGameOld = new ArrayList<String>();
+    	for (GamePlayer gp : playersInGame.values()) {
+    		inGameOld.add(gp.getName());
+    	}
         if (TF2.getInstance().getConfig().getBoolean("stats-database.enabled")) {
             for (GamePlayer gp : playersInGame.values()) {
                 StatCollector sc = gp.getStatCollector();
@@ -209,6 +214,14 @@ public class Game {
             plugin.getServer().broadcastMessage(Localizer.getLocalizer().loadMessage("GAME-WIN").replace("%team", te).replace("%map", ChatColor.BOLD + map.getName() + ChatColor.RESET + "" + ChatColor.YELLOW));
         }
         stopMatch(true);
+        
+        for (String gp : inGameOld) {
+        	if (plugin.getConfig().getBoolean("run-commands-on-win.enabled")) {
+        		for (String command : plugin.getConfig().getStringList("run-commands-on-win.commands")) {
+        			plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), command.replace("%player", gp));
+        		}
+        	}
+        }
     }
 
     @SuppressWarnings("deprecation")
