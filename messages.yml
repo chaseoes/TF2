@@ -1,0 +1,163 @@
+TELEPORT-AFTER-CHOOSE-CLASS: You will be teleported after you choose a class.
+GAME-END: The game has ended.
+RED-TEAM: Red Team
+BLUE-TEAM: Blue Team
+WINS: Wins!
+RED: red
+BLUE: blue
+GAME-WIN: '&eThe %team team has won on the map %map!'
+IN-LINE: You are #%position in line for this map.
+
+HELP-JOIN: '&b/tf2 join <map> [team]&7: Join a map. If a team is not provided, you will be placed randomly.'
+HELP-LEAVE: '&b/tf2 leave&7: Leave the current game.'
+HELP-LIST: '&b/tf2 list [map]&7: List players currently in the game.'
+HELP-START: '&c/tf2 start [map]&7: Forces a map to start instead of starting automatically.'
+HELP-STOP: '&c/tf2 stop [map]&7: Forces a map to stop.'
+HELP-CREATE: '&4Please go here for a full list of map setup commands:'
+
+PERCENT-JOIN: The game will start when %percent% of players have joined.
+
+BUTTON-CHANGE-CLASS-CREATE: Place the button to create a changeclass button.
+BUTTON-CHANGE-CLASS-CREATED: Successfully created a change class button.
+BUTTON-CHANGE-CLASS-REMOVE: Successfully removed the changeclass button.
+BUTTON-CLASS-CREATE: Place the button to create a %type class button for the class &o%class&r&e.
+BUTTON-CLASS-CREATED: Successfully created a %type class button for the class &o%class&r&e.
+BUTTON-CLASS-REMOVE: Successfully removed class button.
+
+CONFIG-RELOADED: Successfully reloaded the configuration.
+
+CONTAINER-ALREADY-REGISTERED: This container is already registered.
+CONTAINER-CREATE: Right click a container to make it refill each game.
+CONTAINER-CREATED: Successfully registered container.
+CONTAINER-REMOVE: Successfully removed container.
+
+CP-CAPTURE-STATUS-CAPTURED: captured
+CP-CAPTURE-STATUS-UNCAPTURED: uncaptured
+CP-CAPTURE-STATUS-CAPTURING: capturing
+CP-CAPTURE-STATUS-CAP-CAPTURED: Captured
+CP-CAPTURE-STATUS-CAP-UNCAPTURED: Uncaptured
+CP-CAPTURE-STATUS-CAP-CAPTURING: Capturing
+CP-BEING-CAPTURED: 'Capture point &4#%id &eis being captured!'
+CP-CAPTURED: 'Capture point &4#%id &ehas been captured by &4&l%player&r&e!'
+CP-REMOVE: Successfully removed capturepoint.
+CP-MUST-CAPTURE-PREVIOUS: 'You must capture point #%id first!'
+CP-ALREADY-CAPTURED-RED: 'This point is already captured! Head to #%id!'
+CP-ALREADY-CAPTURED-BLUE: The &4&lred &r&eteam has already captured this point!
+CP-ALREADY-CAPTURING: This point is being captured by %player!
+CP-WRONG-TEAM: You must be on the &4&lred &r&eteam to capture points! &1&lBlue &r&eis for defending!
+
+DEBUG-UPLOADING: Uploading debug information to Pastebin...
+DEBUG-SUCCESS: 'Debug information available for 1 day at:'
+DEBUG-ERROR: Error encountered while uploading to Pastebin.
+
+GAME-STARTING-IN: '&9Game starting in &b%time &9seconds!'
+GAME-ENDING-IN: '&9Game ending in &b%time&9!'
+
+GAMESTATUS-INGAME: In-Game
+GAMESTATUS-STARTING: Starting
+GAMESTATUS-WAITING: Waiting
+GAMESTATUS-DISABLED: Disabled
+GAMESTATUS-NOT-STARTED: Not Started
+
+LIST-DISPLAYING-MAP: 'Displaying players in the map &l%map&r&e:'
+
+LOBBYWALL-CREATED: Successfully created a join sign!
+LOBBYWALL-REMOVE: Successfully removed lobby wall.
+LOBBYWALL-JOIN-1: Team Fortress 2
+LOBBYWALL-JOIN-2: Click here
+LOBBYWALL-JOIN-3: 'to join:'
+LOBBYWALL-STATUS-1: ' '
+LOBBYWALL-STATUS-2: '&4&lStatus:'
+LOBBYWALL-STATUS-4: ' '
+LOBBYWALL-TEAMS-1: '&4&lRed Team:'
+LOBBYWALL-TEAMS-2: '%players Players'
+LOBBYWALL-TEAMS-3: '&9&lBlue Team:'
+LOBBYWALL-TEAMS-4: '%players Players'
+LOBBYWALL-TIME-1: ' '
+LOBBYWALL-TIME-2: '&9&lTime Left:'
+LOBBYWALL-TIME-4: ' '
+LOBBYWALL-CP-1: Capture Point
+LOBBYWALL-CP-3: 'Status:'
+
+LOBBYWALL-MAP-DISABLED: '&2&lDisabled'
+
+MAP-ALREADY-DISABLED: The map &l%map &r&eis already disabled.
+MAP-ALREADY-ENABLED: The map &l%map &r&eis already enabled.
+MAP-ALREADY-STARTING: That game is already starting.
+MAP-ALREADY-INGAME: That game is already in progress.
+
+MAP-INFO-DISABLED: That map is disabled.
+MAP-INFO-FULL: That map is currently full.
+MAP-INFO-TEAM-FULL: That team is currently full.
+MAP-INFO-NOT-INGAME: This map is not currently ingame.
+MAP-NOT-SETUP: This map has not yet been setup.
+MAP-NOT-SETUP-COMMAND-HELP: Type &6/tf2 checkdata %map &4to see what else needs to be done.
+
+
+MAP-SUCCESSFULLY-CREATED: Successfully created the map &o%map&r&e!
+MAP-SUCCESSFULLY-DELETED: Successfully deleted the map &o%map&r&e.
+MAP-SUCCESSFULLY-DISABLED-ALL: Successfully disabled all enabled maps.
+MAP-SUCCESSFULLY-DISABLED-SINGLE: Successfully disabled &l%map &r&e.
+MAP-SUCCESSFULLY-ENABLED-ALL: Successfully enabled all disabled maps.
+MAP-SUCCESSFULLY-ENABLED-SINGLE: Successfully enabled &l%map &r&e.
+MAP-SUCCESSFULLY-REDEFINED: Successfully redefined &l%map\'s &r&e region.
+MAP-SUCCESSFULLY-SET-PLAYERLIMIT: Successfully set the playerlimit for &l%map &r&eto %time.
+MAP-SUCCESSFULLY-SET-TIMELIMIT: Successfully set the timelimit for &l%map &r&eto %time.
+MAP-SUCCESSFULLY-SET-CAPTUREPOINT: 'Successfully defined capturepoint ID #%id for the map &l%map&r&e.'
+MAP-SUCCESSFULLY-SET-REDTP: Successfully set the red teleport time for &l%map &r&eto &time.
+MAP-SUCCESSFULLY-STARTED: Successfully started the game.
+MAP-SUCCESSFULLY-STOPPED-ALL: Successfully stopped all running games.
+MAP-SUCCESSFULLY-STOPPED-SINGLE: Successfully stopped the game.
+
+PLAYER-ALREADY-PLAYING: You are already playing on a map!
+PLAYER-ALREADY-SPECTATING: You are already spectating a game!
+PLAYER-TELEPORT-GLOBAL-LOBBY: Teleported to the TF2 lobby.
+PLAYER-JOIN-FULL-MAP: You have joined the full map %map!
+PLAYER-JOIN-MAP: You have joined the map %map!
+PLAYER-LEAVE-GAME: Successfully left the game.
+PLAYER-NOT-PLAYING: You are not playing in a game.
+PLAYER-NOT-SPECTATING: You are not spectating a map currently.
+PLAYER-KICKED-FOR-AFK: You have been kicked from the map for being AFK.
+PLAYER-NOW-SPECTATING: You are now spectating! Players in-game can not see you and you can fly.
+PLAYER-NO-LONGER-SPECTATING: You are no longer spectating.
+PLAYER-INVENTORY-MOVING-BLOCKED: You are not allowed to move your inventory around!
+
+PLAYER-KILLED-BY: You were killed by %teamcolor%player &r&e(%class)!
+PLAYER-KILLED: You killed %teamcolor%player &r&e(%class)!
+
+RED-TEAM-TELEPORTED-IN: '&4&lRed &r&eteam, you will be teleported in %time seconds.'
+
+SETSPAWN-TITLE: Set Spawns
+SETSPAWN-BLUE-LOBBY: Blue Lobby
+SETSPAWN-BLUE-LOBBY-DESC: Set the blue team lobby
+SETSPAWN-RED-LOBBY: Red Lobby
+SETSPAWN-RED-LOBBY-DESC: Set the red team lobby
+SETSPAWN-BLUE-SPAWN: Blue Spawn
+SETSPAWN-BLUE-SPAWN-DESC: Set the blue team spawn
+SETSPAWN-RED-SPAWN: Red Spawn
+SETSPAWN-RED-SPAWN-DESC: Set the red team spawn
+SETSPAWN-EXIT: Exit
+SETSPAWN-EXIT-DESC: Exit this menu.
+
+GLOBAL-LOBBY-NOT-SET: The global lobby hasn\'t been set.
+GLOBAL-LOBBY-SET: Successfully set the global lobby.
+
+DOES-NOT-EXIST-MAP: '&o%map &r&4is not a valid map name.'
+DOES-NOT-EXIST-CLASS: '&4That class does not exist (%class).'
+
+ALREADY-EXISTS-MAP: The map &o%map &r&ealready exists.
+
+NO-PERMISSION: You don't have permission for that.
+NO-CONSOLE: You must be a player to do that!
+WRONG-ARGS: Incorrect command usage!
+WRONG-ARGS-USAGE: '&eUsage: &o%usage'
+UNKNOWN-COMMAND: Unknown command!
+UNKNOWN-COMMAND-HELP: Type &6/tf2 help &efor help.
+CANT-USE-COMMANDS-INGAME: You cannot use commands while in a game!
+CANT-DROP-ITEMS-INGAME: You cannot drop items while in a game!
+
+WORLDEDIT-NO-REGION: Please make a WorldEdit selection first.
+
+ERROR-CHANGE-CLASS: '&4An error occurred while changing your class. Notify the administrator to check their server log for the error.'
+ERROR-PLAYERLIMIT-ODD: Yo! Don't use no odd numbers for dat shit, mofo.
+ERROR-NOT-INTEGER: '%int is not an integer.'
