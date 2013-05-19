@@ -57,15 +57,19 @@ public class LobbyWall {
                     LobbyWallUtilities.getUtilities().setSignLines(signs.get(2), " ", "---------------------------------------------", "-------------------------------------", " ");
                     LobbyWallUtilities.getUtilities().setSignLines(signs.get(3), " ", "---------------------------------------------", "-------------------------------------", " ");
                 }
-                for (int i = 4; i < 4 + info.getCapturePoints().size(); i++) {
-                    String color = ChatColor.BLUE + "" + ChatColor.BOLD;
-                    if (getFriendlyCaptureStatus(map, i - 3).equalsIgnoreCase(Localizer.getLocalizer().loadMessage("CP-CAPTURE-STATUS-CAPTURED"))) {
-                        color = ChatColor.DARK_RED + "" + ChatColor.BOLD;
-                    }
-                    if (info.getGame().getStatus() != GameStatus.DISABLED) {
-                        LobbyWallUtilities.getUtilities().setSignLines(signs.get(i), Localizer.getLocalizer().loadMessage("LOBBYWALL-CP-1"), "#" + (i - 3), Localizer.getLocalizer().loadMessage("LOBBYWALL-CP-3"), color + getFriendlyCaptureStatus(map, i - 3));
-                    } else {
-                        LobbyWallUtilities.getUtilities().setSignLines(signs.get(i), " ", "---------------------------------------------", "-------------------------------------", " ");
+                
+                if(plugin.getConfig().getBoolean("capture-point-sign"))
+                {
+                    for (int i = 4; i < 4 + info.getCapturePoints().size(); i++) {
+                        String color = ChatColor.BLUE + "" + ChatColor.BOLD;
+                        if (getFriendlyCaptureStatus(map, i - 3).equalsIgnoreCase(Localizer.getLocalizer().loadMessage("CP-CAPTURE-STATUS-CAPTURED"))) {
+                            color = ChatColor.DARK_RED + "" + ChatColor.BOLD;
+                        }
+                        if (info.getGame().getStatus() != GameStatus.DISABLED) {
+                            LobbyWallUtilities.getUtilities().setSignLines(signs.get(i), Localizer.getLocalizer().loadMessage("LOBBYWALL-CP-1"), "#" + (i - 3), Localizer.getLocalizer().loadMessage("LOBBYWALL-CP-3"), color + getFriendlyCaptureStatus(map, i - 3));
+                        } else {
+                            LobbyWallUtilities.getUtilities().setSignLines(signs.get(i), " ", "---------------------------------------------", "-------------------------------------", " ");
+                        }
                     }
                 }
             } catch (Exception e) {
@@ -161,7 +165,7 @@ public class LobbyWall {
         if (cache.containsKey(map)) {
             return cache.get(map);
         }
-        CachedLobbyWallInfo info = new CachedLobbyWallInfo(map);
+        CachedLobbyWallInfo info = new CachedLobbyWallInfo(map, plugin);
         cache.put(map, info);
         return info;
     }
