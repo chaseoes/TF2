@@ -31,7 +31,6 @@ public class MessagesFile {
         plugin = p;
     }
 
-    @SuppressWarnings("resource")
     public boolean reloadMessages() {
         try {
             if (customConfigFile == null) {

@@ -4,4 +4,4 @@ Team Fortress 2 in Minecraft using the Bukkit server mod. This is a fully functi
 
 * **Download**: [http://dev.bukkit.org/server-mods/team-fortress-2/](http://dev.bukkit.org/server-mods/team-fortress-2/)
 * **Issue Tracker**: [https://github.com/chaseoes/TF2/issues](https://github.com/chaseoes/TF2/issues)
-* **Development Builds**: [http://plugins.skitscape.com/tf2/](http://plugins.skitscape.com/tf2/)
+* **Development Builds**: [http://ci.chaseoes.com/job/TF2/](http://ci.chaseoes.com/job/TF2/)

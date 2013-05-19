@@ -34,7 +34,6 @@ public class DataConfiguration {
 
             customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
 
-            @SuppressWarnings("resource")
             InputStream defConfigStream = plugin.getResource("data.yml");
             if (defConfigStream != null) {
                 YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
