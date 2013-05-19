@@ -18,6 +18,7 @@ run-commands-on-win:
   enabled: false
   commands:
   - give %player diamond 1
+capture-point-sign: true
 killsound:
   sound: CAT_HIT
   volume: 20
