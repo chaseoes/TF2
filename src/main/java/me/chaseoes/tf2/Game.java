@@ -162,12 +162,12 @@ public class Game {
     }
 
     public void winMatch(Team team) {
-    	List<String> inGameOld = new ArrayList<String>();
-    	for (GamePlayer gp : playersInGame.values()) {
+        List<String> inGameOld = new ArrayList<String>();
+        for (GamePlayer gp : playersInGame.values()) {
             if (gp.getTeam() == team) {
-    		    inGameOld.add(gp.getName());
+                inGameOld.add(gp.getName());
             }
-    	}
+        }
         if (TF2.getInstance().getConfig().getBoolean("stats-database.enabled")) {
             for (GamePlayer gp : playersInGame.values()) {
                 StatCollector sc = gp.getStatCollector();
@@ -217,11 +217,11 @@ public class Game {
         stopMatch(true);
 
         for (String gp : inGameOld) {
-        	if (plugin.getConfig().getBoolean("run-commands-on-win.enabled")) {
-        		for (String command : plugin.getConfig().getStringList("run-commands-on-win.commands")) {
-        			plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), command.replace("%player", gp));
-        		}
-        	}
+            if (plugin.getConfig().getBoolean("run-commands-on-win.enabled")) {
+                for (String command : plugin.getConfig().getStringList("run-commands-on-win.commands")) {
+                    plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), command.replace("%player", gp));
+                }
+            }
         }
     }
 
