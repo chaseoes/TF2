@@ -58,7 +58,7 @@ public class LobbyWall {
                     LobbyWallUtilities.getUtilities().setSignLines(signs.get(3), " ", "---------------------------------------------", "-------------------------------------", " ");
                 }
                 
-                if(plugin.getConfig().getBoolean("capture-point-sign"))
+                if(plugin.getConfig().getBoolean("capture-point-signs"))
                 {
                     for (int i = 4; i < 4 + info.getCapturePoints().size(); i++) {
                         String color = ChatColor.BLUE + "" + ChatColor.BOLD;
@@ -165,7 +165,7 @@ public class LobbyWall {
         if (cache.containsKey(map)) {
             return cache.get(map);
         }
-        CachedLobbyWallInfo info = new CachedLobbyWallInfo(map, plugin);
+        CachedLobbyWallInfo info = new CachedLobbyWallInfo(map);
         cache.put(map, info);
         return info;
     }

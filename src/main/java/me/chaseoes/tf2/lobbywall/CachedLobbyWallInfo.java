@@ -15,22 +15,19 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class CachedLobbyWallInfo {
 
     private Map map;
     private Game game;
     private String name;
-    private JavaPlugin plugin;
     private List<Sign> signs = new ArrayList<Sign>();
     private List<CapturePoint> cps = new ArrayList<CapturePoint>();
     private byte dataFacing;
     private boolean dirty = true;
 
-    public CachedLobbyWallInfo(String name, JavaPlugin plugin) {
+    public CachedLobbyWallInfo(String name) {
         this.name = name;
-        this.plugin = plugin;
         recache();
     }
 
@@ -49,12 +46,10 @@ public class CachedLobbyWallInfo {
             dataFacing = block.getState().getRawData();
             BlockFace searchDirection = LobbyWallUtilities.getUtilities().rotate90Deg(matSign.getAttachedFace());
             int amountToAdd;
-            if(plugin.getConfig().getBoolean("capture-point-sign"))
-            {
+            if (TF2.getInstance().getConfig().getBoolean("capture-point-signs")) {
                 amountToAdd = cps.size();
             }
-            else
-            {
+            else {
                 amountToAdd = 0;
             }
             for (int i = 1; i < 4 + amountToAdd; i++) {
