@@ -1,9 +1,9 @@
 name: TF2
-version: 2.3
+version: 2.3.1-BETA
 description: Team Fortress 2
 main: me.chaseoes.tf2.TF2
 author: chaseoes
-softdepend: [TagAPI, WorldEdit]
+softdepend: [TagAPI, WorldEdit, Multiverse-Core]
 commands:
   'tf2':
     description: The central command for TF2.
