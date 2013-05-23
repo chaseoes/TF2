@@ -13,19 +13,30 @@ import org.bukkit.entity.Player;
 public class UpdateChecker {
 
     TF2 plugin;
-    private String latestVersion;
+    private int[] latestVersion;
+    private int[] currentVersion;
 
     public UpdateChecker(TF2 p) {
         plugin = p;
-        latestVersion = plugin.getDescription().getVersion();
+        latestVersion = versionToIntArray(plugin.getDescription().getVersion());
+        currentVersion = versionToIntArray(plugin.getDescription().getVersion());
     }
 
     public boolean needsUpdate() {
-        return !latestVersion.equalsIgnoreCase(plugin.getDescription().getVersion());
+        for (int i = 0; i < latestVersion.length; i++) {
+            if (i < currentVersion.length) {
+                if (latestVersion[i] > currentVersion[i]) {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void nagPlayer(Player player) {
-        player.sendMessage(ChatColor.YELLOW + "[TF2]" + ChatColor.DARK_RED + " Version " + latestVersion + " is available! Please update ASAP.");
+        player.sendMessage(ChatColor.YELLOW + "[TF2]" + ChatColor.DARK_RED + " Version " + versionToString(latestVersion) + " is available! Please update ASAP.");
         player.sendMessage(ChatColor.RED + "http://dev.bukkit.org/server-mods/team-fortress-2/");
     }
 
@@ -47,16 +58,37 @@ public class UpdateChecker {
                 String ver = scan.nextLine();
                 i.close();
                 if (ver.equalsIgnoreCase("0.0")) {
-                    latestVersion = plugin.getDescription().getVersion();
+                    latestVersion = versionToIntArray(plugin.getDescription().getVersion());
                 } else {
-                    latestVersion = ver;
+                    latestVersion = versionToIntArray(ver);
                 }
                 return;
             } catch (Exception e) {
                 plugin.getLogger().log(Level.WARNING, "An error was encountered while attempting to check for updates.");
             }
         }
-        latestVersion = plugin.getDescription().getVersion();
+        latestVersion = versionToIntArray(plugin.getDescription().getVersion());
+    }
+
+    public int[] versionToIntArray(String version) {
+        String[] number = version.split("\\-");
+        String[] parts = number[0].split("\\.");
+        int[] numbers = new int[parts.length];
+        for (int i = 0; i < parts.length; i++) {
+            numbers[i] = Integer.parseInt(parts[i]);
+        }
+        return numbers;
+    }
+
+    public String versionToString(int[] version) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < version.length; i++) {
+            builder.append(version[i]);
+            if ((i + 1) < version.length) {
+                builder.append(".");
+            }
+        }
+        return builder.toString();
     }
 
 }
