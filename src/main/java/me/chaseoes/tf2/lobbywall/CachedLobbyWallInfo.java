@@ -45,12 +45,9 @@ public class CachedLobbyWallInfo {
             final org.bukkit.material.Sign matSign = (org.bukkit.material.Sign) loc.getBlock().getState().getData();
             dataFacing = block.getState().getRawData();
             BlockFace searchDirection = LobbyWallUtilities.getUtilities().rotate90Deg(matSign.getAttachedFace());
-            int amountToAdd;
+            int amountToAdd = 0;
             if (TF2.getInstance().getConfig().getBoolean("capture-point-signs")) {
                 amountToAdd = cps.size();
-            }
-            else {
-                amountToAdd = 0;
             }
             for (int i = 1; i < 4 + amountToAdd; i++) {
                 block = block.getRelative(searchDirection);

@@ -57,9 +57,8 @@ public class LobbyWall {
                     LobbyWallUtilities.getUtilities().setSignLines(signs.get(2), " ", "---------------------------------------------", "-------------------------------------", " ");
                     LobbyWallUtilities.getUtilities().setSignLines(signs.get(3), " ", "---------------------------------------------", "-------------------------------------", " ");
                 }
-                
-                if(plugin.getConfig().getBoolean("capture-point-signs"))
-                {
+
+                if (plugin.getConfig().getBoolean("capture-point-signs")) {
                     for (int i = 4; i < 4 + info.getCapturePoints().size(); i++) {
                         String color = ChatColor.BLUE + "" + ChatColor.BOLD;
                         if (getFriendlyCaptureStatus(map, i - 3).equalsIgnoreCase(Localizer.getLocalizer().loadMessage("CP-CAPTURE-STATUS-CAPTURED"))) {
