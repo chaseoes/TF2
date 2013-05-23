@@ -14,6 +14,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.material.MaterialData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -69,31 +70,11 @@ public class TF2Class {
                 ItemStack[] armor = new ItemStack[4];
                 int armorindex = 0;
                 for (String armortype : TF2.getInstance().getConfig().getConfigurationSection("classes." + name + ".armor").getKeys(false)) {
-                    String[] items = config.getString("armor." + armortype).split("\\.");
                     Color c = Color.RED;
                     if (player.getTeam() == Team.BLUE) {
                         c = Color.BLUE;
                     }
-                    ItemStack i = ArmorUtilities.setColor(new ItemStack(Material.getMaterial(Integer.parseInt(items[0]))), c);
-
-                    if (Integer.parseInt(items[0]) == 0) {
-                        i = new ItemStack(Material.AIR);
-                    }
-
-                    int enchantindex = 0;
-                    for (String enchant : items) {
-                        if (enchantindex != 0) {
-                            String[] enchantment = enchant.split("\\-");
-                            Enchantment e = Enchantment.getByName(enchantment[0]);
-                            int level = 1;
-                            if (enchantment.length > 1) {
-                                level = Integer.parseInt(enchantment[1]);
-                            }
-
-                            i.addUnsafeEnchantment(e, level);
-                        }
-                        enchantindex++;
-                    }
+                    ItemStack i = ArmorUtilities.setColor(parseItem(config.getString("armor." + armortype), true), c);
 
                     armor[armorindex] = i;
                     armorindex++;
@@ -107,44 +88,7 @@ public class TF2Class {
 
                 // Loop through inventory items.
                 for (String fullitem : TF2.getInstance().getConfig().getStringList("classes." + name + ".inventory")) {
-                    String[] items = fullitem.split("\\.");
-                    String[] item = items[0].split("\\,");
-
-                    int id = Integer.parseInt(item[0]);
-                    byte data = 0;
-                    short damage = 0;
-
-                    if (item.length > 1) {
-                        if (id != Material.POTION.getId()) {
-                            data = (byte) Integer.parseInt(item[1]);
-                        } else {
-                            damage = Short.parseShort(item[1]);
-                        }
-                    }
-                    if (item.length > 2) {
-                        damage = Short.parseShort(item[2]);
-                    }
-
-                    MaterialData md = new MaterialData(id, data);
-                    ItemStack i = md.toItemStack();
-                    i.setAmount(Integer.parseInt(items[1]));
-                    i.setDurability(damage);
-
-                    int enchantindex = 0;
-                    for (String enchant : items) {
-                        if (enchantindex > 1) {
-                            String[] enchantment = enchant.split("\\-");
-                            Enchantment e = Enchantment.getByName(enchantment[0]);
-                            int level = 1;
-                            if (enchantment.length > 1) {
-                                level = Integer.parseInt(enchantment[1]);
-                            }
-
-                            i.addUnsafeEnchantment(e, level);
-                        }
-                        enchantindex++;
-                    }
-
+                    ItemStack i = parseItem(fullitem, false);
                     player.getPlayer().getInventory().addItem(i);
                 }
 
@@ -165,6 +109,80 @@ public class TF2Class {
 
     public String getName() {
         return name;
+    }
+
+    public ItemStack parseItem(String str, boolean isArmor) {
+        String[] items = str.split("\\.");
+        String[] item = items[0].split("\\,");
+
+        int id = Integer.parseInt(item[0]);
+        byte data = 0;
+        short damage = 0;
+        int amount = 1;
+        String name = null;
+
+        if (id == 0) {
+            return new ItemStack(0);
+        }
+
+        //Pre itemstack creation
+        if (item.length > 1) {
+            if (id == Material.POTION.getId()) {
+                damage = Short.parseShort(item[1]);
+            } else if (id == Material.SKULL_ITEM.getId()) {
+                String temp = item[1];
+                if (temp.equalsIgnoreCase("skeleton")) {
+                    damage = 0;
+                } else if (temp.equalsIgnoreCase("wither")) {
+                    damage = 1;
+                } else if (temp.equalsIgnoreCase("zombie")) {
+                    damage = 2;
+                } else if (temp.equalsIgnoreCase("creeper")) {
+                    damage = 4;
+                } else {
+                    name = item[1];
+                    damage = 3;
+                }
+            } else {
+                data = Byte.parseByte(item[1]);
+            }
+            if (item.length > 2) {
+                damage = Short.parseShort(item[2]);
+            }
+        }
+        if (items.length > 1 && !isArmor) {
+            amount = Integer.parseInt(items[1]);
+        }
+
+        //Itemstack creation
+        MaterialData md = new MaterialData(id, data);
+        ItemStack i = md.toItemStack();
+        i.setAmount(amount);
+        i.setDurability(damage);
+
+        //Post itemstack creation
+        //Meta datas
+        if (name != null && id == Material.SKULL_ITEM.getId()) {
+            SkullMeta meta = (SkullMeta) i.getItemMeta();
+            meta.setOwner(name);
+            i.setItemMeta(meta);
+        }
+        //Enchantments
+        int j = 2;
+        if (isArmor) {
+            j = 1;
+        }
+        for (; j < items.length; j++) {
+            String[] enchantment = items[j].split("\\-");
+            Enchantment e = Enchantment.getByName(enchantment[0]);
+            int level = 1;
+            if (enchantment.length > 1) {
+                level = Integer.parseInt(enchantment[1]);
+            }
+
+            i.addUnsafeEnchantment(e, level);
+        }
+        return i;
     }
 
     @SuppressWarnings("deprecation")
