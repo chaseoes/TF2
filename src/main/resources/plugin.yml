@@ -1,5 +1,5 @@
 name: TF2
-version: 2.3.1-BETA
+version: maven-version-number
 description: Team Fortress 2
 main: me.chaseoes.tf2.TF2
 author: chaseoes
