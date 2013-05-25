@@ -73,7 +73,7 @@ public class PlayerInteractListener implements Listener {
                     }
 
                     if (gp.isIngame()) {
-                        event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-ALREADY-INGAME"));
+                        event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-ALREADY-PLAYING"));
                         return;
                     }
 
