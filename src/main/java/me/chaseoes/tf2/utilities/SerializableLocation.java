@@ -42,12 +42,12 @@ public class SerializableLocation {
     public boolean compareLocations(Location one, Location two) {
         String w = one.getWorld().getName();
         int x = one.getBlockX();
-        int y = one.getBlockZ();
+        int y = one.getBlockY();
         int z = one.getBlockZ();
 
         String checkw = two.getWorld().getName();
         int checkx = two.getBlockX();
-        int checky = two.getBlockZ();
+        int checky = two.getBlockY();
         int checkz = two.getBlockZ();
 
         return w.equalsIgnoreCase(checkw) && x == checkx && y == checky && z == checkz;
