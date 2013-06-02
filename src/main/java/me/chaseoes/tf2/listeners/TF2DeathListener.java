@@ -50,9 +50,11 @@ public class TF2DeathListener implements Listener {
                 playerg.settotalDeaths(-1);
 
                 // Add one kill to the kills the killer has made.
-                killerg.setTotalKills(-1);
-                killer.setLevel(killerg.getTotalKills());
-                killerg.setKills(-1);
+                if (!playerg.getName().equalsIgnoreCase(killerg.getName())) {
+                    killerg.setTotalKills(-1);
+                    killer.setLevel(killerg.getTotalKills());
+                    killerg.setKills(-1);
+                }
 
                 int kills = killerg.getKills();
                 if (kills % TF2.getInstance().getConfig().getInt("killstreaks") == 0) {
