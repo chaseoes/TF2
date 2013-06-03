@@ -3,8 +3,6 @@ package me.chaseoes.tf2.capturepoints;
 import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.MapUtilities;
 import me.chaseoes.tf2.TF2;
-import me.chaseoes.tf2.Team;
-import me.chaseoes.tf2.utilities.Localizer;
 import me.chaseoes.tf2.utilities.SerializableLocation;
 
 import org.bukkit.Location;
