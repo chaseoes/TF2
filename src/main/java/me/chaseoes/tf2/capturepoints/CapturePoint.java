@@ -61,11 +61,9 @@ public class CapturePoint implements Comparable<CapturePoint> {
             public void run() {
                 game.setExpOfPlayers(diff * currentTick);
                 if (timeRemaining != 0 && currentTick % 20 == 0) {
-                    // player.sendMessage(ChatColor.YELLOW + "[TF2] " +
-                    // ChatColor.BOLD + ChatColor.DARK_RED + timeRemaining + " "
-                    // + ChatColor.RESET + ChatColor.RED +
-                    // "seconds remaining!");
-                    player.getPlayer().getWorld().strikeLightningEffect(player.getPlayer().getLocation());
+                    if (TF2.getInstance().getConfig().getBoolean("lightning-while-capturing")) {
+                    	player.getPlayer().getWorld().strikeLightningEffect(player.getPlayer().getLocation());
+                    }
                 }
 
                 if (timeRemaining == 0 && currentTick % 20 == 0) {
