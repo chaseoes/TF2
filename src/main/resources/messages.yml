@@ -44,7 +44,7 @@ CP-MUST-CAPTURE-PREVIOUS: 'You must capture point #%id first!'
 CP-ALREADY-CAPTURED-RED: 'This point is already captured! Head to #%id!'
 CP-ALREADY-CAPTURED-BLUE: The &4&lred &r&eteam has already captured this point!
 CP-ALREADY-CAPTURING: This point is being captured by %player!
-CP-WRONG-TEAM: You must be on the &4&lred &r&eteam to capture points! &1&lBlue &r&eis for defending!
+CP-WRONG-TEAM: You must be on the &4&lred &r&eteam to capture points! &9&lBlue &r&eis for defending!
 
 DEBUG-UPLOADING: Uploading debug information to Pastebin...
 DEBUG-SUCCESS: 'Debug information available for 1 day at:'
