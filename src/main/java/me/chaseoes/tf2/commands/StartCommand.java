@@ -63,7 +63,7 @@ public class StartCommand {
                 cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-INFO-DISABLED"));
             }
         } else {
-            h.wrongArgs();
+            h.wrongArgs("/tf2 start [map]");
         }
     }
 

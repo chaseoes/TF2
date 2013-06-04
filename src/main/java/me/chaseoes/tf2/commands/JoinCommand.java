@@ -106,7 +106,7 @@ public class JoinCommand {
             }
 
         } else {
-            h.wrongArgs();
+            h.wrongArgs("/tf2 join [map] [team]");
         }
     }
 

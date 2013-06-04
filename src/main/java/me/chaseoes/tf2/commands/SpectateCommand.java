@@ -63,7 +63,7 @@ public class SpectateCommand {
                 player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-INFO-NOT-INGAME"));
             }
         } else {
-            h.wrongArgs();
+            h.wrongArgs("/tf2 spectate [map]");
         }
     }
 

@@ -129,7 +129,7 @@ public class ListCommand {
                 cs.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + Localizer.getLocalizer().loadPrefixedMessage("BLUE-TEAM") + " (0): " + ChatColor.RESET + "\n");
             }
         } else {
-            h.wrongArgs();
+            h.wrongArgs("/tf2 list [map]");
         }
     }
 

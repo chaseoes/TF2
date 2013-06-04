@@ -23,9 +23,9 @@ public class CommandHelper {
         sender.sendMessage(Localizer.getLocalizer().loadMessage("NO-CONSOLE"));
     }
 
-    public void wrongArgs() {
+    public void wrongArgs(String usage) {
         sender.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("WRONG-ARGS"));
-        sender.sendMessage(Localizer.getLocalizer().loadMessage("WRONG-ARGS-USAGE").replace("%usage", cmd.getUsage()));
+        sender.sendMessage(Localizer.getLocalizer().loadMessage("WRONG-ARGS-USAGE").replace("%usage", usage));
     }
 
     public void unknownCommand() {

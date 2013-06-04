@@ -25,6 +25,10 @@ public class DeleteCommand {
 
     public void execDeleteCommand(CommandSender cs, String[] strings, Command cmnd) {
         CommandHelper h = new CommandHelper(cs, cmnd);
+        if (strings.length == 0) {
+            h.wrongArgs("/tf2 delete map <name>");
+            return;
+        }
         if (strings[1].equalsIgnoreCase("map")) {
             if (strings.length == 3) {
                 if (!plugin.mapExists(strings[2])) {
@@ -35,10 +39,10 @@ public class DeleteCommand {
                 cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-SUCCESSFULLY-DELETED").replace("%map", strings[2]));
 
             } else {
-                h.wrongArgs();
+                h.wrongArgs("/tf2 delete map <name>");
             }
         } else {
-            h.unknownCommand();
+            h.wrongArgs("/tf2 delete map <name>");
         }
     }
 

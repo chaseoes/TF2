@@ -49,7 +49,7 @@ public class RedefineCommand {
             }
 
         } else {
-            h.wrongArgs();
+            h.wrongArgs("/tf2 redefine <map>");
         }
     }
 }

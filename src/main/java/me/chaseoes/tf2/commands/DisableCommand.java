@@ -71,7 +71,7 @@ public class DisableCommand {
                 cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-ALREADY-DISABLED").replace("%map", map));
             }
         } else {
-            h.wrongArgs();
+            h.wrongArgs("/tf2 disable <map>");
         }
     }
 

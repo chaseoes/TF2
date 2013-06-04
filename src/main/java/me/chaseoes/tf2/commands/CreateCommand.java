@@ -34,7 +34,9 @@ public class CreateCommand {
 
     public void execCreateCommand(CommandSender cs, String[] strings, Command cmnd) {
         CommandHelper h = new CommandHelper(cs, cmnd);
-        if (strings[1].equalsIgnoreCase("map")) {
+        if (strings.length == 1) {
+            h.wrongArgs("/tf2 create <map|classbutton|changeclassbutton|refillcontainer>");
+        } else if (strings[1].equalsIgnoreCase("map")) {
             if (strings.length == 3) {
                 Player p = (Player) cs;
                 String map = strings[2];
@@ -49,7 +51,7 @@ public class CreateCommand {
                     cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("WORLDEDIT-NO-REGION"));
                 }
             } else {
-                h.wrongArgs();
+                h.wrongArgs("/tf2 create map <name>");
             }
         } else if (strings[1].equalsIgnoreCase("classbutton")) {
             if (strings.length == 4 && (strings[2].equalsIgnoreCase("normal") || strings[2].equalsIgnoreCase("donator"))) {
@@ -68,7 +70,7 @@ public class CreateCommand {
                 }
                 cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("BUTTON-CLASS-CREATE").replace("%type", strings[2]).replace("%class", classname));
             } else {
-                h.wrongArgs();
+                h.wrongArgs("/tf2 create classbutton [normal|donator] <class>");
             }
         } else if (strings[1].equalsIgnoreCase("changeclassbutton")) {
             if (strings.length == 2) {
@@ -83,7 +85,7 @@ public class CreateCommand {
                 }
                 cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("BUTTON-CHANGE-CLASS-CREATE"));
             } else {
-                h.wrongArgs();
+                h.wrongArgs("/tf2 create changeclassbutton");
             }
         } else if (strings[1].equalsIgnoreCase("refillcontainer")) {
             if (strings.length == 3) {
@@ -97,7 +99,7 @@ public class CreateCommand {
                 GameUtilities.getUtilities().getGamePlayer(p).setMapCreatingItemFor(map);
                 cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CONTAINER-CREATE"));
             } else {
-                h.wrongArgs();
+                h.wrongArgs("/tf2 create refillcontainer <map>");
             }
         }
 

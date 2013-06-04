@@ -87,7 +87,7 @@ public class CheckDataCommand {
                 cs.sendMessage(ChatColor.RED + "Not good to go! You have yet to finish setting it up.");
             }
         } else {
-            h.wrongArgs();
+            h.wrongArgs("/tf2 checkdata <map>");
         }
     }
 

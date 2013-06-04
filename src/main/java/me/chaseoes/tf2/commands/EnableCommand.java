@@ -57,7 +57,7 @@ public class EnableCommand {
                 cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-ALREADY-ENABLED").replace("%map", map));
             }
         } else {
-            h.wrongArgs();
+            h.wrongArgs("/tf2 enable <map>");
         }
     }
 

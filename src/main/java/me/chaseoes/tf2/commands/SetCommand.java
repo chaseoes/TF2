@@ -31,7 +31,9 @@ public class SetCommand {
     public void execSetCommand(final CommandSender cs, String[] strings, Command cmnd) {
         CommandHelper h = new CommandHelper(cs, cmnd);
         final Player player = (Player) cs;
-        if (strings[1].equalsIgnoreCase("spawn")) {
+        if (strings.length == 1) {
+            h.wrongArgs("/tf2 set <spawn|playerlimit|redtp|timelimit|capturepoint>");
+        } else if (strings[1].equalsIgnoreCase("spawn")) {
             if (strings.length == 3) {
                 if (strings[2].equalsIgnoreCase("lobby")) {
                     MapUtilities.getUtilities().setLobby(player.getLocation());
@@ -47,7 +49,7 @@ public class SetCommand {
                     menu.open((Player) cs);
                 }
             } else {
-                h.wrongArgs();
+                h.wrongArgs("/tf2 set spawn [lobby|<map>]");
             }
         } else if (strings[1].equalsIgnoreCase("playerlimit")) {
             if (strings.length == 4) {
@@ -66,7 +68,7 @@ public class SetCommand {
                     cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("ERROR-NOT-INTEGER").replace("%int", strings[3]));
                 }
             } else {
-                h.wrongArgs();
+                h.wrongArgs("/tf2 set playerlimit <map> <number>");
             }
         } else if (strings[1].equalsIgnoreCase("capturepoint")) {
             if (strings.length == 4) {
@@ -81,7 +83,7 @@ public class SetCommand {
                     cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("ERROR-NOT-INTEGER").replace("%int", strings[3]));
                 }
             } else {
-                h.wrongArgs();
+                h.wrongArgs("/tf2 set capturepoint <map> <number>");
             }
         } else if (strings[1].equalsIgnoreCase("timelimit")) {
             if (strings.length == 4) {
@@ -96,7 +98,7 @@ public class SetCommand {
                     cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("ERROR-NOT-INTEGER").replace("%int", strings[3]));
                 }
             } else {
-                h.wrongArgs();
+                h.wrongArgs("/tf2 set timelimit <map> <time>");
             }
         } else if (strings[1].equalsIgnoreCase("redtp")) {
             if (strings.length == 4) {
@@ -111,11 +113,9 @@ public class SetCommand {
                     cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("ERROR-NOT-INTEGER").replace("%int", strings[3]));
                 }
             } else {
-                h.wrongArgs();
+                h.wrongArgs("/tf2 set redtp <map> <time>");
             }
-        } else
-
-        {
+        } else {
             h.unknownCommand();
         }
     }
