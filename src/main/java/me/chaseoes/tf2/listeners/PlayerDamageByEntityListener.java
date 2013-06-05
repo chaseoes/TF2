@@ -8,6 +8,7 @@ import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.events.TF2DeathEvent;
 import me.chaseoes.tf2.utilities.LocationStore;
 
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
@@ -36,7 +37,7 @@ public class PlayerDamageByEntityListener implements Listener {
                 }
 
                 // Set Armor Durability
-                if (damaged.getInventory().getHelmet() != null) {
+                if (damaged.getInventory().getHelmet() != null && damaged.getInventory().getHelmet().getType() != Material.SKULL_ITEM) {
                     damaged.getInventory().getHelmet().setDurability((short) -100);
                 }
                 if (damaged.getInventory().getChestplate() != null) {
