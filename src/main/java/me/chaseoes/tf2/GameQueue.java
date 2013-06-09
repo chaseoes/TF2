@@ -25,7 +25,7 @@ public class GameQueue {
     }
 
     public boolean gameHasRoom() {
-        int i = TF2.getInstance().getMap(game.getMapName()).getPlayerlimit() - (game.playersInGame.values().size() + 1);
+        int i = TF2.getInstance().getMap(game.getMapName()).getPlayerlimit() - (game.playersInGame.size() + 1);
         return i >= 0;
     }
 

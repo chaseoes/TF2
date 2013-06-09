@@ -1,3 +1,4 @@
+Fix npes involving schedulers
 Add in skullmeta support for items
 Add in option to disable capture point signs. (Issue #22)
 Load Multiverse before TF2.

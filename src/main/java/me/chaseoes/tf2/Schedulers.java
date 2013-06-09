@@ -6,6 +6,7 @@ import me.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import me.chaseoes.tf2.utilities.Localizer;
 import me.chaseoes.tf2.utilities.LocationStore;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
@@ -86,8 +87,12 @@ public class Schedulers {
 				public void run() {
 					try {
 						for (Map map : MapUtilities.getUtilities().getMaps()) {
-							for (GamePlayer gp : GameUtilities.getUtilities().getGame(map).playersInGame.values()) {
-								gp.getPlayer().getLocation().getWorld().strikeLightningEffect(CapturePointUtilities.getUtilities().getFirstUncaptured(map).getLocation());
+							for (String p : GameUtilities.getUtilities().getGame(map).getPlayersIngame()) {
+                                Player player = Bukkit.getPlayerExact(p);
+                                if (player == null) {
+                                    continue;
+                                }
+                                player.getLocation().getWorld().strikeLightningEffect(CapturePointUtilities.getUtilities().getFirstUncaptured(map).getLocation());
 							}
 							return;
 						}

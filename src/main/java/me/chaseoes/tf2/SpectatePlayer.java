@@ -3,6 +3,7 @@ package me.chaseoes.tf2;
 import me.chaseoes.tf2.classes.TF2Class;
 import me.chaseoes.tf2.utilities.Localizer;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -57,8 +58,12 @@ public class SpectatePlayer {
     public void toggleSpectating(Game game) {
         if (!isSpectating) {
             gameSpectating = game.getMapName();
-            for (GamePlayer gp : game.playersInGame.values()) {
-                gp.getPlayer().hidePlayer(player);
+            for (String gp : game.getPlayersIngame()) {
+                Player player = Bukkit.getPlayerExact(gp);
+                if (player == null) {
+                    continue;
+                }
+                player.hidePlayer(this.player);
             }
             saveInventory();
             new TF2Class("NONE").clearInventory(player);
@@ -75,8 +80,12 @@ public class SpectatePlayer {
             isSpectating = true;
         } else {
             gameSpectating = null;
-            for (GamePlayer gp : game.playersInGame.values()) {
-                gp.getPlayer().showPlayer(player);
+            for (String gp : game.getPlayersIngame()) {
+                Player player = Bukkit.getPlayerExact(gp);
+                if (player == null) {
+                    continue;
+                }
+                player.showPlayer(this.player);
             }
             player.setFlying(false);
             player.setAllowFlight(false);

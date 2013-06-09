@@ -9,6 +9,7 @@ import me.chaseoes.tf2.utilities.Localizer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.entity.Player;
 
 public class CapturePoint implements Comparable<CapturePoint> {
 
@@ -67,11 +68,15 @@ public class CapturePoint implements Comparable<CapturePoint> {
                 }
 
                 if (timeRemaining == 0 && currentTick % 20 == 0) {
-                    for (final GamePlayer gp : game.playersInGame.values()) {
+                    for (final String gp : game.getPlayersIngame()) {
+                        final Player player = Bukkit.getPlayerExact(gp);
+                        if (player == null) {
+                            continue;
+                        }
                         TF2.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(TF2.getInstance(), new Runnable() {
                             @Override
                             public void run() {
-                                gp.getPlayer().playSound(gp.getPlayer().getLocation(), Sound.ANVIL_LAND, 1, 1);
+                                player.playSound(player.getLocation(), Sound.ANVIL_LAND, 1, 1);
                             }
                         }, 1L);
                     }
