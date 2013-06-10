@@ -51,13 +51,15 @@ public class GameScoreboard {
             blue.removePlayer(getPlayer(gp));
         }
         board.resetScores(getPlayer(gp));
-        gp.getPlayer().setScoreboard(manager.getMainScoreboard());
+        if (TF2.getInstance().getConfig().getBoolean("scoreboard")) {
+            gp.getPlayer().setScoreboard(manager.getMainScoreboard());
+        }
         updateBoard();
     }
 
 	public void updateBoard() {
 		for (GamePlayer gp : game.playersInGame.values()) {
-            if (!gp.getPlayer().getScoreboard().equals(board)) {
+            if (!gp.getPlayer().getScoreboard().equals(board) && TF2.getInstance().getConfig().getBoolean("scoreboard")) {
                 gp.getPlayer().setScoreboard(board);
             }
 			Score score = objective.getScore(getPlayer(gp));
@@ -77,7 +79,9 @@ public class GameScoreboard {
 		for (GamePlayer gp : game.playersInGame.values()) {
 				red.removePlayer(getPlayer(gp));
 				blue.removePlayer(getPlayer(gp));
-			gp.getPlayer().setScoreboard(manager.getMainScoreboard());
+            if (TF2.getInstance().getConfig().getBoolean("scoreboard")) {
+			    gp.getPlayer().setScoreboard(manager.getMainScoreboard());
+            }
 		}
 	}
 
