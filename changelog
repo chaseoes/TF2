@@ -1,5 +1,11 @@
-Fix npes involving schedulers
-Add in skullmeta support for items
+v2.4
+Add ability to capture points in any order.
+Fix capturepoint issues.
+Fix localization issues.
+Update the updater for new version format.
+Add in scoreboard support.
+Fix npes involving schedulers.
+Add in skullmeta support for items.
 Add in option to disable capture point signs. (Issue #22)
 Load Multiverse before TF2.
 Change rewards to apply to only winning team.
