@@ -61,6 +61,7 @@ public class GameScoreboard {
                 gp.getPlayer().setScoreboard(board);
             }
 			Score score = objective.getScore(getPlayer(gp));
+            score.setScore(1);
 			score.setScore(gp.getTotalKills());
 		}
 	}
