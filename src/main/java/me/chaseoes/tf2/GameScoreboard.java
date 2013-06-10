@@ -1,6 +1,7 @@
 package me.chaseoes.tf2;
 
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
@@ -29,39 +30,42 @@ public class GameScoreboard {
 		blue.setCanSeeFriendlyInvisibles(true);
 		objective = board.registerNewObjective("test", "dummy");
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-		objective.setDisplayName("TF2 Kills");
+		objective.setDisplayName(ChatColor.YELLOW + "" + ChatColor.BOLD + "TF2 Kills");
 	}
 
-	public void addPlayer(GamePlayer p) {
-		if (p.getTeam() == me.chaseoes.tf2.Team.RED) {
-			red.addPlayer(p.getPlayer());
+	public void addPlayer(GamePlayer gp) {
+		if (gp.getTeam() == me.chaseoes.tf2.Team.RED) {
+			red.addPlayer(getPlayer(gp));
 		} else {
-			blue.addPlayer(p.getPlayer());
+			blue.addPlayer(getPlayer(gp));
 		}
 	}
 
 	public void updateBoard() {
 		for (GamePlayer gp : game.playersInGame.values()) {
-			Score score = objective.getScore(gp.getPlayer());
-			score.setScore(gp.getKills());
+			Score score = objective.getScore(getPlayer(gp));
+			score.setScore(gp.getTotalKills());
+			gp.getPlayer().setScoreboard(board);
 		}
 	}
 
 	public void resetScores() {
 		for (GamePlayer gp : game.playersInGame.values()) {
-			board.resetScores(gp.getPlayer());
+			board.resetScores(getPlayer(gp));
 		}
 	}
 
 	public void remove() {
 		resetScores();
 		for (GamePlayer gp : game.playersInGame.values()) {
-			if (gp.getTeam() == me.chaseoes.tf2.Team.RED) {
-				red.removePlayer(gp.getPlayer());
-			} else {
-				blue.removePlayer(gp.getPlayer());
-			}
+				red.removePlayer(getPlayer(gp));
+				blue.removePlayer(getPlayer(gp));
+			gp.getPlayer().setScoreboard(manager.getNewScoreboard());
 		}
+	}
+	
+	private OfflinePlayer getPlayer(GamePlayer gp) {
+		return TF2.getInstance().getServer().getOfflinePlayer(ChatColor.valueOf(gp.getTeam().getName().toUpperCase()) + gp.getPlayer().getName());
 	}
 
 }
