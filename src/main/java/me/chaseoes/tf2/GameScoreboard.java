@@ -50,6 +50,7 @@ public class GameScoreboard {
         } else {
             blue.removePlayer(getPlayer(gp));
         }
+        board.resetScores(getPlayer(gp));
         gp.getPlayer().setScoreboard(manager.getMainScoreboard());
         updateBoard();
     }
