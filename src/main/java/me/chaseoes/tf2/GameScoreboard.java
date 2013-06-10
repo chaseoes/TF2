@@ -28,7 +28,7 @@ public class GameScoreboard {
 		blue.setDisplayName(ChatColor.BLUE + "" + ChatColor.BOLD + me.chaseoes.tf2.Team.BLUE.getName());
 		red.setCanSeeFriendlyInvisibles(true);
 		blue.setCanSeeFriendlyInvisibles(true);
-		objective = board.registerNewObjective("test", "dummy");
+		objective = board.registerNewObjective("TF2;" + g.getMapName(), "dummy");
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 		objective.setDisplayName(ChatColor.YELLOW + "" + ChatColor.BOLD + "TF2 Kills");
 	}
@@ -58,6 +58,7 @@ public class GameScoreboard {
                 gp.getPlayer().setScoreboard(board);
             }
 			Score score = objective.getScore(getPlayer(gp));
+			score.setScore(1);
 			score.setScore(gp.getTotalKills());
 		}
 	}
