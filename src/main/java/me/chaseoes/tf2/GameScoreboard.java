@@ -80,7 +80,7 @@ public class GameScoreboard {
 	}
 
 	private OfflinePlayer getPlayer(GamePlayer gp) {
-		return TF2.getInstance().getServer().getOfflinePlayer(ChatColor.valueOf(gp.getTeam().getName().toUpperCase()) + gp.getPlayer().getName());
+		return TF2.getInstance().getServer().getOfflinePlayer(gp.getPlayer().getName());
 	}
 
 }
