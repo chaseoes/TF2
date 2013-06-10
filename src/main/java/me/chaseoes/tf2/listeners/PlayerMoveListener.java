@@ -51,7 +51,7 @@ public class PlayerMoveListener implements Listener {
 								cp.startCapturing(gp);
 							}
 						} else {
-							event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CP-MUST-CAPTURE-PREVIOUS").replace("%id", id - 1 + ""));
+							event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CP-MUST-CAPTURE-PREVIOUS").replace("%id", CapturePointUtilities.getUtilities().getFirstUncaptured(map).getId() + ""));
 						}
 					} else {
 						if (cp.capturing == null) {
