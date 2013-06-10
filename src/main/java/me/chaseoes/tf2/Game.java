@@ -27,12 +27,14 @@ public class Game {
     GameStatus status = GameStatus.WAITING;
     public boolean redHasBeenTeleported = false;
     public int time = 0;
+    GameScoreboard scoreboard;
 
     public HashMap<String, GamePlayer> playersInGame = new HashMap<String, GamePlayer>();
 
     public Game(Map m, TF2 plugin) {
         map = m;
         this.plugin = plugin;
+        scoreboard = new GameScoreboard(this);
     }
 
     public GamePlayer getPlayer(Player player) {
@@ -45,6 +47,10 @@ public class Game {
 
     public GameStatus getStatus() {
         return status;
+    }
+    
+    public GameScoreboard getScoreboard() {
+    	return scoreboard;
     }
 
     public String getMapName() {
@@ -119,12 +125,18 @@ public class Game {
                 Schedulers.getSchedulers().stopRedTeamCountdown(map.getName());
             }
         }, map.getRedTeamTeleportTime() * 20L);
+        
+		for (GamePlayer gp : playersInGame.values()) {
+			scoreboard.addPlayer(gp);
+		}
+		scoreboard.updateBoard();
     }
 
     public void stopMatch(boolean queueCheck) { // TODO: This may make players
         // in queue join on a disabled
         // match
         setStatus(GameStatus.WAITING);
+        scoreboard.remove();
         Schedulers.getSchedulers().stopRedTeamCountdown(map.getName());
         Schedulers.getSchedulers().stopTimeLimitCounter(map.getName());
         Schedulers.getSchedulers().stopCountdown(map.getName());
