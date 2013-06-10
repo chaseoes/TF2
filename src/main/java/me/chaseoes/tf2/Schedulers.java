@@ -88,11 +88,13 @@ public class Schedulers {
 					try {
 						for (Map map : MapUtilities.getUtilities().getMaps()) {
 							for (String p : GameUtilities.getUtilities().getGame(map).getPlayersIngame()) {
-                                Player player = Bukkit.getPlayerExact(p);
-                                if (player == null) {
-                                    continue;
-                                }
-                                player.getLocation().getWorld().strikeLightningEffect(CapturePointUtilities.getUtilities().getFirstUncaptured(map).getLocation());
+								Player player = Bukkit.getPlayerExact(p);
+								if (player == null) {
+									continue;
+								}
+								if (CapturePointUtilities.getUtilities().getFirstUncaptured(map) != null && CapturePointUtilities.getUtilities().getFirstUncaptured(map).getLocation() != null) {
+									player.getLocation().getWorld().strikeLightningEffect(CapturePointUtilities.getUtilities().getFirstUncaptured(map).getLocation());
+								}
 							}
 							return;
 						}
