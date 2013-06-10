@@ -14,8 +14,9 @@ broadcast-winning-team: true
 prevent-block-breaking: true
 map-rotation: false
 capture-reminder: 15
-lightning-while-capturing: true
+lightning-while-capturing: false
 capture-point-signs: true
+capture-in-order: true
 run-commands-on-win:
   enabled: false
   commands:
