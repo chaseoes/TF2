@@ -18,7 +18,7 @@ public class GameScoreboard {
 	Objective objective;
 
 	public GameScoreboard(Game g) {
-		g = game;
+		game = g;
 		manager = TF2.getInstance().getServer().getScoreboardManager();
 		board = manager.getNewScoreboard();
 		red = board.registerNewTeam(me.chaseoes.tf2.Team.RED.getName());
