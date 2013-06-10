@@ -295,6 +295,11 @@ public class Game {
             }
         }
 
+        if (getStatus().equals(GameStatus.INGAME)) {
+            scoreboard.addPlayer(player);
+            scoreboard.updateBoard();
+        }
+
         if (getStatus() == GameStatus.WAITING) {
             player.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PERCENT-JOIN").replace("%percent", plugin.getConfig().getInt("autostart-percent") + ""));
         } else if (getStatus() == GameStatus.INGAME) {
@@ -316,7 +321,6 @@ public class Game {
     public void leaveGame(Player player) {
         GamePlayer gp = getPlayer(player);
         playersInGame.remove(gp.getName());
-        gp.leaveCurrentGame();
         if (status == GameStatus.INGAME) {
             boolean redEmpty = getSizeOfTeam(Team.RED) == 0;
             boolean blueEmpty = getSizeOfTeam(Team.BLUE) == 0;
@@ -325,7 +329,9 @@ public class Game {
             } else if (blueEmpty && !redEmpty) {
                 winMatch(Team.RED);
             }
+            scoreboard.removePlayer(gp);
         }
+        gp.leaveCurrentGame();
     }
 
     public Team decideTeam() {

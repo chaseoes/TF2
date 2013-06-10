@@ -39,13 +39,26 @@ public class GameScoreboard {
 		} else {
 			blue.addPlayer(getPlayer(gp));
 		}
+        updateBoard();
 	}
+
+    public void removePlayer(GamePlayer gp) {
+        if (gp.getTeam() == me.chaseoes.tf2.Team.RED) {
+            red.removePlayer(getPlayer(gp));
+        } else {
+            blue.removePlayer(getPlayer(gp));
+        }
+        gp.getPlayer().setScoreboard(manager.getMainScoreboard());
+        updateBoard();
+    }
 
 	public void updateBoard() {
 		for (GamePlayer gp : game.playersInGame.values()) {
+            if (!gp.getPlayer().getScoreboard().equals(board)) {
+                gp.getPlayer().setScoreboard(board);
+            }
 			Score score = objective.getScore(getPlayer(gp));
 			score.setScore(gp.getTotalKills());
-			gp.getPlayer().setScoreboard(board);
 		}
 	}
 
@@ -60,10 +73,10 @@ public class GameScoreboard {
 		for (GamePlayer gp : game.playersInGame.values()) {
 				red.removePlayer(getPlayer(gp));
 				blue.removePlayer(getPlayer(gp));
-			gp.getPlayer().setScoreboard(manager.getNewScoreboard());
+			gp.getPlayer().setScoreboard(manager.getMainScoreboard());
 		}
 	}
-	
+
 	private OfflinePlayer getPlayer(GamePlayer gp) {
 		return TF2.getInstance().getServer().getOfflinePlayer(ChatColor.valueOf(gp.getTeam().getName().toUpperCase()) + gp.getPlayer().getName());
 	}
