@@ -285,7 +285,9 @@ public class Game {
                 break;
         }
 
-        TagAPI.refreshPlayer(player.getPlayer());
+        if (TF2.getInstance().tagHook) {
+            TagAPI.refreshPlayer(player.getPlayer());
+        }
 
         double currentpercent = (double) playersInGame.size() / map.getPlayerlimit() * 100;
         if (getStatus().equals(GameStatus.WAITING)) {

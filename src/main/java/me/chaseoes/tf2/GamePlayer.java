@@ -165,7 +165,9 @@ public class GamePlayer {
             game.stopMatch(true);
         }
         player.teleport(MapUtilities.getUtilities().loadLobby());
-        TagAPI.refreshPlayer(player);
+        if (TF2.getInstance().tagHook) {
+            TagAPI.refreshPlayer(player);
+        }
         game.map.getQueue().check();
         clear();
     }

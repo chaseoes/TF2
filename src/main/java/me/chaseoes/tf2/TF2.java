@@ -65,6 +65,7 @@ public class TF2 extends JavaPlugin {
     public IconMenu setSpawnMenu;
     private static TF2 instance;
     public boolean enabled;
+    public boolean tagHook = false;
 
     public static TF2 getInstance() {
         return instance;
@@ -76,9 +77,13 @@ public class TF2 extends JavaPlugin {
         getServer().getScheduler().cancelTasks(this);
         setupClasses();
         if (getServer().getPluginManager().getPlugin("TagAPI") == null) {
-            getLogger().log(Level.SEVERE, pluginRequiredMessage("TagAPI"));
-            getServer().getPluginManager().disablePlugin(this);
-            return;
+            if (!getConfig().getBoolean("scoreboard")) {
+                getLogger().log(Level.SEVERE, "Download TagAPI or enable scoreboards in config.yml");
+                getLogger().log(Level.SEVERE, pluginRequiredMessage("TagAPI"));
+                getServer().getPluginManager().disablePlugin(this);
+            }
+        } else {
+            tagHook = true;
         }
 
         if (getServer().getPluginManager().getPlugin("WorldEdit") == null) {
@@ -213,7 +218,9 @@ public class TF2 extends JavaPlugin {
         pm.registerEvents(new PlayerJoinListener(), this);
         pm.registerEvents(new PlayerMoveListener(), this);
         pm.registerEvents(new PlayerQuitListener(), this);
-        pm.registerEvents(new PlayerReceiveNameTagListener(), this);
+        if (tagHook) {
+            pm.registerEvents(new PlayerReceiveNameTagListener(), this);
+        }
         pm.registerEvents(new PotionSplashListener(), this);
         pm.registerEvents(new ProjectileLaunchListener(), this);
         pm.registerEvents(new SignChangeListener(), this);
