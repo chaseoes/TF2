@@ -79,7 +79,7 @@ LOBBYWALL-TIME-4: ' '
 LOBBYWALL-CP-1: Capture Point
 LOBBYWALL-CP-3: 'Status:'
 
-LOBBYWALL-MAP-DISABLED: '&2&lDisabled'
+LOBBYWALL-MAP-DISABLED: '&4&lDisabled'
 
 MAP-ALREADY-DISABLED: The map &l%map &r&eis already disabled.
 MAP-ALREADY-ENABLED: The map &l%map &r&eis already enabled.
@@ -142,7 +142,7 @@ SETSPAWN-EXIT-DESC: Exit this menu.
 GLOBAL-LOBBY-NOT-SET: The global lobby hasn\'t been set.
 GLOBAL-LOBBY-SET: Successfully set the global lobby.
 
-DOES-NOT-EXIST-MAP: '&o%map &r&4is not a valid map name.'
+DOES-NOT-EXIST-MAP: '&o&4%map &r&4is not a valid map name.'
 DOES-NOT-EXIST-CLASS: '&4That class does not exist (%class).'
 
 ALREADY-EXISTS-MAP: The map &o%map &r&ealready exists.
