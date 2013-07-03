@@ -10,6 +10,7 @@ import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
 
 import java.util.*;
+import java.util.Map;
 
 public class GameScoreboard {
 
@@ -19,6 +20,7 @@ public class GameScoreboard {
 	Team red;
 	Team blue;
 	Objective objective;
+    Set<String> currentlyOnScoreboard = new HashSet<String>(10);
 
 	public GameScoreboard(Game g) {
 		game = g;
@@ -60,7 +62,6 @@ public class GameScoreboard {
     }
 
     public void updateBoard() {
-        resetScores();
         Collection<GamePlayer> players = game.playersInGame.values();
         if (TF2.getInstance().getConfig().getBoolean("scoreboard")) {
             for (GamePlayer gp : players) {
@@ -71,13 +72,23 @@ public class GameScoreboard {
         }
         ArrayList<GamePlayer> arrayPlayers = new ArrayList<GamePlayer>(players);
         Collections.sort(arrayPlayers, new GameplayerKillComparator());
+        Set<Map.Entry<String, Integer>> entries = new HashSet<Map.Entry<String, Integer>>();
         for (int i = 0; i < 10 && i < arrayPlayers.size(); i++) {
             GamePlayer gp = arrayPlayers.get(i);
-            Score score = objective.getScore(getPlayer(gp));
-            if (gp.getTotalKills() == 0) {
+            entries.add(new AbstractMap.SimpleEntry<String, Integer>(gp.getName(), gp.getTotalKills()));
+            currentlyOnScoreboard.remove(gp.getName());
+        }
+        for (String player : currentlyOnScoreboard) {
+            board.resetScores(getPlayer(player));
+        }
+        currentlyOnScoreboard.clear();
+        for (Map.Entry<String, Integer> entry : entries) {
+            Score score = objective.getScore(getPlayer(entry.getKey()));
+            if (entry.getValue() == 0) {
                 score.setScore(1);
             }
-            score.setScore(gp.getTotalKills());
+            score.setScore(entry.getValue());
+            currentlyOnScoreboard.add(entry.getKey());
         }
     }
 
@@ -101,6 +112,10 @@ public class GameScoreboard {
 	private OfflinePlayer getPlayer(GamePlayer gp) {
 		return TF2.getInstance().getServer().getOfflinePlayer(gp.getPlayer().getName());
 	}
+
+    private OfflinePlayer getPlayer(String player) {
+        return TF2.getInstance().getServer().getOfflinePlayer(player);
+    }
 
     class GameplayerKillComparator implements Comparator<GamePlayer> {
 
