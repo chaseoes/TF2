@@ -1,7 +1,5 @@
 package me.chaseoes.tf2.listeners;
 
-import java.util.Random;
-
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.MapUtilities;
