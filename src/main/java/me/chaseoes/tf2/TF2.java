@@ -65,6 +65,7 @@ public class TF2 extends JavaPlugin {
     public IconMenu setSpawnMenu;
     private static TF2 instance;
     public boolean enabled;
+    public boolean isDisabling;
     public boolean tagHook = false;
 
     public static TF2 getInstance() {
@@ -74,6 +75,7 @@ public class TF2 extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        isDisabling = false;
         getServer().getScheduler().cancelTasks(this);
         setupClasses();
         if (getServer().getPluginManager().getPlugin("TagAPI") == null) {
@@ -81,6 +83,8 @@ public class TF2 extends JavaPlugin {
                 getLogger().log(Level.SEVERE, "Download TagAPI or enable scoreboards in config.yml");
                 getLogger().log(Level.SEVERE, pluginRequiredMessage("TagAPI"));
                 getServer().getPluginManager().disablePlugin(this);
+                enabled = false;
+                return;
             }
         } else {
             tagHook = true;
@@ -89,6 +93,7 @@ public class TF2 extends JavaPlugin {
         if (getServer().getPluginManager().getPlugin("WorldEdit") == null) {
             getLogger().log(Level.SEVERE, pluginRequiredMessage("WorldEdit"));
             getServer().getPluginManager().disablePlugin(this);
+            enabled = false;
             return;
         }
 
@@ -160,11 +165,11 @@ public class TF2 extends JavaPlugin {
         }
 
         enabled = true;
-
     }
 
     @Override
     public void onDisable() {
+    	isDisabling = true;
         if (enabled) {
             reloadConfig();
             saveConfig();
@@ -173,9 +178,10 @@ public class TF2 extends JavaPlugin {
                     GameUtilities.getUtilities().getGame(map).stopMatch(false);
                 }
             }
-            getServer().getScheduler().cancelTasks(this);
             instance = null;
         }
+        getServer().getScheduler().cancelTasks(this);
+        enabled = false;
     }
 
     public void setupClasses() {
