@@ -29,6 +29,9 @@ public class TF2DeathListener implements Listener {
                 GamePlayer killerg = GameUtilities.getUtilities().getGamePlayer(killer);
 
                 Game game = playerg.getGame();
+                if (game == null) {
+                	return;
+                }
                 Map map = game.getMap();
 
                 player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), playerg.getTeam()));
