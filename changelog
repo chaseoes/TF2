@@ -1,14 +1,15 @@
 v2.4
-Add ability to capture points in any order.
-Fix capturepoint issues.
-Fix localization issues.
-Update the updater for new version format.
-Add in scoreboard support.
-Fix npes involving schedulers.
-Add in skullmeta support for items.
-Add in option to disable capture point signs. (Issue #22)
-Load Multiverse before TF2.
-Change rewards to apply to only winning team.
+Added scoreboard support (look for "scoreboard" in the configuration). If enabled, the requirement for TagAPI is removed.
+Added configuration option to capture points in any order (capture-in-order).
+Added configuration option to automatically join a random map when logging in (dedicated-join).
+Added configuration option to disable capture point signs (capture-point-signs).
+Added SkullMeta support for items.
+Fixed rewards being applied to both teams.
+Fixed various capture point issues.
+Fixed various localization issues.
+Fixed various errors involving schedulers.
+Fixed not loading Multiverse before TF2.
+Updated the updater for new version format.
 
 v2.3
 Added the ability to have rewards through the ability to run console commands when a team wins. See the configuration.
