@@ -400,9 +400,7 @@ public class GamePlayer {
 		playerLastDamagedBy = this.getName();
 		mapCreatingItemFor = null;
 		killstreaks.clear();
-		if (!TF2.getInstance().isDisabling) {
-			stats = new StatCollector(player);
-		}
+		stats = new StatCollector(player);
 	}
 
 }
