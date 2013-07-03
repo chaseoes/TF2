@@ -2,6 +2,7 @@ package me.chaseoes.tf2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import me.chaseoes.tf2.utilities.WorldEditUtilities;
 
@@ -168,5 +169,11 @@ public class MapUtilities {
 
     public boolean mapIsEnabled(String map) {
         return getEnabledMaps().contains(map);
+    }
+    
+    public Map getRandomMap() {
+    	int n = new Random().nextInt(getMaps().size());
+    	return getMaps().get(n);
+
     }
 }

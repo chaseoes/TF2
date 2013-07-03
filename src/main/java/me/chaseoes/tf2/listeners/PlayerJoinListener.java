@@ -1,5 +1,7 @@
 package me.chaseoes.tf2.listeners;
 
+import java.util.Random;
+
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.MapUtilities;
@@ -33,6 +35,10 @@ public class PlayerJoinListener implements Listener {
                     TF2.getInstance().uc.nagPlayer(player);
                 }
             }, 60L);
+        }
+        
+        if (TF2.getInstance().getConfig().getBoolean("dedicated-join")) {
+        	player.performCommand("tf2 join " + MapUtilities.getUtilities().getRandomMap().getName());
         }
     }
 

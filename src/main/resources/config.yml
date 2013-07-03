@@ -17,6 +17,7 @@ capture-reminder: 15
 lightning-while-capturing: false
 capture-point-signs: true
 capture-in-order: true
+dedicated-join: false
 scoreboard: true
 run-commands-on-win:
   enabled: false
