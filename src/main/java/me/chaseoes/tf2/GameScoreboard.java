@@ -9,6 +9,8 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
 
+import java.util.*;
+
 public class GameScoreboard {
 
 	Game game;
@@ -57,16 +59,27 @@ public class GameScoreboard {
         updateBoard();
     }
 
-	public void updateBoard() {
-		for (GamePlayer gp : game.playersInGame.values()) {
-            if (!gp.getPlayer().getScoreboard().equals(board) && TF2.getInstance().getConfig().getBoolean("scoreboard")) {
-                gp.getPlayer().setScoreboard(board);
+    public void updateBoard() {
+        resetScores();
+        Collection<GamePlayer> players = game.playersInGame.values();
+        if (TF2.getInstance().getConfig().getBoolean("scoreboard")) {
+            for (GamePlayer gp : players) {
+                if (!gp.getPlayer().getScoreboard().equals(board)) {
+                    gp.getPlayer().setScoreboard(board);
+                }
             }
-			Score score = objective.getScore(getPlayer(gp));
-            score.setScore(1);
-			score.setScore(gp.getTotalKills());
-		}
-	}
+        }
+        ArrayList<GamePlayer> arrayPlayers = new ArrayList<GamePlayer>(players);
+        Collections.sort(arrayPlayers, new GameplayerKillComparator());
+        for (int i = 0; i < 10 && i < arrayPlayers.size(); i++) {
+            GamePlayer gp = arrayPlayers.get(i);
+            Score score = objective.getScore(getPlayer(gp));
+            if (gp.getTotalKills() == 0) {
+                score.setScore(1);
+            }
+            score.setScore(gp.getTotalKills());
+        }
+    }
 
 	public void resetScores() {
 		for (GamePlayer gp : game.playersInGame.values()) {
@@ -88,5 +101,13 @@ public class GameScoreboard {
 	private OfflinePlayer getPlayer(GamePlayer gp) {
 		return TF2.getInstance().getServer().getOfflinePlayer(gp.getPlayer().getName());
 	}
+
+    class GameplayerKillComparator implements Comparator<GamePlayer> {
+
+        @Override
+        public int compare(GamePlayer o1, GamePlayer o2) {
+            return o2.getTotalKills() - o1.getTotalKills();
+        }
+    }
 
 }
