@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>me.chaseoes</groupId>
     <artifactId>TF2</artifactId>
-    <version>2.4-SNAPSHOT</version>
+    <version>2.5-SNAPSHOT</version>
     <name>TF2</name>
     <url>https://github.com/chaseoes/TF2</url>
     
@@ -122,7 +122,7 @@
         </repository>
         <repository>
             <id>chaseoes</id>
-            <url>http://repo.chaseoes.com/content/groups/public/</url>
+            <url>http://repo.chaseoes.com/content/groups/public</url>
         </repository>
     </repositories>
     <dependencies>
@@ -140,6 +140,11 @@
             <groupId>org.kitteh</groupId>
             <artifactId>tagapi</artifactId>
             <version>2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.chaseoes</groupId>
+            <artifactId>ForceRespawn-Plugin</artifactId>
+            <version>1.1</version>
         </dependency>
     </dependencies>
 </project>

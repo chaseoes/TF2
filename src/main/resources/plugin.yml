@@ -3,7 +3,7 @@ version: maven-version-number
 description: Team Fortress 2
 main: me.chaseoes.tf2.TF2
 author: chaseoes
-softdepend: [TagAPI, WorldEdit, Multiverse-Core]
+softdepend: [TagAPI, WorldEdit, Multiverse-Core, ForceRespawn]
 commands:
   'tf2':
     description: The central command for TF2.

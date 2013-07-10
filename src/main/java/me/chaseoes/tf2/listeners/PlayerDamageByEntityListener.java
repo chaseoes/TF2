@@ -84,7 +84,7 @@ public class PlayerDamageByEntityListener implements Listener {
 
                     gdamaged.setPlayerLastDamagedBy(gdamager);
 
-                    if (damaged.getHealth() - event.getDamage() <= 0) {
+                    if (!TF2.getInstance().frHook && damaged.getHealth() - event.getDamage() <= 0) {
                         TF2.getInstance().getServer().getPluginManager().callEvent(new TF2DeathEvent(damaged, damager));
                         gdamaged.setIsDead(true);
                         event.setCancelled(true);
@@ -122,7 +122,7 @@ public class PlayerDamageByEntityListener implements Listener {
 
                         gdamaged.setPlayerLastDamagedBy(gdamager);
 
-                        if (damaged.getHealth() - event.getDamage() <= 0) {
+                        if (!TF2.getInstance().frHook && damaged.getHealth() - event.getDamage() <= 0) {
                             TF2.getInstance().getServer().getPluginManager().callEvent(new TF2DeathEvent(damaged, damager));
                             gdamaged.setIsDead(true);
                             event.setCancelled(true);

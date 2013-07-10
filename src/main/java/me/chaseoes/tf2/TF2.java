@@ -21,34 +21,10 @@ import me.chaseoes.tf2.commands.ReloadCommand;
 import me.chaseoes.tf2.commands.SetCommand;
 import me.chaseoes.tf2.commands.StartCommand;
 import me.chaseoes.tf2.commands.StopCommand;
-import me.chaseoes.tf2.listeners.BlockBreakListener;
-import me.chaseoes.tf2.listeners.BlockPlaceListener;
-import me.chaseoes.tf2.listeners.EntityDamageListener;
-import me.chaseoes.tf2.listeners.EntityShootBowListener;
-import me.chaseoes.tf2.listeners.FoodLevelChangeListener;
-import me.chaseoes.tf2.listeners.InventoryClickListener;
-import me.chaseoes.tf2.listeners.PlayerCommandPreprocessListener;
-import me.chaseoes.tf2.listeners.PlayerDamageByEntityListener;
-import me.chaseoes.tf2.listeners.PlayerDeathListener;
-import me.chaseoes.tf2.listeners.PlayerDropItemListener;
-import me.chaseoes.tf2.listeners.PlayerInteractListener;
-import me.chaseoes.tf2.listeners.PlayerJoinListener;
-import me.chaseoes.tf2.listeners.PlayerMoveListener;
-import me.chaseoes.tf2.listeners.PlayerQuitListener;
-import me.chaseoes.tf2.listeners.PlayerReceiveNameTagListener;
-import me.chaseoes.tf2.listeners.PotionSplashListener;
-import me.chaseoes.tf2.listeners.ProjectileLaunchListener;
-import me.chaseoes.tf2.listeners.SignChangeListener;
-import me.chaseoes.tf2.listeners.TF2DeathListener;
+import me.chaseoes.tf2.listeners.*;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.lobbywall.LobbyWallUtilities;
-import me.chaseoes.tf2.utilities.IconMenu;
-import me.chaseoes.tf2.utilities.Localizer;
-import me.chaseoes.tf2.utilities.MetricsLite;
-import me.chaseoes.tf2.utilities.SQLUtilities;
-import me.chaseoes.tf2.utilities.SerializableLocation;
-import me.chaseoes.tf2.utilities.UpdateChecker;
-import me.chaseoes.tf2.utilities.WorldEditUtilities;
+import me.chaseoes.tf2.utilities.*;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -67,6 +43,7 @@ public class TF2 extends JavaPlugin {
     public boolean enabled;
     public boolean isDisabling;
     public boolean tagHook = false;
+    public boolean frHook = false;
 
     public static TF2 getInstance() {
         return instance;
@@ -77,7 +54,7 @@ public class TF2 extends JavaPlugin {
         instance = this;
         isDisabling = false;
         getServer().getScheduler().cancelTasks(this);
-        setupClasses();
+
         if (getServer().getPluginManager().getPlugin("TagAPI") == null) {
             if (!getConfig().getBoolean("scoreboard")) {
                 getLogger().log(Level.SEVERE, "Download TagAPI or enable scoreboards in config.yml");
@@ -89,6 +66,13 @@ public class TF2 extends JavaPlugin {
         } else {
             tagHook = true;
         }
+        if (getServer().getPluginManager().getPlugin("ForceRespawn") != null && getServer().getPluginManager().getPlugin("ForceRespawn").isEnabled()) {
+            frHook = true;
+            getLogger().info("Using ForceRespawn for handling deaths");
+        } else {
+            getLogger().info("ForceRespawn not found, using default death handler");
+        }
+        setupClasses();
 
         if (getServer().getPluginManager().getPlugin("WorldEdit") == null) {
             getLogger().log(Level.SEVERE, pluginRequiredMessage("WorldEdit"));
@@ -235,6 +219,10 @@ public class TF2 extends JavaPlugin {
         pm.registerEvents(new EntityDamageListener(), this);
         pm.registerEvents(new EntityShootBowListener(), this);
         pm.registerEvents(new InventoryClickListener(this), this);
+        pm.registerEvents(new PlayerRespawnListener(), this);
+        if (frHook) {
+            pm.registerEvents(new ForceRespawnListener(), this);
+        }
     }
 
     public Map getMap(String map) {
@@ -288,5 +276,4 @@ public class TF2 extends JavaPlugin {
         }
         return "";
     }
-
 }
