@@ -40,6 +40,10 @@ public class CreateCommand {
             if (strings.length == 3) {
                 Player p = (Player) cs;
                 String map = strings[2];
+                if (map.length() > 14) {
+                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAPNAME-TOO-LONG").replace("%map", strings[2]));
+                    return;
+                }
                 if (plugin.mapExists(map)) {
                     cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("ALREADY-EXISTS-MAP").replace("%map", strings[2]));
                     return;

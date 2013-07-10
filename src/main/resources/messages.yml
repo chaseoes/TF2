@@ -92,6 +92,7 @@ MAP-INFO-TEAM-FULL: That team is currently full.
 MAP-INFO-NOT-INGAME: This map is not currently ingame.
 MAP-NOT-SETUP: This map has not yet been setup.
 MAP-NOT-SETUP-COMMAND-HELP: Type &6/tf2 checkdata %map &4to see what else needs to be done.
+MAPNAME-TOO-LONG: 'The name %map is too long!'
 
 
 MAP-SUCCESSFULLY-CREATED: Successfully created the map &o%map&r&e!
