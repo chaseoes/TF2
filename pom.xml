@@ -129,7 +129,7 @@
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.5.2-R0.1-SNAPSHOT</version>
+            <version>1.6.2-R0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.sk89q</groupId>
@@ -144,7 +144,7 @@
         <dependency>
             <groupId>com.chaseoes</groupId>
             <artifactId>ForceRespawn-Plugin</artifactId>
-            <version>1.1</version>
+            <version>LATEST</version>
         </dependency>
     </dependencies>
 </project>

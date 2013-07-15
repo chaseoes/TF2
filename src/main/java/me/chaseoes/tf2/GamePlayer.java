@@ -182,7 +182,7 @@ public class GamePlayer {
 		savedXPCount = player.getExp();
 		savedLevelCount = player.getLevel();
 		savedFoodLevel = player.getFoodLevel();
-		savedHealth = player.getHealth();
+		savedHealth = (int) player.getHealth();
 		savedGameMode = player.getGameMode();
 	}
 

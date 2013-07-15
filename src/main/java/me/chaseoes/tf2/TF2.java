@@ -55,7 +55,7 @@ public class TF2 extends JavaPlugin {
         isDisabling = false;
         getServer().getScheduler().cancelTasks(this);
 
-        if (getServer().getPluginManager().getPlugin("TagAPI") == null) {
+        if (getServer().getPluginManager().getPlugin("TagAPI") == null || !getServer().getPluginManager().isPluginEnabled("TagAPI")) {
             if (!getConfig().getBoolean("scoreboard")) {
                 getLogger().log(Level.SEVERE, "Download TagAPI or enable scoreboards in config.yml");
                 getLogger().log(Level.SEVERE, pluginRequiredMessage("TagAPI"));
