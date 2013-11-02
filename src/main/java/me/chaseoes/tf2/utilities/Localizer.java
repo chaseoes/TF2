@@ -21,7 +21,7 @@ public class Localizer {
     }
 
     public String loadPrefixedMessage(String name) {
-        return ChatColor.YELLOW + "[TF2] " + ChatColor.translateAlternateColorCodes('&', MessagesFile.getMessages().getMessagesFile().getString(name));
+        return ChatColor.YELLOW + "" + ChatColor.translateAlternateColorCodes('&', MessagesFile.getMessages().getMessagesFile().getString(name));
     }
 
 }
