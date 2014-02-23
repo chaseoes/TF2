@@ -120,10 +120,6 @@
             <id>royaldev-repo</id>
             <url>http://minor.royaldev.org:8081/nexus/content/groups/public</url>
         </repository>
-        <repository>
-            <id>chaseoes</id>
-            <url>http://repo.chaseoes.com/content/groups/public</url>
-        </repository>
     </repositories>
     <dependencies>
         <dependency>
@@ -140,11 +136,6 @@
             <groupId>org.kitteh</groupId>
             <artifactId>tagapi</artifactId>
             <version>2.3</version>
-        </dependency>
-        <dependency>
-            <groupId>com.chaseoes</groupId>
-            <artifactId>ForceRespawn-Plugin</artifactId>
-            <version>LATEST</version>
         </dependency>
     </dependencies>
 </project>
