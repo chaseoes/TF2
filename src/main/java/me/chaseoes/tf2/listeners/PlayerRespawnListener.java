@@ -2,7 +2,6 @@ package me.chaseoes.tf2.listeners;
 
 import me.chaseoes.tf2.*;
 import me.chaseoes.tf2.classes.TF2Class;
-import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;

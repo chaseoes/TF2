@@ -78,7 +78,7 @@ public class PlayerDamageByEntityListener implements Listener {
                         return;
                     }
 
-                    if (damager.getItemInHand() != null && damager.getItemInHand().getType().getId() != 373) {
+                    if (damager.getItemInHand() != null && damager.getItemInHand().getType() != Material.POTION) {
                         damager.getItemInHand().setDurability((short) -100);
                     }
 
@@ -112,7 +112,7 @@ public class PlayerDamageByEntityListener implements Listener {
                             return;
                         }
 
-                        if (damager.getItemInHand() != null && damager.getItemInHand().getType().getId() != 373) {
+                        if (damager.getItemInHand() != null && damager.getItemInHand().getType() != Material.POTION) {
                             damager.getItemInHand().setDurability((short) -100);
                         }
 
