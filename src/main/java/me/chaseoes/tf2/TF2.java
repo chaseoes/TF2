@@ -42,8 +42,6 @@ public class TF2 extends JavaPlugin {
     private static TF2 instance;
     public boolean enabled;
     public boolean isDisabling;
-    public boolean tagHook = false;
-    public boolean frHook = false;
 
     public static TF2 getInstance() {
         return instance;
@@ -55,23 +53,6 @@ public class TF2 extends JavaPlugin {
         isDisabling = false;
         getServer().getScheduler().cancelTasks(this);
 
-        if (getServer().getPluginManager().getPlugin("TagAPI") == null || !getServer().getPluginManager().isPluginEnabled("TagAPI")) {
-            if (!getConfig().getBoolean("scoreboard")) {
-                getLogger().log(Level.SEVERE, "Download TagAPI or enable scoreboards in config.yml");
-                getLogger().log(Level.SEVERE, pluginRequiredMessage("TagAPI"));
-                getServer().getPluginManager().disablePlugin(this);
-                enabled = false;
-                return;
-            }
-        } else {
-            tagHook = true;
-        }
-        if (getServer().getPluginManager().getPlugin("ForceRespawn") != null && getServer().getPluginManager().getPlugin("ForceRespawn").isEnabled()) {
-            frHook = true;
-            getLogger().info("Using ForceRespawn for handling deaths");
-        } else {
-            getLogger().info("ForceRespawn not found, using default death handler");
-        }
         setupClasses();
 
         if (getServer().getPluginManager().getPlugin("WorldEdit") == null) {
@@ -208,9 +189,6 @@ public class TF2 extends JavaPlugin {
         pm.registerEvents(new PlayerJoinListener(), this);
         pm.registerEvents(new PlayerMoveListener(), this);
         pm.registerEvents(new PlayerQuitListener(), this);
-        if (tagHook) {
-            pm.registerEvents(new PlayerReceiveNameTagListener(), this);
-        }
         pm.registerEvents(new PotionSplashListener(), this);
         pm.registerEvents(new ProjectileLaunchListener(), this);
         pm.registerEvents(new SignChangeListener(), this);

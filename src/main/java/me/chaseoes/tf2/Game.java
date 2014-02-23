@@ -18,7 +18,6 @@ import org.bukkit.GameMode;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.kitteh.tag.TagAPI;
 
 public class Game {
 
@@ -283,10 +282,6 @@ public class Game {
             case RED:
                 player.getPlayer().teleport(map.getRedLobby());
                 break;
-        }
-
-        if (TF2.getInstance().tagHook) {
-            TagAPI.refreshPlayer(player.getPlayer());
         }
 
         double currentpercent = (double) playersInGame.size() / map.getPlayerlimit() * 100;

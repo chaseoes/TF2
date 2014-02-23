@@ -62,13 +62,13 @@ public class TF2DeathListener implements Listener {
                         game.broadcast(ChatColor.YELLOW + "[TF2] " + playerg.getTeamColor() + killer.getName() + " " + ChatColor.RESET + ChatColor.YELLOW + "is on a " + ChatColor.DARK_RED + ChatColor.BOLD + "" + kills + " " + ChatColor.RESET + ChatColor.YELLOW + "kill streak!");
                     }
                 }
-                if (!TF2.getInstance().frHook) {
+                
                     player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), playerg.getTeam()));
                     player.setHealth(20);
                     player.setFireTicks(0);
                     TF2Class c = playerg.getCurrentClass();
                     c.apply(playerg);
-                }
+
                 playerg.setJustSpawned(true);
                 playerg.setIsDead(false);
                 playerg.setPlayerLastDamagedBy(null);

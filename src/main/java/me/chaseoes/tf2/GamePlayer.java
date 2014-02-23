@@ -10,7 +10,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.kitteh.tag.TagAPI;
 
 public class GamePlayer {
 
@@ -164,10 +163,8 @@ public class GamePlayer {
 		if (game.playersInGame.size() == 0) {
 			game.stopMatch(true);
 		}
+		
 		player.teleport(MapUtilities.getUtilities().loadLobby());
-		if (TF2.getInstance().tagHook) {
-			TagAPI.refreshPlayer(player);
-		}
 
 		if (!TF2.getInstance().isDisabling) {
 			game.map.getQueue().check();
