@@ -78,7 +78,7 @@ public class SetCommand {
                 }
                 if (GeneralUtilities.isInteger(strings[3])) {
                     CapturePointUtilities.getUtilities().defineCapturePoint(strings[2], Integer.parseInt(strings[3]), player.getLocation());
-                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-SUCCESSFULLY-SET-CAPTUREPOINT").replace("%id", strings[3]).replace("%map", strings[2]));
+                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-SUCCESSFULLY-SET-CAPTUREPOINT").replace("%id", strings[3]).replace("%map", "\n" + strings[2]));
                 } else {
                     cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("ERROR-NOT-INTEGER").replace("%int", strings[3]));
                 }
