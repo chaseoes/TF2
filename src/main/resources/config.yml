@@ -23,6 +23,10 @@ run-commands-on-win:
   enabled: false
   commands:
   - give %player diamond 1
+enabled-ingame-commands:
+  - /tf2
+  - /msg
+  - /r
 killsound:
   sound: CAT_HIT
   volume: 20
