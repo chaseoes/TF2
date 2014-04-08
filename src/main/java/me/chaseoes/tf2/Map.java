@@ -1,26 +1,21 @@
 package me.chaseoes.tf2;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import me.chaseoes.tf2.capturepoints.CapturePoint;
 import me.chaseoes.tf2.capturepoints.CaptureStatus;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.utilities.Container;
 import me.chaseoes.tf2.utilities.SerializableInventory;
 import me.chaseoes.tf2.utilities.SerializableLocation;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.Inventory;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 public class Map {
 
@@ -108,7 +103,7 @@ public class Map {
             for (String str : customConfig.getStringList("containers")) {
                 String[] split = str.split(",");
                 Location loc = SerializableLocation.getUtilities().stringToLocation(split[0]);
-                Inventory inv = SerializableInventory.StringToInventory(split[1]);
+                Inventory inv = SerializableInventory.stringToInventory(split[1]);
                 containers.add(new Container(loc, inv, this));
             }
         }
@@ -318,7 +313,7 @@ public class Map {
     }
 
     public void addContainer(Location loc, Inventory inv) {
-        containers.add(new Container(SerializableLocation.getUtilities().stringToLocation(SerializableLocation.getUtilities().locationToString(loc)), SerializableInventory.StringToInventory(SerializableInventory.InventoryToString(inv)), this));
+        containers.add(new Container(SerializableLocation.getUtilities().stringToLocation(SerializableLocation.getUtilities().locationToString(loc)), SerializableInventory.stringToInventory(SerializableInventory.inventoryToString(inv)), this));
         saveContainers();
     }
 
@@ -344,7 +339,7 @@ public class Map {
     private void saveContainers() {
         List<String> confStringList = new ArrayList<String>();
         for (Container container : containers) {
-            String confString = SerializableLocation.getUtilities().locationToString(container.getLocation()) + "," + SerializableInventory.InventoryToString(container.getInventory());
+            String confString = SerializableLocation.getUtilities().locationToString(container.getLocation()) + "," + SerializableInventory.inventoryToString(container.getInventory());
             confStringList.add(confString);
         }
         customConfig.set("containers", confStringList);
