@@ -59,7 +59,7 @@ public class TF2DeathListener implements Listener {
 
                     int kills = killerg.getKills();
                     if (kills % TF2.getInstance().getConfig().getInt("killstreaks") == 0) {
-                        game.broadcast(ChatColor.YELLOW + "[TF2] " + playerg.getTeamColor() + killer.getName() + " " + ChatColor.RESET + ChatColor.YELLOW + "is on a " + ChatColor.DARK_RED + ChatColor.BOLD + "" + kills + " " + ChatColor.RESET + ChatColor.YELLOW + "kill streak!");
+                        game.broadcast(ChatColor.YELLOW + "[TF2] " + killerg.getTeamColor() + killer.getName() + " " + ChatColor.RESET + ChatColor.YELLOW + "is on a " + ChatColor.DARK_RED + ChatColor.BOLD + "" + kills + " " + ChatColor.RESET + ChatColor.YELLOW + "kill streak!");
                     }
                 }
                 
