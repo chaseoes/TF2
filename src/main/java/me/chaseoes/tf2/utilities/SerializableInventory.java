@@ -5,11 +5,11 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
+import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Base64;
 
 public class SerializableInventory {
 
@@ -25,7 +25,7 @@ public class SerializableInventory {
             }
 
             byte[] data = baOut.toByteArray();
-            return Base64.getEncoder().encodeToString(data);
+            return Base64Coder.encodeLines(data);
         } catch (IOException e) {
             throw new RuntimeException("Failed to serialize inventory to string", e);
         }
@@ -33,7 +33,7 @@ public class SerializableInventory {
 
     public static Inventory stringToInventory(String invString) {
         try {
-            byte[] data = Base64.getDecoder().decode(invString);
+            byte[] data = Base64Coder.decodeLines(invString);
             ByteArrayInputStream baIn = new ByteArrayInputStream(data);
             BukkitObjectInputStream bukkitIn = new BukkitObjectInputStream(baIn);
 
