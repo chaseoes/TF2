@@ -243,9 +243,6 @@ public class TF2 extends JavaPlugin {
     }
 
     public String getPluginURL(String plugin) {
-        if (plugin.equalsIgnoreCase("TagAPI")) {
-            return "http://dev.bukkit.org/server-mods/tag/";
-        }
         if (plugin.equalsIgnoreCase("WorldEdit")) {
             return "http://dev.bukkit.org/server-mods/worldedit/";
         }

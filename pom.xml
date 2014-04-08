@@ -116,10 +116,6 @@
             <id>sk89q</id>
             <url>http://maven.sk89q.com/repo/</url>
         </repository>
-        <repository>
-            <id>royaldev-repo</id>
-            <url>http://minor.royaldev.org:8081/nexus/content/groups/public</url>
-        </repository>
     </repositories>
     <dependencies>
         <dependency>
@@ -131,11 +127,6 @@
             <groupId>com.sk89q</groupId>
             <artifactId>worldedit</artifactId>
             <version>5.5.7-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.kitteh</groupId>
-            <artifactId>tagapi</artifactId>
-            <version>2.3</version>
         </dependency>
     </dependencies>
 </project>
