@@ -105,7 +105,7 @@ MAP-SUCCESSFULLY-REDEFINED: Successfully redefined &l%map\'s &r&e region.
 MAP-SUCCESSFULLY-SET-PLAYERLIMIT: Successfully set the playerlimit for &l%map &r&eto %time.
 MAP-SUCCESSFULLY-SET-TIMELIMIT: Successfully set the timelimit for &l%map &r&eto %time.
 MAP-SUCCESSFULLY-SET-CAPTUREPOINT: 'Successfully defined capturepoint ID #%id for the map &l%map&r&e.'
-MAP-SUCCESSFULLY-SET-REDTP: Successfully set the red teleport time for &l%map &r&eto &time.
+MAP-SUCCESSFULLY-SET-REDTP: Successfully set the red teleport time for &l%map &r&eto %time.
 MAP-SUCCESSFULLY-STARTED: Successfully started the game.
 MAP-SUCCESSFULLY-STOPPED-ALL: Successfully stopped all running games.
 MAP-SUCCESSFULLY-STOPPED-SINGLE: Successfully stopped the game.
