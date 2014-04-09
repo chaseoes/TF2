@@ -26,17 +26,8 @@ public class PlayerJoinListener implements Listener {
         }
 
         GameUtilities.getUtilities().playerJoinServer(player);
-        if (player.hasPermission("tf2.create") && TF2.getInstance().uc.needsUpdate()) {
-            TF2.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(TF2.getInstance(), new Runnable() {
-                @Override
-                public void run() {
-                    TF2.getInstance().uc.nagPlayer(player);
-                }
-            }, 60L);
-        }
-        
         if (TF2.getInstance().getConfig().getBoolean("dedicated-join")) {
-        	player.performCommand("tf2 join " + MapUtilities.getUtilities().getRandomMap().getName());
+            player.performCommand("tf2 join " + MapUtilities.getUtilities().getRandomMap().getName());
         }
     }
 
