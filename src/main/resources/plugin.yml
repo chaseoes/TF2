@@ -1,10 +1,10 @@
-name: TF2
-version: maven-version-number
-description: Team Fortress 2
-main: me.chaseoes.tf2.TF2
-author: chaseoes
-softdepend: [TagAPI, WorldEdit, Multiverse-Core, ForceRespawn]
+name: ${project.name}
+version: ${project.version}
+description: ${project.description}
+main: ${project.groupId}.tf2.TF2
+authors: [chaseoes, psycowithespn]
+softdepend: [WorldEdit, Multiverse-Core, ForceRespawn]
 commands:
-  'tf2':
-    description: The central command for TF2.
-    usage: /tf2 <command> [args]
+  ${project.name}:
+    description: The central command for ${project.name}.
+    usage: /${project.name} <command> [args]

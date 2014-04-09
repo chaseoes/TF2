@@ -1,50 +1,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>me.chaseoes</groupId>
-    <artifactId>TF2</artifactId>
-    <version>3.0-SNAPSHOT</version>
     <name>TF2</name>
-    <url>https://github.com/chaseoes/TF2</url>
+    <description>Team Fortress 2 in Minecraft.</description>
+    <version>1.0</version>
     
+    <groupId>me.chaseoes</groupId>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>${project.name}</artifactId>
+    <url>https://github.com/chaseoes/${project.name}</url>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <upload.dbo.category>server-mods</upload.dbo.category>
+        <upload.dbo.category>bukkit-plugins</upload.dbo.category>
         <upload.dbo.slug>team-fortress-2</upload.dbo.slug>
-        <build.number>UNKNOWN</build.number>
     </properties>
-
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/chaseoes/TF2/issues</url>
+        <url>https://github.com/chaseoes/${project.name}/issues</url>
     </issueManagement>
-
-    <distributionManagement>
-        <repository>
-            <id>releases</id>
-            <url>http://repo.chaseoes.com/content/repositories/releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <url>http://repo.chaseoes.com/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
-
-    <profiles>
-        <profile>
-            <id>jenkins</id>
-            <activation>
-                <property>
-                    <name>env.BUILD_NUMBER</name>
-                </property>
-            </activation>
-            <properties>
-                <build.number>${env.BUILD_NUMBER}</build.number>
-            </properties>
-        </profile>
-    </profiles>
-
     <build>
-        <finalName>TF2</finalName>
+        <finalName>${project.name}</finalName>
         <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
         <resources>
             <resource>
@@ -82,28 +55,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.google.code.maven-replacer-plugin</groupId>
-                <artifactId>maven-replacer-plugin</artifactId>
-                <version>1.3.8</version>
-                <executions>
-                    <execution>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>replace</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <file>target/classes/plugin.yml</file>
-                    <replacements>
-                        <replacement>
-                            <token>maven-version-number</token>
-                            <value>${project.version}-b${build.number}</value>
-                        </replacement>
-                    </replacements>
-                </configuration>
             </plugin>
         </plugins>
     </build>
