@@ -25,6 +25,7 @@ public class SerializableInventory {
             }
 
             byte[] data = baOut.toByteArray();
+            bukkitOut.close();
             return Base64Coder.encodeLines(data);
         } catch (IOException e) {
             throw new RuntimeException("Failed to serialize inventory to string", e);
@@ -44,6 +45,7 @@ public class SerializableInventory {
             }
 
             baIn.close();
+            bukkitIn.close();
             return inv;
         } catch (Exception e) {
             throw new RuntimeException("Failed to deserialize string to inventory", e);
