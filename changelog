@@ -1,6 +1,8 @@
 v3.0
-Updated and compatible with the latest Craftbukkit beta build.
+Updated and completely compatible with the latest Craftbukkit beta build.
+Fixed a color bug with killstreak messages.
 Removed support for ForceRespawn -- players will now see a death screen.
+Various other code optimizations, fixes, and updates.
 
 v2.4
 Added scoreboard support (look for "scoreboard" in the configuration). If enabled, the requirement for TagAPI is removed.
