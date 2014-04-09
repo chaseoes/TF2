@@ -1,20 +1,20 @@
 package me.chaseoes.tf2.lobbywall;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import me.chaseoes.tf2.Game;
 import me.chaseoes.tf2.GameUtilities;
 import me.chaseoes.tf2.Map;
 import me.chaseoes.tf2.TF2;
 import me.chaseoes.tf2.capturepoints.CapturePoint;
-
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class CachedLobbyWallInfo {
 
@@ -23,7 +23,7 @@ public class CachedLobbyWallInfo {
     private String name;
     private List<Sign> signs = new ArrayList<Sign>();
     private List<CapturePoint> cps = new ArrayList<CapturePoint>();
-    private byte dataFacing;
+    private BlockFace facing;
     private boolean dirty = true;
 
     public CachedLobbyWallInfo(String name) {
@@ -43,7 +43,7 @@ public class CachedLobbyWallInfo {
             signs.add((Sign) loc.getBlock().getState());
             Block block = loc.getBlock();
             final org.bukkit.material.Sign matSign = (org.bukkit.material.Sign) loc.getBlock().getState().getData();
-            dataFacing = block.getState().getRawData();
+            facing = matSign.getFacing();
             BlockFace searchDirection = LobbyWallUtilities.getUtilities().rotate90Deg(matSign.getAttachedFace());
             int amountToAdd = 0;
             if (TF2.getInstance().getConfig().getBoolean("capture-point-signs")) {
@@ -52,7 +52,10 @@ public class CachedLobbyWallInfo {
             for (int i = 1; i < 4 + amountToAdd; i++) {
                 block = block.getRelative(searchDirection);
                 if (block.getType() != Material.WALL_SIGN) {
-                    block.setTypeIdAndData(Material.WALL_SIGN.getId(), dataFacing, false);
+                    BlockState bs = block.getState();
+                    bs.setType(Material.WALL_SIGN);
+                    ((org.bukkit.material.Sign) bs.getData()).setFacingDirection(facing);
+                    bs.update(true, false);
                 }
                 signs.add((Sign) block.getState());
             }
@@ -88,7 +91,10 @@ public class CachedLobbyWallInfo {
         for (int i = 0; i < signs.size(); i++) {
             Block block = signs.get(i).getBlock();
             if (block.getType() != Material.WALL_SIGN) {
-                block.setTypeIdAndData(Material.WALL_SIGN.getId(), dataFacing, false);
+                BlockState state = block.getState();
+                state.setType(Material.WALL_SIGN);
+                ((org.bukkit.material.Sign) state.getData()).setFacingDirection(facing);
+                state.update(true, false);
                 signs.set(i, (Sign) block.getState());
             }
         }
