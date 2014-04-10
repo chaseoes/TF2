@@ -20,6 +20,7 @@ public class GameScoreboard {
 	Team red;
 	Team blue;
 	Objective objective;
+	Objective tabObjective;
     Set<String> currentlyOnScoreboard = new HashSet<String>(10);
 
 	public GameScoreboard(Game g) {
@@ -33,9 +34,12 @@ public class GameScoreboard {
 		red.setCanSeeFriendlyInvisibles(true);
 		blue.setCanSeeFriendlyInvisibles(true);
 		objective = board.registerNewObjective("TF2;", "dummy");
+		tabObjective = board.registerNewObjective("TF2tab", "dummy");
         red.setPrefix(ChatColor.RED + "");
         blue.setPrefix(ChatColor.BLUE + "");
+        tabObjective.setDisplaySlot(DisplaySlot.PLAYER_LIST);
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+		tabObjective.setDisplayName(ChatColor.YELLOW + "" + ChatColor.BOLD + "TF2 Kills");
 		objective.setDisplayName(ChatColor.YELLOW + "" + ChatColor.BOLD + "TF2 Kills");
 	}
 
@@ -84,10 +88,13 @@ public class GameScoreboard {
         currentlyOnScoreboard.clear();
         for (Map.Entry<String, Integer> entry : entries) {
             Score score = objective.getScore(getPlayer(entry.getKey()));
+            Score scoreTab = tabObjective.getScore(getPlayer(entry.getKey()));
             if (entry.getValue() == 0) {
                 score.setScore(1);
+                scoreTab.setScore(1);
             }
             score.setScore(entry.getValue());
+            scoreTab.setScore(entry.getValue());
             currentlyOnScoreboard.add(entry.getKey());
         }
     }
