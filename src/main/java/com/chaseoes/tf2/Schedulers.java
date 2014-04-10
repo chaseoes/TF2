@@ -1,16 +1,14 @@
 package com.chaseoes.tf2;
 
-import java.util.HashMap;
-
-
+import com.chaseoes.tf2.capturepoints.CapturePointUtilities;
+import com.chaseoes.tf2.utilities.Localizer;
+import com.chaseoes.tf2.utilities.LocationStore;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
-import com.chaseoes.tf2.capturepoints.CapturePointUtilities;
-import com.chaseoes.tf2.utilities.Localizer;
-import com.chaseoes.tf2.utilities.LocationStore;
+import java.util.HashMap;
 
 public class Schedulers {
 
@@ -97,7 +95,6 @@ public class Schedulers {
 									player.getLocation().getWorld().strikeLightningEffect(CapturePointUtilities.getUtilities().getFirstUncaptured(map).getLocation());
 								}
 							}
-							return;
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
