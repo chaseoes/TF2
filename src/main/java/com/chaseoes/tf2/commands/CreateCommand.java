@@ -112,7 +112,6 @@ public class CreateCommand {
         } else if (strings[1].equalsIgnoreCase("classchest")) {
             if (strings.length == 3) {
                 Player p = (Player) cs;
-                GameUtilities.getUtilities().getGamePlayer(p).setCreatingClassChest(true);
                 String className = strings[2];
                 BlockIterator bi = new BlockIterator(p, 5);
                 while (bi.hasNext()) {
@@ -120,11 +119,11 @@ public class CreateCommand {
                     if (b.getType() != Material.AIR) {
                         DataConfiguration.getData().getDataFile().set("class-chest-locations." + className, SerializableLocation.locationToString(b.getLocation()));
                         DataConfiguration.getData().saveData();
-                        cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CONTAINER-CREATE"));
+                        cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CLASSCHEST-CREATE"));
                         return;
                     }
                 }
-                cs.sendMessage("ERROR");
+                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CLASSCHEST-NO-CHEST"));
             } else {
                 h.wrongArgs("/tf2 create classchest <class name>");
             }

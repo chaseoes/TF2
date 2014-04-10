@@ -31,7 +31,6 @@ public class GamePlayer {
     boolean makingClassButton;
     boolean justSpawned;
     boolean creatingContainer;
-    boolean creatingClassChest;
     boolean isDead;
     String mapCreatingItemFor;
     String classButtonType;
@@ -295,10 +294,6 @@ public class GamePlayer {
 
     public void setCreatingContainer(boolean bool) {
         creatingContainer = bool;
-    }
-
-    public void setCreatingClassChest(boolean bool) {
-        creatingClassChest = bool;
     }
 
     public String getMapCreatingItemFor() {

@@ -31,6 +31,9 @@ CONTAINER-CREATE: Right click a container to make it refill each game.
 CONTAINER-CREATED: Successfully registered container.
 CONTAINER-REMOVE: Successfully removed container.
 
+CLASSCHEST-CREATE: Class chest successfully defined.
+CLASSCHEST-NO-CHEST: '&cThat does not look like a chest!'
+
 CP-CAPTURE-STATUS-CAPTURED: captured
 CP-CAPTURE-STATUS-UNCAPTURED: uncaptured
 CP-CAPTURE-STATUS-CAPTURING: capturing
