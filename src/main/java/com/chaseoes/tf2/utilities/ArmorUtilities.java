@@ -1,12 +1,13 @@
 package com.chaseoes.tf2.utilities;
 
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 public class ArmorUtilities {
 
     public static ItemStack setColor(ItemStack item, org.bukkit.Color color) {
-        if (item.getTypeId() == 298 || item.getTypeId() == 299 || item.getTypeId() == 300 || item.getTypeId() == 301) {
+        if (item.getType() == Material.LEATHER_HELMET || item.getType() == Material.LEATHER_CHESTPLATE || item.getType() == Material.LEATHER_LEGGINGS || item.getType() == Material.LEATHER_BOOTS) {
             LeatherArmorMeta i = (LeatherArmorMeta) item.getItemMeta();
             i.setColor(color);
             item.setItemMeta(i);
