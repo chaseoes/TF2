@@ -9,7 +9,6 @@ import org.bukkit.block.Chest;
 import org.bukkit.inventory.ItemStack;
 
 import com.chaseoes.tf2.DataConfiguration;
-import com.chaseoes.tf2.utilities.ArmorUtilities;
 import com.chaseoes.tf2.utilities.SerializableLocation;
 
 public class ClassChest {
@@ -55,7 +54,7 @@ public class ClassChest {
     public ItemStack getBoots() {
         return getItemFromSlot(26);
     }
-    
+
     private ItemStack getItemFromSlot(int id) {
         Location location = getClassChestLocation();
         if (location.getBlock().getState() instanceof Chest) {
