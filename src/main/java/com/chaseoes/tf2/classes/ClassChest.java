@@ -9,6 +9,7 @@ import org.bukkit.block.Chest;
 import org.bukkit.inventory.ItemStack;
 
 import com.chaseoes.tf2.DataConfiguration;
+import com.chaseoes.tf2.utilities.ArmorUtilities;
 import com.chaseoes.tf2.utilities.SerializableLocation;
 
 public class ClassChest {
@@ -40,33 +41,25 @@ public class ClassChest {
     }
 
     public ItemStack getHelmet() {
-        Location location = getClassChestLocation();
-        if (location.getBlock().getState() instanceof Chest) {
-            return ((Chest) location.getBlock().getState()).getBlockInventory().getItem(23);
-        }
-        return new ItemStack(Material.AIR);
+        return getItemFromSlot(23);
     }
 
     public ItemStack getChestplate() {
-        Location location = getClassChestLocation();
-        if (location.getBlock().getState() instanceof Chest) {
-            return ((Chest) location.getBlock().getState()).getBlockInventory().getItem(24);
-        }
-        return new ItemStack(Material.AIR);
+        return getItemFromSlot(24);
     }
 
     public ItemStack getLeggings() {
-        Location location = getClassChestLocation();
-        if (location.getBlock().getState() instanceof Chest) {
-            return ((Chest) location.getBlock().getState()).getBlockInventory().getItem(25);
-        }
-        return new ItemStack(Material.AIR);
+        return getItemFromSlot(25);
     }
 
     public ItemStack getBoots() {
+        return getItemFromSlot(26);
+    }
+    
+    private ItemStack getItemFromSlot(int id) {
         Location location = getClassChestLocation();
         if (location.getBlock().getState() instanceof Chest) {
-            return ((Chest) location.getBlock().getState()).getBlockInventory().getItem(26);
+            return ((Chest) location.getBlock().getState()).getBlockInventory().getItem(id);
         }
         return new ItemStack(Material.AIR);
     }

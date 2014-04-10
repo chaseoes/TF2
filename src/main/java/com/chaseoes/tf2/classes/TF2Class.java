@@ -12,6 +12,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.chaseoes.tf2.GamePlayer;
 import com.chaseoes.tf2.TF2;
+import com.chaseoes.tf2.utilities.ArmorUtilities;
 import com.chaseoes.tf2.utilities.Localizer;
 
 public class TF2Class {
@@ -107,10 +108,10 @@ public class TF2Class {
                 }
 
                 // Add armor items.
-                player.getPlayer().getInventory().setHelmet(chest.getHelmet());
-                player.getPlayer().getInventory().setChestplate(chest.getChestplate());
-                player.getPlayer().getInventory().setLeggings(chest.getLeggings());
-                player.getPlayer().getInventory().setBoots(chest.getBoots());
+                player.getPlayer().getInventory().setHelmet(ArmorUtilities.setColor(chest.getHelmet(), player.getTeam().getColor()));
+                player.getPlayer().getInventory().setChestplate(ArmorUtilities.setColor(chest.getChestplate(), player.getTeam().getColor()));
+                player.getPlayer().getInventory().setLeggings(ArmorUtilities.setColor(chest.getLeggings(), player.getTeam().getColor()));
+                player.getPlayer().getInventory().setBoots(ArmorUtilities.setColor(chest.getBoots(), player.getTeam().getColor()));
 
                 player.setCurrentClass(this);
 

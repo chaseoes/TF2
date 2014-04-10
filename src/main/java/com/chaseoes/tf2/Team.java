@@ -1,5 +1,7 @@
 package com.chaseoes.tf2;
 
+import org.bukkit.Color;
+
 public enum Team {
 
     RED("red"), BLUE("blue");
@@ -21,5 +23,12 @@ public enum Team {
             }
         }
         return null;
+    }
+
+    public Color getColor() {
+        if (this == Team.RED) {
+            return Color.RED;
+        }
+        return Color.BLUE;
     }
 }
