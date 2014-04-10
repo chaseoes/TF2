@@ -77,6 +77,11 @@ public class CheckDataCommand {
             } else {
                 cs.sendMessage(ChatColor.AQUA + "Lobby wall has been created? " + ChatColor.DARK_RED + ChatColor.BOLD + "No.");
             }
+            if (dc.atLeastOneClassChestDefined()) {
+                cs.sendMessage(ChatColor.GREEN + "At least one class defined? " + ChatColor.DARK_GREEN + "Yes. " + ChatColor.GRAY + "(" + ChatColor.DARK_GREEN + dc.getClassChests() + ChatColor.GRAY + ")");
+            } else {
+                cs.sendMessage(ChatColor.GREEN + "At least one class defined? " + ChatColor.DARK_RED + ChatColor.BOLD + "No.");
+            }
             if (dc.globalLobbySet()) {
                 cs.sendMessage(ChatColor.GREEN + "Global lobby set? " + ChatColor.DARK_GREEN + "Yes.");
             } else {

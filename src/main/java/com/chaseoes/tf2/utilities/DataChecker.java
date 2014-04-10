@@ -72,6 +72,10 @@ public class DataChecker {
         }
         return false;
     }
+    
+    public Boolean atLeastOneClassChestDefined() {
+        return DataConfiguration.getData().getDataFile().getConfigurationSection("class-chest-locations") != null;
+    }
 
     public Integer getRedTP() {
         return TF2.getInstance().getMap(map).getRedTeamTeleportTime();
@@ -79,6 +83,10 @@ public class DataChecker {
 
     public Integer totalNumberOfCapturePoints() {
         return TF2.getInstance().getMap(map).getCapturePoints().size();
+    }
+    
+    public Integer getClassChests() {
+        return DataConfiguration.getData().getDataFile().getConfigurationSection("class-chest-locations").getKeys(false).size();
     }
 
     public Boolean globalLobbySet() {
@@ -95,11 +103,11 @@ public class DataChecker {
     }
 
     public Boolean allGood() {
-        return globalLobbySet() && capturePointOneHasBeenSet() && teamLobbyHasBeenSet(Team.RED) && teamLobbyHasBeenSet(Team.BLUE) && teamSpawnHasBeenSet(Team.RED) && teamSpawnHasBeenSet(Team.BLUE) && playerLimitHasBeenSet() && timeLimitHasBeenSet() && redTPHasBeenSet() && lobbyWallHasBeenSet();
+        return atLeastOneClassChestDefined() && globalLobbySet() && capturePointOneHasBeenSet() && teamLobbyHasBeenSet(Team.RED) && teamLobbyHasBeenSet(Team.BLUE) && teamSpawnHasBeenSet(Team.RED) && teamSpawnHasBeenSet(Team.BLUE) && playerLimitHasBeenSet() && timeLimitHasBeenSet() && redTPHasBeenSet() && lobbyWallHasBeenSet();
     }
 
     public Boolean allGoodExceptLobbyWall() {
-        return globalLobbySet() && capturePointOneHasBeenSet() && teamLobbyHasBeenSet(Team.RED) && teamLobbyHasBeenSet(Team.BLUE) && teamSpawnHasBeenSet(Team.RED) && teamSpawnHasBeenSet(Team.BLUE) && playerLimitHasBeenSet() && timeLimitHasBeenSet() && redTPHasBeenSet();
+        return atLeastOneClassChestDefined() && globalLobbySet() && capturePointOneHasBeenSet() && teamLobbyHasBeenSet(Team.RED) && teamLobbyHasBeenSet(Team.BLUE) && teamSpawnHasBeenSet(Team.RED) && teamSpawnHasBeenSet(Team.BLUE) && playerLimitHasBeenSet() && timeLimitHasBeenSet() && redTPHasBeenSet();
     }
 
 }
