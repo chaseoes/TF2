@@ -4,8 +4,7 @@ autostart-percent: 50
 donor-button-noperm: '&eYou do not have permission to use that button!'
 afk-timer: 60
 killstreaks: 5
-update-checking: true
-update-channel: stable
+auto-update: true
 potion-effects-after-start: true
 gamemode: adventure
 prevent-inventory-moving: true

@@ -25,12 +25,14 @@ import me.chaseoes.tf2.listeners.*;
 import me.chaseoes.tf2.lobbywall.LobbyWall;
 import me.chaseoes.tf2.lobbywall.LobbyWallUtilities;
 import me.chaseoes.tf2.utilities.*;
+import net.gravitydevelopment.updater.Updater;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.mcstats.Metrics;
 
 public class TF2 extends JavaPlugin {
 
@@ -113,6 +115,19 @@ public class TF2 extends JavaPlugin {
             }
         }, this).setOption(2, new ItemStack(Material.REDSTONE, 1), ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("SETSPAWN-RED-LOBBY") + ChatColor.RESET, ChatColor.WHITE + Localizer.getLocalizer().loadMessage("SETSPAWN-RED-LOBBY-DESC")).setOption(3, new ItemStack(Material.INK_SACK, 1, (short) 4), ChatColor.AQUA + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("SETSPAWN-BLUE-LOBBY") + ChatColor.RESET, ChatColor.WHITE + Localizer.getLocalizer().loadMessage("SETSPAWN-BLUE-LOBBY-DESC")).setOption(4, new ItemStack(Material.WOOL, 1, (short) 14), ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("SETSPAWN-RED-SPAWN") + ChatColor.RESET, ChatColor.WHITE + Localizer.getLocalizer().loadMessage("SETSPAWN-RED-SPAWN-DESC")).setOption(5, new ItemStack(Material.WOOL, 1, (short) 11), ChatColor.AQUA + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("SETSPAWN-BLUE-SPAWN") + ChatColor.RESET, ChatColor.WHITE + Localizer.getLocalizer().loadMessage("SETSPAWN-BLUE-SPAWN-DESC")).setOption(6, new ItemStack(Material.BEDROCK, 1), ChatColor.RED + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("SETSPAWN-EXIT") + ChatColor.RESET, ChatColor.RED + Localizer.getLocalizer().loadMessage("SETSPAWN-EXIT-DESC"));
 
+        if (getConfig().getBoolean("auto-update")) {
+            if (!getDescription().getVersion().contains("SNAPSHOT")) {
+                new Updater(this, 46264, this.getFile(), Updater.UpdateType.DEFAULT, false);
+            }
+        }
+
+        try {
+            Metrics metrics = new Metrics(this);
+            metrics.start();
+        } catch (IOException e) {
+            // Failed to submit Metrics!
+        }
+
         // Connect to database after everything else has loaded.
         if (getConfig().getBoolean("stats-database.enabled")) {
             SQLUtilities.getUtilities().setup(this);
@@ -123,7 +138,7 @@ public class TF2 extends JavaPlugin {
 
     @Override
     public void onDisable() {
-    	isDisabling = true;
+        isDisabling = true;
         if (enabled) {
             reloadConfig();
             saveConfig();

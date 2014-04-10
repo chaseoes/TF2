@@ -1,6 +1,7 @@
 v3.0
 Updated and completely compatible with the latest Craftbukkit beta build.
 Fixed a color bug with killstreak messages.
+Fixed the broken update checker and updated Metrics.
 Removed support for ForceRespawn -- players will now see a death screen.
 Various other code optimizations, fixes, and updates.
 
