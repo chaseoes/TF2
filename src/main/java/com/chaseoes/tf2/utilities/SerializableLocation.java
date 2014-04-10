@@ -8,39 +8,28 @@ import com.chaseoes.tf2.TF2;
 
 public class SerializableLocation {
 
-    private TF2 plugin;
-    static SerializableLocation instance = new SerializableLocation();
-
-    private SerializableLocation() {
-
-    }
-
-    public static SerializableLocation getUtilities() {
-        return instance;
-    }
-
-    public void setup(TF2 p) {
-        plugin = p;
-    }
-
-    public String locationToString(Location l) {
+    public static String locationToString(Location l) {
         String w = l.getWorld().getName();
         int x = l.getBlockX();
         int y = l.getBlockY();
         int z = l.getBlockZ();
-        return w + "." + x + "." + y + "." + z;
+        float yaw = l.getYaw();
+        float pitch = l.getPitch();
+        return w + "." + x + "." + y + "." + z + "." + yaw + "." + pitch;
     }
 
-    public Location stringToLocation(String s) {
+    public static Location stringToLocation(String s) {
         String[] str = s.split("\\.");
-        World w = plugin.getServer().getWorld(str[0]);
+        World w = TF2.getInstance().getServer().getWorld(str[0]);
         int x = Integer.parseInt(str[1]);
         int y = Integer.parseInt(str[2]);
         int z = Integer.parseInt(str[3]);
-        return new Location(w, x, y, z);
+        float yaw = Float.parseFloat(str[4]);
+        float pitch = Float.parseFloat(str[5]);
+        return new Location(w, x, y, z, yaw, pitch);
     }
 
-    public boolean compareLocations(Location one, Location two) {
+    public static boolean compareLocations(Location one, Location two) {
         String w = one.getWorld().getName();
         int x = one.getBlockX();
         int y = one.getBlockY();
@@ -52,11 +41,6 @@ public class SerializableLocation {
         int checkz = two.getBlockZ();
 
         return w.equalsIgnoreCase(checkw) && x == checkx && y == checky && z == checkz;
-
-        // if (locationToString(one).equalsIgnoreCase(locationToString(two)) {
-        // return true;
-        // }
-        // return false;
     }
 
 }

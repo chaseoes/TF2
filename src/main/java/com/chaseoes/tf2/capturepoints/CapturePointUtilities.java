@@ -38,7 +38,7 @@ public class CapturePointUtilities {
     public Integer getIDFromLocation(Location loc) {
         for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
             for (CapturePoint point : plugin.getMap(map).getCapturePoints()) {
-                if (SerializableLocation.getUtilities().compareLocations(loc, point.getLocation())) {
+                if (SerializableLocation.compareLocations(loc, point.getLocation())) {
                     return point.getId();
                 }
             }
@@ -49,7 +49,7 @@ public class CapturePointUtilities {
     public String getMapFromLocation(Location loc) {
         for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
             for (CapturePoint point : plugin.getMap(map).getCapturePoints()) {
-                if (SerializableLocation.getUtilities().compareLocations(loc, point.getLocation())) {
+                if (SerializableLocation.compareLocations(loc, point.getLocation())) {
                     return map;
                 }
             }
@@ -60,7 +60,7 @@ public class CapturePointUtilities {
     public Boolean locationIsCapturePoint(Location loc) {
         for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
             for (Location capturepoint : plugin.getMap(map).getCapturePointsLocations()) {
-                if (SerializableLocation.getUtilities().compareLocations(capturepoint, loc)) {
+                if (SerializableLocation.compareLocations(capturepoint, loc)) {
                     return true;
                 }
             }

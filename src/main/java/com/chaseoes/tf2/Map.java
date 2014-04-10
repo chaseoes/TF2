@@ -85,7 +85,7 @@ public class Map {
         if (customConfig.isConfigurationSection("capture-points")) {
             for (String id : customConfig.getConfigurationSection("capture-points").getKeys(false)) {
                 Integer iid = Integer.parseInt(id);
-                Location loc = SerializableLocation.getUtilities().stringToLocation(customConfig.getString("capture-points." + iid));
+                Location loc = SerializableLocation.stringToLocation(customConfig.getString("capture-points." + iid));
                 points.put(iid, new CapturePoint(name, iid, loc));
             }
         }
@@ -107,7 +107,7 @@ public class Map {
         if (customConfig.isList("containers")) {
             for (String str : customConfig.getStringList("containers")) {
                 String[] split = str.split(",");
-                Location loc = SerializableLocation.getUtilities().stringToLocation(split[0]);
+                Location loc = SerializableLocation.stringToLocation(split[0]);
                 Inventory inv = SerializableInventory.stringToInventory(split[1]);
                 containers.add(new Container(loc, inv, this));
             }
@@ -123,7 +123,7 @@ public class Map {
         customConfig.set("capture-points", null);
         ConfigurationSection section = customConfig.createSection("capture-points");
         for (java.util.Map.Entry<Integer, CapturePoint> keyVal : points.entrySet()) {
-            section.set(String.valueOf(keyVal.getKey()), SerializableLocation.getUtilities().locationToString(keyVal.getValue().getLocation()));
+            section.set(String.valueOf(keyVal.getKey()), SerializableLocation.locationToString(keyVal.getValue().getLocation()));
         }
         saveConfig();
     }
@@ -143,7 +143,7 @@ public class Map {
     public void setCapturePoint(Integer id, CapturePoint point) {
         if (point != null) {
             points.put(id, point);
-            customConfig.set("capture-points." + id, SerializableLocation.getUtilities().locationToString(point.getLocation()));
+            customConfig.set("capture-points." + id, SerializableLocation.locationToString(point.getLocation()));
         } else {
             points.remove(id);
             customConfig.set("capture-points." + id, null);
@@ -318,13 +318,13 @@ public class Map {
     }
 
     public void addContainer(Location loc, Inventory inv) {
-        containers.add(new Container(SerializableLocation.getUtilities().stringToLocation(SerializableLocation.getUtilities().locationToString(loc)), SerializableInventory.stringToInventory(SerializableInventory.inventoryToString(inv)), this));
+        containers.add(new Container(SerializableLocation.stringToLocation(SerializableLocation.locationToString(loc)), SerializableInventory.stringToInventory(SerializableInventory.inventoryToString(inv)), this));
         saveContainers();
     }
 
     public void removeContainer(Location loc) {
         loop: for (Container container : containers) {
-            if (SerializableLocation.getUtilities().compareLocations(loc, container.getLocation())) {
+            if (SerializableLocation.compareLocations(loc, container.getLocation())) {
                 containers.remove(container);
                 break loop;
             }
@@ -334,7 +334,7 @@ public class Map {
 
     public boolean isContainerRegistered(Location loc) {
         for (Container container : containers) {
-            if (SerializableLocation.getUtilities().compareLocations(loc, container.getLocation())) {
+            if (SerializableLocation.compareLocations(loc, container.getLocation())) {
                 return true;
             }
         }
@@ -344,7 +344,7 @@ public class Map {
     private void saveContainers() {
         List<String> confStringList = new ArrayList<String>();
         for (Container container : containers) {
-            String confString = SerializableLocation.getUtilities().locationToString(container.getLocation()) + "," + SerializableInventory.inventoryToString(container.getInventory());
+            String confString = SerializableLocation.locationToString(container.getLocation()) + "," + SerializableInventory.inventoryToString(container.getInventory());
             confStringList.add(confString);
         }
         customConfig.set("containers", confStringList);

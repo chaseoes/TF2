@@ -178,7 +178,6 @@ public class TF2 extends JavaPlugin {
         DebugCommand.getCommand().setup(this);
         StartCommand.getCommand().setup(this);
         StopCommand.getCommand().setup(this);
-        SerializableLocation.getUtilities().setup(this);
         MessagesFile.getMessages().setup(this);
 
         // Register Events
