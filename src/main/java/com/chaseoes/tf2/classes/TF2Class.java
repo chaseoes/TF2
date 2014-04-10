@@ -3,21 +3,15 @@ package com.chaseoes.tf2.classes;
 import java.util.logging.Level;
 
 
-import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.material.MaterialData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.chaseoes.tf2.GamePlayer;
 import com.chaseoes.tf2.TF2;
-import com.chaseoes.tf2.Team;
-import com.chaseoes.tf2.utilities.ArmorUtilities;
 import com.chaseoes.tf2.utilities.Localizer;
 
 public class TF2Class {
@@ -30,6 +24,10 @@ public class TF2Class {
         config = TF2.getInstance().getConfig().getConfigurationSection("classes." + name);
     }
 
+    public String getName() {
+        return name;
+    }
+    
     // Apply the class to a player (returns true if it was successful).
     @SuppressWarnings("deprecation")
     public boolean apply(GamePlayer player) {
@@ -51,6 +49,7 @@ public class TF2Class {
                 if (player.isInLobby() && TF2.getInstance().getConfig().getBoolean("potion-effects-after-start")) {
                     apply = false;
                 }
+
                 if (apply) {
                     for (String effect : TF2.getInstance().getConfig().getStringList("classes." + name + ".potion-effects")) {
                         String[] effects = effect.split("\\.");
@@ -67,31 +66,42 @@ public class TF2Class {
                     }
                 }
 
-                // Loop through armor items.
-                ItemStack[] armor = new ItemStack[4];
-                int armorindex = 0;
-                for (String armortype : TF2.getInstance().getConfig().getConfigurationSection("classes." + name + ".armor").getKeys(false)) {
-                    Color c = Color.RED;
-                    if (player.getTeam() == Team.BLUE) {
-                        c = Color.BLUE;
-                    }
-                    ItemStack i = ArmorUtilities.setColor(parseItem(config.getString("armor." + armortype), true), c);
+                // Loop through chest items.
+                ClassChest chest = new ClassChest(getName());
+                for (ItemStack i : chest.getClassItems()) {
+                    // Check the name of water bottle for custom potion effects.
+                    // Should be in this format: POTION_NAME AMPLIFIER TIME_IN_SECONDS
+                    if (i.getType() == Material.POTION) {
+                        for (PotionEffectType type : PotionEffectType.values()) {
+                            if (i.getItemMeta().getDisplayName().toLowerCase().startsWith(type.getName().toLowerCase())) {
+                                if (!(player.isInLobby() && TF2.getInstance().getConfig().getBoolean("potion-effects-after-start"))) {
+                                    String[] parts = i.getItemMeta().getDisplayName().split(" ");
+                                    PotionEffectType potionType = PotionEffectType.getByName(parts[0].toUpperCase());
+                                    int amplifier = Integer.parseInt(parts[1]) - 1;
+                                    int duration = 0;
 
-                    armor[armorindex] = i;
-                    armorindex++;
+                                    if (parts[2].equalsIgnoreCase("forever")) {
+                                        duration = Integer.MAX_VALUE;
+                                    } else {
+                                        duration = Integer.parseInt(parts[2]) * 20;
+                                    }
+
+                                    PotionEffect e = new PotionEffect(potionType, duration, amplifier);
+                                    player.getPlayer().addPotionEffect(e);
+                                    continue;
+                                }
+                            }
+                        }
+                    }
+
+                    player.getPlayer().getInventory().addItem(i);
                 }
 
                 // Add armor items.
-                player.getPlayer().getInventory().setHelmet(armor[0]);
-                player.getPlayer().getInventory().setChestplate(armor[1]);
-                player.getPlayer().getInventory().setLeggings(armor[2]);
-                player.getPlayer().getInventory().setBoots(armor[3]);
-
-                // Loop through inventory items.
-                for (String fullitem : TF2.getInstance().getConfig().getStringList("classes." + name + ".inventory")) {
-                    ItemStack i = parseItem(fullitem, false);
-                    player.getPlayer().getInventory().addItem(i);
-                }
+                player.getPlayer().getInventory().setHelmet(chest.getHelmet());
+                player.getPlayer().getInventory().setChestplate(chest.getChestplate());
+                player.getPlayer().getInventory().setLeggings(chest.getLeggings());
+                player.getPlayer().getInventory().setBoots(chest.getBoots());
 
                 player.setCurrentClass(this);
 
@@ -108,83 +118,6 @@ public class TF2Class {
         return false;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public ItemStack parseItem(String str, boolean isArmor) {
-        String[] items = str.split("\\.");
-        String[] item = items[0].split("\\,");
-
-        int id = Integer.parseInt(item[0]);
-        byte data = 0;
-        short damage = 0;
-        int amount = 1;
-        String name = null;
-
-        if (id == 0) {
-            return new ItemStack(0);
-        }
-
-        //Pre itemstack creation
-        if (item.length > 1) {
-            if (id == Material.POTION.getId()) {
-                damage = Short.parseShort(item[1]);
-            } else if (id == Material.SKULL_ITEM.getId()) {
-                String temp = item[1];
-                if (temp.equalsIgnoreCase("skeleton")) {
-                    damage = 0;
-                } else if (temp.equalsIgnoreCase("wither")) {
-                    damage = 1;
-                } else if (temp.equalsIgnoreCase("zombie")) {
-                    damage = 2;
-                } else if (temp.equalsIgnoreCase("creeper")) {
-                    damage = 4;
-                } else {
-                    name = item[1];
-                    damage = 3;
-                }
-            } else {
-                data = Byte.parseByte(item[1]);
-            }
-            if (item.length > 2) {
-                damage = Short.parseShort(item[2]);
-            }
-        }
-        if (items.length > 1 && !isArmor) {
-            amount = Integer.parseInt(items[1]);
-        }
-
-        //Itemstack creation
-        MaterialData md = new MaterialData(id, data);
-        ItemStack i = md.toItemStack();
-        i.setAmount(amount);
-        i.setDurability(damage);
-
-        //Post itemstack creation
-        //Meta datas
-        if (name != null && id == Material.SKULL_ITEM.getId()) {
-            SkullMeta meta = (SkullMeta) i.getItemMeta();
-            meta.setOwner(name);
-            i.setItemMeta(meta);
-        }
-        //Enchantments
-        int j = 2;
-        if (isArmor) {
-            j = 1;
-        }
-        for (; j < items.length; j++) {
-            String[] enchantment = items[j].split("\\-");
-            Enchantment e = Enchantment.getByName(enchantment[0]);
-            int level = 1;
-            if (enchantment.length > 1) {
-                level = Integer.parseInt(enchantment[1]);
-            }
-
-            i.addUnsafeEnchantment(e, level);
-        }
-        return i;
-    }
 
     @SuppressWarnings("deprecation")
     public void clearInventory(Player player) {

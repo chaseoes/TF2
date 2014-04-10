@@ -24,9 +24,14 @@ public class SerializableLocation {
         int x = Integer.parseInt(str[1]);
         int y = Integer.parseInt(str[2]);
         int z = Integer.parseInt(str[3]);
-        float yaw = Float.parseFloat(str[4]);
-        float pitch = Float.parseFloat(str[5]);
-        return new Location(w, x, y, z, yaw, pitch);
+        
+        if (str.length > 4) {
+            float yaw = Float.parseFloat(str[4]);
+            float pitch = Float.parseFloat(str[5]);
+            return new Location(w, x, y, z, yaw, pitch);
+        }
+        
+        return new Location(w, x, y, z);
     }
 
     public static boolean compareLocations(Location one, Location two) {

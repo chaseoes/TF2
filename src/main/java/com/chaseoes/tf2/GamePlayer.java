@@ -14,391 +14,396 @@ import com.chaseoes.tf2.classes.TF2Class;
 
 public class GamePlayer {
 
-	Player player;
-	String map;
-	Team team;
-	int kills;
-	int deaths;
-	int totalKills;
-	int totalDeaths;
-	int currentKillstreak;
-	int arrowsFired;
-	int pointsCaptured;
-	long timeEnteredGame;
-	boolean inLobby;
-	boolean usingChangeClassButton;
-	boolean makingChangeClassButton;
-	boolean makingClassButton;
-	boolean justSpawned;
-	boolean creatingContainer;
-	boolean isDead;
-	String mapCreatingItemFor;
-	String classButtonType;
-	String classButtonName;
-	TF2Class currentClass;
-	String playerLastDamagedBy;
-	StatCollector stats;
-	HashSet<Integer> killstreaks;
+    Player player;
+    String map;
+    Team team;
+    int kills;
+    int deaths;
+    int totalKills;
+    int totalDeaths;
+    int currentKillstreak;
+    int arrowsFired;
+    int pointsCaptured;
+    long timeEnteredGame;
+    boolean inLobby;
+    boolean usingChangeClassButton;
+    boolean makingChangeClassButton;
+    boolean makingClassButton;
+    boolean justSpawned;
+    boolean creatingContainer;
+    boolean creatingClassChest;
+    boolean isDead;
+    String mapCreatingItemFor;
+    String classButtonType;
+    String classButtonName;
+    TF2Class currentClass;
+    String playerLastDamagedBy;
+    StatCollector stats;
+    HashSet<Integer> killstreaks;
 
-	ItemStack[] savedInventoryItems;
-	ItemStack[] savedArmorItems;
-	GameMode savedGameMode;
-	float savedXPCount;
-	int savedLevelCount;
-	int savedFoodLevel;
-	int savedHealth;
+    ItemStack[] savedInventoryItems;
+    ItemStack[] savedArmorItems;
+    GameMode savedGameMode;
+    float savedXPCount;
+    int savedLevelCount;
+    int savedFoodLevel;
+    int savedHealth;
 
-	public GamePlayer(Player p) {
-		player = p;
-		team = null;
-		map = null;
-		kills = 0;
-		deaths = 0;
-		inLobby = false;
-		savedInventoryItems = null;
-		savedArmorItems = null;
-		savedXPCount = 0;
-		savedLevelCount = 0;
-		savedFoodLevel = 0;
-		savedHealth = 0;
-		currentKillstreak = 0;
-		arrowsFired = 0;
-		pointsCaptured = 0;
-		timeEnteredGame = System.currentTimeMillis();
-		savedGameMode = null;
-		playerLastDamagedBy = this.getName();
-		killstreaks = new HashSet<Integer>();
-		stats = new StatCollector(p);
-	}
+    public GamePlayer(Player p) {
+        player = p;
+        team = null;
+        map = null;
+        kills = 0;
+        deaths = 0;
+        inLobby = false;
+        savedInventoryItems = null;
+        savedArmorItems = null;
+        savedXPCount = 0;
+        savedLevelCount = 0;
+        savedFoodLevel = 0;
+        savedHealth = 0;
+        currentKillstreak = 0;
+        arrowsFired = 0;
+        pointsCaptured = 0;
+        timeEnteredGame = System.currentTimeMillis();
+        savedGameMode = null;
+        playerLastDamagedBy = this.getName();
+        killstreaks = new HashSet<Integer>();
+        stats = new StatCollector(p);
+    }
 
-	public Game getGame() {
-		if (getCurrentMap() == null) {
-			return null;
-		}
-		return GameUtilities.getUtilities().getGame(TF2.getInstance().getMap(getCurrentMap()));
-	}
+    public Game getGame() {
+        if (getCurrentMap() == null) {
+            return null;
+        }
+        return GameUtilities.getUtilities().getGame(TF2.getInstance().getMap(getCurrentMap()));
+    }
 
-	public Player getPlayer() {
-		return player;
-	}
+    public Player getPlayer() {
+        return player;
+    }
 
-	public String getName() {
-		return player.getName();
-	}
+    public String getName() {
+        return player.getName();
+    }
 
-	public boolean isIngame() {
-		return team != null;
-	}
+    public boolean isIngame() {
+        return team != null;
+    }
 
-	public boolean isInLobby() {
-		return inLobby;
-	}
+    public boolean isInLobby() {
+        return inLobby;
+    }
 
-	public void setInLobby(boolean b) {
-		inLobby = b;
-	}
+    public void setInLobby(boolean b) {
+        inLobby = b;
+    }
 
-	public String getCurrentMap() {
-		return map;
-	}
+    public String getCurrentMap() {
+        return map;
+    }
 
-	public void setMap(String m) {
-		map = m;
-	}
+    public void setMap(String m) {
+        map = m;
+    }
 
-	public Team getTeam() {
-		return team;
-	}
+    public Team getTeam() {
+        return team;
+    }
 
-	public void setTeam(Team t) {
-		team = t;
-	}
+    public void setTeam(Team t) {
+        team = t;
+    }
 
-	public int getKills() {
-		return kills;
-	}
+    public int getKills() {
+        return kills;
+    }
 
-	public void setKills(int i) {
-		if (i == -1) {
-			kills++;
-		} else {
-			kills = i;
-		}
-	}
+    public void setKills(int i) {
+        if (i == -1) {
+            kills++;
+        } else {
+            kills = i;
+        }
+    }
 
-	public int getDeaths() {
-		return deaths;
-	}
+    public int getDeaths() {
+        return deaths;
+    }
 
-	public void setDeaths(int i) {
-		if (i == -1) {
-			deaths++;
-		} else {
-			deaths = i;
-		}
-	}
+    public void setDeaths(int i) {
+        if (i == -1) {
+            deaths++;
+        } else {
+            deaths = i;
+        }
+    }
 
-	public String getTeamColor() {
-		if (!isIngame()) {
-			return null;
-		}
+    public String getTeamColor() {
+        if (!isIngame()) {
+            return null;
+        }
 
-		String color = "" + ChatColor.BLUE + ChatColor.BOLD;
-		if (getTeam() == Team.RED) {
-			color = "" + ChatColor.DARK_RED + ChatColor.BOLD;
-		}
+        String color = "" + ChatColor.BLUE + ChatColor.BOLD;
+        if (getTeam() == Team.RED) {
+            color = "" + ChatColor.DARK_RED + ChatColor.BOLD;
+        }
 
-		return color;
-	}
+        return color;
+    }
 
-	public void leaveCurrentGame() {
-		Game game = getGame();
-		game.map.getQueue().remove(player);
-		TF2Class c = new TF2Class("NONE");
-		c.clearInventory(player);
-		loadInventory();
-		if (game.getStatus() == GameStatus.STARTING && game.playersInGame.size() == 1) {
-			game.stopMatch(true);
-		}
+    public void leaveCurrentGame() {
+        Game game = getGame();
+        game.map.getQueue().remove(player);
+        TF2Class c = new TF2Class("NONE");
+        c.clearInventory(player);
+        loadInventory();
+        if (game.getStatus() == GameStatus.STARTING && game.playersInGame.size() == 1) {
+            game.stopMatch(true);
+        }
 
-		if (game.playersInGame.size() == 0) {
-			game.stopMatch(true);
-		}
-		
-		player.teleport(MapUtilities.getUtilities().loadLobby());
+        if (game.playersInGame.size() == 0) {
+            game.stopMatch(true);
+        }
 
-		if (!TF2.getInstance().isDisabling) {
-			game.map.getQueue().check();
-		}
+        player.teleport(MapUtilities.getUtilities().loadLobby());
 
-		clear();
-	}
+        if (!TF2.getInstance().isDisabling) {
+            game.map.getQueue().check();
+        }
 
-	public void saveInventory() {
-		savedInventoryItems = player.getInventory().getContents();
-		savedArmorItems = player.getInventory().getArmorContents();
-		savedXPCount = player.getExp();
-		savedLevelCount = player.getLevel();
-		savedFoodLevel = player.getFoodLevel();
-		savedHealth = (int) player.getHealth();
-		savedGameMode = player.getGameMode();
-	}
+        clear();
+    }
 
-	@SuppressWarnings("deprecation")
-	public void loadInventory() {
-		player.getInventory().setContents(savedInventoryItems);
-		player.getInventory().setArmorContents(savedArmorItems);
-		player.setExp(savedXPCount);
-		player.setLevel(savedLevelCount);
-		player.setFoodLevel(savedFoodLevel);
-		player.setHealth(savedHealth);
-		player.setGameMode(savedGameMode);
-		player.updateInventory();
-	}
+    public void saveInventory() {
+        savedInventoryItems = player.getInventory().getContents();
+        savedArmorItems = player.getInventory().getArmorContents();
+        savedXPCount = player.getExp();
+        savedLevelCount = player.getLevel();
+        savedFoodLevel = player.getFoodLevel();
+        savedHealth = (int) player.getHealth();
+        savedGameMode = player.getGameMode();
+    }
 
-	public void setUsingChangeClassButton(Boolean b) {
-		usingChangeClassButton = b;
-	}
+    @SuppressWarnings("deprecation")
+    public void loadInventory() {
+        player.getInventory().setContents(savedInventoryItems);
+        player.getInventory().setArmorContents(savedArmorItems);
+        player.setExp(savedXPCount);
+        player.setLevel(savedLevelCount);
+        player.setFoodLevel(savedFoodLevel);
+        player.setHealth(savedHealth);
+        player.setGameMode(savedGameMode);
+        player.updateInventory();
+    }
 
-	public void setMakingChangeClassButton(Boolean b) {
-		makingChangeClassButton = b;
-	}
+    public void setUsingChangeClassButton(Boolean b) {
+        usingChangeClassButton = b;
+    }
 
-	public boolean isUsingChangeClassButton() {
-		return usingChangeClassButton;
-	}
+    public void setMakingChangeClassButton(Boolean b) {
+        makingChangeClassButton = b;
+    }
 
-	public boolean isMakingChangeClassButton() {
-		return makingChangeClassButton;
-	}
+    public boolean isUsingChangeClassButton() {
+        return usingChangeClassButton;
+    }
 
-	public void setMakingClassButton(boolean b) {
-		makingClassButton = b;
-	}
+    public boolean isMakingChangeClassButton() {
+        return makingChangeClassButton;
+    }
 
-	public boolean isMakingClassButton() {
-		return makingClassButton;
-	}
+    public void setMakingClassButton(boolean b) {
+        makingClassButton = b;
+    }
 
-	public void setClassButtonType(String s) {
-		classButtonType = s;
-	}
+    public boolean isMakingClassButton() {
+        return makingClassButton;
+    }
 
-	public String getClassButtonType() {
-		return classButtonType;
-	}
+    public void setClassButtonType(String s) {
+        classButtonType = s;
+    }
 
-	public void setClassButtonName(String name) {
-		classButtonName = name;
-	}
+    public String getClassButtonType() {
+        return classButtonType;
+    }
 
-	public String getClassButtonName() {
-		return classButtonName;
-	}
+    public void setClassButtonName(String name) {
+        classButtonName = name;
+    }
 
-	public TF2Class getCurrentClass() {
-		return currentClass;
-	}
+    public String getClassButtonName() {
+        return classButtonName;
+    }
 
-	public void setCurrentClass(TF2Class c) {
-		currentClass = c;
-	}
+    public TF2Class getCurrentClass() {
+        return currentClass;
+    }
 
-	public int getTotalKills() {
-		return totalKills;
-	}
+    public void setCurrentClass(TF2Class c) {
+        currentClass = c;
+    }
 
-	public void setTotalKills(int i) {
-		if (i == -1) {
-			totalKills++;
-		} else {
-			totalKills = i;
-		}
-	}
+    public int getTotalKills() {
+        return totalKills;
+    }
 
-	public int getTotalDeaths() {
-		return totalDeaths;
-	}
+    public void setTotalKills(int i) {
+        if (i == -1) {
+            totalKills++;
+        } else {
+            totalKills = i;
+        }
+    }
 
-	public void settotalDeaths(int i) {
-		if (i == -1) {
-			totalDeaths++;
-		} else {
-			totalDeaths = i;
-		}
-	}
+    public int getTotalDeaths() {
+        return totalDeaths;
+    }
 
-	public boolean justSpawned() {
-		return justSpawned;
-	}
+    public void settotalDeaths(int i) {
+        if (i == -1) {
+            totalDeaths++;
+        } else {
+            totalDeaths = i;
+        }
+    }
 
-	public void setJustSpawned(Boolean b) {
-		justSpawned = b;
-	}
+    public boolean justSpawned() {
+        return justSpawned;
+    }
 
-	public GamePlayer getPlayerLastDamagedBy() {
-		return GameUtilities.getUtilities().getGamePlayer(Bukkit.getPlayerExact(playerLastDamagedBy));
-	}
+    public void setJustSpawned(Boolean b) {
+        justSpawned = b;
+    }
 
-	public void setPlayerLastDamagedBy(GamePlayer player) {
-		if (player != null) {
-			playerLastDamagedBy = player.getName();
-		} else {
-			playerLastDamagedBy = this.getName();
-		}
-	}
+    public GamePlayer getPlayerLastDamagedBy() {
+        return GameUtilities.getUtilities().getGamePlayer(Bukkit.getPlayerExact(playerLastDamagedBy));
+    }
 
-	public boolean isCreatingContainer() {
-		return creatingContainer;
-	}
+    public void setPlayerLastDamagedBy(GamePlayer player) {
+        if (player != null) {
+            playerLastDamagedBy = player.getName();
+        } else {
+            playerLastDamagedBy = this.getName();
+        }
+    }
 
-	public void setCreatingContainer(boolean bool) {
-		creatingContainer = bool;
-	}
+    public boolean isCreatingContainer() {
+        return creatingContainer;
+    }
 
-	public String getMapCreatingItemFor() {
-		return mapCreatingItemFor;
-	}
+    public void setCreatingContainer(boolean bool) {
+        creatingContainer = bool;
+    }
 
-	public void setMapCreatingItemFor(String map) {
-		mapCreatingItemFor = map;
-	}
+    public void setCreatingClassChest(boolean bool) {
+        creatingClassChest = bool;
+    }
 
-	public boolean isDead() {
-		return isDead;
-	}
+    public String getMapCreatingItemFor() {
+        return mapCreatingItemFor;
+    }
 
-	public void setIsDead(boolean bool) {
-		isDead = bool;
-	}
+    public void setMapCreatingItemFor(String map) {
+        mapCreatingItemFor = map;
+    }
 
-	public StatCollector getStatCollector() {
-		return stats;
-	}
+    public boolean isDead() {
+        return isDead;
+    }
 
-	public void setCurrentKillstreak(int i) {
-		currentKillstreak = i;
-	}
+    public void setIsDead(boolean bool) {
+        isDead = bool;
+    }
 
-	public int getCurrentKillstreak() {
-		return currentKillstreak;
-	}
+    public StatCollector getStatCollector() {
+        return stats;
+    }
 
-	public void setArrowsFired(int i) {
-		if (i != -1) {
-			arrowsFired = i;
-			return;
-		}
-		arrowsFired++;
-	}
+    public void setCurrentKillstreak(int i) {
+        currentKillstreak = i;
+    }
 
-	public int getArrowsFired() {
-		return arrowsFired;
-	}
+    public int getCurrentKillstreak() {
+        return currentKillstreak;
+    }
 
-	public void setPointsCaptured(int i) {
-		if (i != -1) {
-			pointsCaptured = i;
-			return;
-		}
-		pointsCaptured++;
-	}
+    public void setArrowsFired(int i) {
+        if (i != -1) {
+            arrowsFired = i;
+            return;
+        }
+        arrowsFired++;
+    }
 
-	public int getPointsCaptured() {
-		return pointsCaptured;
-	}
+    public int getArrowsFired() {
+        return arrowsFired;
+    }
 
-	public void setTimeEnteredGame() {
-		timeEnteredGame = System.currentTimeMillis();
-	}
+    public void setPointsCaptured(int i) {
+        if (i != -1) {
+            pointsCaptured = i;
+            return;
+        }
+        pointsCaptured++;
+    }
 
-	public int getTotalTimeIngame() {
-		return (int) ((System.currentTimeMillis() - timeEnteredGame) / 1000);
-	}
+    public int getPointsCaptured() {
+        return pointsCaptured;
+    }
 
-	public int getHighestKillstreak() {
-		if (!killstreaks.isEmpty()) {
-			return Collections.max(killstreaks);
-		}
-		return 0;
-	}
+    public void setTimeEnteredGame() {
+        timeEnteredGame = System.currentTimeMillis();
+    }
 
-	public void addKillstreak(Integer i) {
-		killstreaks.add(i);
-	}
+    public int getTotalTimeIngame() {
+        return (int) ((System.currentTimeMillis() - timeEnteredGame) / 1000);
+    }
 
-	public void clear() {
-		map = null;
-		team = null;
-		kills = 0;
-		deaths = 0;
-		totalKills = 0;
-		totalDeaths = 0;
-		inLobby = false;
-		usingChangeClassButton = false;
-		makingChangeClassButton = false;
-		makingClassButton = false;
-		creatingContainer = false;
-		isDead = false;
-		justSpawned = false;
-		classButtonType = null;
-		classButtonName = null;
-		currentClass = null;
-		savedInventoryItems = null;
-		savedArmorItems = null;
-		savedGameMode = null;
-		savedXPCount = 0f;
-		savedLevelCount = 0;
-		savedFoodLevel = 0;
-		savedHealth = 0;
-		currentKillstreak = 0;
-		arrowsFired = 0;
-		pointsCaptured = 0;
-		timeEnteredGame = System.currentTimeMillis();
-		playerLastDamagedBy = this.getName();
-		mapCreatingItemFor = null;
-		killstreaks.clear();
-		stats = new StatCollector(player);
-	}
+    public int getHighestKillstreak() {
+        if (!killstreaks.isEmpty()) {
+            return Collections.max(killstreaks);
+        }
+        return 0;
+    }
+
+    public void addKillstreak(Integer i) {
+        killstreaks.add(i);
+    }
+
+    public void clear() {
+        map = null;
+        team = null;
+        kills = 0;
+        deaths = 0;
+        totalKills = 0;
+        totalDeaths = 0;
+        inLobby = false;
+        usingChangeClassButton = false;
+        makingChangeClassButton = false;
+        makingClassButton = false;
+        creatingContainer = false;
+        isDead = false;
+        justSpawned = false;
+        classButtonType = null;
+        classButtonName = null;
+        currentClass = null;
+        savedInventoryItems = null;
+        savedArmorItems = null;
+        savedGameMode = null;
+        savedXPCount = 0f;
+        savedLevelCount = 0;
+        savedFoodLevel = 0;
+        savedHealth = 0;
+        currentKillstreak = 0;
+        arrowsFired = 0;
+        pointsCaptured = 0;
+        timeEnteredGame = System.currentTimeMillis();
+        playerLastDamagedBy = this.getName();
+        mapCreatingItemFor = null;
+        killstreaks.clear();
+        stats = new StatCollector(player);
+    }
 
 }

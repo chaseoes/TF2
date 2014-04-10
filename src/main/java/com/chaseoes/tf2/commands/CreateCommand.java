@@ -3,16 +3,20 @@ package com.chaseoes.tf2.commands;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.BlockIterator;
 
+import com.chaseoes.tf2.DataConfiguration;
 import com.chaseoes.tf2.GamePlayer;
 import com.chaseoes.tf2.GameUtilities;
 import com.chaseoes.tf2.MapUtilities;
 import com.chaseoes.tf2.TF2;
 import com.chaseoes.tf2.utilities.Localizer;
+import com.chaseoes.tf2.utilities.SerializableLocation;
 import com.sk89q.worldedit.EmptyClipboardException;
 
 public class CreateCommand {
@@ -104,6 +108,25 @@ public class CreateCommand {
                 cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CONTAINER-CREATE"));
             } else {
                 h.wrongArgs("/tf2 create refillcontainer <map>");
+            }
+        } else if (strings[1].equalsIgnoreCase("classchest")) {
+            if (strings.length == 3) {
+                Player p = (Player) cs;
+                GameUtilities.getUtilities().getGamePlayer(p).setCreatingClassChest(true);
+                String className = strings[2];
+                BlockIterator bi = new BlockIterator(p, 5);
+                while (bi.hasNext()) {
+                    Block b = bi.next();
+                    if (b.getType() != Material.AIR) {
+                        DataConfiguration.getData().getDataFile().set("class-chest-locations." + className, SerializableLocation.locationToString(b.getLocation()));
+                        DataConfiguration.getData().saveData();
+                        cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CONTAINER-CREATE"));
+                        return;
+                    }
+                }
+                cs.sendMessage("ERROR");
+            } else {
+                h.wrongArgs("/tf2 create classchest <class name>");
             }
         }
 
