@@ -27,7 +27,7 @@ public class TF2Class {
     public String getName() {
         return name;
     }
-    
+
     // Apply the class to a player (returns true if it was successful).
     @SuppressWarnings("deprecation")
     public boolean apply(GamePlayer player) {
@@ -71,30 +71,39 @@ public class TF2Class {
                 for (ItemStack i : chest.getClassItems()) {
                     // Check the name of water bottle for custom potion effects.
                     // Should be in this format: POTION_NAME AMPLIFIER TIME_IN_SECONDS
+                    boolean give = true;
                     if (i.getType() == Material.POTION) {
                         for (PotionEffectType type : PotionEffectType.values()) {
-                            if (i.getItemMeta().getDisplayName().toLowerCase().startsWith(type.getName().toLowerCase())) {
-                                if (!(player.isInLobby() && TF2.getInstance().getConfig().getBoolean("potion-effects-after-start"))) {
-                                    String[] parts = i.getItemMeta().getDisplayName().split(" ");
-                                    PotionEffectType potionType = PotionEffectType.getByName(parts[0].toUpperCase());
-                                    int amplifier = Integer.parseInt(parts[1]) - 1;
-                                    int duration = 0;
+                            if (type != null) {
+                                if (i.hasItemMeta()) {
+                                    if (i.getItemMeta().hasDisplayName()) {
+                                        if (i.getItemMeta().getDisplayName().toLowerCase().startsWith(type.getName().toLowerCase())) {
+                                            if (!(player.isInLobby() && TF2.getInstance().getConfig().getBoolean("potion-effects-after-start"))) {
+                                                String[] parts = i.getItemMeta().getDisplayName().split(" ");
+                                                PotionEffectType potionType = PotionEffectType.getByName(parts[0].toUpperCase());
+                                                int amplifier = Integer.parseInt(parts[1]) - 1;
+                                                int duration = 0;
 
-                                    if (parts[2].equalsIgnoreCase("forever")) {
-                                        duration = Integer.MAX_VALUE;
-                                    } else {
-                                        duration = Integer.parseInt(parts[2]) * 20;
+                                                if (parts[2].equalsIgnoreCase("forever")) {
+                                                    duration = Integer.MAX_VALUE;
+                                                } else {
+                                                    duration = Integer.parseInt(parts[2]) * 20;
+                                                }
+
+                                                PotionEffect e = new PotionEffect(potionType, duration, amplifier);
+                                                player.getPlayer().addPotionEffect(e);
+                                            }
+                                            give = false;
+                                        }
                                     }
-
-                                    PotionEffect e = new PotionEffect(potionType, duration, amplifier);
-                                    player.getPlayer().addPotionEffect(e);
-                                    continue;
                                 }
                             }
                         }
                     }
 
-                    player.getPlayer().getInventory().addItem(i);
+                    if (give) {
+                        player.getPlayer().getInventory().addItem(i);
+                    }
                 }
 
                 // Add armor items.

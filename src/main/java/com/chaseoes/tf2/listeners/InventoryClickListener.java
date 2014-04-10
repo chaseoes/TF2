@@ -21,7 +21,6 @@ public class InventoryClickListener implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        System.out.println(event.getSlot());
         if (event.getWhoClicked() != null && event.getWhoClicked() instanceof Player) {
             GamePlayer gp = GameUtilities.getUtilities().getGamePlayer((Player) event.getWhoClicked());
             if (gp.isIngame() && pl.getConfig().getBoolean("prevent-inventory-moving")) {

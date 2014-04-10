@@ -32,8 +32,8 @@ public class ClassChest {
                 ItemStack i = ((Chest) location.getBlock().getState()).getBlockInventory().getItem(slot);
                 if (i != null && i.getType() != Material.AIR) {
                     classItems.add(i);
-                    slot++;
                 }
+                slot++;
             }
         }
         return classItems;
