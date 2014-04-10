@@ -48,9 +48,9 @@ public class Game {
     public GameStatus getStatus() {
         return status;
     }
-    
+
     public GameScoreboard getScoreboard() {
-    	return scoreboard;
+        return scoreboard;
     }
 
     public String getMapName() {
@@ -125,11 +125,11 @@ public class Game {
                 Schedulers.getSchedulers().stopRedTeamCountdown(map.getName());
             }
         }, map.getRedTeamTeleportTime() * 20L);
-        
-		for (GamePlayer gp : playersInGame.values()) {
-			scoreboard.addPlayer(gp);
-		}
-		scoreboard.updateBoard();
+
+        for (GamePlayer gp : playersInGame.values()) {
+            scoreboard.addPlayer(gp);
+        }
+        scoreboard.updateBoard();
     }
 
     public void stopMatch(boolean queueCheck) { // TODO: This may make players
@@ -318,6 +318,7 @@ public class Game {
 
     public void leaveGame(Player player) {
         GamePlayer gp = getPlayer(player);
+        showAllPlayers(player);
         playersInGame.remove(gp.getName());
         if (status == GameStatus.INGAME) {
             boolean redEmpty = getSizeOfTeam(Team.RED) == 0;
@@ -445,4 +446,27 @@ public class Game {
     public Map getMap() {
         return map;
     }
+
+    public void hidePlayersNotInGame() {
+        for (String player : getPlayersIngame()) {
+            Player p = TF2.getInstance().getServer().getPlayerExact(player);
+            if (p != null) {
+                for (Player onlinePlayer : TF2.getInstance().getServer().getOnlinePlayers()) {
+                    if (!GameUtilities.getUtilities().getGamePlayer(onlinePlayer).isIngame()) {
+                        p.hidePlayer(onlinePlayer);
+                    }
+                }
+            }
+        }
+    }
+
+    public void showAllPlayers(Player player) {
+        if (player != null) {
+            for (Player onlinePlayer : TF2.getInstance().getServer().getOnlinePlayers()) {
+                player.showPlayer(onlinePlayer);
+                onlinePlayer.showPlayer(player); 
+            }
+        }
+    }
+
 }

@@ -39,6 +39,7 @@ public class Schedulers {
 			public void run() {
 				try {
 					for (Map map : MapUtilities.getUtilities().getMaps()) {
+					    GameUtilities.getUtilities().getGame(map).hidePlayersNotInGame();
 						for (String p : GameUtilities.getUtilities().getGame(map).getPlayersIngame()) {
 							Player player = plugin.getServer().getPlayerExact(p);
 							if (player == null) {
