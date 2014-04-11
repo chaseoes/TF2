@@ -27,7 +27,7 @@ public class CheckDataCommand {
         if (strings.length == 2) {
             String map = strings[1];
             if (!TF2.getInstance().mapExists(map)) {
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP"));
+                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", strings[1]));
                 return;
             }
             DataChecker dc = new DataChecker(map);
