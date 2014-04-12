@@ -1,6 +1,7 @@
 package com.chaseoes.tf2.capturepoints;
 
 
+import com.chaseoes.tf2.localization.Localizers;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -10,7 +11,6 @@ import com.chaseoes.tf2.Game;
 import com.chaseoes.tf2.GamePlayer;
 import com.chaseoes.tf2.TF2;
 import com.chaseoes.tf2.Team;
-import com.chaseoes.tf2.utilities.Localizer;
 
 public class CapturePoint implements Comparable<CapturePoint> {
 
@@ -50,7 +50,8 @@ public class CapturePoint implements Comparable<CapturePoint> {
         capturing = player;
         setStatus(CaptureStatus.CAPTURING);
         Game game = capturing.getGame();
-        game.broadcast(Localizer.getLocalizer().loadPrefixedMessage("CP-BEING-CAPTURED").replace("%id", id.toString()));
+        game.broadcast(Localizers.getDefaultLoc().CP_BEING_CAPTURED.getPrefixedString(id));
+
 
         task = CapturePointUtilities.getUtilities().plugin.getServer().getScheduler().scheduleSyncRepeatingTask(CapturePointUtilities.getUtilities().plugin, new Runnable() {
             Integer timeRemaining = CapturePointUtilities.getUtilities().plugin.getConfig().getInt("capture-timer");
@@ -84,7 +85,7 @@ public class CapturePoint implements Comparable<CapturePoint> {
                     stopCapturing();
                     setStatus(CaptureStatus.CAPTURED);
                     player.setPointsCaptured(-1);
-                    game.broadcast(Localizer.getLocalizer().loadPrefixedMessage("CP-CAPTURED").replace("%id", id.toString()).replace("%player", player.getName()));
+                    game.broadcast(Localizers.getDefaultLoc().CP_CAPTURED.getPrefixedString(id, player.getName()));
                     game.setExpOfPlayers(0);
 
                     if (TF2.getInstance().getMap(map).allCaptured()) {

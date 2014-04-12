@@ -1,21 +1,14 @@
 package com.chaseoes.tf2.commands;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-
-
+import com.chaseoes.tf2.*;
+import com.chaseoes.tf2.localization.Localizers;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.chaseoes.tf2.DataConfiguration;
-import com.chaseoes.tf2.Game;
-import com.chaseoes.tf2.GameStatus;
-import com.chaseoes.tf2.GameUtilities;
-import com.chaseoes.tf2.SpectatePlayer;
-import com.chaseoes.tf2.TF2;
-import com.chaseoes.tf2.utilities.Localizer;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class SpectateCommand {
 
@@ -33,23 +26,23 @@ public class SpectateCommand {
             if (isSpectating(player)) {
                 stopSpectating(player);
             } else {
-                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-NOT-SPECTATING"));
+                Localizers.getDefaultLoc().PLAYER_NOT_SPECTATING.sendPrefixed(player);
             }
         } else if (strings.length == 2) {
             String map = strings[1];
             if (!TF2.getInstance().mapExists(map)) {
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", map));
+                Localizers.getDefaultLoc().MAP_DOES_NOT_EXIST.sendPrefixed(cs, map);
                 return;
             }
 
             Game game = GameUtilities.getUtilities().getGamePlayer((Player) cs).getGame();
             if (game != null) {
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-ALREADY-PLAYING"));
+                Localizers.getDefaultLoc().PLAYER_NOT_PLAYING.sendPrefixed(cs);
                 return;
             }
 
             if (DataConfiguration.getData().getDataFile().getStringList("disabled-maps").contains(map)) {
-                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-INFO-DISABLED"));
+                Localizers.getDefaultLoc().MAP_INFO_DISABLED.sendPrefixed(player);
                 return;
             }
 
@@ -61,7 +54,7 @@ public class SpectateCommand {
             if (ngame.getStatus() == GameStatus.INGAME || ngame.getStatus() == GameStatus.STARTING) {
                 sc.toggleSpectating(GameUtilities.getUtilities().getGame(TF2.getInstance().getMap(map)));
             } else {
-                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-INFO-NOT-INGAME"));
+                Localizers.getDefaultLoc().MAP_INFO_TEAM_FULL.sendPrefixed(player);
             }
         } else {
             h.wrongArgs("/tf2 spectate [map]");

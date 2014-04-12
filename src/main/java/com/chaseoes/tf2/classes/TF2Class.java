@@ -1,8 +1,9 @@
 package com.chaseoes.tf2.classes;
 
-import java.util.logging.Level;
-
-
+import com.chaseoes.tf2.GamePlayer;
+import com.chaseoes.tf2.TF2;
+import com.chaseoes.tf2.localization.Localizers;
+import com.chaseoes.tf2.utilities.ArmorUtilities;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -10,10 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import com.chaseoes.tf2.GamePlayer;
-import com.chaseoes.tf2.TF2;
-import com.chaseoes.tf2.utilities.ArmorUtilities;
-import com.chaseoes.tf2.utilities.Localizer;
+import java.util.logging.Level;
 
 public class TF2Class {
 
@@ -34,7 +32,7 @@ public class TF2Class {
     public boolean apply(GamePlayer player) {
         // Check that the class exists.
         if (config == null) {
-            player.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-CLASS").replace("%class", name));
+            Localizers.getDefaultLoc().DOES_NOT_EXIST_CLASS.sendPrefixed(player.getPlayer(), name);
             clearInventory(player.getPlayer());
             return false;
         }
@@ -120,7 +118,7 @@ public class TF2Class {
             } catch (Exception e) {
                 e.printStackTrace();
                 TF2.getInstance().getLogger().log(Level.SEVERE, "The error encountered while changing a player's class is above! Note that TF2 v2.0 has a new format for defining items - click here to view the new default configuration: http://goo.gl/LdKKR");
-                player.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("ERROR-CHANGE-CLASS"));
+                Localizers.getDefaultLoc().ERROR_CHANGE_CLASS.sendPrefixed(player.getPlayer());
                 clearInventory(player.getPlayer());
                 return false;
             }

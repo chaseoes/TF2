@@ -1,21 +1,14 @@
 package com.chaseoes.tf2.lobbywall;
 
+import com.chaseoes.tf2.*;
+import com.chaseoes.tf2.localization.Localizers;
+import org.bukkit.ChatColor;
+import org.bukkit.block.Sign;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
-
-
-import org.bukkit.ChatColor;
-import org.bukkit.block.Sign;
-
-import com.chaseoes.tf2.DataConfiguration;
-import com.chaseoes.tf2.Game;
-import com.chaseoes.tf2.GameStatus;
-import com.chaseoes.tf2.Map;
-import com.chaseoes.tf2.TF2;
-import com.chaseoes.tf2.Team;
-import com.chaseoes.tf2.utilities.Localizer;
 
 public class LobbyWall {
 
@@ -48,13 +41,13 @@ public class LobbyWall {
                     return;
                 }
                 info.verifySigns();
-                LobbyWallUtilities.getUtilities().setSignLines(signs.get(0), Localizer.getLocalizer().loadMessage("LOBBYWALL-JOIN-1"), Localizer.getLocalizer().loadMessage("LOBBYWALL-JOIN-2"), Localizer.getLocalizer().loadMessage("LOBBYWALL-JOIN-3"), ChatColor.BOLD + "" + map);
+                LobbyWallUtilities.getUtilities().setSignLines(signs.get(0), Localizers.getDefaultLoc().LOBBYWALL_JOIN_1.getString(), Localizers.getDefaultLoc().LOBBYWALL_JOIN_2.getString(), Localizers.getDefaultLoc().LOBBYWALL_JOIN_3.getString(), ChatColor.BOLD + "" + map);
                 if (info.getGame().getStatus() != GameStatus.DISABLED) {
-                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(1), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-1"), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-2"), info.getGame().getPrettyStatus(), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-4"));
-                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(2), Localizer.getLocalizer().loadMessage("LOBBYWALL-TEAMS-1"), Localizer.getLocalizer().loadMessage("LOBBYWALL-TEAMS-2").replace("%players", info.getGame().getSizeOfTeam(Team.RED) + "/" + plugin.getMap(map).getPlayerlimit() / 2), Localizer.getLocalizer().loadMessage("LOBBYWALL-TEAMS-3"), Localizer.getLocalizer().loadMessage("LOBBYWALL-TEAMS-4").replace("%players", info.getGame().getSizeOfTeam(Team.BLUE) + "/" + plugin.getMap(map).getPlayerlimit() / 2));
-                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(3), Localizer.getLocalizer().loadMessage("LOBBYWALL-TIME-1"), Localizer.getLocalizer().loadMessage("LOBBYWALL-TIME-2"), info.getGame().getTimeLeft(), Localizer.getLocalizer().loadMessage("LOBBYWALL-TIME-4"));
+                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(1), Localizers.getDefaultLoc().LOBBYWALL_STATUS_1.getString(), Localizers.getDefaultLoc().LOBBYWALL_STATUS_2.getString(), info.getGame().getPrettyStatus(), Localizers.getDefaultLoc().LOBBYWALL_STATUS_4.getString());
+                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(2), Localizers.getDefaultLoc().LOBBYWALL_TEAMS_1.getString(), Localizers.getDefaultLoc().LOBBYWALL_TEAMS_2.getString(info.getGame().getSizeOfTeam(Team.RED) + "/" + plugin.getMap(map).getPlayerlimit() / 2), Localizers.getDefaultLoc().LOBBYWALL_TEAMS_3.getString(), Localizers.getDefaultLoc().LOBBYWALL_TEAMS_4.getString(info.getGame().getSizeOfTeam(Team.BLUE) + "/" + plugin.getMap(map).getPlayerlimit() / 2));
+                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(3), Localizers.getDefaultLoc().LOBBYWALL_TIME_1.getString(), Localizers.getDefaultLoc().LOBBYWALL_TIME_2.getString(), info.getGame().getTimeLeft(), Localizers.getDefaultLoc().LOBBYWALL_TIME_4.getString());
                 } else {
-                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(1), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-1"), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-2"), ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("GAMESTATUS-DISABLED"), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-4"));
+                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(1), Localizers.getDefaultLoc().LOBBYWALL_STATUS_1.getString(), Localizers.getDefaultLoc().LOBBYWALL_STATUS_2.getString(), ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizers.getDefaultLoc().GAMESTATUS_DISABLED.getString(), Localizers.getDefaultLoc().LOBBYWALL_STATUS_4.getString());
                     LobbyWallUtilities.getUtilities().setSignLines(signs.get(2), " ", "---------------------------------------------", "-------------------------------------", " ");
                     LobbyWallUtilities.getUtilities().setSignLines(signs.get(3), " ", "---------------------------------------------", "-------------------------------------", " ");
                 }
@@ -62,18 +55,18 @@ public class LobbyWall {
                 if (plugin.getConfig().getBoolean("capture-point-signs")) {
                     for (int i = 4; i < 4 + info.getCapturePoints().size(); i++) {
                         String color = ChatColor.BLUE + "" + ChatColor.BOLD;
-                        if (getFriendlyCaptureStatus(map, i - 3).equalsIgnoreCase(Localizer.getLocalizer().loadMessage("CP-CAPTURE-STATUS-CAPTURED"))) {
+                        if (getFriendlyCaptureStatus(map, i - 3).equalsIgnoreCase(Localizers.getDefaultLoc().CP_CAPTURE_STATUS_CAPTURED.getString())) {
                             color = ChatColor.DARK_RED + "" + ChatColor.BOLD;
                         }
                         if (info.getGame().getStatus() != GameStatus.DISABLED) {
-                            LobbyWallUtilities.getUtilities().setSignLines(signs.get(i), Localizer.getLocalizer().loadMessage("LOBBYWALL-CP-1"), "#" + (i - 3), Localizer.getLocalizer().loadMessage("LOBBYWALL-CP-3"), color + getFriendlyCaptureStatus(map, i - 3));
+                            LobbyWallUtilities.getUtilities().setSignLines(signs.get(i), Localizers.getDefaultLoc().LOBBYWALL_CP_1.getString(), "#" + (i - 3), Localizers.getDefaultLoc().LOBBYWALL_CP_3.getString(), color + getFriendlyCaptureStatus(map, i - 3));
                         } else {
                             LobbyWallUtilities.getUtilities().setSignLines(signs.get(i), " ", "---------------------------------------------", "-------------------------------------", " ");
                         }
                     }
                 }
             } catch (Exception e) {
-                plugin.getLogger().log(Level.WARNING, "Encountered an error while trying to update the lobby wall.");
+                plugin.getLogger().log(Level.WARNING, "Encountered an error while trying to update the lobby wall. " + e.getMessage());
             }
         }
     }
@@ -96,15 +89,15 @@ public class LobbyWall {
             if (s1) {
                 LobbyWallUtilities.getUtilities().setSignLines(signs.get(0), lines[0], lines[1], lines[2], lines[3]);
             } else {
-                LobbyWallUtilities.getUtilities().setSignLines(signs.get(0), Localizer.getLocalizer().loadMessage("LOBBYWALL-JOIN-1"), Localizer.getLocalizer().loadMessage("LOBBYWALL-JOIN-2"), Localizer.getLocalizer().loadMessage("LOBBYWALL-JOIN-3"), ChatColor.BOLD + "" + map);
+                LobbyWallUtilities.getUtilities().setSignLines(signs.get(0), Localizers.getDefaultLoc().LOBBYWALL_JOIN_1.getString(), Localizers.getDefaultLoc().LOBBYWALL_JOIN_2.getString(), Localizers.getDefaultLoc().LOBBYWALL_JOIN_3.getString(), ChatColor.BOLD + "" + map);
             }
             if (s2) {
                 LobbyWallUtilities.getUtilities().setSignLines(signs.get(1), lines[0], lines[1], lines[2], lines[3]);
             } else {
                 if (game.getStatus() != GameStatus.DISABLED) {
-                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(1), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-1"), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-2"), game.getPrettyStatus(), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-4"));
+                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(1), Localizers.getDefaultLoc().LOBBYWALL_STATUS_1.getString(), Localizers.getDefaultLoc().LOBBYWALL_STATUS_2.getString(), game.getPrettyStatus(), Localizers.getDefaultLoc().LOBBYWALL_STATUS_4.getString());
                 } else {
-                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(1), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-1"), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-2"), Localizer.getLocalizer().loadMessage("LOBBYWALL-MAP-DISABLED"), Localizer.getLocalizer().loadMessage("LOBBYWALL-STATUS-4"));
+                    LobbyWallUtilities.getUtilities().setSignLines(signs.get(1), Localizers.getDefaultLoc().LOBBYWALL_STATUS_1.getString(), Localizers.getDefaultLoc().LOBBYWALL_STATUS_2.getString(), Localizers.getDefaultLoc().LOBBYWALL_MAP_DISABLED.getString(), Localizers.getDefaultLoc().LOBBYWALL_STATUS_4.getString());
                 }
             }
             LobbyWallUtilities.getUtilities().setSignLines(signs.get(2), lines[0], lines[1], lines[2], lines[3]);
@@ -129,13 +122,13 @@ public class LobbyWall {
         Map m = plugin.getMap(map);
         String ss = m.getCapturePoint(id).getStatus().string();
         if (ss.equalsIgnoreCase("uncaptured")) {
-            return Localizer.getLocalizer().loadMessage("CP-CAPTURE-STATUS-CAP-UNCAPTURED");
+            return Localizers.getDefaultLoc().CP_CAPTURE_STATUS_CAP_UNCAPTURED.getString();
         }
         if (ss.equalsIgnoreCase("capturing")) {
-            return Localizer.getLocalizer().loadMessage("CP-CAPTURE-STATUS-CAP-CAPTURING");
+            return Localizers.getDefaultLoc().CP_CAPTURE_STATUS_CAP_CAPTURING.getString();
         }
         if (ss.equalsIgnoreCase("captured")) {
-            return Localizer.getLocalizer().loadMessage("CP-CAPTURE-STATUS-CAP-CAPTURED");
+            return Localizers.getDefaultLoc().CP_CAPTURE_STATUS_CAP_CAPTURED.getString();
         }
         return null;
     }

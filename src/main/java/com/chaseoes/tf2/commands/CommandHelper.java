@@ -1,10 +1,8 @@
 package com.chaseoes.tf2.commands;
 
-
+import com.chaseoes.tf2.localization.Localizers;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-
-import com.chaseoes.tf2.utilities.Localizer;
 
 public class CommandHelper {
 
@@ -17,21 +15,21 @@ public class CommandHelper {
     }
 
     public void noPermission() {
-        sender.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("NO-PERMISSION"));
+        Localizers.getDefaultLoc().NO_PERMISSION.sendPrefixed(sender);
     }
 
     public void noConsole() {
-        sender.sendMessage(Localizer.getLocalizer().loadMessage("NO-CONSOLE"));
+        Localizers.getDefaultLoc().NO_CONSOLE.send(sender);
     }
 
     public void wrongArgs(String usage) {
-        sender.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("WRONG-ARGS"));
-        sender.sendMessage(Localizer.getLocalizer().loadMessage("WRONG-ARGS-USAGE").replace("%usage", usage));
+        Localizers.getDefaultLoc().WRONG_ARGS.sendPrefixed(sender);
+        Localizers.getDefaultLoc().WRONG_ARGS_USAGE.send(sender, usage);
     }
 
     public void unknownCommand() {
-        sender.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("UNKNOWN-COMMAND"));
-        sender.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("UNKNOWN-COMMAND-HELP"));
+        Localizers.getDefaultLoc().UNKNOWN_COMMAND.sendPrefixed(sender);
+        Localizers.getDefaultLoc().UNKNOWN_COMMAND_HELP.sendPrefixed(sender);
     }
 
 }

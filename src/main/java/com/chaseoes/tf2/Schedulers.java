@@ -1,7 +1,7 @@
 package com.chaseoes.tf2;
 
 import com.chaseoes.tf2.capturepoints.CapturePointUtilities;
-import com.chaseoes.tf2.utilities.Localizer;
+import com.chaseoes.tf2.localization.Localizers;
 import com.chaseoes.tf2.utilities.LocationStore;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -59,7 +59,7 @@ public class Schedulers {
 
 									if (afklimit.equals(afktime)) {
 										GameUtilities.getUtilities().getGamePlayer(player).getGame().leaveGame(player);
-										player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-KICKED-FOR-AFK"));
+                                        Localizers.getDefaultLoc().PLAYER_KICKED_FOR_AFK.sendPrefixed(player);
 										LocationStore.setAFKTime(player, null);
 										LocationStore.unsetLastLocation(player);
 									}
@@ -124,7 +124,7 @@ public class Schedulers {
 			public void run() {
 				if (secondsleft > 0) {
 					if (secondsleft % 10 == 0 || secondsleft < 6) {
-						game.broadcast(Localizer.getLocalizer().loadPrefixedMessage("RED-TEAM-TELEPORTED-IN").replace("%time", secondsleft + ""), Team.RED);
+                        game.broadcast(Localizers.getDefaultLoc().RED_TEAM_TELEPORTED_IN.getPrefixedString(secondsleft), Team.RED);
 					}
 				} else {
 					stopRedTeamCountdown(map.getName());
@@ -147,7 +147,7 @@ public class Schedulers {
 			public void run() {
 				if (secondsLeft > 0) {
 					if (secondsLeft % 10 == 0 || secondsLeft < 6) {
-						game.broadcast(Localizer.getLocalizer().loadPrefixedMessage("GAME-STARTING-IN").replace("%time", secondsLeft + ""));
+                        game.broadcast(Localizers.getDefaultLoc().GAME_STARTING_IN.getPrefixedString(secondsLeft));
 					}
 					secondsLeft--;
 				} else {
@@ -174,7 +174,7 @@ public class Schedulers {
 					game.time = current;
 					if (secondsleft > 0) {
 						if (secondsleft % 60 == 0 || secondsleft < 10) {
-							game.broadcast(Localizer.getLocalizer().loadPrefixedMessage("GAME-ENDING-IN").replace("%time", game.getTimeLeftPretty()));
+                            game.broadcast(Localizers.getDefaultLoc().GAME_ENDING_IN.getPrefixedString(game.getTimeLeftPretty()));
 						}
 					}
 					secondsleft--;

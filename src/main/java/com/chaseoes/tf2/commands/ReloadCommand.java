@@ -1,14 +1,12 @@
 package com.chaseoes.tf2.commands;
 
 
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-
 import com.chaseoes.tf2.DataConfiguration;
 import com.chaseoes.tf2.MapUtilities;
-import com.chaseoes.tf2.MessagesFile;
 import com.chaseoes.tf2.TF2;
-import com.chaseoes.tf2.utilities.Localizer;
+import com.chaseoes.tf2.localization.Localizers;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 
 public class ReloadCommand {
 
@@ -33,12 +31,11 @@ public class ReloadCommand {
         TF2.getInstance().saveConfig();
         DataConfiguration.getData().reloadData();
         DataConfiguration.getData().reloadData();
-        MessagesFile.getMessages().reloadMessages();
-        MessagesFile.getMessages().saveMessages();
+        Localizers.getInstance().reload();
         for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
             TF2.getInstance().getMap(map).load();
         }
-        cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CONFIG-RELOADED"));
+        Localizers.getDefaultLoc().CONFIG_RELOADED.sendPrefixed(cs);
     }
 
 }

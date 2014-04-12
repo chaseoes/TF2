@@ -1,6 +1,7 @@
 package com.chaseoes.tf2.commands;
 
 
+import com.chaseoes.tf2.localization.Localizers;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -8,7 +9,6 @@ import org.bukkit.command.CommandSender;
 import com.chaseoes.tf2.TF2;
 import com.chaseoes.tf2.Team;
 import com.chaseoes.tf2.utilities.DataChecker;
-import com.chaseoes.tf2.utilities.Localizer;
 
 public class CheckDataCommand {
 
@@ -27,7 +27,7 @@ public class CheckDataCommand {
         if (strings.length == 2) {
             String map = strings[1];
             if (!TF2.getInstance().mapExists(map)) {
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", strings[1]));
+                Localizers.getDefaultLoc().MAP_DOES_NOT_EXIST.sendPrefixed(cs, map);
                 return;
             }
             DataChecker dc = new DataChecker(map);

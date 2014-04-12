@@ -1,8 +1,10 @@
 package com.chaseoes.tf2.listeners;
 
-import java.util.List;
-
-
+import com.chaseoes.tf2.DataConfiguration;
+import com.chaseoes.tf2.GamePlayer;
+import com.chaseoes.tf2.GameUtilities;
+import com.chaseoes.tf2.TF2;
+import com.chaseoes.tf2.localization.Localizers;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,11 +12,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
-import com.chaseoes.tf2.DataConfiguration;
-import com.chaseoes.tf2.GamePlayer;
-import com.chaseoes.tf2.GameUtilities;
-import com.chaseoes.tf2.TF2;
-import com.chaseoes.tf2.utilities.Localizer;
+import java.util.List;
 
 public class BlockPlaceListener implements Listener {
 
@@ -36,7 +34,7 @@ public class BlockPlaceListener implements Listener {
             DataConfiguration.getData().saveData();
             DataConfiguration.getData().getDataFile().set("classbuttons", classbs);
             DataConfiguration.getData().saveData();
-            player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("BUTTON-CLASS-CREATED").replace("%type", gp.getClassButtonType()).replace("%class", gp.getClassButtonName()));
+            Localizers.getDefaultLoc().BUTTON_CLASS_CREATED.sendPrefixed(player, gp.getClassButtonType(), gp.getClassButtonName());
             gp.setMakingClassButton(false);
             gp.setClassButtonName(null);
             gp.setClassButtonType(null);
@@ -48,7 +46,7 @@ public class BlockPlaceListener implements Listener {
             DataConfiguration.getData().getDataFile().set("changeclassbuttons", classbs);
             gp.setMakingChangeClassButton(false);
             DataConfiguration.getData().saveData();
-            player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("BUTTON-CHANGE-CLASS-CREATED"));
+            Localizers.getDefaultLoc().BUTTON_CHANGE_CLASS_CREATED.sendPrefixed(player);
         }
     }
 

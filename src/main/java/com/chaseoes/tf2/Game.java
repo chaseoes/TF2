@@ -1,24 +1,22 @@
 package com.chaseoes.tf2;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-
+import com.chaseoes.tf2.capturepoints.CapturePoint;
+import com.chaseoes.tf2.capturepoints.CapturePointUtilities;
+import com.chaseoes.tf2.classes.TF2Class;
+import com.chaseoes.tf2.commands.SpectateCommand;
+import com.chaseoes.tf2.lobbywall.LobbyWall;
+import com.chaseoes.tf2.localization.Localizers;
+import com.chaseoes.tf2.utilities.Container;
+import com.chaseoes.tf2.utilities.WorldEditUtilities;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-import com.chaseoes.tf2.capturepoints.CapturePoint;
-import com.chaseoes.tf2.capturepoints.CapturePointUtilities;
-import com.chaseoes.tf2.classes.TF2Class;
-import com.chaseoes.tf2.commands.SpectateCommand;
-import com.chaseoes.tf2.lobbywall.LobbyWall;
-import com.chaseoes.tf2.utilities.Container;
-import com.chaseoes.tf2.utilities.Localizer;
-import com.chaseoes.tf2.utilities.WorldEditUtilities;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Game {
 
@@ -98,7 +96,7 @@ public class Game {
                     gp.setUsingChangeClassButton(false);
                 } else {
                     gp.setUsingChangeClassButton(true);
-                    player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("TELEPORT-AFTER-CHOOSE-CLASS"));
+                    Localizers.getDefaultLoc().TELEPORT_AFTER_CHOOSE_CLASS.sendPrefixed(player);
                 }
             }
         }
@@ -116,7 +114,7 @@ public class Game {
                             gp.setUsingChangeClassButton(false);
                         } else {
                             gp.setUsingChangeClassButton(true);
-                            player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("TELEPORT-AFTER-CHOOSE-CLASS"));
+                            Localizers.getDefaultLoc().TELEPORT_AFTER_CHOOSE_CLASS.sendPrefixed(player);
                         }
                     }
                 }
@@ -163,7 +161,7 @@ public class Game {
         playersInGame.clear();
         for (GamePlayer gp : hmap.values()) {
             gp.leaveCurrentGame();
-            gp.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("GAME-END"));
+            Localizers.getDefaultLoc().GAME_END.sendPrefixed(gp.getPlayer());
             if (plugin.getConfig().getBoolean("map-rotation")) {
                 Game nextGame = GameUtilities.getUtilities().getNextGame(this);
                 if (nextGame != null && !nextGame.isFull() && nextGame.getStatus() == GameStatus.WAITING) {
@@ -194,18 +192,18 @@ public class Game {
 
         String[] winlines = new String[4];
         winlines[0] = " ";
-        winlines[1] = "" + ChatColor.DARK_RED + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("RED-TEAM");
+        winlines[1] = "" + ChatColor.DARK_RED + ChatColor.BOLD + Localizers.getDefaultLoc().RED_TEAM.getString();
 
         if (team == Team.BLUE) {
-            winlines[1] = ChatColor.BLUE + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("BLUE-TEAM");
+            winlines[1] = ChatColor.BLUE + "" + ChatColor.BOLD + Localizers.getDefaultLoc().BLUE_TEAM.getString();
         }
 
-        winlines[2] = ChatColor.GREEN + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("WINS");
+        winlines[2] = ChatColor.GREEN + "" + ChatColor.BOLD + Localizers.getDefaultLoc().WINS.getString();
         winlines[3] = " ";
-        String te = ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("RED") + "" + ChatColor.RESET + ChatColor.YELLOW;
+        String te = ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizers.getDefaultLoc().RED_TEAM.getString() + "" + ChatColor.RESET + ChatColor.YELLOW;
 
         if (team == Team.BLUE) {
-            te = ChatColor.BLUE + "" + ChatColor.BOLD + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("BLUE") + "" + ChatColor.RESET + ChatColor.YELLOW;
+            te = ChatColor.BLUE + "" + ChatColor.BOLD + ChatColor.BOLD + Localizers.getDefaultLoc().BLUE.getString() + "" + ChatColor.RESET + ChatColor.YELLOW;
         }
 
         LobbyWall.getWall().setAllLines(map.getName(), null, winlines, false, true);
@@ -224,7 +222,7 @@ public class Game {
 
         CapturePointUtilities.getUtilities().uncaptureAll(map);
         if (TF2.getInstance().getConfig().getBoolean("broadcast-winning-team")) {
-            plugin.getServer().broadcastMessage(Localizer.getLocalizer().loadMessage("GAME-WIN").replace("%team", te).replace("%map", ChatColor.BOLD + map.getName() + ChatColor.RESET + "" + ChatColor.YELLOW));
+            Localizers.getDefaultLoc().GAME_WIN.broadcast(te, ChatColor.BOLD + map.getName() + ChatColor.RESET + "" + ChatColor.YELLOW);
         }
         stopMatch(true);
 
@@ -244,15 +242,15 @@ public class Game {
         if (!q.gameHasRoom()) {
             if (!player.getPlayer().hasPermission("tf2.create")) {
                 q.add(player.getPlayer());
-                player.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("IN-LINE").replace("%position", q.getPosition(player.getPlayer()) + 1 + ""));
+                Localizers.getDefaultLoc().IN_LINE.sendPrefixed(player.getPlayer(), q.getPosition(player.getPlayer()) + 1);
                 return;
             }
         }
 
         if (!full && player.getPlayer().hasPermission("tf2.create")) {
-            player.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-JOIN-FULL-MAP").replace("%map", ChatColor.BOLD + map.getName() + ChatColor.RESET + "" + ChatColor.YELLOW));
+            Localizers.getDefaultLoc().PLAYER_JOIN_FULL_MAP.sendPrefixed(player.getPlayer(), ChatColor.BOLD + map.getName() + ChatColor.RESET + "" + ChatColor.YELLOW);
         } else {
-            player.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-JOIN-MAP").replace("%map", ChatColor.BOLD + map.getName() + ChatColor.RESET + "" + ChatColor.YELLOW));
+            Localizers.getDefaultLoc().PLAYER_JOIN_MAP.sendPrefixed(player.getPlayer(), ChatColor.BOLD + map.getName() + ChatColor.RESET + "" + ChatColor.YELLOW);
         }
 
         for (Game g : GameUtilities.getUtilities().games.values()) {
@@ -299,7 +297,7 @@ public class Game {
         }
 
         if (getStatus() == GameStatus.WAITING) {
-            player.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PERCENT-JOIN").replace("%percent", plugin.getConfig().getInt("autostart-percent") + ""));
+            Localizers.getDefaultLoc().PERCENT_JOIN.sendPrefixed(player.getPlayer(), plugin.getConfig().getInt("autostart-percent"));
         } else if (getStatus() == GameStatus.INGAME) {
             switch (player.getTeam()) {
                 case RED:
@@ -366,7 +364,7 @@ public class Game {
 
     public String getTimeLeft() {
         if (getStatus().equals(GameStatus.WAITING) || getStatus().equals(GameStatus.STARTING)) {
-            return Localizer.getLocalizer().loadMessage("GAMESTATUS-NOT-STARTED");
+            return Localizers.getDefaultLoc().GAMESTATUS_NOT_STARTED.getString();
         }
 
         int time = getTimeLeftSeconds();
@@ -384,7 +382,7 @@ public class Game {
 
     public String getTimeLeftPretty() {
         if (getStatus().equals(GameStatus.WAITING) || getStatus().equals(GameStatus.STARTING)) {
-            return Localizer.getLocalizer().loadMessage("GAMESTATUS-NOT-STARTED");
+            return Localizers.getDefaultLoc().GAMESTATUS_NOT_STARTED.getString();
         }
         Integer time = getTimeLeftSeconds();
         int hours = time / (60 * 60);
@@ -407,13 +405,13 @@ public class Game {
     public String getPrettyStatus() {
         GameStatus status = getStatus();
         if (status == GameStatus.INGAME) {
-            return Localizer.getLocalizer().loadMessage("GAMESTATUS-INGAME");
+            return Localizers.getDefaultLoc().GAMESTATUS_INGAME.getString();
         } else if (status == GameStatus.STARTING) {
-            return Localizer.getLocalizer().loadMessage("GAMESTATUS-STARTING");
+            return Localizers.getDefaultLoc().GAMESTATUS_STARTING.getString();
         } else if (status == GameStatus.WAITING) {
-            return Localizer.getLocalizer().loadMessage("GAMESTATUS-WAITING");
+            return Localizers.getDefaultLoc().GAMESTATUS_WAITING.getString();
         } else if (status == GameStatus.DISABLED) {
-            return Localizer.getLocalizer().loadMessage("GAMESTATUS-DISABLED");
+            return Localizers.getDefaultLoc().GAMESTATUS_DISABLED.getString();
         }
         return "ERROR";
     }

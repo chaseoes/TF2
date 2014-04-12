@@ -1,6 +1,7 @@
 package com.chaseoes.tf2.commands;
 
 
+import com.chaseoes.tf2.localization.Localizers;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -8,7 +9,6 @@ import org.bukkit.entity.Player;
 
 import com.chaseoes.tf2.Map;
 import com.chaseoes.tf2.TF2;
-import com.chaseoes.tf2.utilities.Localizer;
 import com.chaseoes.tf2.utilities.WorldEditUtilities;
 import com.sk89q.worldedit.bukkit.selections.Selection;
 
@@ -32,7 +32,7 @@ public class RedefineCommand {
         CommandHelper h = new CommandHelper(cs, cmnd);
         if (strings.length == 2) {
             if (!TF2.getInstance().mapExists(strings[1])) {
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", strings[1]));
+                Localizers.getDefaultLoc().MAP_DOES_NOT_EXIST.sendPrefixed(cs, strings[1]);
                 return;
             }
             Map map = plugin.getMap(strings[1]);
@@ -43,9 +43,9 @@ public class RedefineCommand {
                 Location b2 = new Location(player.getWorld(), sel.getNativeMaximumPoint().getBlockX(), sel.getNativeMaximumPoint().getBlockY(), sel.getNativeMaximumPoint().getBlockZ());
                 map.setP1(b1);
                 map.setP2(b2);
-                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-SUCCESSFULLY-REDEFINED").replace("%map", strings[1]));
+                Localizers.getDefaultLoc().MAP_SUCCESSFULLY_REDEFINED.sendPrefixed(player, strings[1]);
             } catch (Exception ex) {
-                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("WORLDEDIT-NO-REGION"));
+                Localizers.getDefaultLoc().WORLDEDIT_NO_REGION.sendPrefixed(player);
             }
 
         } else {

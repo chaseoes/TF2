@@ -5,6 +5,7 @@ donor-button-noperm: '&eYou do not have permission to use that button!'
 afk-timer: 60
 killstreaks: 5
 auto-update: true
+default-localization: english
 potion-effects-after-start: true
 gamemode: adventure
 prevent-inventory-moving: true

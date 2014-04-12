@@ -1,6 +1,7 @@
 package com.chaseoes.tf2.commands;
 
 
+import com.chaseoes.tf2.localization.Localizers;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -11,7 +12,6 @@ import com.chaseoes.tf2.Map;
 import com.chaseoes.tf2.MapUtilities;
 import com.chaseoes.tf2.TF2;
 import com.chaseoes.tf2.lobbywall.LobbyWall;
-import com.chaseoes.tf2.utilities.Localizer;
 
 public class EnableCommand {
 
@@ -41,11 +41,11 @@ public class EnableCommand {
                     LobbyWall.getWall().cantUpdate.remove(map.getName());
                 }
             }
-            cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-SUCCESSFULLY-ENABLED-ALL"));
+            Localizers.getDefaultLoc().MAP_SUCCESSFULLY_ENABLED_ALL.sendPrefixed(cs);
         } else if (strings.length == 2) {
             String map = strings[1];
             if (!TF2.getInstance().mapExists(map)) {
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", map));
+                Localizers.getDefaultLoc().MAP_DOES_NOT_EXIST.sendPrefixed(cs, map);
                 return;
             }
             if (GameUtilities.getUtilities().getGame(TF2.getInstance().getMap(map)).getStatus() == GameStatus.DISABLED) {
@@ -53,9 +53,9 @@ public class EnableCommand {
                 Game game = GameUtilities.getUtilities().getGame(plugin.getMap(map));
                 game.setStatus(GameStatus.WAITING);
                 LobbyWall.getWall().cantUpdate.remove(map);
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-SUCCESSFULLY-ENABLED-SINGLE").replace("%map", map));
+                Localizers.getDefaultLoc().MAP_SUCCESSFULLY_ENABLED_SINGLE.sendPrefixed(cs, map);
             } else {
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-ALREADY-ENABLED").replace("%map", map));
+                Localizers.getDefaultLoc().MAP_ALREADY_ENABLED.sendPrefixed(cs, map);
             }
         } else {
             h.wrongArgs("/tf2 enable <map>");

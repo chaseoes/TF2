@@ -1,8 +1,14 @@
 package com.chaseoes.tf2.listeners;
 
-import java.util.List;
-
-
+import com.chaseoes.tf2.DataConfiguration;
+import com.chaseoes.tf2.GameUtilities;
+import com.chaseoes.tf2.Map;
+import com.chaseoes.tf2.TF2;
+import com.chaseoes.tf2.capturepoints.CapturePointUtilities;
+import com.chaseoes.tf2.classes.ClassUtilities;
+import com.chaseoes.tf2.lobbywall.LobbyWall;
+import com.chaseoes.tf2.lobbywall.LobbyWallUtilities;
+import com.chaseoes.tf2.localization.Localizers;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -13,15 +19,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.InventoryHolder;
 
-import com.chaseoes.tf2.DataConfiguration;
-import com.chaseoes.tf2.GameUtilities;
-import com.chaseoes.tf2.Map;
-import com.chaseoes.tf2.TF2;
-import com.chaseoes.tf2.capturepoints.CapturePointUtilities;
-import com.chaseoes.tf2.classes.ClassUtilities;
-import com.chaseoes.tf2.lobbywall.LobbyWall;
-import com.chaseoes.tf2.lobbywall.LobbyWallUtilities;
-import com.chaseoes.tf2.utilities.Localizer;
+import java.util.List;
 
 public class BlockBreakListener implements Listener {
 
@@ -45,7 +43,7 @@ public class BlockBreakListener implements Listener {
                         buttons.remove(s);
                         DataConfiguration.getData().getDataFile().set("classbuttons", buttons);
                         DataConfiguration.getData().saveData();
-                        player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("BUTTON-CLASS-REMOVE"));
+                        Localizers.getDefaultLoc().BUTTON_CLASS_REMOVE.sendPrefixed(player);
                     } else {
                         event.setCancelled(true);
                     }
@@ -59,7 +57,7 @@ public class BlockBreakListener implements Listener {
                         buttons.remove(s);
                         DataConfiguration.getData().getDataFile().set("changeclassbuttons", buttons);
                         DataConfiguration.getData().saveData();
-                        player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("BUTTON-CHANGE-CLASS-REMOVE"));
+                        Localizers.getDefaultLoc().BUTTON_CHANGE_CLASS_REMOVE.sendPrefixed(player);
                     } else {
                         event.setCancelled(true);
                     }
@@ -69,14 +67,14 @@ public class BlockBreakListener implements Listener {
 
         if (b.getType() == Material.WALL_SIGN) {
             Sign s = (Sign) b.getState();
-            if (s.getLine(0).equalsIgnoreCase(Localizer.getLocalizer().loadMessage("LOBBYWALL-JOIN-1")) && s.getLine(1).equalsIgnoreCase(Localizer.getLocalizer().loadMessage("LOBBYWALL-JOIN-2"))) {
+            if (s.getLine(0).equalsIgnoreCase(Localizers.getDefaultLoc().LOBBYWALL_JOIN_1.getString()) && s.getLine(1).equalsIgnoreCase(Localizers.getDefaultLoc().LOBBYWALL_JOIN_2.getString())) {
                 String map = ChatColor.stripColor(s.getLine(3));
                 if (b.getLocation().toString().equalsIgnoreCase(LobbyWallUtilities.getUtilities().loadSignLocation(map).toString())) {
                     if (player.hasPermission("tf2.create")) {
                         DataConfiguration.getData().getDataFile().set("lobbywall." + map, null);
                         DataConfiguration.getData().saveData();
                         LobbyWall.getWall().setDirty(map, true);
-                        player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("LOBBYWALL-REMOVE"));
+                        Localizers.getDefaultLoc().LOBBYWALL_REMOVE.sendPrefixed(player);
                     } else {
                         event.setCancelled(true);
                     }
@@ -90,7 +88,7 @@ public class BlockBreakListener implements Listener {
                 Integer id = CapturePointUtilities.getUtilities().getIDFromLocation(b.getLocation());
                 Map mMap = TF2.getInstance().getMap(map);
                 mMap.setCapturePoint(id, null);
-                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CP-REMOVE"));
+                Localizers.getDefaultLoc().CP_REMOVE.sendPrefixed(player);
             } else {
                 event.setCancelled(true);
             }
@@ -101,7 +99,7 @@ public class BlockBreakListener implements Listener {
                 if (map.isContainerRegistered(b.getLocation())) {
                     if (player.hasPermission("tf2.create")) {
                         map.removeContainer(b.getLocation());
-                        player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CONTAINER-REMOVE"));
+                        Localizers.getDefaultLoc().CONTAINER_REMOVE.sendPrefixed(player);
                     } else {
                         event.setCancelled(true);
                     }

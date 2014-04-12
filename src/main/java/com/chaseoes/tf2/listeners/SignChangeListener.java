@@ -1,6 +1,7 @@
 package com.chaseoes.tf2.listeners;
 
 
+import com.chaseoes.tf2.localization.Localizers;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,7 +14,6 @@ import com.chaseoes.tf2.TF2;
 import com.chaseoes.tf2.lobbywall.LobbyWall;
 import com.chaseoes.tf2.lobbywall.LobbyWallUtilities;
 import com.chaseoes.tf2.utilities.DataChecker;
-import com.chaseoes.tf2.utilities.Localizer;
 
 public class SignChangeListener implements Listener {
 
@@ -26,8 +26,8 @@ public class SignChangeListener implements Listener {
                 final Player player = event.getPlayer();
                 DataChecker dc = new DataChecker(map);
                 if (!dc.allGoodExceptLobbyWall()) {
-                    player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-NOT-SETUP"));
-                    player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-NOT-SETUP-COMMAND-HELP").replace("%map", map));
+                    Localizers.getDefaultLoc().MAP_NOT_SETUP.sendPrefixed(player);
+                    Localizers.getDefaultLoc().MAP_NOT_SETUP_COMMAND_HELP.sendPrefixed(player, map);
                     event.setLine(0, "");
                     event.setLine(1, "/tf2 checkdata");
                     event.setLine(2, "default");
@@ -39,7 +39,7 @@ public class SignChangeListener implements Listener {
                 DataConfiguration.getData().reloadData();
                 DataConfiguration.getData().saveData();
                 LobbyWall.getWall().setDirty(event.getLine(2), true);
-                event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("LOBBYWALL-CREATED"));
+                Localizers.getDefaultLoc().LOBBYWALL_CREATED.sendPrefixed(event.getPlayer());
             }
         }
     }

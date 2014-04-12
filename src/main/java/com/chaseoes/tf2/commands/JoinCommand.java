@@ -1,6 +1,7 @@
 package com.chaseoes.tf2.commands;
 
 
+import com.chaseoes.tf2.localization.Localizers;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -13,7 +14,6 @@ import com.chaseoes.tf2.MapUtilities;
 import com.chaseoes.tf2.TF2;
 import com.chaseoes.tf2.Team;
 import com.chaseoes.tf2.utilities.DataChecker;
-import com.chaseoes.tf2.utilities.Localizer;
 
 public class JoinCommand {
 
@@ -38,21 +38,21 @@ public class JoinCommand {
         GamePlayer gp = GameUtilities.getUtilities().getGamePlayer(player);
         if (strings.length == 1) {
             if (gp.isIngame()) {
-                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-ALREADY-PLAYING"));
+                Localizers.getDefaultLoc().PLAYER_ALREADY_PLAYING.sendPrefixed(player);
                 return;
             }
             if (globalLobbySet()) {
                 player.teleport(MapUtilities.getUtilities().loadLobby());
-                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-TELEPORT-GLOBAL-LOBBY"));
+                Localizers.getDefaultLoc().PLAYER_TELEPORT_GLOBAL_LOBBY.sendPrefixed(player);
             } else {
-                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("GLOBAL-LOBBY-NOT-SET"));
+                Localizers.getDefaultLoc().GLOBAL_LOBBY_NOT_SET.sendPrefixed(player);
             }
             return;
         }
         if (strings.length == 2 || strings.length == 3) {
             String map = strings[1];
             if (!TF2.getInstance().mapExists(map)) {
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", map));
+                Localizers.getDefaultLoc().MAP_DOES_NOT_EXIST.sendPrefixed(cs, map);
                 return;
             }
             Game game = GameUtilities.getUtilities().getGame(plugin.getMap(map));
@@ -68,42 +68,42 @@ public class JoinCommand {
 
             DataChecker dc = new DataChecker(map);
             if (!dc.allGood()) {
-                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-NOT-SETUP"));
+                Localizers.getDefaultLoc().MAP_NOT_SETUP.sendPrefixed(player);
                 if (player.hasPermission("tf2.create")) {
-                    player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-NOT-SETUP-COMMAND-HELP").replace("%map", map));
+                    Localizers.getDefaultLoc().MAP_NOT_SETUP_COMMAND_HELP.sendPrefixed(player, map);
                 }
                 return;
             }
 
             if (gp.isIngame()) {
-                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-ALREADY-PLAYING"));
+                Localizers.getDefaultLoc().PLAYER_ALREADY_PLAYING.sendPrefixed(player);
                 return;
             }
 
             if (SpectateCommand.getCommand().isSpectating(player)) {
-                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-ALREADY-SPECTATING"));
+                Localizers.getDefaultLoc().PLAYER_ALREADY_SPECTATING.sendPrefixed(player);
                 return;
             }
 
             if (DataConfiguration.getData().getDataFile().getStringList("disabled-maps").contains(map)) {
-                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-INFO-DISABLED"));
+                Localizers.getDefaultLoc().MAP_INFO_DISABLED.sendPrefixed(player);
                 return;
             }
 
             if (game.getPlayersIngame().size() >= TF2.getInstance().getMap(map).getPlayerlimit() && !(strings.length == 3) && !player.hasPermission("tf2.create")) {
-                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-INFO-FULL"));
+                Localizers.getDefaultLoc().MAP_INFO_FULL.sendPrefixed(player);
                 return;
             }
 
             if (game.getSizeOfTeam(team) >= TF2.getInstance().getMap(map).getPlayerlimit() / 2 && player.hasPermission("tf2.create")) {
-                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-INFO-TEAM-FULL"));
+                Localizers.getDefaultLoc().MAP_INFO_TEAM_FULL.sendPrefixed(player);
                 return;
             }
 
             game.joinGame(GameUtilities.getUtilities().getGamePlayer(player), team);
 
             if (game.getPlayersIngame().size() >= TF2.getInstance().getMap(map).getPlayerlimit()) {
-                player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-JOIN-FULL-MAP"));
+                Localizers.getDefaultLoc().PLAYER_JOIN_FULL_MAP.sendPrefixed(player);
             }
 
         } else {

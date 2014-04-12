@@ -1,19 +1,17 @@
 package com.chaseoes.tf2.commands;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
-
+import com.chaseoes.tf2.MapUtilities;
+import com.chaseoes.tf2.TF2;
+import com.chaseoes.tf2.localization.Localizers;
+import com.chaseoes.tf2.utilities.PastebinPoster;
+import com.chaseoes.tf2.utilities.PastebinPoster.PasteCallback;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import com.chaseoes.tf2.MapUtilities;
-import com.chaseoes.tf2.TF2;
-import com.chaseoes.tf2.utilities.Localizer;
-import com.chaseoes.tf2.utilities.PastebinPoster;
-import com.chaseoes.tf2.utilities.PastebinPoster.PasteCallback;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class DebugCommand {
 
@@ -33,18 +31,18 @@ public class DebugCommand {
     }
 
     public void execDebugCommand(final CommandSender cs, String[] strings, Command cmnd) {
-        cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DEBUG-UPLOADING"));
+        Localizers.getDefaultLoc().DEBUG_UPLOADING.sendPrefixed(cs);
         PastebinPoster.paste(getDebugInformation(), new PasteCallback() {
 
             @Override
             public void handleSuccess(String url) {
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DEBUG-SUCCESS"));
+                Localizers.getDefaultLoc().DEBUG_SUCCESS.sendPrefixed(cs);
                 cs.sendMessage(ChatColor.YELLOW + url);
             }
 
             @Override
             public void handleError(String err) {
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DEBUG-ERROR"));
+                Localizers.getDefaultLoc().DEBUG_ERROR.sendPrefixed(cs);
             }
         });
     }

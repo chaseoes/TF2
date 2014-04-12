@@ -1,6 +1,7 @@
 package com.chaseoes.tf2.commands;
 
 
+import com.chaseoes.tf2.localization.Localizers;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -10,7 +11,6 @@ import com.chaseoes.tf2.TF2;
 import com.chaseoes.tf2.capturepoints.CapturePointUtilities;
 import com.chaseoes.tf2.utilities.GeneralUtilities;
 import com.chaseoes.tf2.utilities.IconMenu;
-import com.chaseoes.tf2.utilities.Localizer;
 
 public class SetCommand {
 
@@ -38,11 +38,11 @@ public class SetCommand {
             if (strings.length == 3) {
                 if (strings[2].equalsIgnoreCase("lobby")) {
                     MapUtilities.getUtilities().setLobby(player.getLocation());
-                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("GLOBAL-LOBBY-SET"));
+                    Localizers.getDefaultLoc().GLOBAL_LOBBY_SET.sendPrefixed(cs);
                 } else {
                     final String map = strings[2];
                     if (!plugin.mapExists(map)) {
-                        cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", map));
+                        Localizers.getDefaultLoc().MAP_DOES_NOT_EXIST.sendPrefixed(cs, map);
                         return;
                     }
                     plugin.usingSetSpawnMenu.put(cs.getName(), map);
@@ -55,18 +55,19 @@ public class SetCommand {
         } else if (strings[1].equalsIgnoreCase("playerlimit")) {
             if (strings.length == 4) {
                 if (!plugin.mapExists(strings[2])) {
-                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", strings[2]));
+                    Localizers.getDefaultLoc().MAP_DOES_NOT_EXIST.sendPrefixed(cs, strings[2]);
                     return;
                 }
                 if (GeneralUtilities.isInteger(strings[3])) {
                     if (Integer.parseInt(strings[3]) % 2 == 0) {
-                        MapUtilities.getUtilities().setPlayerLimit(strings[2], Integer.parseInt(strings[3]));
-                        cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-SUCCESSFULLY-SET-PLAYERLIMIT").replace("%map", strings[2]).replace("%time", strings[3]));
+                        int limit = Integer.parseInt(strings[3]);
+                        MapUtilities.getUtilities().setPlayerLimit(strings[2], limit);
+                        Localizers.getDefaultLoc().MAP_SUCCESSFULLY_SET_PLAYERLIMIT.sendPrefixed(cs, strings[2], limit);
                     } else {
-                        cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("ERROR-PLAYERLIMIT-ODD"));
+                        Localizers.getDefaultLoc().ERROR_PLAYERLIMIT_ODD.sendPrefixed(cs);
                     }
                 } else {
-                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("ERROR-NOT-INTEGER").replace("%int", strings[3]));
+                    Localizers.getDefaultLoc().ERROR_NOT_INTEGER.sendPrefixed(cs, strings[3]);
                 }
             } else {
                 h.wrongArgs("/tf2 set playerlimit <map> <number>");
@@ -74,14 +75,15 @@ public class SetCommand {
         } else if (strings[1].equalsIgnoreCase("capturepoint")) {
             if (strings.length == 4) {
                 if (!plugin.mapExists(strings[2])) {
-                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", strings[2]));
+                    Localizers.getDefaultLoc().MAP_DOES_NOT_EXIST.sendPrefixed(cs, strings[2]);
                     return;
                 }
                 if (GeneralUtilities.isInteger(strings[3])) {
-                    CapturePointUtilities.getUtilities().defineCapturePoint(strings[2], Integer.parseInt(strings[3]), player.getLocation());
-                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-SUCCESSFULLY-SET-CAPTUREPOINT").replace("%id", strings[3]).replace("%map", strings[2]));
+                    int cpNumber = Integer.parseInt(strings[3]);
+                    CapturePointUtilities.getUtilities().defineCapturePoint(strings[2], cpNumber, player.getLocation());
+                    Localizers.getDefaultLoc().MAP_SUCCESSFULLY_SET_CAPTUREPOINT.sendPrefixed(cs, strings[2], cpNumber);
                 } else {
-                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("ERROR-NOT-INTEGER").replace("%int", strings[3]));
+                    Localizers.getDefaultLoc().ERROR_NOT_INTEGER.sendPrefixed(cs, strings[3]);
                 }
             } else {
                 h.wrongArgs("/tf2 set capturepoint <map> <number>");
@@ -89,14 +91,15 @@ public class SetCommand {
         } else if (strings[1].equalsIgnoreCase("timelimit")) {
             if (strings.length == 4) {
                 if (!plugin.mapExists(strings[2])) {
-                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", strings[2]));
+                    Localizers.getDefaultLoc().MAP_DOES_NOT_EXIST.sendPrefixed(cs, strings[2]);
                     return;
                 }
                 if (GeneralUtilities.isInteger(strings[3])) {
-                    MapUtilities.getUtilities().setTimeLimit(strings[2], Integer.parseInt(strings[3]));
-                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-SUCCESSFULLY-SET-TIMELIMIT").replace("%map", strings[2]).replace("%time", strings[3]));
+                    int time = Integer.parseInt(strings[3]);
+                    MapUtilities.getUtilities().setTimeLimit(strings[2], time);
+                    Localizers.getDefaultLoc().MAP_SUCCESSFULLY_SET_TIMELIMIT.sendPrefixed(cs, strings[2], time);
                 } else {
-                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("ERROR-NOT-INTEGER").replace("%int", strings[3]));
+                    Localizers.getDefaultLoc().ERROR_NOT_INTEGER.sendPrefixed(cs, strings[3]);
                 }
             } else {
                 h.wrongArgs("/tf2 set timelimit <map> <time>");
@@ -104,14 +107,15 @@ public class SetCommand {
         } else if (strings[1].equalsIgnoreCase("redtp")) {
             if (strings.length == 4) {
                 if (!TF2.getInstance().mapExists(strings[2])) {
-                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", strings[2]));
+                    Localizers.getDefaultLoc().MAP_DOES_NOT_EXIST.sendPrefixed(cs, strings[2]);
                     return;
                 }
                 if (GeneralUtilities.isInteger(strings[3])) {
-                    TF2.getInstance().getMap(strings[2]).setRedTeamTeleportTime(Integer.parseInt(strings[3]));
-                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-SUCCESSFULLY-SET-REDTP").replace("%map", strings[2]).replace("%time", strings[3]));
+                    int time = Integer.parseInt(strings[3]);
+                    TF2.getInstance().getMap(strings[2]).setRedTeamTeleportTime(time);
+                    Localizers.getDefaultLoc().MAP_SUCCESSFULLY_SET_REDTP.sendPrefixed(cs, strings[2], time);
                 } else {
-                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("ERROR-NOT-INTEGER").replace("%int", strings[3]));
+                    Localizers.getDefaultLoc().ERROR_NOT_INTEGER.sendPrefixed(cs, strings[3]);
                 }
             } else {
                 h.wrongArgs("/tf2 set redtp <map> <time>");

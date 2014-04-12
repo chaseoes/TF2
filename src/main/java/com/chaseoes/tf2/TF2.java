@@ -1,38 +1,24 @@
 package com.chaseoes.tf2;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.logging.Level;
-
+import com.chaseoes.tf2.capturepoints.CapturePointUtilities;
+import com.chaseoes.tf2.classes.ClassUtilities;
+import com.chaseoes.tf2.commands.*;
+import com.chaseoes.tf2.listeners.*;
+import com.chaseoes.tf2.lobbywall.LobbyWall;
+import com.chaseoes.tf2.lobbywall.LobbyWallUtilities;
+import com.chaseoes.tf2.localization.Localizers;
+import com.chaseoes.tf2.utilities.*;
 import net.gravitydevelopment.updater.Updater;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.chaseoes.tf2.capturepoints.CapturePointUtilities;
-import com.chaseoes.tf2.classes.ClassUtilities;
-import com.chaseoes.tf2.commands.CommandManager;
-import com.chaseoes.tf2.commands.CreateCommand;
-import com.chaseoes.tf2.commands.DebugCommand;
-import com.chaseoes.tf2.commands.DeleteCommand;
-import com.chaseoes.tf2.commands.DisableCommand;
-import com.chaseoes.tf2.commands.EnableCommand;
-import com.chaseoes.tf2.commands.JoinCommand;
-import com.chaseoes.tf2.commands.LeaveCommand;
-import com.chaseoes.tf2.commands.ListCommand;
-import com.chaseoes.tf2.commands.RedefineCommand;
-import com.chaseoes.tf2.commands.ReloadCommand;
-import com.chaseoes.tf2.commands.SetCommand;
-import com.chaseoes.tf2.commands.StartCommand;
-import com.chaseoes.tf2.commands.StopCommand;
-import com.chaseoes.tf2.listeners.*;
-import com.chaseoes.tf2.lobbywall.LobbyWall;
-import com.chaseoes.tf2.lobbywall.LobbyWallUtilities;
-import com.chaseoes.tf2.utilities.*;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.logging.Level;
 
 public class TF2 extends JavaPlugin {
 
@@ -67,6 +53,7 @@ public class TF2 extends JavaPlugin {
         getConfig().options().copyDefaults(true);
         saveConfig();
         DataConfiguration.getData().reloadData();
+        Localizers.getInstance().reload();
 
         for (String map : MapUtilities.getUtilities().getEnabledMaps()) {
             addMap(map, GameStatus.WAITING);
@@ -76,44 +63,35 @@ public class TF2 extends JavaPlugin {
             addMap(map, GameStatus.DISABLED);
         }
 
-        if (MessagesFile.getMessages().reloadMessages()) {
-            MessagesFile.getMessages().getMessagesFile().options().copyDefaults(true);
-            MessagesFile.getMessages().saveMessages();
-        } else {
-            getLogger().severe("Error parsing messages.yml, disabling plugin...");
-            setEnabled(false);
-            return;
-        }
-
         Schedulers.getSchedulers().startAFKChecker();
 
         LobbyWall.getWall().startTask();
 
-        setSpawnMenu = new IconMenu(Localizer.getLocalizer().loadMessage("SETSPAWN-TITLE"), 9, new IconMenu.OptionClickEventHandler() {
+        setSpawnMenu = new IconMenu(Localizers.getDefaultLoc().SETSPAWN_TITLE.getString(), 9, new IconMenu.OptionClickEventHandler() {
             @Override
             public void onOptionClick(IconMenu.OptionClickEvent event) {
                 String map = usingSetSpawnMenu.get(event.getPlayer().getName());
                 String name = ChatColor.stripColor(event.getName());
-                if (name.equalsIgnoreCase(Localizer.getLocalizer().loadMessage("SETSPAWN-BLUE-LOBBY"))) {
+                if (name.equalsIgnoreCase(Localizers.getDefaultLoc().SETSPAWN_BLUE_LOBBY.getString())) {
                     MapUtilities.getUtilities().setTeamLobby(map, Team.BLUE, event.getPlayer().getLocation());
-                    event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("SETSPAWN-BLUE-LOBBY-DESC"));
+                    Localizers.getDefaultLoc().SETSPAWN_BLUE_LOBBY_DESC.sendPrefixed(event.getPlayer());
                     usingSetSpawnMenu.remove(event.getPlayer().getName());
-                } else if (name.equalsIgnoreCase(Localizer.getLocalizer().loadMessage("SETSPAWN-RED-LOBBY"))) {
+                } else if (name.equalsIgnoreCase(Localizers.getDefaultLoc().SETSPAWN_RED_LOBBY.getString())) {
                     MapUtilities.getUtilities().setTeamLobby(map, Team.RED, event.getPlayer().getLocation());
-                    event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("SETSPAWN-RED-LOBBY-DESC"));
+                    Localizers.getDefaultLoc().SETSPAWN_RED_LOBBY_DESC.sendPrefixed(event.getPlayer());
                     usingSetSpawnMenu.remove(event.getPlayer().getName());
-                } else if (name.equalsIgnoreCase(Localizer.getLocalizer().loadMessage("SETSPAWN-BLUE-SPAWN"))) {
+                } else if (name.equalsIgnoreCase(Localizers.getDefaultLoc().SETSPAWN_BLUE_SPAWN.getString())) {
                     MapUtilities.getUtilities().setTeamSpawn(map, Team.BLUE, event.getPlayer().getLocation());
-                    event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("SETSPAWN-BLUE-SPAWN-DESC"));
+                    Localizers.getDefaultLoc().SETSPAWN_BLUE_SPAWN_DESC.sendPrefixed(event.getPlayer());
                     usingSetSpawnMenu.remove(event.getPlayer().getName());
-                } else if (name.equalsIgnoreCase(Localizer.getLocalizer().loadMessage("SETSPAWN-RED-SPAWN"))) {
+                } else if (name.equalsIgnoreCase(Localizers.getDefaultLoc().SETSPAWN_RED_SPAWN.getString())) {
                     MapUtilities.getUtilities().setTeamSpawn(map, Team.RED, event.getPlayer().getLocation());
-                    event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("SETSPAWN-RED-SPAWN-DESC"));
+                    Localizers.getDefaultLoc().SETSPAWN_RED_SPAWN_DESC.sendPrefixed(event.getPlayer());
                     usingSetSpawnMenu.remove(event.getPlayer().getName());
                 }
                 event.setWillClose(true);
             }
-        }, this).setOption(2, new ItemStack(Material.REDSTONE, 1), ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("SETSPAWN-RED-LOBBY") + ChatColor.RESET, ChatColor.WHITE + Localizer.getLocalizer().loadMessage("SETSPAWN-RED-LOBBY-DESC")).setOption(3, new ItemStack(Material.INK_SACK, 1, (short) 4), ChatColor.AQUA + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("SETSPAWN-BLUE-LOBBY") + ChatColor.RESET, ChatColor.WHITE + Localizer.getLocalizer().loadMessage("SETSPAWN-BLUE-LOBBY-DESC")).setOption(4, new ItemStack(Material.WOOL, 1, (short) 14), ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("SETSPAWN-RED-SPAWN") + ChatColor.RESET, ChatColor.WHITE + Localizer.getLocalizer().loadMessage("SETSPAWN-RED-SPAWN-DESC")).setOption(5, new ItemStack(Material.WOOL, 1, (short) 11), ChatColor.AQUA + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("SETSPAWN-BLUE-SPAWN") + ChatColor.RESET, ChatColor.WHITE + Localizer.getLocalizer().loadMessage("SETSPAWN-BLUE-SPAWN-DESC")).setOption(6, new ItemStack(Material.BEDROCK, 1), ChatColor.RED + "" + ChatColor.BOLD + Localizer.getLocalizer().loadMessage("SETSPAWN-EXIT") + ChatColor.RESET, ChatColor.RED + Localizer.getLocalizer().loadMessage("SETSPAWN-EXIT-DESC"));
+        }, this).setOption(2, new ItemStack(Material.REDSTONE, 1), ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizers.getDefaultLoc().SETSPAWN_RED_LOBBY.getString() + ChatColor.RESET, ChatColor.WHITE + Localizers.getDefaultLoc().SETSPAWN_RED_LOBBY_DESC.getString()).setOption(3, new ItemStack(Material.INK_SACK, 1, (short) 4), ChatColor.AQUA + "" + ChatColor.BOLD + Localizers.getDefaultLoc().SETSPAWN_BLUE_LOBBY.getString() + ChatColor.RESET, ChatColor.WHITE + Localizers.getDefaultLoc().SETSPAWN_BLUE_LOBBY_DESC.getString()).setOption(4, new ItemStack(Material.WOOL, 1, (short) 14), ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizers.getDefaultLoc().SETSPAWN_RED_SPAWN.getString() + ChatColor.RESET, ChatColor.WHITE + Localizers.getDefaultLoc().SETSPAWN_RED_SPAWN_DESC.getString()).setOption(5, new ItemStack(Material.WOOL, 1, (short) 11), ChatColor.AQUA + "" + ChatColor.BOLD + Localizers.getDefaultLoc().SETSPAWN_BLUE_SPAWN.getString() + ChatColor.RESET, ChatColor.WHITE + Localizers.getDefaultLoc().SETSPAWN_BLUE_SPAWN_DESC.getString()).setOption(6, new ItemStack(Material.BEDROCK, 1), ChatColor.RED + "" + ChatColor.BOLD + Localizers.getDefaultLoc().SETSPAWN_EXIT.getString() + ChatColor.RESET, ChatColor.RED + Localizers.getDefaultLoc().SETSPAWN_EXIT_DESC.getString());
 
         if (getConfig().getBoolean("auto-update")) {
             if (!getDescription().getVersion().contains("SNAPSHOT")) {
@@ -178,7 +156,6 @@ public class TF2 extends JavaPlugin {
         DebugCommand.getCommand().setup(this);
         StartCommand.getCommand().setup(this);
         StopCommand.getCommand().setup(this);
-        MessagesFile.getMessages().setup(this);
 
         // Register Events
         PluginManager pm = getServer().getPluginManager();

@@ -1,6 +1,7 @@
 package com.chaseoes.tf2.commands;
 
 
+import com.chaseoes.tf2.localization.Localizers;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -11,7 +12,6 @@ import com.chaseoes.tf2.Map;
 import com.chaseoes.tf2.MapUtilities;
 import com.chaseoes.tf2.TF2;
 import com.chaseoes.tf2.lobbywall.LobbyWall;
-import com.chaseoes.tf2.utilities.Localizer;
 
 public class DisableCommand {
 
@@ -48,11 +48,11 @@ public class DisableCommand {
                     LobbyWall.getWall().setAllLines(map.getName(), null, creditlines, false, false);
                 }
             }
-            cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-SUCCESSFULLY-DISABLED-ALL"));
+            Localizers.getDefaultLoc().MAP_SUCCESSFULLY_DISABLED_ALL.sendPrefixed(cs);
         } else if (strings.length == 2) {
             String map = strings[1];
             if (!TF2.getInstance().mapExists(map)) {
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", map));
+                Localizers.getDefaultLoc().MAP_DOES_NOT_EXIST.sendPrefixed(cs, map);
                 return;
             }
             Game game = GameUtilities.getUtilities().getGame(plugin.getMap(map));
@@ -67,9 +67,9 @@ public class DisableCommand {
                 creditlines[2] = "--------------------------";
                 creditlines[3] = " ";
                 LobbyWall.getWall().setAllLines(map, null, creditlines, false, false);
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-SUCCESSFULLY-DISABLED-SINGLE").replace("%map", map));
+                Localizers.getDefaultLoc().MAP_SUCCESSFULLY_DISABLED_SINGLE.sendPrefixed(cs, map);
             } else {
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-ALREADY-DISABLED").replace("%map", map));
+                Localizers.getDefaultLoc().MAP_ALREADY_DISABLED.sendPrefixed(cs, map);
             }
         } else {
             h.wrongArgs("/tf2 disable <map>");

@@ -1,20 +1,14 @@
 package com.chaseoes.tf2.commands;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
+import com.chaseoes.tf2.*;
+import com.chaseoes.tf2.localization.Localizers;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.chaseoes.tf2.Game;
-import com.chaseoes.tf2.GamePlayer;
-import com.chaseoes.tf2.GameUtilities;
-import com.chaseoes.tf2.TF2;
-import com.chaseoes.tf2.Team;
-import com.chaseoes.tf2.utilities.Localizer;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ListCommand {
 
@@ -48,7 +42,7 @@ public class ListCommand {
             StringBuilder red = new StringBuilder();
             StringBuilder blue = new StringBuilder();
             if (!TF2.getInstance().mapExists(strings[1])) {
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", strings[1]));
+                Localizers.getDefaultLoc().MAP_DOES_NOT_EXIST.sendPrefixed(cs, strings[1]);
                 return;
             }
             Game game = GameUtilities.getUtilities().getGame(plugin.getMap(strings[1]));
@@ -74,16 +68,16 @@ public class ListCommand {
                     blue.append(", ");
                 }
             }
-            cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("LIST-DISPLAYING-MAP").replace("%map", strings[1]));
+            Localizers.getDefaultLoc().LIST_DISPLAYING_MAP.sendPrefixed(cs, strings[1]);
             if (red.length() != 0) {
-                cs.sendMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizer.getLocalizer().loadPrefixedMessage("RED-TEAM") + ": " + ChatColor.RESET + "\n" + red.toString().trim().substring(0, red.toString().length() - 2));
+                cs.sendMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizers.getDefaultLoc().RED_TEAM.getPrefixedString() + ": " + ChatColor.RESET + "\n" + red.toString().trim().substring(0, red.toString().length() - 2));
             } else {
-                cs.sendMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizer.getLocalizer().loadPrefixedMessage("RED-TEAM") + ": " + ChatColor.RESET + "\n");
+                cs.sendMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizers.getDefaultLoc().RED_TEAM.getPrefixedString() + ": " + ChatColor.RESET + "\n");
             }
             if (blue.length() != 0) {
-                cs.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + Localizer.getLocalizer().loadPrefixedMessage("BLUE-TEAM") + ": " + ChatColor.RESET + "\n" + blue.toString().trim().substring(0, blue.toString().length() - 2));
+                cs.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + Localizers.getDefaultLoc().BLUE_TEAM.getPrefixedString() + ": " + ChatColor.RESET + "\n" + blue.toString().trim().substring(0, blue.toString().length() - 2));
             } else {
-                cs.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + Localizer.getLocalizer().loadPrefixedMessage("BLUE-TEAM") + ": " + ChatColor.RESET + "\n");
+                cs.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + Localizers.getDefaultLoc().BLUE_TEAM.getPrefixedString() + ": " + ChatColor.RESET + "\n");
             }
         } else if (GameUtilities.getUtilities().getGamePlayer((Player) cs).isIngame()) {
             Game game = GameUtilities.getUtilities().getGamePlayer((Player) cs).getGame();
@@ -118,16 +112,16 @@ public class ListCommand {
                 }
             }
 
-            cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("LIST-DISPLAYING-MAP").replace("%map", game.getMapName()));
+            Localizers.getDefaultLoc().LIST_DISPLAYING_MAP.sendPrefixed(cs, game.getMapName());
             if (red.length() != 0) {
-                cs.sendMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizer.getLocalizer().loadPrefixedMessage("RED-TEAM") + " (" + redc + "): " + ChatColor.RESET + "\n" + red.toString().trim().substring(0, red.toString().length() - 2));
+                cs.sendMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizers.getDefaultLoc().RED_TEAM.getPrefixedString() + " (" + redc + "): " + ChatColor.RESET + "\n" + red.toString().trim().substring(0, red.toString().length() - 2));
             } else {
-                cs.sendMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizer.getLocalizer().loadPrefixedMessage("RED-TEAM") + " (0): " + ChatColor.RESET + "\n");
+                cs.sendMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + Localizers.getDefaultLoc().RED_TEAM.getPrefixedString() + " (0): " + ChatColor.RESET + "\n");
             }
             if (blue.length() != 0) {
-                cs.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + Localizer.getLocalizer().loadPrefixedMessage("BLUE-TEAM") + " (" + bluec + "): " + ChatColor.RESET + "\n" + blue.toString().trim().substring(0, blue.toString().length() - 2));
+                cs.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + Localizers.getDefaultLoc().BLUE_TEAM.getPrefixedString() + " (" + bluec + "): " + ChatColor.RESET + "\n" + blue.toString().trim().substring(0, blue.toString().length() - 2));
             } else {
-                cs.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + Localizer.getLocalizer().loadPrefixedMessage("BLUE-TEAM") + " (0): " + ChatColor.RESET + "\n");
+                cs.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + Localizers.getDefaultLoc().BLUE_TEAM.getPrefixedString() + " (0): " + ChatColor.RESET + "\n");
             }
         } else {
             h.wrongArgs("/tf2 list [map]");

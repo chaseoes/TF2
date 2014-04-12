@@ -1,6 +1,7 @@
 package com.chaseoes.tf2.commands;
 
 
+import com.chaseoes.tf2.localization.Localizers;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -15,7 +16,6 @@ import com.chaseoes.tf2.GamePlayer;
 import com.chaseoes.tf2.GameUtilities;
 import com.chaseoes.tf2.MapUtilities;
 import com.chaseoes.tf2.TF2;
-import com.chaseoes.tf2.utilities.Localizer;
 import com.chaseoes.tf2.utilities.SerializableLocation;
 import com.sk89q.worldedit.EmptyClipboardException;
 
@@ -45,18 +45,18 @@ public class CreateCommand {
                 Player p = (Player) cs;
                 String map = strings[2];
                 if (map.length() > 14) {
-                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAPNAME-TOO-LONG").replace("%map", strings[2]));
+                    Localizers.getDefaultLoc().MAPNAME_TOO_LONG.sendPrefixed(cs, strings[2]);
                     return;
                 }
                 if (plugin.mapExists(map)) {
-                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("ALREADY-EXISTS-MAP").replace("%map", strings[2]));
+                    Localizers.getDefaultLoc().MAP_ALREADY_EXISTS.sendPrefixed(cs, strings[2]);
                     return;
                 }
                 try {
                     MapUtilities.getUtilities().createMap(map, p);
-                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-SUCCESSFULLY-CREATED").replace("%map", strings[2]));
+                    Localizers.getDefaultLoc().MAP_SUCCESSFULLY_CREATED.sendPrefixed(cs, strings[2]);
                 } catch (EmptyClipboardException e) {
-                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("WORLDEDIT-NO-REGION"));
+                    Localizers.getDefaultLoc().WORLDEDIT_NO_REGION.sendPrefixed(cs);
                 }
             } else {
                 h.wrongArgs("/tf2 create map <name>");
@@ -76,7 +76,7 @@ public class CreateCommand {
                 } else {
                     p.getInventory().addItem(new ItemStack(Material.STONE_BUTTON));
                 }
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("BUTTON-CLASS-CREATE").replace("%type", strings[2]).replace("%class", classname));
+                Localizers.getDefaultLoc().BUTTON_CLASS_CREATE.sendPrefixed(cs, strings[2], classname);
             } else {
                 h.wrongArgs("/tf2 create classbutton [normal|donator] <class>");
             }
@@ -91,7 +91,7 @@ public class CreateCommand {
                 } else {
                     p.getInventory().addItem(new ItemStack(Material.STONE_BUTTON));
                 }
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("BUTTON-CHANGE-CLASS-CREATE"));
+                Localizers.getDefaultLoc().BUTTON_CHANGE_CLASS_CREATE.sendPrefixed(cs);
             } else {
                 h.wrongArgs("/tf2 create changeclassbutton");
             }
@@ -101,11 +101,11 @@ public class CreateCommand {
                 GameUtilities.getUtilities().getGamePlayer(p).setCreatingContainer(true);
                 String map = strings[2];
                 if (!plugin.mapExists(map)) {
-                    p.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", map));
+                    Localizers.getDefaultLoc().MAP_DOES_NOT_EXIST.sendPrefixed(p, map);
                     return;
                 }
                 GameUtilities.getUtilities().getGamePlayer(p).setMapCreatingItemFor(map);
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CONTAINER-CREATE"));
+                Localizers.getDefaultLoc().CONTAINER_CREATE.sendPrefixed(p);
             } else {
                 h.wrongArgs("/tf2 create refillcontainer <map>");
             }
@@ -119,11 +119,11 @@ public class CreateCommand {
                     if (b.getType() != Material.AIR) {
                         DataConfiguration.getData().getDataFile().set("class-chest-locations." + className, SerializableLocation.locationToString(b.getLocation()));
                         DataConfiguration.getData().saveData();
-                        cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CLASSCHEST-CREATE"));
+                        Localizers.getDefaultLoc().CLASS_CHEST_CREATE.sendPrefixed(cs);
                         return;
                     }
                 }
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CLASSCHEST-NO-CHEST"));
+                Localizers.getDefaultLoc().CLASS_CHEST_NO_CHEST.sendPrefixed(cs);
             } else {
                 h.wrongArgs("/tf2 create classchest <class name>");
             }

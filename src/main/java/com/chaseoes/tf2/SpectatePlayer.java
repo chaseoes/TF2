@@ -1,13 +1,13 @@
 package com.chaseoes.tf2;
 
 
+import com.chaseoes.tf2.localization.Localizers;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.chaseoes.tf2.classes.TF2Class;
-import com.chaseoes.tf2.utilities.Localizer;
 
 public class SpectatePlayer {
 
@@ -77,7 +77,7 @@ public class SpectatePlayer {
             player.setAllowFlight(true);
             player.setFlying(true);
             player.teleport(game.map.getRedSpawn());
-            player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-NOW-SPECTATING"));
+            Localizers.getDefaultLoc().PLAYER_NOW_SPECTATING.sendPrefixed(player);
             isSpectating = true;
         } else {
             gameSpectating = null;
@@ -92,7 +92,7 @@ public class SpectatePlayer {
             player.setAllowFlight(false);
             loadInventory();
             player.teleport(MapUtilities.getUtilities().loadLobby());
-            player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-NO-LONGER-SPECTATING"));
+            Localizers.getDefaultLoc().PLAYER_NO_LONGER_SPECTATING.sendPrefixed(player);
             clear();
         }
     }

@@ -1,6 +1,7 @@
 package com.chaseoes.tf2.listeners;
 
 
+import com.chaseoes.tf2.localization.Localizers;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
@@ -25,7 +26,6 @@ import com.chaseoes.tf2.classes.TF2Class;
 import com.chaseoes.tf2.commands.SpectateCommand;
 import com.chaseoes.tf2.utilities.DataChecker;
 import com.chaseoes.tf2.utilities.GeneralUtilities;
-import com.chaseoes.tf2.utilities.Localizer;
 
 public class PlayerInteractListener implements Listener {
 
@@ -54,37 +54,37 @@ public class PlayerInteractListener implements Listener {
 
             if (event.hasBlock() && (event.getClickedBlock().getType() == Material.WALL_SIGN || event.getClickedBlock().getType() == Material.SIGN_POST)) {
                 Sign s = (Sign) event.getClickedBlock().getState();
-                if (s.getLine(0).equalsIgnoreCase(Localizer.getLocalizer().loadMessage("LOBBYWALL-JOIN-1")) && s.getLine(2).equalsIgnoreCase(Localizer.getLocalizer().loadMessage("LOBBYWALL-JOIN-3"))) {
+                if (s.getLine(0).equalsIgnoreCase(Localizers.getDefaultLoc().LOBBYWALL_JOIN_1.getString()) && s.getLine(2).equalsIgnoreCase(Localizers.getDefaultLoc().LOBBYWALL_JOIN_3.getString())) {
                     String map = ChatColor.stripColor(s.getLine(3));
                     Game game = GameUtilities.getUtilities().getGame(TF2.getInstance().getMap(map));
                     Team team = game.decideTeam();
 
                     DataChecker dc = new DataChecker(map);
                     if (!dc.allGood()) {
-                        player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-NOT-SETUP"));
+                        Localizers.getDefaultLoc().MAP_NOT_SETUP.sendPrefixed(player);
                         if (player.hasPermission("tf2.create")) {
-                            player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-NOT-SETUP-COMMAND-HELP").replace("%map", map));
+                            Localizers.getDefaultLoc().MAP_NOT_SETUP_COMMAND_HELP.sendPrefixed(player, map);
                         }
                         return;
                     }
 
                     if (!player.hasPermission("tf2.play")) {
-                        event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("NO-PERMISSION"));
+                        Localizers.getDefaultLoc().NO_PERMISSION.sendPrefixed(event.getPlayer());
                         return;
                     }
 
                     if (gp.isIngame()) {
-                        event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-ALREADY-PLAYING"));
+                        Localizers.getDefaultLoc().PLAYER_ALREADY_PLAYING.sendPrefixed(event.getPlayer());
                         return;
                     }
 
                     if (SpectateCommand.getCommand().isSpectating(gp.getPlayer())) {
-                        event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-ALREADY-SPECTATING"));
+                        Localizers.getDefaultLoc().PLAYER_ALREADY_SPECTATING.sendPrefixed(event.getPlayer());
                         return;
                     }
 
                     if (DataConfiguration.getData().getDataFile().getStringList("disabled-maps").contains(map)) {
-                        player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-INFO-DISABLED"));
+                        Localizers.getDefaultLoc().MAP_INFO_DISABLED.sendPrefixed(player);
                         return;
                     }
 
@@ -126,11 +126,11 @@ public class PlayerInteractListener implements Listener {
 
             if (event.hasBlock() && event.getClickedBlock().getState() instanceof InventoryHolder && gp.isCreatingContainer()) {
                 if (TF2.getInstance().getMap(gp.getMapCreatingItemFor()).isContainerRegistered(event.getClickedBlock().getLocation())) {
-                    player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CONTAINER-ALREAADY-REGISTERED"));
+                    Localizers.getDefaultLoc().CONTAINER_ALREADY_REGSITERED.sendPrefixed(player);
                 } else {
                     Map map = TF2.getInstance().getMap(gp.getMapCreatingItemFor());
                     map.addContainer(event.getClickedBlock().getLocation(), ((InventoryHolder) event.getClickedBlock().getState()).getInventory());
-                    player.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CONTAINER-CREATED"));
+                    Localizers.getDefaultLoc().CONTAINER_CREATED.sendPrefixed(player);
                 }
                 gp.setCreatingContainer(false);
                 gp.setMapCreatingItemFor(null);

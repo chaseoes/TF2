@@ -1,6 +1,7 @@
 package com.chaseoes.tf2.commands;
 
 
+import com.chaseoes.tf2.localization.Localizers;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -9,7 +10,6 @@ import com.chaseoes.tf2.Game;
 import com.chaseoes.tf2.GameStatus;
 import com.chaseoes.tf2.GameUtilities;
 import com.chaseoes.tf2.TF2;
-import com.chaseoes.tf2.utilities.Localizer;
 
 public class StartCommand {
 
@@ -33,35 +33,35 @@ public class StartCommand {
         if (strings.length == 1) {
             Game game = GameUtilities.getUtilities().getGamePlayer((Player) cs).getGame();
             if (game == null) {
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("PLAYER-NOT-PLAYING"));
+                Localizers.getDefaultLoc().PLAYER_NOT_PLAYING.sendPrefixed(cs);
             } else if (game.getStatus() == GameStatus.WAITING) {
                 game.startMatch();
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-SUCCESSFULLY-STARTED"));
+                Localizers.getDefaultLoc().MAP_SUCCESSFULLY_STARTED.sendPrefixed(cs);
             } else if (game.getStatus() == GameStatus.DISABLED) {
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-INFO-DISABLED"));
+                Localizers.getDefaultLoc().MAP_INFO_DISABLED.sendPrefixed(cs);
             } else if (game.getStatus() == GameStatus.STARTING) {
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-ALREADY-STARTING"));
+                Localizers.getDefaultLoc().MAP_ALREADY_STARTING.sendPrefixed(cs);
             } else {
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-ALREADY_INGAME"));
+                Localizers.getDefaultLoc().MAP_ALREADY_INGAME.sendPrefixed(cs);
             }
         } else if (strings.length == 2) {
             String map = strings[1];
             if (!TF2.getInstance().mapExists(map)) {
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", map));
+                Localizers.getDefaultLoc().MAP_DOES_NOT_EXIST.sendPrefixed(cs, map);
                 return;
             }
             if (GameUtilities.getUtilities().getGame(plugin.getMap(map)).getStatus() != GameStatus.DISABLED) {
                 Game game = GameUtilities.getUtilities().getGame(plugin.getMap(map));
                 if (game.getStatus() == GameStatus.WAITING) {
                     game.startMatch();
-                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-SUCCESSFULLY-STARTED"));
+                    Localizers.getDefaultLoc().MAP_SUCCESSFULLY_STARTED.sendPrefixed(cs);
                 } else if (game.getStatus() == GameStatus.STARTING) {
-                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-ALREADY-STARTING"));
+                    Localizers.getDefaultLoc().MAP_ALREADY_STARTING.sendPrefixed(cs);
                 } else {
-                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-ALREADY-INGAME"));
+                    Localizers.getDefaultLoc().MAP_ALREADY_INGAME.sendPrefixed(cs);
                 }
             } else {
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-INFO-DISABLED"));
+                Localizers.getDefaultLoc().MAP_INFO_DISABLED.sendPrefixed(cs);
             }
         } else {
             h.wrongArgs("/tf2 start [map]");

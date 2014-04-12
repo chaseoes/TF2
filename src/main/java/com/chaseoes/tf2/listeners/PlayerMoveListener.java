@@ -1,6 +1,7 @@
 package com.chaseoes.tf2.listeners;
 
 
+import com.chaseoes.tf2.localization.Localizers;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,7 +17,6 @@ import com.chaseoes.tf2.TF2;
 import com.chaseoes.tf2.Team;
 import com.chaseoes.tf2.capturepoints.CapturePoint;
 import com.chaseoes.tf2.capturepoints.CapturePointUtilities;
-import com.chaseoes.tf2.utilities.Localizer;
 
 public class PlayerMoveListener implements Listener {
 
@@ -52,7 +52,7 @@ public class PlayerMoveListener implements Listener {
 								cp.startCapturing(gp);
 							}
 						} else {
-							event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CP-MUST-CAPTURE-PREVIOUS").replace("%id", CapturePointUtilities.getUtilities().getFirstUncaptured(map).getId() + ""));
+                            Localizers.getDefaultLoc().CP_MUST_CAPTURE_PREVIOUS.sendPrefixed(event.getPlayer(), CapturePointUtilities.getUtilities().getFirstUncaptured(map).getId());
 						}
 					} else {
 						if (cp.capturing == null) {
@@ -60,15 +60,15 @@ public class PlayerMoveListener implements Listener {
 						}
 					}
 				} else if (map.getCapturePoint(id).getStatus().string().equalsIgnoreCase("captured")) {
-					event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CP-ALREADY-CAPTURED-RED").replace("%id", id + 1 + ""));
+                    Localizers.getDefaultLoc().CP_ALREADY_CAPTURED_RED.sendPrefixed(event.getPlayer(), id + 1);
 				} else if (map.getCapturePoint(id).getStatus().string().equalsIgnoreCase("capturing")) {
-					event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CP-ALREADY-CAPTURING").replace("%player", cp.capturing.getName()));
+                    Localizers.getDefaultLoc().CP_ALREADY_CAPTURING.sendPrefixed(event.getPlayer(), cp.capturing.getName());
 				}
 			} else {
 				if (!map.getCapturePoint(id).getStatus().string().equalsIgnoreCase("captured")) {
-					event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CP-WRONG-TEAM"));
+                    Localizers.getDefaultLoc().CP_WRONG_TEAM.sendPrefixed(event.getPlayer());
 				} else {
-					event.getPlayer().sendMessage(Localizer.getLocalizer().loadPrefixedMessage("CP-ALREADY-CAPTURED-BLUE"));
+                    Localizers.getDefaultLoc().CP_ALREADY_CAPTURED_BLUE.sendPrefixed(event.getPlayer());
 				}
 			}
 		}

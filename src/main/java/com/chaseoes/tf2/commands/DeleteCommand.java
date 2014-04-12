@@ -1,11 +1,11 @@
 package com.chaseoes.tf2.commands;
 
 
+import com.chaseoes.tf2.localization.Localizers;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import com.chaseoes.tf2.TF2;
-import com.chaseoes.tf2.utilities.Localizer;
 
 public class DeleteCommand {
 
@@ -33,11 +33,11 @@ public class DeleteCommand {
         if (strings[1].equalsIgnoreCase("map")) {
             if (strings.length == 3) {
                 if (!plugin.mapExists(strings[2])) {
-                    cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("DOES-NOT-EXIST-MAP").replace("%map", strings[2]));
+                    Localizers.getDefaultLoc().MAP_DOES_NOT_EXIST.sendPrefixed(cs, strings[2]);
                     return;
                 }
                 plugin.removeMap(strings[2]);
-                cs.sendMessage(Localizer.getLocalizer().loadPrefixedMessage("MAP-SUCCESSFULLY-DELETED").replace("%map", strings[2]));
+                Localizers.getDefaultLoc().MAP_SUCCESSFULLY_DELETED.sendPrefixed(cs, strings[2]);
 
             } else {
                 h.wrongArgs("/tf2 delete map <name>");
