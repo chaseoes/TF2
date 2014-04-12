@@ -22,7 +22,7 @@ public class I18N {
     public I18N(Localizer localizer, String configNode, Replacer... replacers) {
         this.localizer = localizer;
         this.configNode = configNode;
-        this.replacers = replacers;
+        this.replacers = Arrays.copyOf(replacers, replacers.length);
         vars = new String[this.replacers.length];
         originalIndexes = new int[this.replacers.length];
         if (replacers.length == 0) {
