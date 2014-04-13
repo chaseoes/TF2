@@ -389,15 +389,20 @@ public class Game {
         time = time % (60 * 60);
         int minutes = time / 60;
         time = time % 60;
-
+        
+        String minute = "minutes";
+        if (minutes == 1) {
+            minute = "minute";
+        }
+        
         if (hours == 0) {
             if (time == 0) {
-                return minutes + " " + ChatColor.BLUE + "minutes";
+                return minutes + " " + ChatColor.BLUE + minute;
             }
             if (minutes == 0) {
                 return time + " " + ChatColor.BLUE + "seconds";
             }
-            return minutes + " " + ChatColor.BLUE + "minutes " + ChatColor.AQUA + time + " " + ChatColor.BLUE + "seconds";
+            return minutes + " " + ChatColor.BLUE + minute + " " + ChatColor.AQUA + time + " " + ChatColor.BLUE + "seconds";
         }
         return Math.abs(hours) + "h " + Math.abs(minutes) + "m " + Math.abs(time) + "s";
     }
