@@ -13,4 +13,5 @@ public enum CaptureStatus {
     public String string() {
         return status;
     }
+
 }

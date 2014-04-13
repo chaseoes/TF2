@@ -10,4 +10,5 @@ public class StringReplacer extends Replacer<String> {
     protected String getReplacementInternal(String obj) {
         return obj;
     }
+
 }

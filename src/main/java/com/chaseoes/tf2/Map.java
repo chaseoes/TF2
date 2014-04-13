@@ -329,7 +329,7 @@ public class Map {
                 break loop;
             }
         }
-        saveContainers();
+    saveContainers();
     }
 
     public boolean isContainerRegistered(Location loc) {

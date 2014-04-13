@@ -9,7 +9,6 @@ import java.util.logging.Level;
 
 import com.chaseoes.tf2.TF2;
 
-
 public class SQLUtilities {
 
     static SQLUtilities instance = new SQLUtilities();

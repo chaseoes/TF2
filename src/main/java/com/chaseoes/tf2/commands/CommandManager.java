@@ -1,6 +1,5 @@
 package com.chaseoes.tf2.commands;
 
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

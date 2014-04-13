@@ -1,6 +1,5 @@
 package com.chaseoes.tf2.listeners;
 
-
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

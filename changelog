@@ -1,8 +1,11 @@
 v3.0
-Updated and completely compatible with the latest Craftbukkit beta build.
+Updated and completely compatible with the latest CraftBukkit beta build.
+Added chest based classes. Classes are no longer configurable via the configuration, all you need to do it put items in a chest.
 Fixed a color bug with killstreak messages.
 Fixed the broken update checker and updated Metrics.
+Fixed various localization/chat bugs and re-wrote the entire localization system.
 Removed support for ForceRespawn -- players will now see a death screen.
+Removed support for TagAPI -- we now use vanilla scoreboards.
 Various other code optimizations, fixes, and updates.
 
 v2.4

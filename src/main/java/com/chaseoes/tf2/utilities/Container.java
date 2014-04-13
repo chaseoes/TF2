@@ -1,6 +1,5 @@
 package com.chaseoes.tf2.utilities;
 
-
 import org.bukkit.Location;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -36,4 +35,5 @@ public class Container {
     public Location getLocation() {
         return loc;
     }
+
 }

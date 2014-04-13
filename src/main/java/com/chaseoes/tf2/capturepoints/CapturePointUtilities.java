@@ -1,6 +1,5 @@
 package com.chaseoes.tf2.capturepoints;
 
-
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -75,17 +74,17 @@ public class CapturePointUtilities {
     public void uncaptureAll(Map map) {
         map.uncaptureAll();
     }
-    
+
     public CapturePoint getFirstUncaptured(Map map) {
-    	int id = 1;
-    	while (id <= map.getCapturePoints().size()) {
-    		CapturePoint cp = map.getCapturePoint(id);
-    		if (cp.getStatus() == CaptureStatus.UNCAPTURED) {
-    			return cp;
-    		}
-    		id++;
-    	}
-    	return null;
+        int id = 1;
+        while (id <= map.getCapturePoints().size()) {
+            CapturePoint cp = map.getCapturePoint(id);
+            if (cp.getStatus() == CaptureStatus.UNCAPTURED) {
+                return cp;
+            }
+            id++;
+        }
+        return null;
     }
 
 }

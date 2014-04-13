@@ -170,10 +170,10 @@ public class MapUtilities {
     public boolean mapIsEnabled(String map) {
         return getEnabledMaps().contains(map);
     }
-    
+
     public Map getRandomMap() {
-    	int n = new Random().nextInt(getMaps().size());
-    	return getMaps().get(n);
+        int n = new Random().nextInt(getMaps().size());
+        return getMaps().get(n);
 
     }
 }

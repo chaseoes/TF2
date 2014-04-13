@@ -6,7 +6,6 @@ import com.chaseoes.tf2.TF2;
 import com.chaseoes.tf2.Team;
 import com.chaseoes.tf2.capturepoints.CapturePointUtilities;
 
-
 public class DataChecker {
 
     String map;
@@ -72,7 +71,7 @@ public class DataChecker {
         }
         return false;
     }
-    
+
     public Boolean atLeastOneClassChestDefined() {
         return DataConfiguration.getData().getDataFile().getConfigurationSection("class-chest-locations") != null;
     }
@@ -84,7 +83,7 @@ public class DataChecker {
     public Integer totalNumberOfCapturePoints() {
         return TF2.getInstance().getMap(map).getCapturePoints().size();
     }
-    
+
     public Integer getClassChests() {
         return DataConfiguration.getData().getDataFile().getConfigurationSection("class-chest-locations").getKeys(false).size();
     }

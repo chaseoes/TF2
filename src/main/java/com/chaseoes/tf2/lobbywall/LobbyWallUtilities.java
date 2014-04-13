@@ -1,6 +1,5 @@
 package com.chaseoes.tf2.lobbywall;
 
-
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;

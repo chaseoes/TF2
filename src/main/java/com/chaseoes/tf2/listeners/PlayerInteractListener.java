@@ -1,6 +1,5 @@
 package com.chaseoes.tf2.listeners;
 
-
 import com.chaseoes.tf2.localization.Localizers;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

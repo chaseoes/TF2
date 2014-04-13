@@ -1,6 +1,5 @@
 package com.chaseoes.tf2.commands;
 
-
 import com.chaseoes.tf2.DataConfiguration;
 import com.chaseoes.tf2.MapUtilities;
 import com.chaseoes.tf2.TF2;

@@ -1,6 +1,5 @@
 package com.chaseoes.tf2.utilities;
 
-
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.plugin.Plugin;
@@ -50,4 +49,5 @@ public class WorldEditUtilities {
         Selection sel = new CuboidSelection(map.getP1().getWorld(), map.getP1(), map.getP2());
         return sel.contains(loc);
     }
+
 }

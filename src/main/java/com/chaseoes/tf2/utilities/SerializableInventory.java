@@ -51,4 +51,5 @@ public class SerializableInventory {
             throw new RuntimeException("Failed to deserialize string to inventory", e);
         }
     }
+
 }

@@ -1,6 +1,5 @@
 package com.chaseoes.tf2.capturepoints;
 
-
 import com.chaseoes.tf2.localization.Localizers;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -65,7 +64,7 @@ public class CapturePoint implements Comparable<CapturePoint> {
                 game.setExpOfPlayers(diff * currentTick);
                 if (timeRemaining != 0 && currentTick % 20 == 0) {
                     if (TF2.getInstance().getConfig().getBoolean("lightning-while-capturing")) {
-                    	player.getPlayer().getWorld().strikeLightningEffect(player.getPlayer().getLocation());
+                        player.getPlayer().getWorld().strikeLightningEffect(player.getPlayer().getLocation());
                     }
                 }
 
