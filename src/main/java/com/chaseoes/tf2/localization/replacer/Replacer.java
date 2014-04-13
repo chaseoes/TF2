@@ -12,6 +12,7 @@ public abstract class Replacer<T> {
         return replacedVar;
     }
 
+    @SuppressWarnings({"unused", "unchecked"})
     public final String getReplacement(Object obj) {
         try {
             T t = (T) obj;
@@ -22,4 +23,5 @@ public abstract class Replacer<T> {
     }
 
     protected abstract String getReplacementInternal(T obj);
+
 }

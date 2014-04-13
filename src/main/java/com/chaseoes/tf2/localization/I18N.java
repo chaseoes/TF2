@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@SuppressWarnings("rawtypes")
 public class I18N {
 
     private static final Pattern VAR_PATTERN = Pattern.compile("\\{([a-zA-Z]+)\\}");
@@ -97,10 +98,10 @@ public class I18N {
     }
 
     private class ReplacerComparator implements java.util.Comparator<Replacer> {
-
         @Override
         public int compare(Replacer o1, Replacer o2) {
             return o1.getReplacedVar().compareTo(o2.getReplacedVar());
         }
     }
+
 }
