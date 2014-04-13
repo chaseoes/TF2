@@ -5,7 +5,6 @@ import com.chaseoes.tf2.TF2;
 import com.chaseoes.tf2.localization.Localizers;
 import com.chaseoes.tf2.utilities.ArmorUtilities;
 import org.bukkit.Material;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -15,12 +14,12 @@ import java.util.logging.Level;
 
 public class TF2Class {
 
-    String name;
-    ConfigurationSection config;
+    private String name;
+    private ClassChest classChest;
 
-    public TF2Class(String n) {
-        name = n;
-        config = TF2.getInstance().getConfig().getConfigurationSection("classes." + name);
+    public TF2Class(String name) {
+        this.name = name;
+        classChest = new ClassChest(getName());
     }
 
     public String getName() {
@@ -31,7 +30,7 @@ public class TF2Class {
     @SuppressWarnings("deprecation")
     public boolean apply(GamePlayer player) {
         // Check that the class exists.
-        if (config == null) {
+        if (!classChest.exists()) {
             Localizers.getDefaultLoc().DOES_NOT_EXIST_CLASS.sendPrefixed(player.getPlayer(), name);
             clearInventory(player.getPlayer());
             return false;
@@ -66,8 +65,7 @@ public class TF2Class {
                 }
 
                 // Loop through chest items.
-                ClassChest chest = new ClassChest(getName());
-                for (ItemStack i : chest.getClassItems()) {
+                for (ItemStack i : classChest.getClassItems()) {
                     // Check the name of water bottle for custom potion effects.
                     // Should be in this format: POTION_NAME AMPLIFIER TIME_IN_SECONDS
                     boolean give = true;
@@ -106,10 +104,10 @@ public class TF2Class {
                 }
 
                 // Add armor items.
-                player.getPlayer().getInventory().setHelmet(ArmorUtilities.setColor(chest.getHelmet(), player.getTeam().getColor()));
-                player.getPlayer().getInventory().setChestplate(ArmorUtilities.setColor(chest.getChestplate(), player.getTeam().getColor()));
-                player.getPlayer().getInventory().setLeggings(ArmorUtilities.setColor(chest.getLeggings(), player.getTeam().getColor()));
-                player.getPlayer().getInventory().setBoots(ArmorUtilities.setColor(chest.getBoots(), player.getTeam().getColor()));
+                player.getPlayer().getInventory().setHelmet(ArmorUtilities.setColor(classChest.getHelmet(), player.getTeam().getColor()));
+                player.getPlayer().getInventory().setChestplate(ArmorUtilities.setColor(classChest.getChestplate(), player.getTeam().getColor()));
+                player.getPlayer().getInventory().setLeggings(ArmorUtilities.setColor(classChest.getLeggings(), player.getTeam().getColor()));
+                player.getPlayer().getInventory().setBoots(ArmorUtilities.setColor(classChest.getBoots(), player.getTeam().getColor()));
 
                 player.setCurrentClass(this);
 

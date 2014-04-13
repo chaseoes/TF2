@@ -14,43 +14,43 @@ import java.util.Map;
 
 public class GameScoreboard {
 
-	Game game;
-	ScoreboardManager manager;
-	Scoreboard board;
-	Team red;
-	Team blue;
-	Objective objective;
-	Objective tabObjective;
+    Game game;
+    ScoreboardManager manager;
+    Scoreboard board;
+    Team red;
+    Team blue;
+    Objective objective;
+    Objective tabObjective;
     Set<String> currentlyOnScoreboard = new HashSet<String>(10);
 
-	public GameScoreboard(Game g) {
-		game = g;
-		manager = TF2.getInstance().getServer().getScoreboardManager();
-		board = manager.getNewScoreboard();
-		red = board.registerNewTeam(com.chaseoes.tf2.Team.RED.getName());
-		blue = board.registerNewTeam(com.chaseoes.tf2.Team.BLUE.getName());
-		red.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + com.chaseoes.tf2.Team.RED.getName());
-		blue.setDisplayName(ChatColor.BLUE + "" + ChatColor.BOLD + com.chaseoes.tf2.Team.BLUE.getName());
-		red.setCanSeeFriendlyInvisibles(true);
-		blue.setCanSeeFriendlyInvisibles(true);
-		objective = board.registerNewObjective("TF2;", "dummy");
-		tabObjective = board.registerNewObjective("TF2tab", "dummy");
+    public GameScoreboard(Game g) {
+        game = g;
+        manager = TF2.getInstance().getServer().getScoreboardManager();
+        board = manager.getNewScoreboard();
+        red = board.registerNewTeam(com.chaseoes.tf2.Team.RED.getName());
+        blue = board.registerNewTeam(com.chaseoes.tf2.Team.BLUE.getName());
+        red.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + com.chaseoes.tf2.Team.RED.getName());
+        blue.setDisplayName(ChatColor.BLUE + "" + ChatColor.BOLD + com.chaseoes.tf2.Team.BLUE.getName());
+        red.setCanSeeFriendlyInvisibles(true);
+        blue.setCanSeeFriendlyInvisibles(true);
+        objective = board.registerNewObjective("TF2;", "dummy");
+        tabObjective = board.registerNewObjective("TF2tab", "dummy");
         red.setPrefix(ChatColor.RED + "");
         blue.setPrefix(ChatColor.BLUE + "");
         tabObjective.setDisplaySlot(DisplaySlot.PLAYER_LIST);
-		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-		tabObjective.setDisplayName(ChatColor.YELLOW + "" + ChatColor.BOLD + "TF2 Kills");
-		objective.setDisplayName(ChatColor.YELLOW + "" + ChatColor.BOLD + "TF2 Kills");
-	}
+        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+        tabObjective.setDisplayName(ChatColor.YELLOW + "" + ChatColor.BOLD + "TF2 Kills");
+        objective.setDisplayName(ChatColor.YELLOW + "" + ChatColor.BOLD + "TF2 Kills");
+    }
 
-	public void addPlayer(GamePlayer gp) {
-		if (gp.getTeam() == com.chaseoes.tf2.Team.RED) {
-			red.addPlayer(getPlayer(gp));
-		} else {
-			blue.addPlayer(getPlayer(gp));
-		}
+    public void addPlayer(GamePlayer gp) {
+        if (gp.getTeam() == com.chaseoes.tf2.Team.RED) {
+            red.addPlayer(getPlayer(gp));
+        } else {
+            blue.addPlayer(getPlayer(gp));
+        }
         updateBoard();
-	}
+    }
 
     public void removePlayer(GamePlayer gp) {
         if (gp.getTeam() == com.chaseoes.tf2.Team.RED) {
@@ -99,26 +99,26 @@ public class GameScoreboard {
         }
     }
 
-	public void resetScores() {
-		for (GamePlayer gp : game.playersInGame.values()) {
-			board.resetScores(getPlayer(gp));
-		}
-	}
+    public void resetScores() {
+        for (GamePlayer gp : game.playersInGame.values()) {
+            board.resetScores(getPlayer(gp));
+        }
+    }
 
-	public void remove() {
-		resetScores();
-		for (GamePlayer gp : game.playersInGame.values()) {
-				red.removePlayer(getPlayer(gp));
-				blue.removePlayer(getPlayer(gp));
+    public void remove() {
+        resetScores();
+        for (GamePlayer gp : game.playersInGame.values()) {
+            red.removePlayer(getPlayer(gp));
+            blue.removePlayer(getPlayer(gp));
             if (TF2.getInstance().getConfig().getBoolean("scoreboard")) {
-			    gp.getPlayer().setScoreboard(manager.getMainScoreboard());
+                gp.getPlayer().setScoreboard(manager.getMainScoreboard());
             }
-		}
-	}
+        }
+    }
 
-	private OfflinePlayer getPlayer(GamePlayer gp) {
-		return TF2.getInstance().getServer().getOfflinePlayer(gp.getPlayer().getName());
-	}
+    private OfflinePlayer getPlayer(GamePlayer gp) {
+        return TF2.getInstance().getServer().getOfflinePlayer(gp.getPlayer().getName());
+    }
 
     private OfflinePlayer getPlayer(String player) {
         return TF2.getInstance().getServer().getOfflinePlayer(player);

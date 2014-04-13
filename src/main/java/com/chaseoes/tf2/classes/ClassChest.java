@@ -19,6 +19,10 @@ public class ClassChest {
         this.className = className;
     }
 
+    public boolean exists() {
+        return DataConfiguration.getData().getDataFile().getString("class-chest-locations." + getClassName()) != null;
+    }
+
     public String getClassName() {
         return className;
     }
