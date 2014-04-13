@@ -90,6 +90,7 @@ public class Localizer {
     public final I18N PLAYER_INVENTORY_MOVING_BLOCKED = new I18N(this, "PLAYER-INVENTORY-MOVING-BLOCKED");
     public final I18N PLAYER_KILLED_BY = new I18N(this, "PLAYER-KILLED-BY", new StringReplacer("teamcolor"), new StringReplacer("player"), new StringReplacer("class"));
     public final I18N PLAYER_KILLED = new I18N(this, "PLAYER-KILLED", new StringReplacer("teamcolor"), new StringReplacer("player"), new StringReplacer("class"));
+    public final I18N PLAYER_NOT_IN_MAP = new I18N(this, "PLAYER-NOT-IN-MAP");
 
     public final I18N GLOBAL_LOBBY_NOT_SET = new I18N(this, "GLOBAL-LOBBY-NOT-SET");
     public final I18N GLOBAL_LOBBY_SET = new I18N(this, "GLOBAL-LOBBY-SET");

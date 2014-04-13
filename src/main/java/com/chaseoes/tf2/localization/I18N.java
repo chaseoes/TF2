@@ -9,18 +9,17 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@SuppressWarnings("rawtypes")
 public class I18N {
 
     private static final Pattern VAR_PATTERN = Pattern.compile("\\{([a-zA-Z]+)\\}");
 
     private final Localizer localizer;
     final String configNode;
-    private final Replacer[] replacers;
+    private final Replacer<?>[] replacers;
     private final String[] vars;
     private final int[] originalIndexes;
 
-    public I18N(Localizer localizer, String configNode, Replacer... replacers) {
+    public I18N(Localizer localizer, String configNode, Replacer<?>... replacers) {
         this.localizer = localizer;
         this.configNode = configNode;
         this.replacers = Arrays.copyOf(replacers, replacers.length);
@@ -97,9 +96,9 @@ public class I18N {
         return message;
     }
 
-    private class ReplacerComparator implements java.util.Comparator<Replacer> {
+    private class ReplacerComparator implements java.util.Comparator<Replacer<?>> {
         @Override
-        public int compare(Replacer o1, Replacer o2) {
+        public int compare(Replacer<?> o1, Replacer<?> o2) {
             return o1.getReplacedVar().compareTo(o2.getReplacedVar());
         }
     }

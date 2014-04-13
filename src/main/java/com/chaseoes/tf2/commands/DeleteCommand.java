@@ -1,10 +1,12 @@
 package com.chaseoes.tf2.commands;
 
+import com.chaseoes.tf2.Map;
+import com.chaseoes.tf2.TF2;
 import com.chaseoes.tf2.localization.Localizers;
+import com.chaseoes.tf2.utilities.WorldEditUtilities;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-
-import com.chaseoes.tf2.TF2;
+import org.bukkit.entity.Player;
 
 public class DeleteCommand {
 
@@ -25,24 +27,39 @@ public class DeleteCommand {
 
     public void execDeleteCommand(CommandSender cs, String[] strings, Command cmnd) {
         CommandHelper h = new CommandHelper(cs, cmnd);
-        if (strings.length == 0) {
-            h.wrongArgs("/tf2 delete map <name>");
+        if (strings.length == 1) {
+            if (cs instanceof Player) {
+                h.wrongArgs("/tf2 delete map [map]");
+            } else {
+                h.wrongArgs("/tf2 delete map <map>");
+            }
             return;
         }
         if (strings[1].equalsIgnoreCase("map")) {
-            if (strings.length == 3) {
-                if (!plugin.mapExists(strings[2])) {
-                    Localizers.getDefaultLoc().MAP_DOES_NOT_EXIST.sendPrefixed(cs, strings[2]);
+            String map;
+            if (strings.length == 2 && cs instanceof Player) {
+                Player p = (Player) cs;
+                Map m = WorldEditUtilities.getWEUtilities().getMap(p.getLocation());
+                if (m == null) {
+                    Localizers.getDefaultLoc().PLAYER_NOT_IN_MAP.sendPrefixed(p);
+                    h.wrongArgs("/tf2 delete map [map]");
                     return;
                 }
-                plugin.removeMap(strings[2]);
-                Localizers.getDefaultLoc().MAP_SUCCESSFULLY_DELETED.sendPrefixed(cs, strings[2]);
-
+                map = m.getName();
+            } else if (strings.length == 2) {
+                h.wrongArgs("/tf2 delete map <map>");
+                return;
             } else {
-                h.wrongArgs("/tf2 delete map <name>");
+                map = strings[2];
             }
+            if (!plugin.mapExists(map)) {
+                Localizers.getDefaultLoc().MAP_DOES_NOT_EXIST.sendPrefixed(cs, map);
+                return;
+            }
+            plugin.removeMap(map);
+            Localizers.getDefaultLoc().MAP_SUCCESSFULLY_DELETED.sendPrefixed(cs, map);
         } else {
-            h.wrongArgs("/tf2 delete map <name>");
+            h.wrongArgs("/tf2 delete map [map]");
         }
     }
 

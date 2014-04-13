@@ -1,15 +1,17 @@
 package com.chaseoes.tf2.utilities;
 
+import com.chaseoes.tf2.Map;
+import com.chaseoes.tf2.MapUtilities;
+import com.chaseoes.tf2.TF2;
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
+import com.sk89q.worldedit.bukkit.selections.Selection;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 
-import com.chaseoes.tf2.Map;
-import com.chaseoes.tf2.TF2;
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
-import com.sk89q.worldedit.bukkit.selections.Selection;
+import java.util.List;
 
 public class WorldEditUtilities {
 
@@ -48,6 +50,16 @@ public class WorldEditUtilities {
     public boolean isInMap(Location loc, Map map) {
         Selection sel = new CuboidSelection(map.getP1().getWorld(), map.getP1(), map.getP2());
         return sel.contains(loc);
+    }
+
+    public Map getMap(Location loc) {
+        List<Map> maps = MapUtilities.getUtilities().getMaps();
+        for (Map map : maps) {
+            if (isInMap(loc, map)) {
+                return map;
+            }
+        }
+        return null;
     }
 
 }

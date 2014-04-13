@@ -10,6 +10,7 @@ import com.chaseoes.tf2.lobbywall.LobbyWall;
 import com.chaseoes.tf2.lobbywall.LobbyWallUtilities;
 import com.chaseoes.tf2.localization.Localizers;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
@@ -69,7 +70,11 @@ public class BlockBreakListener implements Listener {
             Sign s = (Sign) b.getState();
             if (s.getLine(0).equalsIgnoreCase(Localizers.getDefaultLoc().LOBBYWALL_JOIN_1.getString()) && s.getLine(1).equalsIgnoreCase(Localizers.getDefaultLoc().LOBBYWALL_JOIN_2.getString())) {
                 String map = ChatColor.stripColor(s.getLine(3));
-                if (b.getLocation().toString().equalsIgnoreCase(LobbyWallUtilities.getUtilities().loadSignLocation(map).toString())) {
+                Location signLoc = LobbyWallUtilities.getUtilities().loadSignLocation(map);
+                if (signLoc == null) {
+                    return;
+                }
+                if (b.getLocation().toString().equalsIgnoreCase(signLoc.toString())) {
                     if (player.hasPermission("tf2.create")) {
                         DataConfiguration.getData().getDataFile().set("lobbywall." + map, null);
                         DataConfiguration.getData().saveData();

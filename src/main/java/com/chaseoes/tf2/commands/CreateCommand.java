@@ -1,6 +1,10 @@
 package com.chaseoes.tf2.commands;
 
+import com.chaseoes.tf2.*;
 import com.chaseoes.tf2.localization.Localizers;
+import com.chaseoes.tf2.utilities.SerializableLocation;
+import com.chaseoes.tf2.utilities.WorldEditUtilities;
+import com.sk89q.worldedit.EmptyClipboardException;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -9,14 +13,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.BlockIterator;
-
-import com.chaseoes.tf2.DataConfiguration;
-import com.chaseoes.tf2.GamePlayer;
-import com.chaseoes.tf2.GameUtilities;
-import com.chaseoes.tf2.MapUtilities;
-import com.chaseoes.tf2.TF2;
-import com.chaseoes.tf2.utilities.SerializableLocation;
-import com.sk89q.worldedit.EmptyClipboardException;
 
 public class CreateCommand {
 
@@ -95,19 +91,26 @@ public class CreateCommand {
                 h.wrongArgs("/tf2 create changeclassbutton");
             }
         } else if (strings[1].equalsIgnoreCase("refillcontainer")) {
-            if (strings.length == 3) {
-                Player p = (Player) cs;
-                GameUtilities.getUtilities().getGamePlayer(p).setCreatingContainer(true);
-                String map = strings[2];
-                if (!plugin.mapExists(map)) {
-                    Localizers.getDefaultLoc().MAP_DOES_NOT_EXIST.sendPrefixed(p, map);
+            Player p = (Player) cs;
+            String map;
+            if (strings.length == 2) {
+                Map m = WorldEditUtilities.getWEUtilities().getMap(p.getLocation());
+                if (m == null) {
+                    Localizers.getDefaultLoc().PLAYER_NOT_IN_MAP.sendPrefixed(p);
+                    h.wrongArgs("/tf2 create refillcontainer [map]");
                     return;
                 }
-                GameUtilities.getUtilities().getGamePlayer(p).setMapCreatingItemFor(map);
-                Localizers.getDefaultLoc().CONTAINER_CREATE.sendPrefixed(p);
+                map = m.getName();
             } else {
-                h.wrongArgs("/tf2 create refillcontainer <map>");
+                map = strings[2];
             }
+            GameUtilities.getUtilities().getGamePlayer(p).setCreatingContainer(true);
+            if (!plugin.mapExists(map)) {
+                Localizers.getDefaultLoc().MAP_DOES_NOT_EXIST.sendPrefixed(p, map);
+                return;
+            }
+            GameUtilities.getUtilities().getGamePlayer(p).setMapCreatingItemFor(map);
+            Localizers.getDefaultLoc().CONTAINER_CREATE.sendPrefixed(p);
         } else if (strings[1].equalsIgnoreCase("classchest")) {
             if (strings.length == 3) {
                 Player p = (Player) cs;
@@ -126,9 +129,7 @@ public class CreateCommand {
             } else {
                 h.wrongArgs("/tf2 create classchest <class name>");
             }
-        }
-
-        else {
+        } else {
             h.unknownCommand();
         }
     }
