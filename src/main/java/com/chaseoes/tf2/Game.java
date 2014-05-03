@@ -316,7 +316,6 @@ public class Game {
 
     public void leaveGame(Player player) {
         GamePlayer gp = getPlayer(player);
-        showAllPlayers(player);
         playersInGame.remove(gp.getName());
         if (status == GameStatus.INGAME) {
             boolean redEmpty = getSizeOfTeam(Team.RED) == 0;
@@ -448,28 +447,6 @@ public class Game {
 
     public Map getMap() {
         return map;
-    }
-
-    public void hidePlayersNotInGame() {
-        for (String player : getPlayersIngame()) {
-            Player p = TF2.getInstance().getServer().getPlayerExact(player);
-            if (p != null) {
-                for (Player onlinePlayer : TF2.getInstance().getServer().getOnlinePlayers()) {
-                    if (!GameUtilities.getUtilities().getGamePlayer(onlinePlayer).isIngame()) {
-                        p.hidePlayer(onlinePlayer);
-                    }
-                }
-            }
-        }
-    }
-
-    public void showAllPlayers(Player player) {
-        if (player != null) {
-            for (Player onlinePlayer : TF2.getInstance().getServer().getOnlinePlayers()) {
-                player.showPlayer(onlinePlayer);
-                onlinePlayer.showPlayer(player); 
-            }
-        }
     }
 
 }
