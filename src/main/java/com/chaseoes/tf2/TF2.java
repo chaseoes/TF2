@@ -121,7 +121,7 @@ public class TF2 extends JavaPlugin {
             reloadConfig();
             saveConfig();
             for (Map map : MapUtilities.getUtilities().getMaps()) {
-                if (GameUtilities.getUtilities().getGame(map).getStatus() != GameStatus.WAITING && GameUtilities.getUtilities().getGame(map).getStatus() != GameStatus.DISABLED) {
+                if (GameUtilities.getUtilities().getGame(map).getStatus() != GameStatus.DISABLED) {
                     GameUtilities.getUtilities().getGame(map).stopMatch(false);
                 }
             }
