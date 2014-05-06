@@ -1,7 +1,7 @@
 countdown: 10
 capture-timer: 5
 autostart-percent: 50
-donor-button-noperm: '&eYou do not have permission to use that button!'
+class-button-noperm: '&eYou do not have permission to use that class!'
 afk-timer: 60
 killstreaks: 5
 auto-update: true

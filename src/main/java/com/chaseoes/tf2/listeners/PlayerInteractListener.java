@@ -96,8 +96,8 @@ public class PlayerInteractListener implements Listener {
                 if (gp.isIngame()) {
                     for (String s : DataConfiguration.getData().getDataFile().getStringList("classbuttons")) {
                         if (ClassUtilities.getUtilities().loadClassButtonLocation(s).toString().equalsIgnoreCase(event.getClickedBlock().getLocation().toString())) {
-                            if (player.hasPermission("tf2.button." + ClassUtilities.getUtilities().loadClassButtonTypeFromLocation(s))) {
-                                TF2Class c = new TF2Class(ClassUtilities.getUtilities().loadClassFromLocation(s));
+                            TF2Class c = new TF2Class(ClassUtilities.getUtilities().loadClassFromLocation(s));
+                            if (c.canUse(player)) {
                                 if (c.apply(gp)) {
                                     if (gp.isUsingChangeClassButton()) {
                                         player.teleport(MapUtilities.getUtilities().loadTeamSpawn(gp.getGame().getMapName(), gp.getTeam()));
@@ -109,7 +109,7 @@ public class PlayerInteractListener implements Listener {
                                 }
                                 return;
                             }
-                            event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] " + GeneralUtilities.colorize(TF2.getInstance().getConfig().getString("donor-button-noperm")));
+                            event.getPlayer().sendMessage(ChatColor.YELLOW + "[TF2] " + GeneralUtilities.colorize(TF2.getInstance().getConfig().getString("class-button-noperm")));
                         }
                     }
 

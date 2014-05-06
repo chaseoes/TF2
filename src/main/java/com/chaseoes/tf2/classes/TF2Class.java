@@ -123,7 +123,10 @@ public class TF2Class {
         }
         return false;
     }
-
+    
+    public boolean canUse(Player player) {
+        return player.hasPermission("tf2.class." + getName());
+    }
 
     @SuppressWarnings("deprecation")
     public void clearInventory(Player player) {
