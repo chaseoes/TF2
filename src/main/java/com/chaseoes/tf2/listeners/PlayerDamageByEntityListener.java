@@ -25,6 +25,7 @@ public class PlayerDamageByEntityListener implements Listener {
         if (event.isCancelled()) {
             return;
         }
+
         if (event.getEntity() instanceof Player) {
             Player damaged = (Player) event.getEntity();
             GamePlayer gDamaged = GameUtilities.getUtilities().getGamePlayer(damaged);
@@ -83,14 +84,6 @@ public class PlayerDamageByEntityListener implements Listener {
                     }
 
                     gdamaged.setPlayerLastDamagedBy(gdamager);
-
-                    if (damaged.getHealth() - event.getDamage() <= 0) {
-                        TF2.getInstance().getServer().getPluginManager().callEvent(new TF2DeathEvent(damaged, damager));
-                        gdamaged.setIsDead(true);
-                        event.setCancelled(true);
-                        return;
-                    }
-
                 }
 
                 if (event.getDamager() instanceof Projectile) {
@@ -121,13 +114,6 @@ public class PlayerDamageByEntityListener implements Listener {
                         }
 
                         gdamaged.setPlayerLastDamagedBy(gdamager);
-
-                        if (damaged.getHealth() - event.getDamage() <= 0) {
-                            TF2.getInstance().getServer().getPluginManager().callEvent(new TF2DeathEvent(damaged, damager));
-                            gdamaged.setIsDead(true);
-                            event.setCancelled(true);
-                            return;
-                        }
                     }
                 }
             }

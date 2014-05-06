@@ -64,7 +64,6 @@ public class TF2DeathListener implements Listener {
                 }
 
                 player.teleport(MapUtilities.getUtilities().loadTeamSpawn(map.getName(), playerg.getTeam()));
-                player.setHealth(20);
                 player.setFireTicks(0);
                 TF2Class c = playerg.getCurrentClass();
                 c.apply(playerg);
