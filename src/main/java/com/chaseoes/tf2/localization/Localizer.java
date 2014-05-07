@@ -1,6 +1,7 @@
 package com.chaseoes.tf2.localization;
 
 import com.chaseoes.tf2.TF2;
+import com.chaseoes.tf2.localization.replacer.IntReplacer;
 import com.chaseoes.tf2.localization.replacer.StringReplacer;
 import com.google.common.io.Files;
 import org.bukkit.configuration.InvalidConfigurationException;

@@ -1,4 +1,4 @@
-package com.chaseoes.tf2.localization;
+package com.chaseoes.tf2.localization.replacer;
 
 import com.chaseoes.tf2.localization.replacer.Replacer;
 
