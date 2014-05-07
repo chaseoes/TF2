@@ -89,7 +89,7 @@ public class JoinCommand {
                 return;
             }
 
-            if (game.getPlayersIngame().size() >= TF2.getInstance().getMap(map).getPlayerlimit() && !(strings.length == 3) && !player.hasPermission("tf2.create")) {
+            if (game.getPlayersIngame().size() >= TF2.getInstance().getMap(map).getPlayerlimit() && !(strings.length == 3) && !player.hasPermission("tf2.create") && !player.hasPermission("tf2.joinfull")) {
                 Localizers.getDefaultLoc().MAP_INFO_FULL.sendPrefixed(player);
                 return;
             }
