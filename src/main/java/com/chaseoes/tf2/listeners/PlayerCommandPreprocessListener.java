@@ -12,7 +12,7 @@ public class PlayerCommandPreprocessListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onCommand(PlayerCommandPreprocessEvent event) {
-        if (GameUtilities.getUtilities().getGamePlayer(event.getPlayer()).isIngame() && !event.getMessage().startsWith("/tf2") && !event.getPlayer().hasPermission("tf2.create")) {
+        if (GameUtilities.getUtilities().getGamePlayer(event.getPlayer()).isIngame() && !event.getMessage().startsWith("/tf2") && !event.getPlayer().hasPermission("tf2.create") && !event.getPlayer().hasPermission("tf2.allowcommands")) {
             event.setCancelled(true);
             Localizers.getDefaultLoc().CANT_USE_COMMANDS_INGAME.sendPrefixed(event.getPlayer());
         }
