@@ -48,22 +48,6 @@ public class TF2Class {
                     apply = false;
                 }
 
-                if (apply) {
-                    for (String effect : TF2.getInstance().getConfig().getStringList("classes." + name + ".potion-effects")) {
-                        String[] effects = effect.split("\\.");
-                        PotionEffectType et = PotionEffectType.getByName(effects[0]);
-                        int amplifier = Integer.parseInt(effects[1]) - 1;
-                        int duration = 0;
-                        if (effects[2].equalsIgnoreCase("forever")) {
-                            duration = Integer.MAX_VALUE;
-                        } else {
-                            duration = Integer.parseInt(effects[2]) * 20;
-                        }
-                        PotionEffect e = new PotionEffect(et, duration, amplifier);
-                        player.getPlayer().addPotionEffect(e);
-                    }
-                }
-
                 // Loop through chest items.
                 for (ItemStack i : classChest.getClassItems()) {
                     // Check the name of water bottle for custom potion effects.
