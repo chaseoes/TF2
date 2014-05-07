@@ -67,7 +67,7 @@ public class PlayerInteractListener implements Listener {
                         return;
                     }
 
-                    if (!player.hasPermission("tf2.play")) {
+                    if (!player.hasPermission("tf2.play") || !player.hasPermission("tf2.join.sign")) {
                         Localizers.getDefaultLoc().NO_PERMISSION.sendPrefixed(event.getPlayer());
                         return;
                     }
