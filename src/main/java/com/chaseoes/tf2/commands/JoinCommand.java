@@ -58,7 +58,7 @@ public class JoinCommand {
             Team team = game.decideTeam();
 
             if (strings.length == 3) {
-                if (!player.hasPermission("tf2.create")) {
+                if (!player.hasPermission("tf2.create") && !player.hasPermission("tf2.pickteam")) {
                     h.noPermission();
                     return;
                 }
