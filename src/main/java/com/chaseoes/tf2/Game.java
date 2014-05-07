@@ -7,6 +7,7 @@ import com.chaseoes.tf2.commands.SpectateCommand;
 import com.chaseoes.tf2.lobbywall.LobbyWall;
 import com.chaseoes.tf2.localization.Localizers;
 import com.chaseoes.tf2.utilities.Container;
+import com.chaseoes.tf2.utilities.GeneralUtilities;
 import com.chaseoes.tf2.utilities.WorldEditUtilities;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -178,6 +179,7 @@ public class Game {
                 inGameOld.add(gp.getName());
             }
         }
+
         if (TF2.getInstance().getConfig().getBoolean("stats-database.enabled")) {
             for (GamePlayer gp : playersInGame.values()) {
                 StatCollector sc = gp.getStatCollector();
@@ -220,18 +222,17 @@ public class Game {
             }
         }, 120L);
 
+
         CapturePointUtilities.getUtilities().uncaptureAll(map);
         if (TF2.getInstance().getConfig().getBoolean("broadcast-winning-team")) {
             Localizers.getDefaultLoc().GAME_WIN.broadcast(te, ChatColor.BOLD + map.getName() + ChatColor.RESET + "" + ChatColor.YELLOW);
         }
         stopMatch(true);
 
-        for (String gp : inGameOld) {
-            if (plugin.getConfig().getBoolean("run-commands-on-win.enabled")) {
-                for (String command : plugin.getConfig().getStringList("run-commands-on-win.commands")) {
-                    plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), command.replace("%player", gp));
-                }
-            }
+        if (team == Team.RED) {
+            GeneralUtilities.runCommands("on-red-win", TF2.getInstance().getServer().getOnlinePlayers()[0], TF2.getInstance().getServer().getOnlinePlayers()[0], getMap());
+        } else {
+            GeneralUtilities.runCommands("on-blue-win", TF2.getInstance().getServer().getOnlinePlayers()[0], TF2.getInstance().getServer().getOnlinePlayers()[0], getMap());
         }
     }
 
@@ -388,12 +389,12 @@ public class Game {
         time = time % (60 * 60);
         int minutes = time / 60;
         time = time % 60;
-        
+
         String minute = "minutes";
         if (minutes == 1) {
             minute = "minute";
         }
-        
+
         if (hours == 0) {
             if (time == 0) {
                 return minutes + " " + ChatColor.BLUE + minute;

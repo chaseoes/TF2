@@ -1,6 +1,8 @@
 package com.chaseoes.tf2.capturepoints;
 
 import com.chaseoes.tf2.localization.Localizers;
+import com.chaseoes.tf2.utilities.GeneralUtilities;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -86,6 +88,8 @@ public class CapturePoint implements Comparable<CapturePoint> {
                     player.setPointsCaptured(-1);
                     game.broadcast(Localizers.getDefaultLoc().CP_CAPTURED.getPrefixedString(id, player.getName()));
                     game.setExpOfPlayers(0);
+                    
+                    GeneralUtilities.runCommands("on-point-capture", player.getPlayer(), player.getPlayer(), game.getMap());
 
                     if (TF2.getInstance().getMap(map).allCaptured()) {
                         game.winMatch(Team.RED);

@@ -19,10 +19,15 @@ capture-point-signs: true
 capture-in-order: true
 dedicated-join: false
 scoreboard: true
-run-commands-on-win:
-  enabled: false
-  commands:
-  - give %player diamond 1
+run-commands:
+  on-point-capture:
+  - null
+  on-kill:
+  - null
+  on-red-win:
+  - null
+  on-blue-win:
+  - null
 killsound:
   sound: CAT_HIT
   volume: 20

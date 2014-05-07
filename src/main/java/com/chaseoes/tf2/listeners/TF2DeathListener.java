@@ -1,6 +1,8 @@
 package com.chaseoes.tf2.listeners;
 
 import com.chaseoes.tf2.localization.Localizers;
+import com.chaseoes.tf2.utilities.GeneralUtilities;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -44,6 +46,9 @@ public class TF2DeathListener implements Listener {
                         playerg.setJustSpawned(false);
                     }
                 }, 40L);
+                
+                // Run Commands
+                GeneralUtilities.runCommands("on-kill", player.getPlayer(), killer.getPlayer(), game.getMap());
 
                 // Reset the kills of the player who died.
                 playerg.addKillstreak(playerg.getKills());
