@@ -54,10 +54,29 @@ public class TF2Class {
                     // Should be in this format: POTION_NAME AMPLIFIER TIME_IN_SECONDS
                     boolean give = true;
                     if (i.getType() == Material.POTION) {
-                        for (PotionEffectType type : PotionEffectType.values()) {
-                            if (type != null) {
-                                if (i.hasItemMeta()) {
-                                    if (i.getItemMeta().hasDisplayName()) {
+                        if (i.hasItemMeta()) {
+                            if (i.getItemMeta().hasDisplayName()) {
+                                if (i.getItemMeta().getDisplayName().toLowerCase().startsWith("classlimit")) {
+                                    int limit = Integer.parseInt(i.getItemMeta().getDisplayName().toLowerCase().replace("classlimit ", ""));
+                                    int amount = 0;
+
+                                    for (GamePlayer gp : player.getGame().playersInGame.values()) {
+                                        if (gp.getCurrentClass() != null) {
+                                            if (gp.getCurrentClass().getName().equals(getName())) {
+                                                amount++;
+                                            }
+                                        }
+                                    }
+
+                                    if (amount >= limit) {
+                                        Localizers.getDefaultLoc().LIMIT_REACHED_CLASS.sendPrefixed(player.getPlayer());
+                                        clearInventory(player.getPlayer());
+                                        return false;
+                                    }
+                                }
+
+                                for (PotionEffectType type : PotionEffectType.values()) {
+                                    if (type != null) {
                                         if (i.getItemMeta().getDisplayName().toLowerCase().startsWith(type.getName().toLowerCase())) {
                                             if (!(player.isInLobby() && TF2.getInstance().getConfig().getBoolean("potion-effects-after-start"))) {
                                                 String[] parts = i.getItemMeta().getDisplayName().split(" ");
@@ -107,7 +126,7 @@ public class TF2Class {
         }
         return false;
     }
-    
+
     public boolean canUse(Player player) {
         return player.hasPermission("tf2.class." + getName());
     }

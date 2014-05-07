@@ -23,6 +23,7 @@ BUTTON-CHANGE-CLASS-REMOVE: Successfully removed the changeclass button.
 BUTTON-CLASS-CREATE: Place the button to create a {type} class button for the class &o{class}&r&e.
 BUTTON-CLASS-CREATED: Successfully created a {type} class button for the class &o{class}&r&e.
 BUTTON-CLASS-REMOVE: Successfully removed class button.
+LIMIT-REACHED-CLASS: '&cThe maximum amount of players using that class has been reached.'
 
 CONFIG-RELOADED: Successfully reloaded the configuration.
 

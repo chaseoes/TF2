@@ -262,6 +262,7 @@ public class Game {
         if (SpectateCommand.getCommand().isSpectating(player.getPlayer())) {
             SpectateCommand.getCommand().stopSpectating(player.getPlayer());
         }
+        
         TF2Class c = new TF2Class("NONE");
         playersInGame.put(player.getName(), player);
         player.setTimeEnteredGame();
@@ -275,6 +276,7 @@ public class Game {
         player.getPlayer().setGameMode(GameMode.valueOf(plugin.getConfig().getString("gamemode").toUpperCase()));
         player.getPlayer().setLevel(0);
         player.getPlayer().setExp(0);
+        
         switch (team) {
             case BLUE:
                 player.getPlayer().teleport(map.getBlueLobby());

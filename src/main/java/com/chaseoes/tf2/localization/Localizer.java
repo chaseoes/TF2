@@ -64,6 +64,7 @@ public class Localizer {
     public final I18N CONTAINER_REMOVE = new I18N(this, "CONTAINER-REMOVE");
     public final I18N CLASS_CHEST_CREATE = new I18N(this, "CLASS-CHEST-CREATE");
     public final I18N CLASS_CHEST_NO_CHEST = new I18N(this, "CLASS-CHEST-NO-CHEST");
+    public final I18N LIMIT_REACHED_CLASS = new I18N(this, "LIMIT-REACHED-CLASS");
 
     public final I18N DEBUG_UPLOADING = new I18N(this, "DEBUG-UPLOADING");
     public final I18N DEBUG_SUCCESS = new I18N(this, "DEBUG-SUCCESS");
